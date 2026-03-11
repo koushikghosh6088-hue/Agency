@@ -158,7 +158,6 @@ export default function ServicesPage() {
                             rotation={[0.1, 0, 0]} 
                             polar={[-0.2, 0.2]} 
                             azimuth={[-0.5, 0.5]} 
-                            config={{ mass: 1, tension: 200 }}
                           >
                             {service.model === 'sphere' ? <DynamicCoreSphere /> : <DynamicCyberTorus />}
                           </DynamicPresentation>
