@@ -1,50 +1,53 @@
 'use client';
 
-import { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { View, PerspectiveCamera, PresentationControls, Environment } from '@react-three/drei';
 import {
   ArrowRight, Globe, Smartphone, Phone, MessageSquare, Cog, TrendingUp,
-  ArrowUpRight, Bot, Workflow, Users, Target, Star, Shield, Zap, Server
+  ArrowUpRight, Bot, Workflow, Users, Target, Star, Shield, Zap, Server,
+  Code2, Layers, Database, Cpu, Lock, BarChart3
 } from 'lucide-react';
 import AnimatedSection from '@/components/AnimatedSection';
 import { CoreSphere, CyberTorus } from '@/components/ServiceModels';
 import HeroEnvironment from '@/components/HeroEnvironment';
-import { Canvas } from '@react-three/fiber'; // Only for local specific types if needed, but View is preferred
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
 const services = [
-  { id: 'web', icon: Globe, title: 'Web Development', desc: 'High-performance, scalable web architectures.', span: 'col-span-1 md:col-span-2 row-span-2' },
-  { id: 'mobile', icon: Smartphone, title: 'Mobile Apps', desc: 'Seamless native experiences.', span: 'col-span-1 md:col-span-1 row-span-1' },
-  { id: 'ai-agents', icon: Phone, title: 'AI Voice Agents', desc: 'Intelligent calling agents handling leads 24/7.', span: 'col-span-1 md:col-span-1 row-span-2', accent: true },
-  { id: 'automation', icon: Cog, title: 'Automation', desc: 'End-to-end workflow elimination.', span: 'col-span-1 md:col-span-1 row-span-1' },
-  { id: 'marketing', icon: TrendingUp, title: 'Marketing', desc: 'Data-driven growth.', span: 'col-span-1 md:col-span-1 row-span-1' },
-  { id: 'chat', icon: MessageSquare, title: 'AI Chat', desc: 'Smart conversion bots.', span: 'col-span-1 md:col-span-1 row-span-1' },
+  { id: 'web', icon: Globe, title: 'Web Development', desc: 'High-performance, scalable web architectures.', span: 'col-span-1 md:col-span-2 row-span-2', graphic: Code2, color: '#0ea5e9' },
+  { id: 'mobile', icon: Smartphone, title: 'Mobile Apps', desc: 'Seamless native experiences.', span: 'col-span-1 md:col-span-1 row-span-1', graphic: Layers, color: '#8b5cf6' },
+  { id: 'ai-agents', icon: Phone, title: 'AI Voice Agents', desc: 'Intelligent calling agents handling leads 24/7.', span: 'col-span-1 md:col-span-1 row-span-2', accent: true, graphic: Cpu, color: '#0ea5e9' },
+  { id: 'automation', icon: Cog, title: 'Automation', desc: 'End-to-end workflow elimination.', span: 'col-span-1 md:col-span-1 row-span-1', graphic: Workflow, color: '#10b981' },
+  { id: 'marketing', icon: TrendingUp, title: 'Marketing', desc: 'Data-driven growth.', span: 'col-span-1 md:col-span-1 row-span-1', graphic: BarChart3, color: '#f59e0b' },
+  { id: 'chat', icon: MessageSquare, title: 'AI Chat', desc: 'Smart conversion bots.', span: 'col-span-1 md:col-span-1 row-span-1', graphic: Bot, color: '#ec4899' },
 ];
 
 const projects = [
-  { title: 'NeuralFlow', category: 'AI Infrastructure', image: 'https://images.unsplash.com/photo-1639762681485-359997ed782e?auto=format&fit=crop&q=80&w=800' },
-  { title: 'Nexus UI', category: 'Design System', image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=800' },
-  { title: 'Quantum App', category: 'Mobile Solution', image: 'https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=800' },
-  { title: 'Aether OS', category: 'Web Ecosystem', image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800' },
+  { title: 'NeuralFlow', category: 'AI Infrastructure', image: 'https://images.unsplash.com/photo-1639762681485-359997ed782e?auto=format&fit=crop&q=80&w=800', tech: ['React', 'Python', 'TensorFlow'] },
+  { title: 'Nexus UI', category: 'Design System', image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=800', tech: ['Next.js', 'Figma', 'Storybook'] },
+  { title: 'Quantum App', category: 'Mobile Solution', image: 'https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=800', tech: ['React Native', 'Firebase', 'Swift'] },
+  { title: 'Aether OS', category: 'Web Ecosystem', image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800', tech: ['Vue', 'Node.js', 'AWS'] },
 ];
 
 export default function HomePage() {
   const heroRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subheadlineRef = useRef<HTMLParagraphElement>(null);
-  const horizontalSectionRef = useRef<HTMLDivElement>(null);
-  const horizontalTrackRef = useRef<HTMLDivElement>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
   
   const { scrollYProgress } = useScroll();
   const heroOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 0.15], [1, 0.95]);
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    setScrollProgress(latest);
+  });
 
   useEffect(() => {
     if (headlineRef.current && subheadlineRef.current) {
@@ -62,25 +65,6 @@ export default function HomePage() {
       );
     }
 
-    // Horizontal Scroll Logic
-    if (horizontalSectionRef.current && horizontalTrackRef.current) {
-      const track = horizontalTrackRef.current;
-      const amountToScroll = track.offsetWidth - window.innerWidth;
-
-      gsap.to(track, {
-        x: -amountToScroll,
-        ease: "none",
-        scrollTrigger: {
-          trigger: horizontalSectionRef.current,
-          pin: true,
-          scrub: 0.5,
-          start: "top top",
-          end: () => `+=${track.offsetWidth}`,
-        },
-        force3D: true
-      });
-    }
-
     return () => {
       ScrollTrigger.getAll().forEach(t => t.kill());
     };
@@ -88,37 +72,33 @@ export default function HomePage() {
 
   return (
     <>
+      {/* ═══════════ SCROLL PROGRESS BAR ═══════════ */}
+      <div className="fixed top-0 left-0 w-full h-[3px] z-[100]">
+        <motion.div
+          className="h-full bg-gradient-to-r from-blue-400 via-blue-500 to-cyan-400 origin-left"
+          style={{ scaleX: scrollYProgress }}
+        />
+      </div>
+
       {/* ═══════════ CINEMATIC HERO ═══════════ */}
       <motion.section
         ref={heroRef}
         style={{ opacity: heroOpacity, scale: heroScale }}
         className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-20 cursor-default"
       >
-        {/* Immersive Atmosphere & Hero Environment */}
         <div className="absolute inset-0 bg-obsidian z-0" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(14,165,233,0.1)_0%,transparent_80%)] pointer-events-none" />
         <div className="bg-grain opacity-[0.05]" />
 
-        {/* High-Tech 3D Canvas - Integrated View */}
         <div className="absolute inset-0 z-10 pointer-events-none">
           <View className="w-full h-full">
             <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={45} />
             <ambientLight intensity={0.5} />
             <pointLight position={[10, 10, 10]} intensity={2} color="#0ea5e9" />
-            
             <Environment preset="city" />
             <HeroEnvironment />
-            
-            <PresentationControls 
-              global 
-              rotation={[0, 0, 0]} 
-              polar={[-0.2, 0.2]} 
-              azimuth={[-0.4, 0.4]}
-              snap={true}
-            >
-              <group scale={1.2}>
-                <CoreSphere />
-              </group>
+            <PresentationControls global rotation={[0, 0, 0]} polar={[-0.2, 0.2]} azimuth={[-0.4, 0.4]} snap={true}>
+              <group scale={1.2}><CoreSphere /></group>
             </PresentationControls>
           </View>
         </div>
@@ -169,7 +149,6 @@ export default function HomePage() {
           </motion.div>
         </div>
 
-        {/* Scroll Indicator */}
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -238,6 +217,20 @@ export default function HomePage() {
                     {svc.accent && (
                       <div className="absolute inset-0 bg-grain opacity-50 mix-blend-overlay pointer-events-none" />
                     )}
+
+                    {/* Decorative background graphic */}
+                    <div className={`absolute top-0 right-0 w-full h-full pointer-events-none z-0 flex items-center justify-center overflow-hidden ${svc.accent ? 'opacity-10' : 'opacity-[0.04]'} group-hover:opacity-[0.12] transition-opacity duration-700`}>
+                      <svc.graphic className="w-[60%] h-[60%] max-w-[200px] max-h-[200px]" strokeWidth={0.5} />
+                    </div>
+
+                    {/* Animated corner accent */}
+                    {!svc.accent && (
+                      <div className="absolute top-0 right-0 w-24 h-24 pointer-events-none z-0">
+                        <div className="absolute top-4 right-4 w-16 h-16 rounded-full border border-white/5 group-hover:border-blue-400/20 transition-colors duration-700" />
+                        <div className="absolute top-6 right-6 w-8 h-8 rounded-full border border-white/5 group-hover:border-blue-400/30 transition-colors duration-700" />
+                      </div>
+                    )}
+
                     <div className="absolute inset-0 p-8 flex flex-col justify-between z-10 w-full h-full">
                       <div className="flex justify-between items-start">
                         <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-500 ${
@@ -251,19 +244,7 @@ export default function HomePage() {
                           <ArrowUpRight className="w-5 h-5 transition-transform group-hover:rotate-45" />
                         </div>
                       </div>
-                      <div className="mt-8 relative z-20 pointer-events-none">
-                        {svc.span.includes('row-span-2') && !svc.accent && (
-                          <div className="h-40 w-full mb-8 opacity-40 mix-blend-screen pointer-events-auto group-hover:opacity-100 transition-opacity duration-700">
-                            <View className="w-full h-full">
-                              <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={50} />
-                              <ambientLight intensity={0.5} />
-                              <directionalLight position={[5, 5, 2]} intensity={2} color="#0ea5e9" />
-                              <PresentationControls global rotation={[0, 0, 0]} polar={[-0.2, 0.2]} azimuth={[-0.5, 0.5]}>
-                                <CyberTorus />
-                              </PresentationControls>
-                            </View>
-                          </div>
-                        )}
+                      <div className="mt-auto relative z-20 pointer-events-none">
                         <h3 className={`text-2xl font-bold font-heading mb-2 ${svc.accent ? 'text-black' : 'text-white'}`}>{svc.title}</h3>
                         <p className={`text-sm ${svc.accent ? 'text-black/80 font-medium' : 'text-white/50'} font-mono leading-relaxed`}>{svc.desc}</p>
                       </div>
@@ -298,24 +279,9 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              {
-                quote: "Joint WebSolutions completely reimagined our digital infrastructure. Their AI agents now handle 70% of our lead qualification autonomously.",
-                name: "Sarah Chen",
-                role: "CTO, Nexus Dynamics",
-                rating: 5,
-              },
-              {
-                quote: "The performance optimization they delivered was insane — our platform went from 3s load times to under 400ms. Revenue jumped 34% in Q1.",
-                name: "Marcus Rivera",
-                role: "Head of Product, FlowStack",
-                rating: 5,
-              },
-              {
-                quote: "We've worked with 6 agencies before Joint. None delivered this level of engineering precision. They don't just build — they architect.",
-                name: "Elena Kowalski",
-                role: "Founder, AetherLabs",
-                rating: 5,
-              },
+              { quote: "Joint WebSolutions completely reimagined our digital infrastructure. Their AI agents now handle 70% of our lead qualification autonomously.", name: "Sarah Chen", role: "CTO, Nexus Dynamics", rating: 5 },
+              { quote: "The performance optimization they delivered was insane — our platform went from 3s load times to under 400ms. Revenue jumped 34% in Q1.", name: "Marcus Rivera", role: "Head of Product, FlowStack", rating: 5 },
+              { quote: "We've worked with 6 agencies before Joint. None delivered this level of engineering precision. They don't just build — they architect.", name: "Elena Kowalski", role: "Founder, AetherLabs", rating: 5 },
             ].map((testimonial, i) => (
               <AnimatedSection key={testimonial.name} delay={i * 0.15}>
                 <div className="glass-panel rounded-[2.5rem] p-8 md:p-10 h-full flex flex-col justify-between group hover:border-blue-400/30 transition-all duration-700 relative overflow-hidden">
@@ -395,26 +361,63 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══════════ HORIZONTAL SHOWCASE ═══════════ */}
-      <section ref={horizontalSectionRef} className="relative h-screen bg-obsidian overflow-hidden z-20">
-        <div className="absolute top-0 left-0 w-full p-20 z-30 pointer-events-none">
-          <h2 className="text-[3rem] md:text-[6rem] font-heading font-black tracking-tighter leading-none text-white/10 uppercase">
-            FEATURED_<br/><span className="text-blue-400">ARCHIVE</span>
-          </h2>
-        </div>
-        <div ref={horizontalTrackRef} className="flex h-full items-center gap-12 px-[10vw] w-fit">
-          {projects.map((project, i) => (
-            <div key={i} className="group relative w-[350px] md:w-[600px] h-[500px] flex-shrink-0 rounded-[3rem] overflow-hidden glass-premium border-white/5" data-cursor-text="VIEW">
-              <img src={project.image} className="absolute inset-0 w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 group-hover:scale-110 group-hover:opacity-80 transition-all duration-1000" alt={project.title} loading="lazy" />
-              <div className="absolute inset-x-0 bottom-0 p-12 bg-gradient-to-t from-black to-transparent">
-                <p className="font-mono text-xs text-blue-400 uppercase tracking-widest mb-4">{project.category}</p>
-                <h3 className="text-4xl md:text-6xl font-heading font-black text-white">{project.title}</h3>
-              </div>
+      {/* ═══════════ FEATURED ARCHIVE — VERTICAL GRID ═══════════ */}
+      <section className="relative py-32 bg-black overflow-hidden z-10 border-t border-white/5">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(14,165,233,0.04)_0%,transparent_60%)] pointer-events-none" />
+
+        <div className="max-w-[1550px] mx-auto px-6 relative z-10">
+          <AnimatedSection className="mb-16 flex items-end justify-between flex-wrap gap-6">
+            <div>
+              <h2 className="text-[3rem] md:text-[5rem] font-heading font-black tracking-tighter leading-none mb-4">
+                FEATURED_<br/><span className="text-blue-400 italic">ARCHIVE</span>
+              </h2>
+              <p className="font-mono text-sm text-white/30 uppercase tracking-widest max-w-lg">
+                Selected case studies from our engineering portfolio.
+              </p>
             </div>
-          ))}
-          <div className="w-[400px] h-[500px] flex-shrink-0 flex flex-col justify-center gap-6">
-            <h4 className="text-3xl font-heading font-bold text-white/40">AND MORE_</h4>
-            <Link href="/portfolio" className="btn-secondary w-fit">View All Projects</Link>
+            <Link href="/portfolio" className="btn-secondary px-8 py-4 shrink-0">
+              View All <ArrowRight className="ml-2 w-4 h-4" />
+            </Link>
+          </AnimatedSection>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {projects.map((project, i) => (
+              <AnimatedSection key={project.title} delay={i * 0.1}>
+                <div className="group relative h-[400px] md:h-[500px] rounded-[2.5rem] overflow-hidden cursor-pointer" data-cursor-text="VIEW">
+                  <img 
+                    src={project.image} 
+                    className="absolute inset-0 w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 group-hover:scale-110 group-hover:opacity-80 transition-all duration-1000" 
+                    alt={project.title}
+                    loading="lazy"
+                  />
+                  {/* Dark overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                  
+                  {/* Project number watermark */}
+                  <div className="absolute top-6 right-8 font-heading text-[6rem] md:text-[8rem] font-black text-white/[0.03] leading-none pointer-events-none">
+                    0{i + 1}
+                  </div>
+
+                  {/* Content */}
+                  <div className="absolute inset-x-0 bottom-0 p-8 md:p-12 z-10">
+                    <div className="flex gap-2 mb-4">
+                      {project.tech.map((t) => (
+                        <span key={t} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono text-white/50 uppercase tracking-wider">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                    <p className="font-mono text-xs text-blue-400 uppercase tracking-widest mb-3">{project.category}</p>
+                    <h3 className="text-4xl md:text-5xl font-heading font-black text-white group-hover:text-blue-400 transition-colors duration-500">{project.title}</h3>
+                  </div>
+
+                  {/* Hover arrow */}
+                  <div className="absolute top-8 right-8 w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:bg-blue-400 group-hover:border-blue-400">
+                    <ArrowUpRight className="w-5 h-5 text-white group-hover:text-black transition-colors" />
+                  </div>
+                </div>
+              </AnimatedSection>
+            ))}
           </div>
         </div>
       </section>
@@ -434,44 +437,76 @@ export default function HomePage() {
               <h2 className="text-5xl md:text-8xl font-heading font-black tracking-tighter leading-[0.8] mb-12 uppercase">
                 ENGINEERING <br/><span className="italic font-light text-blue-400">SOLID</span> LOGIC.
               </h2>
-              <div className="space-y-16 mt-16">
+              <div className="space-y-12 mt-16">
                 {[
-                  { num: '01', title: 'Neural Blueprints', desc: 'Generating complex digital architectures with AI-driven scaling foundations.' },
-                  { num: '02', title: 'System Hardening', desc: 'Stress-testing infrastructure against ultra-high concurrency loads.' },
-                  { num: '03', title: 'Deployment Zero', desc: 'Final initialization of mission-critical systems across global clusters.' },
+                  { num: '01', title: 'Neural Blueprints', desc: 'Generating complex digital architectures with AI-driven scaling foundations.', icon: Cpu },
+                  { num: '02', title: 'System Hardening', desc: 'Stress-testing infrastructure against ultra-high concurrency loads.', icon: Shield },
+                  { num: '03', title: 'Deployment Zero', desc: 'Final initialization of mission-critical systems across global clusters.', icon: Server },
                 ].map((step) => (
-                  <div key={step.num} className="flex gap-8 group cursor-default">
-                    <div className="font-mono text-3xl font-bold text-white/10 group-hover:text-blue-400 transition-colors shrink-0 pt-1">{step.num}</div>
+                  <div key={step.num} className="flex gap-6 group cursor-default items-start">
+                    <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-blue-400 group-hover:border-blue-400 group-hover:text-black transition-all duration-500">
+                      <step.icon className="w-6 h-6 text-blue-400 group-hover:text-black transition-colors" />
+                    </div>
                     <div>
-                      <h4 className="text-2xl font-bold font-heading mb-4 text-white group-hover:translate-x-2 transition-transform">{step.title}</h4>
-                      <p className="text-white/40 text-lg leading-relaxed max-w-md font-mono">{step.desc}</p>
+                      <div className="flex items-center gap-4 mb-3">
+                        <span className="font-mono text-sm font-bold text-blue-400/40">{step.num}</span>
+                        <h4 className="text-xl font-bold font-heading text-white group-hover:text-blue-400 transition-colors">{step.title}</h4>
+                      </div>
+                      <p className="text-white/40 text-base leading-relaxed max-w-md font-mono">{step.desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </AnimatedSection>
             
-            <div className="relative h-[700px] w-full flex items-center justify-center">
-              <div className="absolute inset-0 bg-blue-400/5 blur-[120px] rounded-full animate-pulse-glow" />
-              <div className="w-full h-full relative cursor-grab active:cursor-grabbing">
-                <View className="w-full h-full">
-                  <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={45} />
-                  <ambientLight intensity={0.5} />
-                  <pointLight position={[10, 10, 10]} intensity={2} color="#0ea5e9" />
-                  <PresentationControls global rotation={[0.1, 0.5, 0]} polar={[-0.4, 0.4]} azimuth={[-1, 1]}>
-                    <group scale={1.2}><CyberTorus /></group>
-                  </PresentationControls>
-                </View>
+            {/* Right side: Tech visual instead of 3D */}
+            <AnimatedSection delay={0.3}>
+              <div className="relative">
+                {/* Code block visual */}
+                <div className="glass-panel rounded-[2.5rem] p-8 md:p-10 relative overflow-hidden">
+                  <div className="absolute -inset-20 bg-blue-400/5 blur-[100px] pointer-events-none" />
+                  
+                  {/* Terminal header */}
+                  <div className="flex items-center gap-2 mb-6">
+                    <div className="w-3 h-3 rounded-full bg-red-500/50" />
+                    <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
+                    <div className="w-3 h-3 rounded-full bg-green-500/50" />
+                    <span className="font-mono text-[10px] text-white/30 ml-3">joint_protocol.ts</span>
+                  </div>
+
+                  {/* Code content */}
+                  <div className="font-mono text-sm leading-7 relative z-10">
+                    <div><span className="text-blue-400">const</span> <span className="text-white">protocol</span> = <span className="text-blue-400">await</span> <span className="text-green-400">initialize</span>({`{`}</div>
+                    <div className="pl-6"><span className="text-white/40">engine:</span> <span className="text-amber-400">&apos;neural-v8&apos;</span>,</div>
+                    <div className="pl-6"><span className="text-white/40">clusters:</span> <span className="text-cyan-400">42</span>,</div>
+                    <div className="pl-6"><span className="text-white/40">latency:</span> <span className="text-cyan-400">&apos;sub-400ms&apos;</span>,</div>
+                    <div className="pl-6"><span className="text-white/40">security:</span> <span className="text-amber-400">&apos;soc2-grade&apos;</span>,</div>
+                    <div className="pl-6"><span className="text-white/40">ai:</span> <span className="text-purple-400">true</span>,</div>
+                    <div>{`}`});</div>
+                    <div className="mt-4"><span className="text-white/30">// Deploy across global edge nodes</span></div>
+                    <div><span className="text-blue-400">await</span> protocol.<span className="text-green-400">deploy</span>({`{`}</div>
+                    <div className="pl-6"><span className="text-white/40">regions:</span> [<span className="text-amber-400">&apos;us-east&apos;</span>, <span className="text-amber-400">&apos;eu-west&apos;</span>, <span className="text-amber-400">&apos;ap-south&apos;</span>],</div>
+                    <div className="pl-6"><span className="text-white/40">rollback:</span> <span className="text-purple-400">true</span>,</div>
+                    <div className="pl-6"><span className="text-white/40">monitoring:</span> <span className="text-purple-400">true</span>,</div>
+                    <div>{`}`});</div>
+                    <div className="mt-4 flex items-center gap-2">
+                      <span className="text-green-400">✓</span>
+                      <span className="text-green-400/60">System online — 99.99% uptime guaranteed</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Floating metrics */}
+                <div className="absolute -top-6 -right-4 glass-premium px-5 py-3 rounded-2xl border-blue-400/20 animate-float pointer-events-none">
+                  <p className="font-mono text-[10px] text-blue-400/60 mb-1">LATENCY</p>
+                  <p className="text-white font-bold tracking-tight text-lg">42ms <span className="text-green-400 text-xs">↓</span></p>
+                </div>
+                <div className="absolute -bottom-4 -left-4 glass-premium px-5 py-3 rounded-2xl border-blue-400/20 animate-float [animation-delay:2s] pointer-events-none">
+                  <p className="font-mono text-[10px] text-blue-400/60 mb-1">UPTIME</p>
+                  <p className="text-white font-bold tracking-tight text-lg">99.99%</p>
+                </div>
               </div>
-              <motion.div style={{ y: useTransform(scrollYProgress, [0.6, 0.9], [0, -100]) }} className="absolute top-1/4 -right-10 glass-premium px-6 py-4 rounded-2xl border-blue-400/20 animate-float pointer-events-none">
-                <p className="font-mono text-[10px] text-blue-400/60 mb-1">NODE_ALPHA</p>
-                <p className="text-white font-bold tracking-tight">ENCRYPTED_DATA_FLOW</p>
-              </motion.div>
-              <motion.div style={{ y: useTransform(scrollYProgress, [0.6, 0.9], [0, 100]) }} className="absolute bottom-1/4 -left-10 glass-premium px-6 py-4 rounded-2xl border-blue-400/20 animate-float [animation-delay:2s] pointer-events-none">
-                <p className="font-mono text-[10px] text-blue-400/60 mb-1">INSTANCE_08</p>
-                <p className="text-white font-bold tracking-tight">AI_LOGIC_ACTIVE</p>
-              </motion.div>
-            </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>
