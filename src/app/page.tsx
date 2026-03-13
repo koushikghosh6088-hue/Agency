@@ -186,7 +186,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══════════ SERVICES BENTO GRID ═══════════ */}
+      {/* ═══════════ SERVICES / CAPABILITIES ═══════════ */}
       <section className="relative py-32 bg-obsidian z-10 rounded-t-[4rem] border-t border-white/10 shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
         <div className="max-w-[1550px] mx-auto px-6">
           <AnimatedSection className="mb-16">
@@ -198,58 +198,113 @@ export default function HomePage() {
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-[250px]">
-            {services.map((svc, i) => (
-              <AnimatedSection 
-                key={svc.id} 
-                className={`${svc.span} group perspective-1200`}
-                delay={i * 0.1}
-              >
-                <Link href={svc.id === 'ai-agents' || svc.id === 'chat' ? '/ai-solutions' : '/services'}>
-                  <div 
-                    className={`w-full h-full rounded-[2.5rem] border overflow-hidden relative transition-all duration-700 hover-3d glass-premium ${
-                      svc.accent 
-                        ? 'bg-blue-400 border-blue-400 text-black shadow-[0_20px_50px_rgba(14,165,233,0.3)]' 
-                        : 'border-white/10 text-white hover:border-blue-400/40'
-                    }`}
-                    data-cursor-text="EXPLORE"
-                  >
-                    {svc.accent && (
-                      <div className="absolute inset-0 bg-grain opacity-50 mix-blend-overlay pointer-events-none" />
-                    )}
-
-                    {/* Decorative background graphic */}
-                    <div className={`absolute top-0 right-0 w-full h-full pointer-events-none z-0 flex items-center justify-center overflow-hidden ${svc.accent ? 'opacity-10' : 'opacity-[0.04]'} group-hover:opacity-[0.12] transition-opacity duration-700`}>
-                      <svc.graphic className="w-[60%] h-[60%] max-w-[200px] max-h-[200px]" strokeWidth={0.5} />
-                    </div>
-
-                    {/* Animated corner accent */}
-                    {!svc.accent && (
-                      <div className="absolute top-0 right-0 w-24 h-24 pointer-events-none z-0">
-                        <div className="absolute top-4 right-4 w-16 h-16 rounded-full border border-white/5 group-hover:border-blue-400/20 transition-colors duration-700" />
-                        <div className="absolute top-6 right-6 w-8 h-8 rounded-full border border-white/5 group-hover:border-blue-400/30 transition-colors duration-700" />
-                      </div>
-                    )}
-
-                    <div className="absolute inset-0 p-8 flex flex-col justify-between z-10 w-full h-full">
-                      <div className="flex justify-between items-start">
-                        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-500 ${
-                          svc.accent ? 'bg-black text-blue-400' : 'bg-white/5 text-blue-400 border border-white/10 group-hover:bg-blue-400 group-hover:text-black group-hover:shadow-[0_0_30px_rgba(14,165,233,0.5)]'
-                        }`}>
-                          <svc.icon className="w-6 h-6" />
+          {/* Featured Hero Card */}
+          <AnimatedSection className="mb-6">
+            <Link href="/services">
+              <div className="group relative rounded-[2.5rem] border border-white/10 overflow-hidden transition-all duration-700 hover:border-blue-400/40 cursor-pointer" data-cursor-text="EXPLORE">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-cyan-500/5 pointer-events-none" />
+                <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-400/[0.06] rounded-full blur-[100px] pointer-events-none group-hover:bg-blue-400/[0.12] transition-all duration-700" />
+                <div className="glass-premium rounded-[2.5rem] p-10 md:p-14 relative z-10">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                    <div>
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className="w-14 h-14 rounded-2xl bg-blue-400 text-black flex items-center justify-center shadow-[0_0_30px_rgba(14,165,233,0.3)]">
+                          <Globe className="w-7 h-7" />
                         </div>
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-500 scale-0 group-hover:scale-100 ${
-                          svc.accent ? 'border-black/20 text-black bg-black/10' : 'border-blue-400/30 text-blue-400 bg-blue-400/10'
-                        }`}>
-                          <ArrowUpRight className="w-5 h-5 transition-transform group-hover:rotate-45" />
+                        <div>
+                          <h3 className="text-2xl font-heading font-bold text-white">Web Development</h3>
+                          <p className="font-mono text-[10px] text-blue-400/60 uppercase tracking-widest">Core Service</p>
                         </div>
                       </div>
-                      <div className="mt-auto relative z-20 pointer-events-none">
-                        <h3 className={`text-2xl font-bold font-heading mb-2 ${svc.accent ? 'text-black' : 'text-white'}`}>{svc.title}</h3>
-                        <p className={`text-sm ${svc.accent ? 'text-black/80 font-medium' : 'text-white/50'} font-mono leading-relaxed`}>{svc.desc}</p>
+                      <p className="text-white/50 font-mono text-sm leading-relaxed mb-8 max-w-lg">
+                        High-performance, scalable web architectures built with modern frameworks. From lightning-fast landing pages to complex SaaS platforms — we engineer for speed, SEO, and conversion.
+                      </p>
+                      <div className="flex flex-wrap gap-2 mb-8">
+                        {['Next.js', 'React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Vercel'].map((tech) => (
+                          <span key={tech} className="px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[11px] font-mono text-white/50 group-hover:border-blue-400/20 group-hover:text-blue-400/70 transition-all duration-500">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="flex items-center gap-3 text-blue-400 font-mono text-sm uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        Explore Service <ArrowRight className="w-4 h-4" />
                       </div>
                     </div>
-                    <div className="absolute -inset-20 bg-blue-400/10 blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0" />
+                    <div className="hidden lg:block relative h-[280px]">
+                      {/* Mini code preview */}
+                      <div className="glass-panel rounded-2xl p-6 h-full relative overflow-hidden border-white/5 group-hover:border-blue-400/20 transition-colors duration-500">
+                        <div className="flex items-center gap-2 mb-4">
+                          <div className="w-2.5 h-2.5 rounded-full bg-red-500/40" />
+                          <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/40" />
+                          <div className="w-2.5 h-2.5 rounded-full bg-green-500/40" />
+                          <span className="font-mono text-[9px] text-white/20 ml-2">app/page.tsx</span>
+                        </div>
+                        <div className="font-mono text-xs leading-6 text-white/30">
+                          <div><span className="text-blue-400/60">import</span> {'{'} Hero {'}'} <span className="text-blue-400/60">from</span> <span className="text-amber-400/60">&apos;@/components&apos;</span></div>
+                          <div><span className="text-blue-400/60">import</span> {'{'} Analytics {'}'} <span className="text-blue-400/60">from</span> <span className="text-amber-400/60">&apos;@/lib&apos;</span></div>
+                          <div className="mt-2"><span className="text-blue-400/60">export default</span> <span className="text-green-400/60">function</span> <span className="text-white/50">Page</span>() {'{'}</div>
+                          <div className="pl-4"><span className="text-blue-400/60">return</span> (</div>
+                          <div className="pl-8">&lt;<span className="text-cyan-400/60">main</span> <span className="text-purple-400/60">className</span>=<span className="text-amber-400/60">&quot;...&quot;</span>&gt;</div>
+                          <div className="pl-12">&lt;<span className="text-cyan-400/60">Hero</span> /&gt;</div>
+                          <div className="pl-12">&lt;<span className="text-cyan-400/60">Analytics</span> /&gt;</div>
+                          <div className="pl-8">&lt;/<span className="text-cyan-400/60">main</span>&gt;</div>
+                          <div className="pl-4">)</div>
+                          <div>{'}'}</div>
+                        </div>
+                        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[rgba(10,10,10,1)] to-transparent pointer-events-none" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </AnimatedSection>
+
+          {/* Service Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            {[
+              { id: 'mobile', icon: Smartphone, title: 'Mobile Apps', desc: 'Native iOS & Android experiences built for speed.', features: ['React Native', 'Swift', 'Kotlin'], color: 'from-violet-500/15 to-purple-600/5', iconBg: 'bg-violet-500', href: '/services' },
+              { id: 'ai-agents', icon: Phone, title: 'AI Voice Agents', desc: 'Intelligent calling agents that qualify leads 24/7.', features: ['Twilio', 'OpenAI', 'Whisper'], color: 'from-blue-500/15 to-cyan-500/5', iconBg: 'bg-blue-400', href: '/ai-solutions' },
+              { id: 'automation', icon: Cog, title: 'Automation', desc: 'End-to-end workflow elimination for operations.', features: ['n8n', 'Zapier', 'Custom'], color: 'from-emerald-500/15 to-green-600/5', iconBg: 'bg-emerald-500', href: '/services' },
+              { id: 'marketing', icon: TrendingUp, title: 'Marketing', desc: 'Data-driven growth engines and funnels.', features: ['SEO', 'Analytics', 'Ads'], color: 'from-amber-500/15 to-orange-600/5', iconBg: 'bg-amber-500', href: '/services' },
+              { id: 'chat', icon: MessageSquare, title: 'AI Chat', desc: 'Smart conversion bots for your website.', features: ['GPT-4', 'RAG', 'Embed'], color: 'from-pink-500/15 to-rose-600/5', iconBg: 'bg-pink-500', href: '/ai-solutions' },
+            ].map((svc, i) => (
+              <AnimatedSection key={svc.id} delay={i * 0.08}>
+                <Link href={svc.href}>
+                  <div className="group relative h-[320px] rounded-[2rem] border border-white/10 overflow-hidden transition-all duration-500 hover:border-white/20 cursor-pointer" data-cursor-text="EXPLORE">
+                    {/* Gradient background */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${svc.color} pointer-events-none opacity-100 group-hover:opacity-100 transition-opacity duration-500`} />
+                    <div className="absolute inset-0 glass-premium rounded-[2rem]" />
+                    
+                    {/* Hover glow */}
+                    <div className="absolute -bottom-20 -right-20 w-[200px] h-[200px] rounded-full bg-white/[0.02] blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
+                    <div className="relative z-10 p-7 flex flex-col h-full">
+                      {/* Icon */}
+                      <div className={`w-12 h-12 rounded-xl ${svc.iconBg} text-black flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 transition-transform duration-500`}>
+                        <svc.icon className="w-5 h-5" />
+                      </div>
+
+                      {/* Title */}
+                      <h3 className="text-lg font-heading font-bold text-white mb-2 group-hover:text-blue-400 transition-colors duration-300">{svc.title}</h3>
+                      
+                      {/* Description */}
+                      <p className="text-white/40 font-mono text-xs leading-relaxed mb-auto">{svc.desc}</p>
+
+                      {/* Tech tags */}
+                      <div className="flex flex-wrap gap-1.5 mt-4">
+                        {svc.features.map((f) => (
+                          <span key={f} className="px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[9px] font-mono text-white/40 uppercase tracking-wider">
+                            {f}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Hover arrow */}
+                      <div className="absolute top-6 right-6 w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 scale-75 group-hover:scale-100">
+                        <ArrowUpRight className="w-3.5 h-3.5 text-white/60" />
+                      </div>
+                    </div>
                   </div>
                 </Link>
               </AnimatedSection>
@@ -257,6 +312,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
 
       {/* ═══════════ SOCIAL PROOF / TESTIMONIALS ═══════════ */}
       <section className="relative py-32 bg-black overflow-hidden z-10">
