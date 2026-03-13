@@ -6,12 +6,13 @@ import dynamic from 'next/dynamic';
 import { Mail, Phone, MapPin, Send, MessageSquare, Terminal } from 'lucide-react';
 import AnimatedSection from '@/components/AnimatedSection';
 
-// Dynamically load Canvas for a background element
-const DynamicCanvas = dynamic(() => import('@react-three/fiber').then(mod => mod.Canvas), { ssr: false });
-const DynamicCamera = dynamic(() => import('@react-three/drei').then(mod => mod.PerspectiveCamera), { ssr: false });
-const DynamicPresentation = dynamic(() => import('@react-three/drei').then(mod => mod.PresentationControls), { ssr: false });
-const DynamicEnv = dynamic(() => import('@react-three/drei').then(mod => mod.Environment), { ssr: false });
 const DynamicCoreSphere = dynamic(() => import('@/components/ServiceModels').then(mod => mod.CoreSphere), { ssr: false });
+
+// Use the global View component for single-canvas architecture
+const View = dynamic(() => import('@react-three/drei').then(mod => mod.View), { ssr: false });
+const PerspectiveCamera = dynamic(() => import('@react-three/drei').then(mod => mod.PerspectiveCamera), { ssr: false });
+const PresentationControls = dynamic(() => import('@react-three/drei').then(mod => mod.PresentationControls), { ssr: false });
+const Environment = dynamic(() => import('@react-three/drei').then(mod => mod.Environment), { ssr: false });
 
 export default function ContactPage() {
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success'>('idle');
@@ -59,12 +60,12 @@ export default function ContactPage() {
               transition={{ duration: 1, delay: 0.2 }}
               className="lg:col-span-5 h-[500px] relative hidden lg:block"
             >
-              <DynamicCanvas shadows dpr={[1, 2]}>
-                <DynamicCamera makeDefault position={[0, 0, 5]} fov={45} />
+              <View className="w-full h-full">
+                <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={45} />
                 <ambientLight intensity={0.5} />
                 <directionalLight position={[10, 10, 5]} intensity={2} color="#0ea5e9" />
-                <DynamicEnv preset="city" />
-                <DynamicPresentation 
+                <Environment preset="city" />
+                <PresentationControls 
                   global 
                   rotation={[0, 0, 0]} 
                   polar={[-0.3, 0.3]} 
@@ -72,8 +73,8 @@ export default function ContactPage() {
                   snap={true}
                 >
                   <DynamicCoreSphere />
-                </DynamicPresentation>
-              </DynamicCanvas>
+                </PresentationControls>
+              </View>
             </motion.div>
           </div>
         </div>
@@ -116,12 +117,12 @@ export default function ContactPage() {
                 </div>
                 
                 <div className="absolute inset-0 z-0 opacity-60 mix-blend-screen pointer-events-auto">
-                    <DynamicCanvas shadows dpr={[1, 2]}>
-                      <DynamicCamera makeDefault position={[0, 0, 4]} fov={50} />
+                    <View className="w-full h-full">
+                      <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={50} />
                       <ambientLight intensity={0.5} />
                       <directionalLight position={[2, 5, 2]} intensity={2} color="#0ea5e9" />
-                      <DynamicEnv preset="studio" />
-                      <DynamicPresentation 
+                      <Environment preset="studio" />
+                      <PresentationControls 
                         global 
                         rotation={[0, 0, 0]} 
                         polar={[-0.2, 0.2]} 
@@ -129,8 +130,8 @@ export default function ContactPage() {
                         snap={true}
                       >
                         <DynamicCoreSphere />
-                      </DynamicPresentation>
-                    </DynamicCanvas>
+                      </PresentationControls>
+                    </View>
                 </div>
               </AnimatedSection>
             </div>

@@ -22,23 +22,20 @@ body {
 
 /* ── Glassmorphism 2.0 ── */
 .glass {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.05); /* Increased opacity slightly to compensate for blur removal */
   border: 1px solid rgba(255, 255, 255, 0.1);
+  will-change: transform;
 }
 
 .glass-premium {
-  background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(25px) saturate(180%);
-  -webkit-backdrop-filter: blur(25px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(15, 15, 15, 0.8); /* Replaced blur with solid but dark translucent bg */
+  border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 
-    0 4px 30px rgba(0, 0, 0, 0.1),
-    inset 0 0 20px rgba(255, 255, 255, 0.02);
+    0 4px 30px rgba(0, 0, 0, 0.2);
   position: relative;
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
 }
 
 .glass-premium:hover {
@@ -58,11 +55,10 @@ body {
 }
 
 .glass-panel {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  background: rgba(10, 10, 10, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 1.5rem;
+  will-change: transform;
 }
 
 /* ── Grain Texture Overlay ── */
@@ -152,8 +148,7 @@ body {
 
 /* ── Secondary Button (glass) ── */
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #ffffff;
   font-weight: 600;
@@ -163,6 +158,7 @@ body {
   text-transform: uppercase;
   font-size: 0.8rem;
   letter-spacing: 0.05em;
+  will-change: transform;
 }
 
 .btn-secondary:hover {
@@ -230,6 +226,11 @@ body {
     radial-gradient(circle at 0% 0%, rgba(14, 165, 233, 0.05) 0%, transparent 50%),
     radial-gradient(circle at 100% 100%, rgba(14, 165, 233, 0.03) 0%, transparent 50%),
     #080808;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 @keyframes shimmer {

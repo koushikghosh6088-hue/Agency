@@ -1,0 +1,87 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { gsap } from 'gsap';
+
+export default function Preloader() {
+  const [loading, setLoading] = useState(true);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(timer);
+          setTimeout(() => setLoading(false), 500);
+          return 100;
+        }
+        return prev + Math.random() * 15;
+      });
+    }, 100);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {loading && (
+        <motion.div
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0, transition: { duration: 1, ease: 'easeInOut' } }}
+          className="fixed inset-0 z-[10000] bg-black flex flex-col items-center justify-center overflow-hidden"
+        >
+          {/* Background Tech Detail */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-0 left-0 w-full h-full bg-grid pointer-events-none" />
+          </div>
+
+          <div className="relative w-80">
+            {/* Progress Label */}
+            <div className="flex justify-between items-end mb-4">
+              <div className="space-y-1">
+                <p className="text-[10px] font-mono text-blue-400 uppercase tracking-[0.3em]">System Initialization</p>
+                <h2 className="text-xl font-heading font-black text-white uppercase tracking-tighter">Joint Protocol 8.0</h2>
+              </div>
+              <p className="text-xl font-mono text-blue-400 font-bold">{Math.floor(progress)}%</p>
+            </div>
+
+            {/* Progress Bar Container */}
+            <div className="h-[2px] w-full bg-white/5 relative overflow-hidden">
+              <motion.div 
+                className="absolute top-0 left-0 h-full bg-blue-400 shadow-[0_0_15px_#0ea5e9]"
+                initial={{ width: 0 }}
+                animate={{ width: `${progress}%` }}
+                transition={{ duration: 0.2 }}
+              />
+            </div>
+
+            {/* Status Messages */}
+            <div className="mt-8 h-4 overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={Math.floor(progress / 25)}
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -20, opacity: 0 }}
+                  className="text-[9px] font-mono text-white/30 uppercase tracking-widest text-center"
+                >
+                  {progress < 25 && "Loading Digital Assets..."}
+                  {progress >= 25 && progress < 50 && "Establishing Neural Links..."}
+                  {progress >= 50 && progress < 75 && "Syncing UI Buffers..."}
+                  {progress >= 75 && "Finalizing Environment..."}
+                </motion.p>
+              </AnimatePresence>
+            </div>
+          </div>
+
+          {/* Decorative Corners */}
+          <div className="absolute top-10 left-10 w-4 h-4 border-t border-l border-white/20" />
+          <div className="absolute top-10 right-10 w-4 h-4 border-t border-r border-white/20" />
+          <div className="absolute bottom-10 left-10 w-4 h-4 border-b border-l border-white/20" />
+          <div className="absolute bottom-10 right-10 w-4 h-4 border-b border-r border-white/20" />
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}

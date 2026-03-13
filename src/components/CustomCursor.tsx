@@ -13,29 +13,7 @@ export default function CustomCursor() {
     const follower = followerRef.current;
     if (!cursor || !follower) return;
 
-    // Initialize trail particles
-    const particles: HTMLDivElement[] = [];
-    const particleCount = 20; // High count for smooth trail
-    
-    const trailContainer = document.createElement('div');
-    trailContainer.className = "fixed inset-0 pointer-events-none z-[9997]";
-    document.body.appendChild(trailContainer);
-
-    for (let i = 0; i < particleCount; i++) {
-      const p = document.createElement('div');
-      p.style.cssText = `
-        position: absolute;
-        width: ${4 - (i * 0.15)}px;
-        height: ${4 - (i * 0.15)}px;
-        background: #0ea5e9;
-        border-radius: 50%;
-        opacity: ${0.4 - (i * 0.02)};
-        pointer-events: none;
-      `;
-      trailContainer.appendChild(p);
-      particles.push(p);
-    }
-    trailRef.current = particles;
+    // Simplified: No trail for maximum performance
 
     const handleMouseMove = (e: MouseEvent) => {
       const { clientX: x, clientY: y } = e;
@@ -108,22 +86,13 @@ export default function CustomCursor() {
         }
       }
 
-      // Trail
-      particles.forEach((p, i) => {
-        gsap.to(p, {
-          x,
-          y,
-          duration: 0.15 + (i * 0.02),
-          ease: 'power1.out'
-        });
-      });
+      // Tracking updated
     };
 
     window.addEventListener('mousemove', handleMouseMove);
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      trailContainer.remove();
     };
   }, []);
 
@@ -138,7 +107,7 @@ export default function CustomCursor() {
       {/* Follower Lens */}
       <div
         ref={followerRef}
-        className="fixed top-0 left-0 w-10 h-10 border border-white/20 rounded-full pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2 hidden md:block backdrop-blur-[2px] flex items-center justify-center overflow-hidden"
+        className="fixed top-0 left-0 w-10 h-10 border border-white/20 rounded-full pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2 hidden md:block flex items-center justify-center overflow-hidden"
       >
         <span className="cursor-text text-[8px] font-mono font-bold text-blue-400 opacity-0 scale-50 uppercase tracking-tighter" />
       </div>

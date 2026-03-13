@@ -5,15 +5,15 @@ import Link from 'next/link';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Canvas } from '@react-three/fiber';
-import { Environment, PerspectiveCamera, PresentationControls } from '@react-three/drei';
+import { View, PerspectiveCamera, PresentationControls, Environment } from '@react-three/drei';
 import {
   ArrowRight, Globe, Smartphone, Phone, MessageSquare, Cog, TrendingUp,
-  ArrowUpRight, Bot, Workflow, Users, Target, Star
+  ArrowUpRight, Bot, Workflow, Users, Target, Star, Shield, Zap, Server
 } from 'lucide-react';
 import AnimatedSection from '@/components/AnimatedSection';
 import { CoreSphere, CyberTorus } from '@/components/ServiceModels';
 import HeroEnvironment from '@/components/HeroEnvironment';
+import { Canvas } from '@react-three/fiber'; // Only for local specific types if needed, but View is preferred
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -73,10 +73,11 @@ export default function HomePage() {
         scrollTrigger: {
           trigger: horizontalSectionRef.current,
           pin: true,
-          scrub: 1,
+          scrub: 0.5,
           start: "top top",
           end: () => `+=${track.offsetWidth}`,
-        }
+        },
+        force3D: true
       });
     }
 
@@ -98,13 +99,12 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(14,165,233,0.1)_0%,transparent_80%)] pointer-events-none" />
         <div className="bg-grain opacity-[0.05]" />
 
-        {/* High-Tech 3D Canvas */}
+        {/* High-Tech 3D Canvas - Integrated View */}
         <div className="absolute inset-0 z-10 pointer-events-none">
-          <Canvas shadows dpr={[1, 2]}>
+          <View className="w-full h-full">
             <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={45} />
             <ambientLight intensity={0.5} />
             <pointLight position={[10, 10, 10]} intensity={2} color="#0ea5e9" />
-            <spotLight position={[-10, 10, 10]} angle={0.15} penumbra={1} intensity={2} color="#ffffff" castShadow />
             
             <Environment preset="city" />
             <HeroEnvironment />
@@ -120,7 +120,7 @@ export default function HomePage() {
                 <CoreSphere />
               </group>
             </PresentationControls>
-          </Canvas>
+          </View>
         </div>
 
         <div className="relative z-20 max-w-[1550px] mx-auto px-6 w-full text-center">
@@ -232,7 +232,7 @@ export default function HomePage() {
                       {/* 3D secondary Interactive element inside large cards */}
                       {svc.span.includes('row-span-2') && !svc.accent && (
                         <div className="h-40 w-full mb-8 opacity-40 mix-blend-screen pointer-events-auto group-hover:opacity-100 transition-opacity duration-700">
-                           <Canvas shadows dpr={[1, 2]}>
+                           <View className="w-full h-full">
                             <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={50} />
                             <ambientLight intensity={0.5} />
                             <directionalLight position={[5, 5, 2]} intensity={2} color="#0ea5e9" />
@@ -244,7 +244,7 @@ export default function HomePage() {
                             >
                               <CyberTorus />
                             </PresentationControls>
-                          </Canvas>
+                          </View>
                         </div>
                       )}
 
@@ -344,7 +344,7 @@ export default function HomePage() {
               <div className="absolute inset-0 bg-blue-400/5 blur-[120px] rounded-full animate-pulse-glow" />
               
               <div className="w-full h-full relative cursor-grab active:cursor-grabbing">
-                <Canvas shadows dpr={[1, 2]}>
+                <View className="w-full h-full">
                   <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={45} />
                   <ambientLight intensity={0.5} />
                   <pointLight position={[10, 10, 10]} intensity={2} color="#0ea5e9" />
@@ -354,11 +354,11 @@ export default function HomePage() {
                     polar={[-0.4, 0.4]}
                     azimuth={[-1, 1]}
                   >
-                    <group scale={1.8}>
-                      <CyberTorus /> {/* This is now our ArchitectureBlock */}
+                    <group scale={1.2}>
+                      <CyberTorus />
                     </group>
                   </PresentationControls>
-                </Canvas>
+                </View>
               </div>
 
               {/* Data Node Tags */}
@@ -378,6 +378,42 @@ export default function HomePage() {
               </motion.div>
             </div>
 
+          </div>
+        </div>
+      </section>
+      {/* ═══════════ TECH INFRASTRUCTURE MARQUEE ═══════════ */}
+      <section className="relative py-20 bg-black overflow-hidden border-t border-white/5">
+        <div className="flex whitespace-nowrap overflow-hidden group">
+          <div className="flex animate-[marquee_20s_linear_infinite] gap-20 items-center pr-20">
+            {[
+              { icon: Shield, text: "ENCRYPTED PROTOCOLS" },
+              { icon: Zap, text: "LOW-LATENCY EDGE" },
+              { icon: Server, text: "NODE NEURAL SYNC" },
+              { icon: Bot, text: "AUTONOMOUS LOGIC" },
+            ].map((item, i) => (
+              <div key={i} className="flex items-center gap-6">
+                <item.icon className="w-8 h-8 text-blue-400" />
+                <span className="text-4xl md:text-6xl font-heading font-black text-white/20 uppercase tracking-tighter">
+                  {item.text}
+                </span>
+                <span className="text-blue-400">•</span>
+              </div>
+            ))}
+            {/* Duplicate for seamless loop */}
+            {[
+              { icon: Shield, text: "ENCRYPTED PROTOCOLS" },
+              { icon: Zap, text: "LOW-LATENCY EDGE" },
+              { icon: Server, text: "NODE NEURAL SYNC" },
+              { icon: Bot, text: "AUTONOMOUS LOGIC" },
+            ].map((item, i) => (
+              <div key={i+"dup"} className="flex items-center gap-6">
+                <item.icon className="w-8 h-8 text-blue-400" />
+                <span className="text-4xl md:text-6xl font-heading font-black text-white/20 uppercase tracking-tighter">
+                  {item.text}
+                </span>
+                <span className="text-blue-400">•</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>

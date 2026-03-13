@@ -2,59 +2,44 @@
 
 import { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Text, Float } from '@react-three/drei';
+import { Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
-const CODE_CHARS = ['{', '}', '[', ']', '(', ')', '/', '<', '>', ';', '1', '0', '!', '?', '='];
-
-function CodeParticle({ position }: { position: [number, number, number] }) {
-  const char = useMemo(() => CODE_CHARS[Math.floor(Math.random() * CODE_CHARS.length)], []);
-  const meshRef = useRef<THREE.Group>(null);
-  const initialY = position[1];
-  const speed = useMemo(() => 0.1 + Math.random() * 0.2, []);
+export default function HeroEnvironment() {
+  const pointsRef = useRef<THREE.Points>(null);
+  
+  const count = 300; // Efficient enough for hundreds of particles
+  const positions = useMemo(() => {
+    const pos = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      pos[i * 3] = (Math.random() - 0.5) * 30;
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 20;
+      pos[i * 3 + 2] = (Math.random() - 0.5) * 15 - 5;
+    }
+    return pos;
+  }, []);
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
-    if (meshRef.current) {
-      meshRef.current.position.y = initialY + Math.sin(t * speed + position[0]) * 0.5;
-      meshRef.current.rotation.y = t * speed * 0.5;
+    if (pointsRef.current) {
+      pointsRef.current.rotation.y = t * 0.05;
+      pointsRef.current.position.y = Math.sin(t * 0.2) * 0.2;
     }
   });
 
   return (
-    <group ref={meshRef} position={position}>
-      <Text
-        fontSize={0.2}
-        color="#0ea5e9"
-        fillOpacity={0.1}
-      >
-        {char}
-      </Text>
-    </group>
-  );
-}
-
-export default function HeroEnvironment() {
-  const particles = useMemo(() => {
-    const pts = [];
-    for (let i = 0; i < 50; i++) {
-      pts.push({
-        id: i,
-        position: [
-          (Math.random() - 0.5) * 20,
-          (Math.random() - 0.5) * 15,
-          (Math.random() - 0.5) * 10 - 5
-        ] as [number, number, number]
-      });
-    }
-    return pts;
-  }, []);
-
-  return (
     <group>
-      {particles.map((p) => (
-        <CodeParticle key={p.id} position={p.position} />
-      ))}
+      <Points ref={pointsRef} positions={positions} stride={3}>
+        <PointMaterial
+          transparent
+          color="#0ea5e9"
+          size={0.06}
+          sizeAttenuation={true}
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+          opacity={0.3}
+        />
+      </Points>
       
       {/* Subtle Light Rays */}
       <spotLight
@@ -63,10 +48,9 @@ export default function HeroEnvironment() {
         penumbra={1}
         intensity={2}
         color="#0ea5e9"
-        castShadow
       />
       
-      <ambientLight intensity={0.2} />
+      <ambientLight intensity={0.5} />
     </group>
   );
 }

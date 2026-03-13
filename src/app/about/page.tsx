@@ -6,13 +6,13 @@ import dynamic from 'next/dynamic';
 import { ArrowRight, Zap, Target, Eye, Heart, Users, Globe, Award, ArrowUpRight } from 'lucide-react';
 import AnimatedSection from '@/components/AnimatedSection';
 
-// Dynamically load 3D components to keep the page fast
 const DynamicCoreSphere = dynamic(() => import('@/components/ServiceModels').then(mod => mod.CoreSphere), { ssr: false });
 
-const DynamicCanvas = dynamic(() => import('@react-three/fiber').then(mod => mod.Canvas), { ssr: false });
-const DynamicCamera = dynamic(() => import('@react-three/drei').then(mod => mod.PerspectiveCamera), { ssr: false });
-const DynamicPresentation = dynamic(() => import('@react-three/drei').then(mod => mod.PresentationControls), { ssr: false });
-const DynamicEnv = dynamic(() => import('@react-three/drei').then(mod => mod.Environment), { ssr: false });
+// Use the global View component for single-canvas architecture
+const View = dynamic(() => import('@react-three/drei').then(mod => mod.View), { ssr: false });
+const PerspectiveCamera = dynamic(() => import('@react-three/drei').then(mod => mod.PerspectiveCamera), { ssr: false });
+const PresentationControls = dynamic(() => import('@react-three/drei').then(mod => mod.PresentationControls), { ssr: false });
+const Environment = dynamic(() => import('@react-three/drei').then(mod => mod.Environment), { ssr: false });
 
 const stats = [
   { value: '150+', label: 'Systems Deployed', icon: Zap },
@@ -77,12 +77,12 @@ export default function AboutPage() {
               transition={{ duration: 1, delay: 0.2 }}
               className="lg:col-span-5 h-[500px] relative hidden lg:block"
             >
-              <DynamicCanvas shadows dpr={[1, 2]}>
-                <DynamicCamera makeDefault position={[0, 0, 5]} fov={45} />
+              <View className="w-full h-full">
+                <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={45} />
                 <ambientLight intensity={0.5} />
                 <directionalLight position={[10, 10, 5]} intensity={2} color="#0ea5e9" />
-                <DynamicEnv preset="city" />
-                <DynamicPresentation 
+                <Environment preset="city" />
+                <PresentationControls 
                   global 
                   rotation={[0, 0, 0]} 
                   polar={[-0.3, 0.3]} 
@@ -90,8 +90,8 @@ export default function AboutPage() {
                   snap={true}
                 >
                   <DynamicCoreSphere />
-                </DynamicPresentation>
-              </DynamicCanvas>
+                </PresentationControls>
+              </View>
             </motion.div>
           </div>
         </div>

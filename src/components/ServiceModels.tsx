@@ -55,12 +55,12 @@ export function CoreSphere() {
           <sphereGeometry args={[1, 64, 64]} />
           <MeshDistortMaterial
             color="#0ea5e9"
-            envMapIntensity={2}
-            clearcoat={1}
-            metalness={0.9}
-            roughness={0.1}
-            distort={0.4}
-            speed={4}
+            envMapIntensity={1}
+            clearcoat={0.5}
+            metalness={0.8}
+            roughness={0.2}
+            distort={0.3}
+            speed={2}
           />
         </mesh>
 
@@ -93,13 +93,13 @@ export function CyberTorus() {
           <boxGeometry args={[1.5, 1.5, 1.5]} />
           <MeshTransmissionMaterial
             backside
-            samples={16}
-            thickness={2}
-            chromaticAberration={0.05}
+            samples={4}
+            thickness={1}
+            chromaticAberration={0.02}
             anisotropy={0.1}
-            distortion={0.1}
-            distortionScale={0.3}
-            temporalDistortion={0.5}
+            distortion={0}
+            distortionScale={0.1}
+            temporalDistortion={0}
             color="#0ea5e9"
           />
         </mesh>

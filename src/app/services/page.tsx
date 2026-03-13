@@ -13,11 +13,11 @@ import AnimatedSection from '@/components/AnimatedSection';
 const DynamicCoreSphere = dynamic(() => import('@/components/ServiceModels').then(mod => mod.CoreSphere), { ssr: false });
 const DynamicCyberTorus = dynamic(() => import('@/components/ServiceModels').then(mod => mod.CyberTorus), { ssr: false });
 
-// We also need Canvas for the models
-const DynamicCanvas = dynamic(() => import('@react-three/fiber').then(mod => mod.Canvas), { ssr: false });
-const DynamicCamera = dynamic(() => import('@react-three/drei').then(mod => mod.PerspectiveCamera), { ssr: false });
-const DynamicPresentation = dynamic(() => import('@react-three/drei').then(mod => mod.PresentationControls), { ssr: false });
-const DynamicEnv = dynamic(() => import('@react-three/drei').then(mod => mod.Environment), { ssr: false });
+// Use the global View component for single-canvas architecture
+const View = dynamic(() => import('@react-three/drei').then(mod => mod.View), { ssr: false });
+const PerspectiveCamera = dynamic(() => import('@react-three/drei').then(mod => mod.PerspectiveCamera), { ssr: false });
+const PresentationControls = dynamic(() => import('@react-three/drei').then(mod => mod.PresentationControls), { ssr: false });
+const Environment = dynamic(() => import('@react-three/drei').then(mod => mod.Environment), { ssr: false });
 
 const services = [
   {
@@ -112,12 +112,12 @@ export default function ServicesPage() {
               transition={{ duration: 1, delay: 0.2 }}
               className="lg:col-span-5 h-[500px] relative hidden lg:block"
             >
-              <DynamicCanvas shadows dpr={[1, 2]}>
-                <DynamicCamera makeDefault position={[0, 0, 5]} fov={45} />
+              <View className="w-full h-full">
+                <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={45} />
                 <ambientLight intensity={0.5} />
                 <directionalLight position={[10, 10, 5]} intensity={2} color="#0ea5e9" />
-                <DynamicEnv preset="city" />
-                <DynamicPresentation 
+                <Environment preset="city" />
+                <PresentationControls 
                   global 
                   rotation={[0, 0, 0]} 
                   polar={[-0.3, 0.3]} 
@@ -125,8 +125,8 @@ export default function ServicesPage() {
                   snap={true}
                 >
                   <DynamicCoreSphere />
-                </DynamicPresentation>
-              </DynamicCanvas>
+                </PresentationControls>
+              </View>
             </motion.div>
           </div>
         </div>
@@ -191,12 +191,12 @@ export default function ServicesPage() {
                     {/* 3D Canvas Context */}
                     {service.has3D && (
                       <div className="absolute inset-x-0 top-0 bottom-40 z-10 opacity-70 mix-blend-screen pointer-events-auto group-hover:opacity-100 transition-opacity duration-500">
-                        <DynamicCanvas shadows dpr={[1, 2]}>
-                          <DynamicCamera makeDefault position={[0, 0, 5]} fov={45} />
+                        <View className="w-full h-full">
+                          <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={45} />
                           <ambientLight intensity={service.accent ? 0.6 : 1} />
                           <directionalLight position={[5, 5, 2]} intensity={2} color="#0ea5e9" />
-                          <DynamicEnv preset="studio" />
-                          <DynamicPresentation 
+                          <Environment preset="studio" />
+                          <PresentationControls 
                             global 
                             rotation={[0.1, 0, 0]} 
                             polar={[-0.2, 0.2]} 
@@ -204,8 +204,8 @@ export default function ServicesPage() {
                             snap={true}
                           >
                             {service.model === 'sphere' ? <DynamicCoreSphere /> : <DynamicCyberTorus />}
-                          </DynamicPresentation>
-                        </DynamicCanvas>
+                          </PresentationControls>
+                        </View>
                       </div>
                     )}
 

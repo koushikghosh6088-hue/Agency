@@ -9,14 +9,14 @@ import {
 } from 'lucide-react';
 import AnimatedSection from '@/components/AnimatedSection';
 
-// Dynamically load 3D components to keep the page fast
 const DynamicCoreSphere = dynamic(() => import('@/components/ServiceModels').then(mod => mod.CoreSphere), { ssr: false });
 const DynamicCyberTorus = dynamic(() => import('@/components/ServiceModels').then(mod => mod.CyberTorus), { ssr: false });
 
-const DynamicCanvas = dynamic(() => import('@react-three/fiber').then(mod => mod.Canvas), { ssr: false });
-const DynamicCamera = dynamic(() => import('@react-three/drei').then(mod => mod.PerspectiveCamera), { ssr: false });
-const DynamicPresentation = dynamic(() => import('@react-three/drei').then(mod => mod.PresentationControls), { ssr: false });
-const DynamicEnv = dynamic(() => import('@react-three/drei').then(mod => mod.Environment), { ssr: false });
+// Use the global View component for single-canvas architecture
+const View = dynamic(() => import('@react-three/drei').then(mod => mod.View), { ssr: false });
+const PerspectiveCamera = dynamic(() => import('@react-three/drei').then(mod => mod.PerspectiveCamera), { ssr: false });
+const PresentationControls = dynamic(() => import('@react-three/drei').then(mod => mod.PresentationControls), { ssr: false });
+const Environment = dynamic(() => import('@react-three/drei').then(mod => mod.Environment), { ssr: false });
 
 export default function AISolutionsPage() {
   return (
@@ -82,15 +82,15 @@ export default function AISolutionsPage() {
                 
                 {/* Embedded 3D Canvas */}
                 <div className="absolute inset-x-0 top-10 h-64 z-0 opacity-60 mix-blend-screen pointer-events-auto">
-                    <DynamicCanvas shadows dpr={[1, 2]}>
-                      <DynamicCamera makeDefault position={[0, 0, 4]} fov={50} />
+                    <View className="w-full h-full">
+                      <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={50} />
                       <ambientLight intensity={0.5} />
                       <directionalLight position={[5, 5, 2]} intensity={2} color="#0ea5e9" />
-                      <DynamicEnv preset="studio" />
-                      <DynamicPresentation global rotation={[0, 0, 0]} polar={[-0.2, 0.2]} azimuth={[-0.5, 0.5]}>
+                      <Environment preset="studio" />
+                      <PresentationControls global rotation={[0, 0, 0]} polar={[-0.2, 0.2]} azimuth={[-0.5, 0.5]}>
                         <DynamicCoreSphere />
-                      </DynamicPresentation>
-                    </DynamicCanvas>
+                      </PresentationControls>
+                    </View>
                 </div>
 
                 {/* Voice Wave UI overlay */}
@@ -237,15 +237,15 @@ export default function AISolutionsPage() {
       <section id="automation" className="py-32 relative overflow-hidden">
         <div className="absolute inset-0 bg-black pointer-events-none" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[600px] z-0 opacity-40 mix-blend-screen pointer-events-none">
-            <DynamicCanvas shadows dpr={[1, 2]}>
-              <DynamicCamera makeDefault position={[0, 0, 7]} fov={50} />
+            <View className="w-full h-full">
+              <PerspectiveCamera makeDefault position={[0, 0, 7]} fov={50} />
               <ambientLight intensity={1} />
               <directionalLight position={[2, 5, 2]} intensity={2} color="#ffffff" />
-              <DynamicEnv preset="studio" />
-              <DynamicPresentation global rotation={[0, 0, 0]} polar={[-0.1, 0.1]} azimuth={[-0.2, 0.2]}>
+              <Environment preset="studio" />
+              <PresentationControls global rotation={[0, 0, 0]} polar={[-0.1, 0.1]} azimuth={[-0.2, 0.2]}>
                  <DynamicCyberTorus />
-              </DynamicPresentation>
-            </DynamicCanvas>
+              </PresentationControls>
+            </View>
         </div>
 
         <div className="max-w-[1200px] mx-auto px-6 relative z-10">

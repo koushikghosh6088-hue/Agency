@@ -7,12 +7,13 @@ import dynamic from 'next/dynamic';
 import { ArrowRight, ArrowUpRight, FolderGit2 } from 'lucide-react';
 import AnimatedSection from '@/components/AnimatedSection';
 
-// Dynamically load Canvas for a background element
-const DynamicCanvas = dynamic(() => import('@react-three/fiber').then(mod => mod.Canvas), { ssr: false });
-const DynamicCamera = dynamic(() => import('@react-three/drei').then(mod => mod.PerspectiveCamera), { ssr: false });
-const DynamicPresentation = dynamic(() => import('@react-three/drei').then(mod => mod.PresentationControls), { ssr: false });
-const DynamicEnv = dynamic(() => import('@react-three/drei').then(mod => mod.Environment), { ssr: false });
 const DynamicCyberTorus = dynamic(() => import('@/components/ServiceModels').then(mod => mod.CyberTorus), { ssr: false });
+
+// Use the global View component for single-canvas architecture
+const View = dynamic(() => import('@react-three/drei').then(mod => mod.View), { ssr: false });
+const PerspectiveCamera = dynamic(() => import('@react-three/drei').then(mod => mod.PerspectiveCamera), { ssr: false });
+const PresentationControls = dynamic(() => import('@react-three/drei').then(mod => mod.PresentationControls), { ssr: false });
+const Environment = dynamic(() => import('@react-three/drei').then(mod => mod.Environment), { ssr: false });
 
 const categories = ['All', 'Web', 'Mobile', 'AI', 'Automation'];
 
@@ -70,12 +71,12 @@ export default function PortfolioPage() {
               transition={{ duration: 1, delay: 0.2 }}
               className="lg:col-span-5 h-[500px] relative hidden lg:block"
             >
-              <DynamicCanvas shadows dpr={[1, 2]}>
-                <DynamicCamera makeDefault position={[0, 0, 5]} fov={45} />
+              <View className="w-full h-full">
+                <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={45} />
                 <ambientLight intensity={0.5} />
                 <directionalLight position={[10, 10, 5]} intensity={2} color="#0ea5e9" />
-                <DynamicEnv preset="city" />
-                <DynamicPresentation 
+                <Environment preset="city" />
+                <PresentationControls 
                   global 
                   rotation={[0, 0, 0]} 
                   polar={[-0.3, 0.3]} 
@@ -83,8 +84,8 @@ export default function PortfolioPage() {
                   snap={true}
                 >
                   <DynamicCyberTorus />
-                </DynamicPresentation>
-              </DynamicCanvas>
+                </PresentationControls>
+              </View>
             </motion.div>
           </div>
         </div>
