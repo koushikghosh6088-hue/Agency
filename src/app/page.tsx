@@ -35,119 +35,86 @@ export default function HomePage() {
 
   return (
     <>
-      {/* ═══════════ HERO (Split Grid) ═══════════ */}
+      {/* ═══════════ CINEMATIC HERO ═══════════ */}
       <motion.section
         ref={heroRef}
         style={{ opacity: heroOpacity, scale: heroScale }}
-        className="relative min-h-[90vh] flex items-center overflow-hidden pt-24 pb-20"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-20 cursor-default"
       >
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-400/[0.05] rounded-full blur-[120px] pointer-events-none" />
+        {/* Deep Atmosphere */}
+        <div className="absolute inset-0 bg-obsidian z-0" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(14,165,233,0.08)_0%,transparent_70%)] pointer-events-none" />
+        <div className="bg-grain opacity-10" />
 
-        <div className="relative z-20 max-w-[1550px] mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
-          {/* Left: Giant Typography */}
-          <div className="lg:col-span-7 space-y-8 relative z-20">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.1, duration: 0.8, ease: "easeOut" }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white/5 border border-white/10"
+        {/* 3D Centerpiece Background */}
+        <div className="absolute inset-0 z-10">
+          <Canvas shadows dpr={[1, 2]}>
+            <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={50} />
+            <ambientLight intensity={0.4} />
+            <directionalLight position={[10, 10, 5]} intensity={1.5} color="#0ea5e9" />
+            <pointLight position={[-10, -10, -10]} intensity={1} color="#ffffff" />
+            <Environment preset="city" />
+            <PresentationControls 
+              global 
+              rotation={[0, 0, 0]} 
+              polar={[-0.2, 0.2]} 
+              azimuth={[-0.4, 0.4]}
+              snap={true}
             >
-              <span className="font-mono text-[10px] uppercase tracking-widest text-blue-400 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse-fast inline-block" />
-                Joint System Core Online
-              </span>
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[4rem] md:text-[6rem] lg:text-[7.5rem] font-heading font-extrabold leading-[0.85] tracking-tighter"
-            >
-              DIGITAL<br />
-              <span className="gradient-text italic opacity-90 pr-4">FUTURES</span><br />
-              REALIZED.
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-              className="text-lg md:text-xl text-white/50 max-w-lg font-mono font-light tracking-tight leading-relaxed"
-            >
-              Next-generation web architectures propelled by AI automation and striking industrial design.
-            </motion.p>
-            
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="flex items-center gap-6 pt-4"
-            >
-              <Link href="/contact" className="btn-primary">
-                Deploy System
-              </Link>
-              <Link href="/portfolio" className="text-white/70 hover:text-white font-mono text-xs uppercase tracking-widest underline underline-offset-4 flex items-center gap-2 transition-colors">
-                View Schematics <ArrowRight className="w-4 h-4" />
-              </Link>
-            </motion.div>
-          </div>
-
-          {/* Right: 3D Mockup Box */}
-          <div className="lg:col-span-5 h-[500px] lg:h-[700px] relative hidden md:block">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, rotateY: -15, rotateX: 10 }}
-              animate={{ opacity: 1, scale: 1, rotateY: -5, rotateX: 5 }}
-              transition={{ delay: 0.4, duration: 1.2, ease: "easeOut" }}
-              className="w-full h-full glass-panel overflow-hidden relative group hidden lg:block"
-            >
-              {/* Interactive 3D Canvas */}
-              <div className="absolute inset-0 z-10 cursor-grab active:cursor-grabbing">
-                <Canvas shadows dpr={[1, 2]}>
-                  <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={50} />
-                  <ambientLight intensity={0.5} />
-                  <directionalLight position={[10, 10, 5]} intensity={2} color="#0ea5e9" />
-                  <pointLight position={[-10, -10, -10]} intensity={1} color="#ffffff" />
-                  <Environment preset="city" />
-                  <PresentationControls 
-                    global 
-                    rotation={[0.13, 0.1, 0]} 
-                    polar={[-0.4, 0.2]} 
-                    azimuth={[-1, 0.75]}
-                  >
-                    <CoreSphere />
-                  </PresentationControls>
-                </Canvas>
-              </div>
-
-              {/* Mock UI Overlay */}
-              <div className="absolute top-6 left-6 right-6 flex justify-between items-center z-20 pointer-events-none">
-                <div className="flex gap-2">
-                  <div className="w-3 h-3 rounded-full bg-white/20" />
-                  <div className="w-3 h-3 rounded-full bg-white/20" />
-                  <div className="w-3 h-3 rounded-full bg-white/20" />
-                </div>
-                <div className="px-4 py-1 rounded-full bg-white/10 font-mono text-[10px] uppercase text-white/50 tracking-widest backdrop-blur-md">
-                  Simulation
-                </div>
-              </div>
-              
-              <div className="absolute bottom-6 left-6 z-20 pointer-events-none">
-                <div className="glass px-6 py-4 rounded-xl flex items-center gap-4 animate-float">
-                  <div className="w-10 h-10 rounded-full bg-blue-400 flex items-center justify-center shrink-0">
-                    <Bot className="w-5 h-5 text-black" />
-                  </div>
-                  <div>
-                    <div className="text-white font-bold text-sm">AI Agent Processing</div>
-                    <div className="text-blue-400 font-mono text-[10px] tracking-widest mt-1">STATUS: OPTIMAL</div>
-                  </div>
-                </div>
-              </div>
-
-            </motion.div>
-          </div>
+              <CoreSphere />
+            </PresentationControls>
+          </Canvas>
         </div>
+
+        <div className="relative z-20 max-w-[1550px] mx-auto px-6 w-full text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="space-y-12"
+          >
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full glass-premium border-blue-400/20 mb-4 magnetic-wrap">
+              <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse-glow" />
+              <span className="font-mono text-[10px] uppercase tracking-widest text-blue-400/80">
+                Nexus Core v3.0 // Active
+              </span>
+            </div>
+
+            <h1 className="text-[5rem] md:text-[8rem] lg:text-[10rem] font-heading font-extrabold leading-[0.8] tracking-tighter mb-8 max-w-6xl mx-auto">
+              WE ENGINEER<br />
+              <span className="gradient-text italic">PREMIUM</span> VOIDS.
+            </h1>
+
+            <p className="text-xl md:text-2xl text-white/40 max-w-2xl mx-auto font-mono font-light leading-relaxed mb-12">
+              Bespoke digital architecture for high-stakes enterprises. 
+              <br/>Where logic meets immersive design.
+            </p>
+            
+            <div className="flex flex-col md:flex-row items-center justify-center gap-8 pt-6">
+              <div className="magnetic-wrap">
+                <Link href="/contact" className="btn-primary">
+                  Deploy System <ArrowUpRight className="ml-2 w-5 h-5" />
+                </Link>
+              </div>
+              <div className="magnetic-wrap">
+                <Link href="/portfolio" className="text-blue-400/60 hover:text-blue-400 font-mono text-sm uppercase tracking-widest underline underline-offset-8 transition-all">
+                  Access Archive
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-20"
+        >
+          <div className="w-px h-16 bg-gradient-to-b from-blue-400/50 to-transparent" />
+          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/20 rotate-90 origin-left ml-2">Scroll</span>
+        </motion.div>
       </motion.section>
 
       {/* ═══════════ SERVICES BENTO GRID ═══════════ */}
@@ -166,13 +133,13 @@ export default function HomePage() {
             {services.map((svc, i) => (
               <AnimatedSection 
                 key={svc.id} 
-                className={`${svc.span} group perspective-1000`}
+                className={`${svc.span} group perspective-1200`}
                 delay={i * 0.1}
               >
-                <div className={`w-full h-full rounded-[2.5rem] border overflow-hidden relative transition-all duration-500 hover:scale-[1.01] hover:shadow-2xl ${
+                <div className={`w-full h-full rounded-[2.5rem] border overflow-hidden relative transition-all duration-700 hover-3d glass-premium ${
                   svc.accent 
-                    ? 'bg-blue-400 border-blue-400 text-black hover:shadow-blue-400/20' 
-                    : 'bg-white/[0.02] border-white/10 text-white hover:border-blue-400/40 hover:bg-white/[0.04]'
+                    ? 'bg-blue-400 border-blue-400 text-black shadow-[0_20px_50px_rgba(14,165,233,0.3)]' 
+                    : 'border-white/10 text-white hover:border-blue-400/40'
                 }`}>
                   
                   {/* Background Accents based on sizing */}
@@ -182,22 +149,22 @@ export default function HomePage() {
 
                   <div className="absolute inset-0 p-8 flex flex-col justify-between z-10 w-full h-full">
                     <div className="flex justify-between items-start">
-                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg ${
-                        svc.accent ? 'bg-black text-blue-400' : 'bg-white/5 text-blue-400 border border-white/10 group-hover:bg-blue-400 group-hover:text-black transition-colors'
+                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-500 ${
+                        svc.accent ? 'bg-black text-blue-400' : 'bg-white/5 text-blue-400 border border-white/10 group-hover:bg-blue-400 group-hover:text-black group-hover:shadow-[0_0_30px_rgba(14,165,233,0.5)]'
                       }`}>
                         <svc.icon className="w-6 h-6" />
                       </div>
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center border transition-all ${
-                        svc.accent ? 'border-black/20 text-black group-hover:bg-black group-hover:text-blue-400' : 'border-white/10 text-white/50 group-hover:border-blue-400 group-hover:text-blue-400 group-hover:-rotate-45'
+                      <div className={`magnetic-wrap w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-500 scale-0 group-hover:scale-100 ${
+                        svc.accent ? 'border-black/20 text-black bg-black/10' : 'border-blue-400/30 text-blue-400 bg-blue-400/10'
                       }`}>
-                        <ArrowRight className="w-4 h-4" />
+                        <ArrowUpRight className="w-5 h-5 transition-transform group-hover:rotate-45" />
                       </div>
                     </div>
                     
                     <div className="mt-8 relative z-20 pointer-events-none">
                       {/* 3D secondary Interactive element inside large cards */}
                       {svc.span.includes('row-span-2') && !svc.accent && (
-                        <div className="h-40 w-full mb-8 opacity-60 mix-blend-screen pointer-events-auto">
+                        <div className="h-40 w-full mb-8 opacity-40 mix-blend-screen pointer-events-auto group-hover:opacity-100 transition-opacity duration-700">
                            <Canvas shadows dpr={[1, 2]}>
                             <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={50} />
                             <ambientLight intensity={0.5} />
@@ -217,11 +184,14 @@ export default function HomePage() {
                       <h3 className={`text-2xl font-bold font-heading mb-2 ${svc.accent ? 'text-black' : 'text-white'}`}>
                         {svc.title}
                       </h3>
-                      <p className={`text-sm ${svc.accent ? 'text-black/70 font-medium' : 'text-white/50'} font-mono leading-relaxed`}>
+                      <p className={`text-sm ${svc.accent ? 'text-black/80 font-medium' : 'text-white/50'} font-mono leading-relaxed`}>
                         {svc.desc}
                       </p>
                     </div>
                   </div>
+
+                  {/* Hover Glow Light */}
+                  <div className="absolute -inset-20 bg-blue-400/10 blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0" />
                 </div>
               </AnimatedSection>
             ))}

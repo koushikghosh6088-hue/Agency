@@ -68,22 +68,67 @@ export default function ServicesPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-32 pb-20 overflow-hidden min-h-[60vh] flex flex-col justify-center">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-400/[0.03] rounded-full blur-[120px] pointer-events-none" />
-        <div className="max-w-[1550px] mx-auto px-6 relative z-10 w-full">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}>
-            <span className="font-mono text-[10px] tracking-widest uppercase block mb-6 text-blue-400">
-              <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse inline-block mr-2" />
-              Service Capabilities
-            </span>
-            <h1 className="text-[4rem] md:text-[6rem] lg:text-[7.5rem] font-heading font-extrabold leading-[0.85] tracking-tighter mb-8">
-              SOLUTIONS<br />
-              <span className="gradient-text italic pr-4">ENGINEERED</span>
-            </h1>
-            <p className="text-lg text-white/50 max-w-2xl font-mono leading-relaxed">
-              From autonomous AI agents to high-performance web systems, we provide digital infrastructure that accelerates business growth.
-            </p>
-          </motion.div>
+      <section className="relative pt-32 pb-20 overflow-hidden min-h-[70vh] flex flex-col justify-center cursor-default">
+        {/* Immersive Atmosphere */}
+        <div className="absolute inset-0 bg-obsidian z-0" />
+        <div className="absolute top-0 left-[-10%] w-[1000px] h-[1000px] bg-blue-400/[0.05] rounded-full blur-[150px] pointer-events-none" />
+        <div className="bg-grain opacity-10" />
+
+        <div className="max-w-[1550px] mx-auto px-6 relative z-10 w-full text-center lg:text-left">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }} 
+              animate={{ opacity: 1, x: 0 }} 
+              transition={{ duration: 0.8 }}
+              className="lg:col-span-7"
+            >
+              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full glass-premium border-blue-400/20 mb-8 magnetic-wrap">
+                <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse-glow" />
+                <span className="font-mono text-[10px] uppercase tracking-widest text-blue-400/80">
+                  Engineering Protocol // Active
+                </span>
+              </div>
+              <h1 className="text-[4.5rem] md:text-[6.5rem] lg:text-[8rem] font-heading font-extrabold leading-[0.8] tracking-tighter mb-8">
+                SOLUTIONS<br />
+                <span className="gradient-text italic">ENGINEERED</span>
+              </h1>
+              <p className="text-xl text-white/50 max-w-2xl font-mono leading-relaxed mb-10">
+                Deploying mission-critical digital infrastructure powered by autonomous AI agents and refined 3D interface design.
+              </p>
+              
+              <div className="flex flex-wrap gap-6 pt-4 justify-center lg:justify-start">
+                <div className="magnetic-wrap">
+                  <Link href="/contact" className="btn-primary">
+                    Start Scoping <ArrowUpRight className="ml-2 w-5 h-5" />
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Interactive 3D Sidepiece */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.2 }}
+              className="lg:col-span-5 h-[500px] relative hidden lg:block"
+            >
+              <DynamicCanvas shadows dpr={[1, 2]}>
+                <DynamicCamera makeDefault position={[0, 0, 5]} fov={45} />
+                <ambientLight intensity={0.5} />
+                <directionalLight position={[10, 10, 5]} intensity={2} color="#0ea5e9" />
+                <DynamicEnv preset="city" />
+                <DynamicPresentation 
+                  global 
+                  rotation={[0, 0, 0]} 
+                  polar={[-0.3, 0.3]} 
+                  azimuth={[-0.6, 0.6]}
+                  snap={true}
+                >
+                  <DynamicCoreSphere />
+                </DynamicPresentation>
+              </DynamicCanvas>
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -136,28 +181,27 @@ export default function ServicesPage() {
                   delay={0.2} 
                   className={`lg:col-span-6 ${i % 2 !== 0 ? 'lg:order-1' : ''}`}
                 >
-                  <div className={`glass-panel rounded-[2.5rem] p-8 md:p-12 relative overflow-hidden group min-h-[500px] flex flex-col justify-end ${
+                  <div className={`glass-premium rounded-[2.5rem] p-8 md:p-12 relative overflow-hidden group min-h-[500px] flex flex-col justify-end hover-3d transition-all duration-700 ${
                     service.accent ? 'border-blue-400/20 hover:border-blue-400/50' : ''
                   }`}>
                     
-                    {/* Background Gradients */}
-                    <div className={`absolute inset-0 opacity-20 transition-opacity duration-500 group-hover:opacity-40 ${
-                      service.accent ? 'bg-gradient-to-br from-blue-400 to-transparent' : 'bg-gradient-to-br from-white to-transparent'
-                    }`} />
+                    {/* Hover Glow Light */}
+                    <div className="absolute -inset-20 bg-blue-400/10 blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0" />
 
                     {/* 3D Canvas Context */}
                     {service.has3D && (
-                      <div className="absolute inset-x-0 top-0 bottom-40 z-10 opacity-70 mix-blend-screen pointer-events-auto">
+                      <div className="absolute inset-x-0 top-0 bottom-40 z-10 opacity-70 mix-blend-screen pointer-events-auto group-hover:opacity-100 transition-opacity duration-500">
                         <DynamicCanvas shadows dpr={[1, 2]}>
                           <DynamicCamera makeDefault position={[0, 0, 5]} fov={45} />
-                          <ambientLight intensity={service.accent ? 0.5 : 1} />
-                          <directionalLight position={[5, 5, 2]} intensity={2} color={service.accent ? '#ccff00' : '#ffffff'} />
+                          <ambientLight intensity={service.accent ? 0.6 : 1} />
+                          <directionalLight position={[5, 5, 2]} intensity={2} color="#0ea5e9" />
                           <DynamicEnv preset="studio" />
                           <DynamicPresentation 
                             global 
                             rotation={[0.1, 0, 0]} 
                             polar={[-0.2, 0.2]} 
-                            azimuth={[-0.5, 0.5]} 
+                            azimuth={[-0.5, 0.5]}
+                            snap={true}
                           >
                             {service.model === 'sphere' ? <DynamicCoreSphere /> : <DynamicCyberTorus />}
                           </DynamicPresentation>
@@ -166,15 +210,15 @@ export default function ServicesPage() {
                     )}
 
                     {/* Features list overlay at bottom */}
-                    <div className="relative z-20 glass px-6 py-6 rounded-2xl w-full max-w-sm ml-auto backdrop-blur-xl border-white/10 mt-auto">
-                      <div className="flex items-center justify-between mb-4 border-b border-white/5 pb-4">
-                        <h3 className="text-xs font-mono uppercase text-white/40 tracking-[0.2em]">Architecture</h3>
-                        <service.icon className={`w-4 h-4 ${service.accent ? 'text-blue-400' : 'text-white'}`} />
+                    <div className="relative z-20 glass-premium px-8 py-8 rounded-3xl w-full max-w-sm ml-auto backdrop-blur-xl border-white/10 mt-auto magnetic-wrap">
+                      <div className="flex items-center justify-between mb-6 border-b border-white/5 pb-4">
+                        <h3 className="text-[10px] font-mono uppercase text-white/40 tracking-[0.2em]">Architecture Subsystem</h3>
+                        <service.icon className={`w-5 h-5 ${service.accent ? 'text-blue-400 animate-pulse-glow' : 'text-white'}`} />
                       </div>
                       <div className="space-y-3">
                         {service.features.map((feature, idx) => (
-                          <div key={feature} className="flex justify-between items-center text-sm font-mono group-hover:pl-2 transition-all duration-300" style={{ transitionDelay: `${idx * 50}ms` }}>
-                            <span className="text-white/60">{feature}</span>
+                          <div key={feature} className="flex justify-between items-center text-[11px] font-mono group-hover:pl-2 transition-all duration-300" style={{ transitionDelay: `${idx * 50}ms` }}>
+                            <span className="text-white/60 group-hover:text-blue-400 transition-colors uppercase tracking-wider">{feature}</span>
                             <div className="w-1 h-1 rounded-full bg-blue-400/50" />
                           </div>
                         ))}

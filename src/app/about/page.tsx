@@ -40,35 +40,60 @@ const team = [
 export default function AboutPage() {
   return (
     <>
-      <section className="relative pt-32 pb-20 overflow-hidden min-h-[60vh] flex flex-col justify-center">
-        <div className="absolute top-0 right-[-20%] w-[800px] h-[800px] bg-blue-400/[0.03] rounded-full blur-[150px] pointer-events-none" />
-        
-        {/* Background 3D element */}
-        <div className="absolute inset-y-0 right-0 w-1/2 z-0 opacity-30 mix-blend-screen pointer-events-none hidden lg:block">
-            <DynamicCanvas shadows dpr={[1, 2]}>
-              <DynamicCamera makeDefault position={[0, 0, 5]} fov={50} />
-              <ambientLight intensity={0.5} />
-              <directionalLight position={[5, 10, 5]} intensity={2} color="#0ea5e9" />
-              <DynamicEnv preset="studio" />
-              <DynamicPresentation global rotation={[0, 0, 0]} polar={[-0.2, 0.2]} azimuth={[-0.4, 0.4]}>
-                 <DynamicCoreSphere />
-              </DynamicPresentation>
-            </DynamicCanvas>
-        </div>
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-20 overflow-hidden min-h-[70vh] flex flex-col justify-center cursor-default">
+        {/* Immersive Atmosphere */}
+        <div className="absolute inset-0 bg-obsidian z-0" />
+        <div className="absolute top-0 right-[-10%] w-[1000px] h-[1000px] bg-blue-400/[0.05] rounded-full blur-[150px] pointer-events-none" />
+        <div className="bg-grain opacity-10" />
 
         <div className="max-w-[1550px] mx-auto px-6 relative z-10 w-full">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}>
-            <span className="font-mono text-[10px] tracking-widest uppercase block mb-6 text-blue-400">
-              <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse inline-block mr-2" />
-              Agency Profile
-            </span>
-            <h1 className="text-[4rem] md:text-[6rem] lg:text-[7.5rem] font-heading font-extrabold leading-[0.85] tracking-tighter mb-8 max-w-5xl">
-              BUILDING THE <br/><span className="gradient-text italic">FUTURE OF DIGITAL</span>
-            </h1>
-            <p className="text-lg text-white/50 max-w-2xl font-mono leading-relaxed">
-              We&apos;re a highly specialized strike-team of engineers, designers, and AI architects dedicated to creating transformative digital infrastructure for the modern frontier.
-            </p>
-          </motion.div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }} 
+              animate={{ opacity: 1, x: 0 }} 
+              transition={{ duration: 0.8 }}
+              className="lg:col-span-7"
+            >
+              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full glass-premium border-blue-400/20 mb-8 magnetic-wrap">
+                <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse-glow" />
+                <span className="font-mono text-[10px] uppercase tracking-widest text-blue-400/80">
+                  Mission Protocol // Active
+                </span>
+              </div>
+              <h1 className="text-[4.5rem] md:text-[6.5rem] lg:text-[8rem] font-heading font-extrabold leading-[0.8] tracking-tighter mb-8 text-white">
+                THE JOINT<br />
+                <span className="gradient-text italic">PHILOSOPHY</span>
+              </h1>
+              <p className="text-xl text-white/50 max-w-2xl font-mono leading-relaxed mb-10">
+                We are a high-performance digital laboratory engineering the next generation of enterprise architecture through logic, AI, and immersive design.
+              </p>
+            </motion.div>
+
+            {/* Interactive 3D Sidepiece */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.2 }}
+              className="lg:col-span-5 h-[500px] relative hidden lg:block"
+            >
+              <DynamicCanvas shadows dpr={[1, 2]}>
+                <DynamicCamera makeDefault position={[0, 0, 5]} fov={45} />
+                <ambientLight intensity={0.5} />
+                <directionalLight position={[10, 10, 5]} intensity={2} color="#0ea5e9" />
+                <DynamicEnv preset="city" />
+                <DynamicPresentation 
+                  global 
+                  rotation={[0, 0, 0]} 
+                  polar={[-0.3, 0.3]} 
+                  azimuth={[-0.6, 0.6]}
+                  snap={true}
+                >
+                  <DynamicCoreSphere />
+                </DynamicPresentation>
+              </DynamicCanvas>
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -158,12 +183,15 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {values.map((value, i) => (
               <AnimatedSection key={value.title} delay={i * 0.1}>
-                <div className="glass-panel border-white/10 rounded-[2rem] p-8 h-full group hover:bg-white/5 transition-all duration-500 hover:border-blue-400/30">
-                  <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-blue-400/10 transition-all">
-                    <value.icon className="w-6 h-6 text-white/50 group-hover:text-blue-400 transition-colors" />
+                <div className="glass-premium border-white/10 rounded-[2rem] p-8 h-full group hover-3d transition-all duration-700 hover:border-blue-400/30">
+                  <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 group-hover:bg-blue-400 group-hover:text-black group-hover:shadow-[0_0_30px_rgba(14,165,233,0.5)] transition-all">
+                    <value.icon className="w-6 h-6" />
                   </div>
-                  <h3 className="text-xl font-heading font-bold mb-3 text-white group-hover:text-blue-400 transition-colors">{value.title}</h3>
-                  <p className="text-white/50 text-sm font-mono leading-relaxed">{value.desc}</p>
+                  <h3 className="text-xl font-heading font-bold mb-3 text-white group-hover:text-blue-400 transition-colors uppercase tracking-tighter">{value.title}</h3>
+                  <p className="text-white/40 text-sm font-mono leading-relaxed uppercase tracking-widest text-[11px] opacity-60 group-hover:opacity-100 transition-opacity">{value.desc}</p>
+                  
+                  {/* Hover Accent */}
+                  <div className="absolute -inset-20 bg-blue-400/10 blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                 </div>
               </AnimatedSection>
             ))}

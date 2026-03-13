@@ -24,22 +24,58 @@ export default function ContactPage() {
 
   return (
     <>
-      <section className="relative pt-32 pb-20 overflow-hidden min-h-[50vh] flex flex-col justify-center bg-black border-b border-white/5">
-        <div className="absolute top-0 right-[-10%] w-[800px] h-[800px] bg-blue-400/[0.04] rounded-full blur-[150px] pointer-events-none" />
-        
-        <div className="max-w-[1550px] mx-auto px-6 relative z-10 w-full">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}>
-            <span className="font-mono text-[10px] tracking-widest uppercase block mb-6 text-blue-400">
-              <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse inline-block mr-2" />
-              Secure Channel
-            </span>
-            <h1 className="text-[4rem] md:text-[6rem] lg:text-[7.5rem] font-heading font-extrabold leading-[0.85] tracking-tighter mb-8 max-w-5xl">
-              INITIATE <br/><span className="gradient-text italic">CONNECTION</span>
-            </h1>
-            <p className="text-lg text-white/50 max-w-2xl font-mono leading-relaxed">
-              Open a direct line to our engineering syndicate. Propose architectures, request technical deployments, or inquire about enterprise scaling.
-            </p>
-          </motion.div>
+      <section className="relative pt-32 pb-20 overflow-hidden min-h-[70vh] flex flex-col justify-center cursor-default">
+        {/* Immersive Atmosphere */}
+        <div className="absolute inset-0 bg-obsidian z-0" />
+        <div className="absolute top-0 right-[-10%] w-[1000px] h-[1000px] bg-blue-400/[0.05] rounded-full blur-[150px] pointer-events-none" />
+        <div className="bg-grain opacity-10" />
+
+        <div className="max-w-[1550px] mx-auto px-6 relative z-10 w-full text-center lg:text-left">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }} 
+              animate={{ opacity: 1, x: 0 }} 
+              transition={{ duration: 0.8 }}
+              className="lg:col-span-7"
+            >
+              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full glass-premium border-blue-400/20 mb-8 magnetic-wrap">
+                <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse-glow" />
+                <span className="font-mono text-[10px] uppercase tracking-widest text-blue-400/80">
+                  Secure Channel // Active
+                </span>
+              </div>
+              <h1 className="text-[4.5rem] md:text-[6.5rem] lg:text-[8rem] font-heading font-extrabold leading-[0.8] tracking-tighter mb-8 text-white">
+                INITIATE <br/><span className="gradient-text italic">CONNECTION</span>
+              </h1>
+              <p className="text-xl text-white/50 max-w-2xl font-mono leading-relaxed mb-10">
+                Open a direct line to our engineering syndicate. Propose architectures, request technical deployments, or inquire about enterprise scaling.
+              </p>
+            </motion.div>
+
+            {/* Interactive 3D Sidepiece */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.2 }}
+              className="lg:col-span-5 h-[500px] relative hidden lg:block"
+            >
+              <DynamicCanvas shadows dpr={[1, 2]}>
+                <DynamicCamera makeDefault position={[0, 0, 5]} fov={45} />
+                <ambientLight intensity={0.5} />
+                <directionalLight position={[10, 10, 5]} intensity={2} color="#0ea5e9" />
+                <DynamicEnv preset="city" />
+                <DynamicPresentation 
+                  global 
+                  rotation={[0, 0, 0]} 
+                  polar={[-0.3, 0.3]} 
+                  azimuth={[-0.6, 0.6]}
+                  snap={true}
+                >
+                  <DynamicCoreSphere />
+                </DynamicPresentation>
+              </DynamicCanvas>
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -51,20 +87,20 @@ export default function ContactPage() {
             {/* Contact Info & 3D Interactive Terminal */}
             <div className="lg:col-span-5 space-y-12">
               <AnimatedSection>
-                <h2 className="text-3xl font-heading font-bold mb-8 text-white">Transmission Vectors</h2>
+                <h2 className="text-4xl font-heading font-black mb-12 text-white uppercase tracking-tighter">Transmission <span className="text-blue-400 italic">Vectors</span></h2>
                 <div className="space-y-6">
                   {[
                     { icon: Mail, label: 'Email Protocol', value: 'hello@jointwebsolutions.com', href: 'mailto:hello@jointwebsolutions.com' },
                     { icon: Phone, label: 'Voice Link', value: '+1 (555) 123-4567', href: 'tel:+15551234567' },
-                    { icon: MapPin, label: 'Physical Hub', value: '123 Innovation Drive, Tech District, NY 10001', href: '#' },
+                    { icon: MapPin, label: 'Physical Hub', value: '123 Innovation Drive, NY 10001', href: '#' },
                   ].map((item) => (
-                    <a key={item.label} href={item.href} className="flex items-start gap-6 group hover:bg-white/5 p-4 rounded-2xl transition-all border border-transparent hover:border-white/10 -ml-4">
-                      <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-blue-400/10 transition-colors">
-                        <item.icon className="w-5 h-5 text-white/50 group-hover:text-blue-400 transition-colors" />
+                    <a key={item.label} href={item.href} className="flex items-start gap-6 group glass-premium p-6 rounded-3xl transition-all duration-500 hover-3d border-white/5 hover:border-blue-400/30 magnetic-wrap">
+                      <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-blue-400 group-hover:text-black group-hover:shadow-[0_0_30px_rgba(14,165,233,0.5)] transition-all duration-500">
+                        <item.icon className="w-6 h-6" />
                       </div>
                       <div>
-                        <div className="text-[10px] font-mono uppercase tracking-widest text-white/40 mb-1">{item.label}</div>
-                        <div className="text-white font-medium group-hover:text-blue-400 transition-colors">{item.value}</div>
+                        <div className="text-[10px] font-mono uppercase tracking-widest text-white/40 mb-2 group-hover:text-blue-400 transition-colors">{item.label}</div>
+                        <div className="text-white font-black font-heading uppercase tracking-tight group-hover:text-white transition-colors">{item.value}</div>
                       </div>
                     </a>
                   ))}
@@ -72,11 +108,11 @@ export default function ContactPage() {
               </AnimatedSection>
               
               {/* 3D Decor Element */}
-              <AnimatedSection delay={0.2} className="hidden lg:block relative h-[350px] rounded-[2.5rem] glass-panel border-white/10 overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-t from-white/5 to-transparent pointer-events-none z-10" />
-                <div className="absolute top-6 left-6 z-20 flex items-center gap-2">
-                  <Terminal className="w-4 h-4 text-blue-400" />
-                  <span className="text-xs font-mono text-white/50 uppercase tracking-widest">Awaiting Input Signal</span>
+              <AnimatedSection delay={0.2} className="hidden lg:block relative h-[350px] rounded-[3rem] glass-premium border-white/10 overflow-hidden group hover-3d transition-all duration-700">
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-400/5 to-transparent pointer-events-none z-10" />
+                <div className="absolute top-8 left-8 z-20 flex items-center gap-3">
+                  <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse-glow" />
+                  <span className="text-[10px] font-mono text-white/50 uppercase tracking-[0.3em]">Awaiting Signal Input</span>
                 </div>
                 
                 <div className="absolute inset-0 z-0 opacity-60 mix-blend-screen pointer-events-auto">
@@ -85,7 +121,13 @@ export default function ContactPage() {
                       <ambientLight intensity={0.5} />
                       <directionalLight position={[2, 5, 2]} intensity={2} color="#0ea5e9" />
                       <DynamicEnv preset="studio" />
-                      <DynamicPresentation global rotation={[0, 0, 0]} polar={[-0.2, 0.2]} azimuth={[-0.5, 0.5]}>
+                      <DynamicPresentation 
+                        global 
+                        rotation={[0, 0, 0]} 
+                        polar={[-0.2, 0.2]} 
+                        azimuth={[-0.5, 0.5]}
+                        snap={true}
+                      >
                         <DynamicCoreSphere />
                       </DynamicPresentation>
                     </DynamicCanvas>
@@ -96,16 +138,16 @@ export default function ContactPage() {
             {/* Contact Form */}
             <div className="lg:col-span-7 lg:col-start-6">
               <AnimatedSection delay={0.2} direction="right">
-                <div className="glass-panel border-blue-400/20 rounded-[3rem] p-8 md:p-12 relative overflow-hidden group">
+                <div className="glass-premium border-blue-400/20 rounded-[3.5rem] p-8 md:p-12 relative overflow-hidden group hover-3d transition-all duration-1000">
                   <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.2)_50%)] bg-[length:100%_4px] opacity-20 pointer-events-none" />
                   
-                  <div className="flex items-center gap-3 mb-10 pb-6 border-b border-white/10 relative z-10">
-                    <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-                      <MessageSquare className="w-5 h-5 text-blue-400" />
+                  <div className="flex items-center gap-4 mb-12 pb-8 border-b border-white/10 relative z-10">
+                    <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-blue-400 group-hover:text-black group-hover:shadow-[0_0_30px_rgba(14,165,233,0.5)] transition-all">
+                      <MessageSquare className="w-6 h-6" />
                     </div>
                     <div>
-                      <h2 className="text-2xl font-heading font-bold text-white">Project Scope Form</h2>
-                      <p className="text-xs font-mono text-white/50">Submit your parameters. We reply within 2 hours.</p>
+                      <h2 className="text-3xl font-heading font-black text-white uppercase tracking-tighter">Project <span className="text-blue-400 italic">Scope</span></h2>
+                      <p className="text-[10px] font-mono text-white/50 uppercase tracking-widest">Submit Parameters // 2hr Response Time</p>
                     </div>
                   </div>
 

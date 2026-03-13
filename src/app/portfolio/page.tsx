@@ -34,35 +34,59 @@ export default function PortfolioPage() {
 
   return (
     <>
-      <section className="relative pt-32 pb-20 overflow-hidden min-h-[50vh] flex flex-col justify-center border-b border-white/5 bg-black">
-        <div className="absolute top-0 right-[-20%] w-[800px] h-[800px] bg-blue-400/[0.03] rounded-full blur-[150px] pointer-events-none" />
-        
-        {/* Background 3D element */}
-        <div className="absolute inset-y-0 right-10 w-1/3 z-0 opacity-20 mix-blend-screen pointer-events-none hidden lg:block">
-            <DynamicCanvas shadows dpr={[1, 2]}>
-              <DynamicCamera makeDefault position={[0, 0, 8]} fov={50} />
-              <ambientLight intensity={0.2} />
-              <directionalLight position={[5, 10, 5]} intensity={2} color="#ccff00" />
-              <DynamicEnv preset="studio" />
-              <DynamicPresentation global rotation={[0, 0, 0]} polar={[-0.2, 0.2]} azimuth={[-0.4, 0.4]}>
-                 <DynamicCyberTorus />
-              </DynamicPresentation>
-            </DynamicCanvas>
-        </div>
+      <section className="relative pt-32 pb-20 overflow-hidden min-h-[70vh] flex flex-col justify-center cursor-default">
+        {/* Immersive Atmosphere */}
+        <div className="absolute inset-0 bg-obsidian z-0" />
+        <div className="absolute top-0 right-[-10%] w-[1000px] h-[1000px] bg-blue-400/[0.05] rounded-full blur-[150px] pointer-events-none" />
+        <div className="bg-grain opacity-10" />
 
-        <div className="max-w-[1550px] mx-auto px-6 relative z-10 w-full">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}>
-            <span className="font-mono text-[10px] tracking-widest uppercase block mb-6 text-blue-400">
-              <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse inline-block mr-2" />
-              Project Archive
-            </span>
-            <h1 className="text-[4rem] md:text-[6rem] lg:text-[7.5rem] font-heading font-extrabold leading-[0.85] tracking-tighter mb-8 max-w-5xl">
-              DIGITAL <br/><span className="gradient-text italic">FUTURES</span>
-            </h1>
-            <p className="text-lg text-white/50 max-w-2xl font-mono leading-relaxed">
-              Explore our repository of deployed architectures across high-performance web, scaleable mobile, and autonomous AI systems.
-            </p>
-          </motion.div>
+        <div className="max-w-[1550px] mx-auto px-6 relative z-10 w-full text-center lg:text-left">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }} 
+              animate={{ opacity: 1, x: 0 }} 
+              transition={{ duration: 0.8 }}
+              className="lg:col-span-7"
+            >
+              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full glass-premium border-blue-400/20 mb-8 magnetic-wrap">
+                <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse-glow" />
+                <span className="font-mono text-[10px] uppercase tracking-widest text-blue-400/80">
+                  Project Archive // Active
+                </span>
+              </div>
+              <h1 className="text-[4.5rem] md:text-[6.5rem] lg:text-[8rem] font-heading font-extrabold leading-[0.8] tracking-tighter mb-8 text-white">
+                DIGITAL<br />
+                <span className="gradient-text italic">FUTURES</span>
+              </h1>
+              <p className="text-xl text-white/50 max-w-2xl font-mono leading-relaxed mb-10">
+                Explore our repository of mission-critical architectures across high-performance web, scaleable mobile, and autonomous AI systems.
+              </p>
+            </motion.div>
+
+            {/* Interactive 3D Sidepiece */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.2 }}
+              className="lg:col-span-5 h-[500px] relative hidden lg:block"
+            >
+              <DynamicCanvas shadows dpr={[1, 2]}>
+                <DynamicCamera makeDefault position={[0, 0, 5]} fov={45} />
+                <ambientLight intensity={0.5} />
+                <directionalLight position={[10, 10, 5]} intensity={2} color="#0ea5e9" />
+                <DynamicEnv preset="city" />
+                <DynamicPresentation 
+                  global 
+                  rotation={[0, 0, 0]} 
+                  polar={[-0.3, 0.3]} 
+                  azimuth={[-0.6, 0.6]}
+                  snap={true}
+                >
+                  <DynamicCyberTorus />
+                </DynamicPresentation>
+              </DynamicCanvas>
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -100,42 +124,39 @@ export default function PortfolioPage() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.4 }}
-                  className={`${project.size || 'col-span-1'} h-full`}
+                  className={`${project.size || 'col-span-1'} h-full perspective-1200`}
                 >
-                  <div className="group glass-panel border-white/5 rounded-[2.5rem] overflow-hidden cursor-pointer h-full relative flex flex-col justify-end hover:border-blue-400/30 transition-colors duration-500">
+                  <div className="group glass-premium border-white/5 rounded-[2.5rem] overflow-hidden cursor-pointer h-full relative flex flex-col justify-end hover-3d transition-all duration-700">
                     
+                    {/* Hover Glow Light */}
+                    <div className="absolute -inset-20 bg-blue-400/10 blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0" />
+
                     {/* Dark gradient overlay */}
-                    <div className={`absolute inset-0 ${
-                      i % 3 === 0 ? 'bg-gradient-to-t from-blue-400/10 via-black/80 to-black/20' : 'bg-gradient-to-t from-white/10 via-black/80 to-black/20'
-                    } group-hover:scale-105 transition-transform duration-700 pointer-events-none`} />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 pointer-events-none" />
 
-                    {/* Scanline texture */}
-                    <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.2)_50%)] bg-[length:100%_4px] opacity-20 pointer-events-none" />
-
-                    <div className="relative z-10 p-8 h-full flex flex-col justify-end">
-                      
-                      {/* Tags */}
-                      <div className="flex flex-wrap gap-2 mb-6">
-                        {project.tags.map((tag) => (
-                          <span key={tag} className="px-3 py-1.5 rounded-md bg-black/60 border border-white/10 text-[10px] font-mono text-white/70 uppercase tracking-widest backdrop-blur-md">
-                            {tag}
-                          </span>
-                        ))}
+                    <div className="relative z-20 p-8 h-full flex flex-col justify-end">
+                      <div className="flex justify-between items-start mb-6 w-full">
+                        <div className="flex flex-wrap gap-2">
+                          {project.tags.map((tag) => (
+                            <span key={tag} className="px-3 py-1 rounded-md bg-white/5 border border-white/10 text-[9px] font-mono text-white/50 uppercase tracking-widest backdrop-blur-md">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                        <div className="magnetic-wrap w-10 h-10 rounded-full border border-white/10 flex items-center justify-center bg-white/5 text-white/40 group-hover:bg-blue-400 group-hover:text-black group-hover:border-blue-400 transition-all duration-500 scale-0 group-hover:scale-100">
+                          <ArrowUpRight className="w-5 h-5" />
+                        </div>
                       </div>
                       
-                      <h3 className={`font-heading font-bold mb-3 text-white group-hover:text-blue-400 transition-colors ${
+                      <h3 className={`font-heading font-black mb-3 text-white group-hover:text-blue-400 transition-colors uppercase tracking-tighter ${
                         project.size?.includes('row-span-2') ? 'text-4xl' : 'text-2xl'
                       }`}>
                         {project.title}
                       </h3>
                       
-                      <p className="text-white/50 text-sm font-mono leading-relaxed max-w-lg line-clamp-3">
+                      <p className="text-white/40 text-xs font-mono leading-relaxed max-w-lg line-clamp-3 uppercase tracking-wider">
                         {project.desc}
                       </p>
-                      
-                      <div className="mt-8 flex items-center gap-2 text-blue-400 text-sm font-bold opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                        ACCESS ARCHIVE <ArrowUpRight className="w-4 h-4" />
-                      </div>
                     </div>
                   </div>
                 </motion.div>
