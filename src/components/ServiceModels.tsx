@@ -1,58 +1,75 @@
-'use client';
-
-import { useRef } from 'react';
+import { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Float, MeshDistortMaterial, MeshWobbleMaterial, Sphere, TorusKnot } from '@react-three/drei';
+import { Float, MeshDistortMaterial, MeshWobbleMaterial, Sphere, Box, MeshTransmissionMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
 export function CoreSphere() {
-  const outerRef = useRef<THREE.Mesh>(null);
+  const outerRef = useRef<THREE.Group>(null);
   const innerRef = useRef<THREE.Mesh>(null);
   
+  // Generate random points for neural nodes
+  const nodes = useMemo(() => {
+    const pts = [];
+    for (let i = 0; i < 40; i++) {
+      pts.push(new THREE.Vector3(
+        (Math.random() - 0.5) * 3,
+        (Math.random() - 0.5) * 3,
+        (Math.random() - 0.5) * 3
+      ));
+    }
+    return pts;
+  }, []);
+
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
     if (outerRef.current) {
-      outerRef.current.rotation.x = t * 0.1;
-      outerRef.current.rotation.y = t * 0.15;
+      outerRef.current.rotation.y = t * 0.1;
+      outerRef.current.rotation.z = t * 0.05;
     }
     if (innerRef.current) {
-      innerRef.current.rotation.x = -t * 0.2;
-      innerRef.current.rotation.y = -t * 0.25;
+      innerRef.current.rotation.y = -t * 0.2;
+      innerRef.current.scale.setScalar(0.8 + Math.sin(t * 2) * 0.05);
     }
   });
 
   return (
-    <Float speed={2} rotationIntensity={1} floatIntensity={1.5}>
+    <Float speed={1.5} rotationIntensity={0.5} floatIntensity={1}>
       <group>
-        {/* Outer Wireframe Sphere */}
-        <Sphere ref={outerRef} args={[1.5, 32, 32]}>
-          <meshPhongMaterial 
-            color="#0ea5e9" 
-            wireframe 
-            transparent 
-            opacity={0.15} 
-            emissive="#0ea5e9"
-            emissiveIntensity={0.5}
-          />
-        </Sphere>
+        {/* Neural Network Nodes */}
+        <group ref={outerRef}>
+          {nodes.map((pos, i) => (
+            <mesh key={i} position={pos}>
+              <sphereGeometry args={[0.03, 8, 8]} />
+              <meshBasicMaterial color="#0ea5e9" transparent opacity={0.6} />
+            </mesh>
+          ))}
+          {/* Connecting Lines (Simulated by an Octahedron wireframe for tech feel) */}
+          <mesh scale={2}>
+            <octahedronGeometry args={[1, 2]} />
+            <meshBasicMaterial color="#0ea5e9" wireframe transparent opacity={0.1} />
+          </mesh>
+        </group>
         
-        {/* Inner Distorted Core */}
-        <mesh ref={innerRef} scale={0.8}>
+        {/* Core AI Intelligence */}
+        <mesh ref={innerRef}>
           <sphereGeometry args={[1, 64, 64]} />
           <MeshDistortMaterial
             color="#0ea5e9"
             envMapIntensity={2}
             clearcoat={1}
-            clearcoatRoughness={0.1}
             metalness={0.9}
             roughness={0.1}
-            distort={0.5}
-            speed={2}
+            distort={0.4}
+            speed={4}
           />
         </mesh>
 
-        {/* Central Point Light */}
-        <pointLight intensity={2} distance={5} color="#0ea5e9" />
+        {/* Dynamic Light Pulses */}
+        <pointLight intensity={10} distance={10} color="#0ea5e9">
+          <Sphere args={[0.05, 16, 16]}>
+            <meshBasicMaterial color="#0ea5e9" />
+          </Sphere>
+        </pointLight>
       </group>
     </Float>
   );
@@ -64,25 +81,39 @@ export function CyberTorus() {
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
     if (meshRef.current) {
-      meshRef.current.rotation.x = t * 0.4;
       meshRef.current.rotation.y = t * 0.3;
+      meshRef.current.rotation.z = t * 0.2;
     }
   });
 
   return (
-    <Float speed={3} rotationIntensity={0.5} floatIntensity={1}>
-      <mesh ref={meshRef} scale={1.2}>
-        <torusKnotGeometry args={[0.8, 0.25, 256, 64]} />
-        <MeshWobbleMaterial
-          color="#1e293b" // Deep Obsidian Blue
-          factor={0.4}
-          speed={1.5}
-          roughness={0}
-          metalness={1}
-          emissive="#3b82f6"
-          emissiveIntensity={0.2}
-        />
-      </mesh>
+    <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
+      <group>
+        <mesh ref={meshRef}>
+          <boxGeometry args={[1.5, 1.5, 1.5]} />
+          <MeshTransmissionMaterial
+            backside
+            samples={16}
+            thickness={2}
+            chromaticAberration={0.05}
+            anisotropy={0.1}
+            distortion={0.1}
+            distortionScale={0.3}
+            temporalDistortion={0.5}
+            color="#0ea5e9"
+          />
+        </mesh>
+        
+        {/* Internal Structure */}
+        <Box args={[0.5, 0.5, 0.5]}>
+          <meshBasicMaterial color="#0ea5e9" wireframe />
+        </Box>
+        
+        <mesh scale={1.1}>
+          <boxGeometry args={[1.5, 1.5, 1.5]} />
+          <meshBasicMaterial color="#0ea5e9" wireframe transparent opacity={0.1} />
+        </mesh>
+      </group>
     </Float>
   );
 }

@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import AnimatedSection from '@/components/AnimatedSection';
 import { CoreSphere, CyberTorus } from '@/components/ServiceModels';
+import HeroEnvironment from '@/components/HeroEnvironment';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -29,9 +30,29 @@ const services = [
 
 export default function HomePage() {
   const heroRef = useRef<HTMLElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const subheadlineRef = useRef<HTMLParagraphElement>(null);
+  
   const { scrollYProgress } = useScroll();
   const heroOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 0.15], [1, 0.95]);
+
+  useEffect(() => {
+    if (headlineRef.current && subheadlineRef.current) {
+      const tl = gsap.timeline();
+      
+      tl.fromTo(headlineRef.current, 
+        { y: 100, opacity: 0, clipPath: 'inset(0% 0% 100% 0%)' },
+        { y: 0, opacity: 1, clipPath: 'inset(0% 0% 0% 0%)', duration: 1.5, ease: 'power4.out', delay: 0.5 }
+      );
+      
+      tl.fromTo(subheadlineRef.current,
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: 'power3.out' },
+        "-=0.8"
+      );
+    }
+  }, []);
 
   return (
     <>
@@ -41,19 +62,22 @@ export default function HomePage() {
         style={{ opacity: heroOpacity, scale: heroScale }}
         className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-20 cursor-default"
       >
-        {/* Deep Atmosphere */}
+        {/* Immersive Atmosphere & Hero Environment */}
         <div className="absolute inset-0 bg-obsidian z-0" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(14,165,233,0.08)_0%,transparent_70%)] pointer-events-none" />
-        <div className="bg-grain opacity-10" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(14,165,233,0.1)_0%,transparent_80%)] pointer-events-none" />
+        <div className="bg-grain opacity-[0.05]" />
 
-        {/* 3D Centerpiece Background */}
-        <div className="absolute inset-0 z-10">
+        {/* High-Tech 3D Canvas */}
+        <div className="absolute inset-0 z-10 pointer-events-none">
           <Canvas shadows dpr={[1, 2]}>
-            <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={50} />
-            <ambientLight intensity={0.4} />
-            <directionalLight position={[10, 10, 5]} intensity={1.5} color="#0ea5e9" />
-            <pointLight position={[-10, -10, -10]} intensity={1} color="#ffffff" />
+            <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={45} />
+            <ambientLight intensity={0.5} />
+            <pointLight position={[10, 10, 10]} intensity={2} color="#0ea5e9" />
+            <spotLight position={[-10, 10, 10]} angle={0.15} penumbra={1} intensity={2} color="#ffffff" castShadow />
+            
             <Environment preset="city" />
+            <HeroEnvironment />
+            
             <PresentationControls 
               global 
               rotation={[0, 0, 0]} 
@@ -61,7 +85,9 @@ export default function HomePage() {
               azimuth={[-0.4, 0.4]}
               snap={true}
             >
-              <CoreSphere />
+              <group scale={1.2}>
+                <CoreSphere />
+              </group>
             </PresentationControls>
           </Canvas>
         </div>
@@ -73,27 +99,34 @@ export default function HomePage() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="space-y-12"
           >
-            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full glass-premium border-blue-400/20 mb-4 magnetic-wrap">
+            <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full glass-premium border-blue-400/20 mb-6 magnetic-wrap hover:border-blue-400/40 transition-colors">
               <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse-glow" />
-              <span className="font-mono text-[10px] uppercase tracking-widest text-blue-400/80">
-                Nexus Core v3.0 // Active
+              <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-shimmer">
+                Neural Hub // Protocol 8.42
               </span>
             </div>
 
-            <h1 className="text-[5rem] md:text-[8rem] lg:text-[10rem] font-heading font-extrabold leading-[0.8] tracking-tighter mb-8 max-w-6xl mx-auto">
-              WE ENGINEER<br />
-              <span className="gradient-text italic">PREMIUM</span> VOIDS.
-            </h1>
+            <div className="relative overflow-visible">
+              <h1 
+                ref={headlineRef}
+                className="text-[4rem] md:text-[7rem] lg:text-[9.5rem] font-heading font-black leading-[0.8] tracking-tighter mb-10 max-w-7xl mx-auto uppercase"
+              >
+                ARCHITECTING<br />
+                <span className="gradient-text italic opacity-90">DIGITAL</span> FRONTIERS.
+              </h1>
+            </div>
 
-            <p className="text-xl md:text-2xl text-white/40 max-w-2xl mx-auto font-mono font-light leading-relaxed mb-12">
-              Bespoke digital architecture for high-stakes enterprises. 
-              <br/>Where logic meets immersive design.
+            <p 
+              ref={subheadlineRef}
+              className="text-lg md:text-xl text-white/50 max-w-2xl mx-auto font-mono font-light leading-relaxed mb-16 tracking-wide"
+            >
+              Engineering mission-critical digital infrastructure for the next generation of autonomous AI and high-performance enterprises.
             </p>
             
             <div className="flex flex-col md:flex-row items-center justify-center gap-8 pt-6">
               <div className="magnetic-wrap">
-                <Link href="/contact" className="btn-primary">
-                  Deploy System <ArrowUpRight className="ml-2 w-5 h-5" />
+                <Link href="/contact" className="btn-primary px-10 py-5">
+                  INITIALIZE PROJECT <ArrowUpRight className="ml-2 w-5 h-5" />
                 </Link>
               </div>
               <div className="magnetic-wrap">
