@@ -86,7 +86,7 @@ export default function HomePage() {
       <motion.section
         ref={heroRef}
         style={{ opacity: heroOpacity, scale: heroScale }}
-        className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-20 cursor-default"
+        className="relative min-h-screen flex items-center overflow-hidden cursor-default"
       >
         {/* Background layers */}
         <div className="absolute inset-0 bg-obsidian z-0" />
@@ -99,19 +99,38 @@ export default function HomePage() {
           fill="#0ea5e9"
         />
 
-        <div className="relative z-20 max-w-[1550px] mx-auto px-6 w-full">
-          <div className="flex flex-col lg:flex-row items-center min-h-[80vh] gap-8 lg:gap-4">
+        {/* Spline 3D Robot — ABSOLUTE on mobile (background), flex item on desktop */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute right-0 top-0 w-full h-full lg:relative lg:flex-1 lg:h-auto z-[5] lg:z-10"
+        >
+          {/* Glow behind robot */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_60%_50%,rgba(14,165,233,0.12)_0%,transparent_60%)] pointer-events-none" />
+          
+          {/* Mobile: offset robot to right side, Desktop: full container */}
+          <div className="absolute right-[-15%] top-[5%] w-[90%] h-[90%] lg:relative lg:right-auto lg:top-auto lg:w-full lg:h-[700px]">
+            <SplineScene 
+              scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+              className="w-full h-full"
+            />
+          </div>
+        </motion.div>
+
+        {/* Text Content — overlays on top of robot on mobile */}
+        <div className="relative z-20 max-w-[1550px] mx-auto px-4 sm:px-6 w-full">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center min-h-screen lg:min-h-[80vh] py-24 lg:py-0">
             
-            {/* Left Content */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="flex-1 space-y-8 text-center lg:text-left z-10"
+              className="flex-1 space-y-6 lg:space-y-8 z-10"
             >
-              <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full glass-premium border-blue-400/20 magnetic-wrap hover:border-blue-400/40 transition-colors">
+              <div className="inline-flex items-center gap-3 px-4 sm:px-6 py-2 rounded-full glass-premium border-blue-400/20 magnetic-wrap hover:border-blue-400/40 transition-colors">
                 <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse-glow" />
-                <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-shimmer">
+                <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.3em] sm:tracking-[0.4em] text-shimmer">
                   Neural Hub // Protocol 8.42
                 </span>
               </div>
@@ -119,7 +138,7 @@ export default function HomePage() {
               <div className="relative overflow-visible">
                 <h1 
                   ref={headlineRef}
-                  className="text-[3.5rem] md:text-[5.5rem] lg:text-[7rem] xl:text-[8.5rem] font-heading font-black leading-[0.8] tracking-tighter max-w-4xl uppercase"
+                  className="text-[2.8rem] sm:text-[3.5rem] md:text-[5.5rem] lg:text-[7rem] xl:text-[8.5rem] font-heading font-black leading-[0.8] tracking-tighter max-w-4xl uppercase"
                 >
                   ARCHITECTING<br />
                   <span className="gradient-text italic opacity-90">DIGITAL</span><br className="hidden lg:block" /> FRONTIERS.
@@ -128,63 +147,47 @@ export default function HomePage() {
 
               <p 
                 ref={subheadlineRef}
-                className="text-base md:text-lg text-white/50 max-w-lg mx-auto lg:mx-0 font-mono font-light leading-relaxed tracking-wide"
+                className="text-sm sm:text-base md:text-lg text-white/60 max-w-md lg:max-w-lg font-mono font-light leading-relaxed tracking-wide"
               >
                 Engineering mission-critical digital infrastructure for the next generation of autonomous AI and high-performance enterprises.
               </p>
               
-              <div className="flex flex-col sm:flex-row items-center lg:items-start gap-6 pt-4">
+              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 pt-2 lg:pt-4">
                 <div className="magnetic-wrap">
-                  <Link href="/contact" className="btn-primary px-10 py-5">
-                    INITIALIZE PROJECT <ArrowUpRight className="ml-2 w-5 h-5" />
+                  <Link href="/contact" className="btn-primary px-8 sm:px-10 py-4 sm:py-5 text-sm sm:text-base">
+                    INITIALIZE PROJECT <ArrowUpRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
                   </Link>
                 </div>
-                <div className="magnetic-wrap">
-                  <Link href="/portfolio" className="text-blue-400/60 hover:text-blue-400 font-mono text-sm uppercase tracking-widest underline underline-offset-8 transition-all">
+                <div className="magnetic-wrap flex items-center h-[48px] sm:h-[56px]">
+                  <Link href="/portfolio" className="text-blue-400/60 hover:text-blue-400 font-mono text-xs sm:text-sm uppercase tracking-widest underline underline-offset-8 transition-all">
                     Access Archive
                   </Link>
                 </div>
               </div>
 
               {/* Mini stats */}
-              <div className="flex items-center gap-8 pt-6 justify-center lg:justify-start">
+              <div className="flex items-center gap-6 sm:gap-8 pt-4 lg:pt-6">
                 {[
                   { val: '150+', label: 'Projects' },
                   { val: '99.9%', label: 'Uptime' },
                   { val: '<400ms', label: 'Load Time' },
                 ].map((s) => (
-                  <div key={s.label} className="text-center lg:text-left">
-                    <div className="text-lg font-heading font-bold text-white">{s.val}</div>
-                    <div className="text-[9px] font-mono text-white/30 uppercase tracking-widest">{s.label}</div>
+                  <div key={s.label}>
+                    <div className="text-base sm:text-lg font-heading font-bold text-white">{s.val}</div>
+                    <div className="text-[8px] sm:text-[9px] font-mono text-white/30 uppercase tracking-widest">{s.label}</div>
                   </div>
                 ))}
               </div>
             </motion.div>
-
-            {/* Right Content — Spline 3D Robot */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="flex-1 relative w-full h-[400px] sm:h-[500px] lg:h-[700px] z-10"
-            >
-              {/* Glow behind robot */}
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(14,165,233,0.12)_0%,transparent_60%)] pointer-events-none" />
-              
-              <SplineScene 
-                scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-                className="w-full h-full"
-              />
-            </motion.div>
           </div>
         </div>
 
-        {/* Scroll Indicator */}
+        {/* Scroll Indicator — hidden on mobile */}
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-20"
+          className="absolute bottom-8 lg:bottom-12 left-1/2 -translate-x-1/2 flex-col items-center gap-4 z-20 hidden lg:flex"
         >
           <div className="w-px h-16 bg-gradient-to-b from-blue-400/50 to-transparent" />
           <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/20 rotate-90 origin-left ml-2">Scroll</span>
