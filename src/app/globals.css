@@ -261,3 +261,17 @@ body {
 .parallax-item {
   will-change: transform;
 }
+
+/* ── Spline Loader ── */
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(14, 165, 233, 0.15);
+  border-top-color: #0ea5e9;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

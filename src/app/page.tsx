@@ -5,15 +5,17 @@ import Link from 'next/link';
 import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { View, PerspectiveCamera, PresentationControls, Environment } from '@react-three/drei';
+
 import {
   ArrowRight, Globe, Smartphone, Phone, MessageSquare, Cog, TrendingUp,
   ArrowUpRight, Bot, Workflow, Users, Target, Star, Shield, Zap, Server,
   Code2, Layers, Database, Cpu, Lock, BarChart3
 } from 'lucide-react';
 import AnimatedSection from '@/components/AnimatedSection';
-import { CoreSphere, CyberTorus } from '@/components/ServiceModels';
-import HeroEnvironment from '@/components/HeroEnvironment';
+
+import { SplineScene } from '@/components/ui/splite';
+import { Spotlight } from '@/components/ui/spotlight';
+
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -80,75 +82,104 @@ export default function HomePage() {
         />
       </div>
 
-      {/* ═══════════ CINEMATIC HERO ═══════════ */}
+      {/* ═══════════ CINEMATIC HERO WITH 3D ROBOT ═══════════ */}
       <motion.section
         ref={heroRef}
         style={{ opacity: heroOpacity, scale: heroScale }}
-        className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-20 cursor-default"
+        className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-20 cursor-default"
       >
+        {/* Background layers */}
         <div className="absolute inset-0 bg-obsidian z-0" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(14,165,233,0.1)_0%,transparent_80%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(14,165,233,0.08)_0%,transparent_70%)] pointer-events-none" />
         <div className="bg-grain opacity-[0.05]" />
 
-        <div className="absolute inset-0 z-10 pointer-events-none">
-          <View className="w-full h-full">
-            <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={45} />
-            <ambientLight intensity={0.5} />
-            <pointLight position={[10, 10, 10]} intensity={2} color="#0ea5e9" />
-            <Environment preset="city" />
-            <HeroEnvironment />
-            <PresentationControls global rotation={[0, 0, 0]} polar={[-0.2, 0.2]} azimuth={[-0.4, 0.4]} snap={true}>
-              <group scale={1.2}><CoreSphere /></group>
-            </PresentationControls>
-          </View>
-        </div>
+        {/* Spotlight Effect */}
+        <Spotlight
+          className="-top-40 left-0 md:left-60 md:-top-20"
+          fill="#0ea5e9"
+        />
 
-        <div className="relative z-20 max-w-[1550px] mx-auto px-6 w-full text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="space-y-12"
-          >
-            <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full glass-premium border-blue-400/20 mb-6 magnetic-wrap hover:border-blue-400/40 transition-colors">
-              <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse-glow" />
-              <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-shimmer">
-                Neural Hub // Protocol 8.42
-              </span>
-            </div>
-
-            <div className="relative overflow-visible">
-              <h1 
-                ref={headlineRef}
-                className="text-[4rem] md:text-[7rem] lg:text-[9.5rem] font-heading font-black leading-[0.8] tracking-tighter mb-10 max-w-7xl mx-auto uppercase"
-              >
-                ARCHITECTING<br />
-                <span className="gradient-text italic opacity-90">DIGITAL</span> FRONTIERS.
-              </h1>
-            </div>
-
-            <p 
-              ref={subheadlineRef}
-              className="text-lg md:text-xl text-white/50 max-w-2xl mx-auto font-mono font-light leading-relaxed mb-16 tracking-wide"
-            >
-              Engineering mission-critical digital infrastructure for the next generation of autonomous AI and high-performance enterprises.
-            </p>
+        <div className="relative z-20 max-w-[1550px] mx-auto px-6 w-full">
+          <div className="flex flex-col lg:flex-row items-center min-h-[80vh] gap-8 lg:gap-4">
             
-            <div className="flex flex-col md:flex-row items-center justify-center gap-8 pt-6">
-              <div className="magnetic-wrap">
-                <Link href="/contact" className="btn-primary px-10 py-5">
-                  INITIALIZE PROJECT <ArrowUpRight className="ml-2 w-5 h-5" />
-                </Link>
+            {/* Left Content */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              className="flex-1 space-y-8 text-center lg:text-left z-10"
+            >
+              <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full glass-premium border-blue-400/20 magnetic-wrap hover:border-blue-400/40 transition-colors">
+                <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse-glow" />
+                <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-shimmer">
+                  Neural Hub // Protocol 8.42
+                </span>
               </div>
-              <div className="magnetic-wrap">
-                <Link href="/portfolio" className="text-blue-400/60 hover:text-blue-400 font-mono text-sm uppercase tracking-widest underline underline-offset-8 transition-all">
-                  Access Archive
-                </Link>
+
+              <div className="relative overflow-visible">
+                <h1 
+                  ref={headlineRef}
+                  className="text-[3.5rem] md:text-[5.5rem] lg:text-[7rem] xl:text-[8.5rem] font-heading font-black leading-[0.8] tracking-tighter max-w-4xl uppercase"
+                >
+                  ARCHITECTING<br />
+                  <span className="gradient-text italic opacity-90">DIGITAL</span><br className="hidden lg:block" /> FRONTIERS.
+                </h1>
               </div>
-            </div>
-          </motion.div>
+
+              <p 
+                ref={subheadlineRef}
+                className="text-base md:text-lg text-white/50 max-w-lg mx-auto lg:mx-0 font-mono font-light leading-relaxed tracking-wide"
+              >
+                Engineering mission-critical digital infrastructure for the next generation of autonomous AI and high-performance enterprises.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row items-center lg:items-start gap-6 pt-4">
+                <div className="magnetic-wrap">
+                  <Link href="/contact" className="btn-primary px-10 py-5">
+                    INITIALIZE PROJECT <ArrowUpRight className="ml-2 w-5 h-5" />
+                  </Link>
+                </div>
+                <div className="magnetic-wrap">
+                  <Link href="/portfolio" className="text-blue-400/60 hover:text-blue-400 font-mono text-sm uppercase tracking-widest underline underline-offset-8 transition-all">
+                    Access Archive
+                  </Link>
+                </div>
+              </div>
+
+              {/* Mini stats */}
+              <div className="flex items-center gap-8 pt-6 justify-center lg:justify-start">
+                {[
+                  { val: '150+', label: 'Projects' },
+                  { val: '99.9%', label: 'Uptime' },
+                  { val: '<400ms', label: 'Load Time' },
+                ].map((s) => (
+                  <div key={s.label} className="text-center lg:text-left">
+                    <div className="text-lg font-heading font-bold text-white">{s.val}</div>
+                    <div className="text-[9px] font-mono text-white/30 uppercase tracking-widest">{s.label}</div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Right Content — Spline 3D Robot */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="flex-1 relative w-full h-[400px] sm:h-[500px] lg:h-[700px] z-10"
+            >
+              {/* Glow behind robot */}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(14,165,233,0.12)_0%,transparent_60%)] pointer-events-none" />
+              
+              <SplineScene 
+                scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+                className="w-full h-full"
+              />
+            </motion.div>
+          </div>
         </div>
 
+        {/* Scroll Indicator */}
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
