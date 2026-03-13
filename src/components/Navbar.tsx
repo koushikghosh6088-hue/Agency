@@ -34,31 +34,32 @@ export default function Navbar() {
     >
       <div className="max-w-[1550px] mx-auto flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-12 h-12 bg-lime-400 rounded-xl flex items-center justify-center shadow-lg shadow-lime-400/20 transition-all duration-300 group-hover:scale-105">
-            <span className="text-black font-heading font-bold text-2xl tracking-tighter">J</span>
+        <Link href="/" className="flex items-center gap-2 group">
+          <div className="px-3 py-1 bg-lime-400 border border-lime-400 flex items-center justify-center transition-all duration-300 group-hover:bg-white group-hover:border-white">
+            <span className="text-black font-mono font-black text-xl tracking-tighter">JSYS</span>
           </div>
+          <div className="hidden md:block h-px w-8 bg-white/20" />
         </Link>
 
-        {/* Desktop Navigation (Pill shape) */}
-        <div className="hidden lg:flex items-center gap-1 bg-white/[0.05] backdrop-blur-[16px] border border-white/10 rounded-full px-4 py-2 shadow-2xl">
+        {/* Desktop Navigation */}
+        <div className="hidden lg:flex items-center gap-1 bg-black/60 backdrop-blur-xl border border-white/10 px-2 py-1">
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 relative z-10 ${
+                className={`px-6 py-2 text-[10px] font-mono uppercase tracking-[0.2em] transition-all duration-300 relative z-10 ${
                   isActive
-                    ? 'text-white'
-                    : 'text-white/70 hover:text-white'
+                    ? 'text-lime-400'
+                    : 'text-white/50 hover:text-white'
                 }`}
               >
                 {link.label}
                 {isActive && (
                   <motion.div
-                    layoutId="activeNavPill"
-                    className="absolute inset-0 bg-white/10 rounded-full -z-10"
+                    layoutId="activeNavTab"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-lime-400"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -68,16 +69,16 @@ export default function Navbar() {
         </div>
 
         {/* Right Actions */}
-        <div className="hidden lg:flex items-center gap-6 bg-white/[0.02] backdrop-blur-[12px] border border-white/5 rounded-full p-1.5 pr-2">
-          <div className="flex items-center gap-2 pl-4 pr-2 font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">
-            <span className="w-1.5 h-1.5 rounded-full bg-lime-400 animate-pulse-fast inline-block" />
-            System Online
+        <div className="hidden lg:flex items-center gap-4">
+          <div className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 font-mono text-[9px] uppercase tracking-[0.3em] text-white/40">
+            <span className="w-1.5 h-1.5 bg-lime-400 rounded-full animate-pulse" />
+            Core_Active
           </div>
           <Link
             href="/contact"
-            className="bg-white text-black hover:bg-lime-400 hover:shadow-[0_0_30px_rgba(204,255,0,0.3)] transition-all duration-300 px-6 py-2.5 rounded-full text-sm font-bold"
+            className="btn-primary"
           >
-            Start Project
+            Connect_Sys
           </Link>
         </div>
 
