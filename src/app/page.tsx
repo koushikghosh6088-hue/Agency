@@ -42,15 +42,9 @@ export default function HomePage() {
   const heroRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subheadlineRef = useRef<HTMLParagraphElement>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  
   const { scrollYProgress } = useScroll();
   const heroOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 0.15], [1, 0.95]);
-
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    setScrollProgress(latest);
-  });
 
   useEffect(() => {
     if (headlineRef.current && subheadlineRef.current) {
@@ -562,51 +556,56 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══════════ WHY JOINT — DIFFERENTIATORS ═══════════ */}
+      {/* ═══════════ WHY JOINT — DIFFERENTIATORS (POPUP CARDS) ═══════════ */}
       <section className="relative py-32 bg-obsidian overflow-hidden z-10 border-t border-white/5">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-400/[0.03] rounded-full blur-[150px] pointer-events-none" />
         
-        <div className="max-w-[1550px] mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-start">
-            <AnimatedSection className="lg:col-span-5 lg:sticky lg:top-32">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-400/10 bg-blue-400/5 mb-8">
-                <Target className="w-3 h-3 text-blue-400" />
-                <span className="text-xs font-mono uppercase tracking-widest text-blue-400/80">Why Joint</span>
-              </div>
-              <h2 className="text-[3rem] md:text-[5rem] font-heading font-black tracking-tighter leading-[0.85] mb-8">
-                NOT ANOTHER<br/><span className="text-blue-400 italic">AGENCY.</span>
-              </h2>
-              <p className="text-white/40 text-lg font-mono leading-relaxed max-w-md">
-                We engineer digital infrastructure with the precision of a defense contractor and the aesthetics of a design studio.
-              </p>
-            </AnimatedSection>
+        <div className="max-w-[1550px] mx-auto px-6 relative z-10 text-center">
+          <div className="mb-20">
+              <AnimatedSection>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-400/10 bg-blue-400/5 mb-8">
+                  <Target className="w-3 h-3 text-blue-400" />
+                  <span className="text-xs font-mono uppercase tracking-widest text-blue-400/80">The Joint Advantage</span>
+                </div>
+                <h2 className="text-[3.5rem] md:text-[6rem] font-heading font-black tracking-tighter leading-none mb-6">
+                  NOT ANOTHER <span className="gradient-text italic">AGENCY_</span>
+                </h2>
+              </AnimatedSection>
+          </div>
 
-            <div className="lg:col-span-7 space-y-6">
-              {[
-                { icon: Zap, title: 'Sub-400ms Performance', desc: 'Every system we build loads in under 400ms. We obsess over Core Web Vitals, Lighthouse scores, and real-world TTFB.', metric: '400ms' },
-                { icon: Shield, title: 'Military-Grade Security', desc: 'SOC2-compliant architecture with end-to-end encryption, rate-limiting, and DDoS protection baked into every deploy.', metric: 'SOC2' },
-                { icon: Bot, title: 'AI-Native Architecture', desc: 'Every platform ships with embedded AI — from voice agents to predictive analytics. Not bolted on. Built in.', metric: 'AI-1st' },
-                { icon: Workflow, title: 'Zero-Downtime Deploys', desc: 'Blue-green deployments, automated rollbacks, and real-time monitoring ensure your infrastructure never sleeps.', metric: '99.99%' },
-              ].map((item, i) => (
-                <AnimatedSection key={item.title} delay={i * 0.1} direction="right">
-                  <div className="glass-panel rounded-[2rem] p-8 md:p-10 group hover:border-blue-400/30 transition-all duration-500 relative overflow-hidden">
-                    <div className="absolute -inset-20 bg-blue-400/5 blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-                    <div className="relative z-10 flex items-start gap-6">
-                      <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-blue-400 group-hover:text-black group-hover:border-blue-400 group-hover:shadow-[0_0_30px_rgba(14,165,233,0.3)] transition-all duration-500">
-                        <item.icon className="w-7 h-7" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-3">
-                          <h4 className="text-xl font-heading font-bold text-white group-hover:text-blue-400 transition-colors">{item.title}</h4>
-                          <span className="font-mono text-xs text-blue-400/60 bg-blue-400/5 px-3 py-1 rounded-full border border-blue-400/10 hidden md:block">{item.metric}</span>
-                        </div>
-                        <p className="text-white/40 font-mono text-sm leading-relaxed">{item.desc}</p>
-                      </div>
-                    </div>
-                  </div>
-                </AnimatedSection>
-              ))}
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { icon: Zap, title: 'Sub-400ms Speed', desc: 'Atomic-speed performance protocols for total dominance.', metric: '400ms' },
+              { icon: Shield, title: 'Elite Security', desc: 'Defense-grade encryption and SOC2 ready architecture.', metric: 'SOC2+' },
+              { icon: Bot, title: 'AI-Native DNA', desc: 'Smarter ecosystems that grow with your business.', metric: 'AI+UX' },
+              { icon: Workflow, title: 'Deep Logic', desc: 'End-to-end workflow elimination and cost reduction.', metric: '99.9%' },
+            ].map((item, i) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, scale: 0.6, y: 100 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ 
+                  type: "spring",
+                  stiffness: 150,
+                  damping: 15,
+                  delay: i * 0.1 
+                }}
+                className="glass-premium rounded-[3rem] p-10 group hover:border-blue-500/50 transition-all duration-300 relative overflow-hidden flex flex-col items-center performance-layer"
+              >
+                <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-8 group-hover:bg-blue-500 group-hover:text-black group-hover:shadow-[0_0_40px_rgba(14,165,233,0.4)] transition-all duration-700 transform group-hover:rotate-[360deg]">
+                  <item.icon className="w-9 h-9" />
+                </div>
+                <h4 className="text-2xl font-heading font-black text-white mb-4 uppercase tracking-tighter">{item.title}</h4>
+                <p className="text-white/40 text-sm font-mono leading-relaxed mb-10 flex-1">
+                  {item.desc}
+                </p>
+                <div className="w-full pt-6 border-t border-white/5 flex justify-between items-center text-[10px] font-mono text-white/20 uppercase tracking-widest">
+                  <span>METRIC_</span>
+                  <span className="text-blue-400 font-bold">{item.metric}</span>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
