@@ -43,8 +43,11 @@ export default function RadialOrbitalTimeline({
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 640) setRadius(135);
-      else if (window.innerWidth < 1024) setRadius(160);
+      // Scale dynamically to fit most of the screen width on phones, capped at 160
+      if (window.innerWidth < 640) {
+        setRadius(Math.min((window.innerWidth / 2) - 40, 160));
+      }
+      else if (window.innerWidth < 1024) setRadius(170);
       else setRadius(200);
     };
     
@@ -172,11 +175,11 @@ export default function RadialOrbitalTimeline({
 
   return (
     <div
-      className="w-full h-full min-h-[400px] lg:min-h-[600px] flex flex-col items-center justify-center bg-transparent overflow-hidden"
+      className="w-full h-full min-h-[450px] lg:min-h-[600px] flex flex-col items-center justify-center bg-transparent overflow-hidden"
       ref={containerRef}
       onClick={handleContainerClick}
     >
-      <div className="relative w-full max-w-4xl h-full flex items-center justify-center py-8 lg:py-20">
+      <div className="relative w-full max-w-4xl h-full flex items-center justify-center py-4 lg:py-20">
         <div
           className="absolute w-full h-full flex items-center justify-center"
           ref={orbitRef}
