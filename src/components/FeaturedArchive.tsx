@@ -96,14 +96,30 @@ export default function FeaturedArchive() {
   const trackRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [isInView, setIsInView] = useState(false);
   const autoSlideRef = useRef<NodeJS.Timeout | null>(null);
   const total = projects.length;
+
+  // Intersection Observer to detect if section is in view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { threshold: 0.2 }
+    );
+    if (trackRef.current) observer.observe(trackRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   const scrollToIndex = useCallback((index: number) => {
     if (!trackRef.current) return;
     const el = trackRef.current.children[index] as HTMLElement;
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+      const container = trackRef.current;
+      const targetScrollPos = el.offsetLeft - container.offsetLeft;
+      container.scrollTo({
+        left: targetScrollPos,
+        behavior: 'smooth'
+      });
     }
     setActiveIndex(index);
   }, []);
@@ -118,15 +134,15 @@ export default function FeaturedArchive() {
     scrollToIndex(prevIdx);
   }, [activeIndex, total, scrollToIndex]);
 
-  // Auto-slide every 3 seconds unless hovered
+  // Auto-slide every 3.5 seconds unless hovered or not in view
   useEffect(() => {
-    if (!isHovered) {
+    if (!isHovered && isInView) {
       autoSlideRef.current = setTimeout(next, 3500);
     }
     return () => {
       if (autoSlideRef.current) clearTimeout(autoSlideRef.current);
     };
-  }, [isHovered, next]);
+  }, [isHovered, isInView, next]);
 
   return (
     <section className="relative py-20 md:py-32 bg-black z-10 overflow-hidden">
