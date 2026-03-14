@@ -1,8 +1,7 @@
 'use client';
 
-import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Rocket, Brain, BarChart3, Zap, Shield, Globe } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Rocket, Brain, BarChart3, Zap, Globe } from 'lucide-react';
 
 const cards = [
   {
@@ -16,7 +15,12 @@ const cards = [
       { label: 'Conversion Lift', val: '45%+' },
     ],
     color: "from-blue-600 to-cyan-400",
-    accent: "blue-400"
+    textAccent: "text-blue-400",
+    bgAccent: "bg-blue-400/10",
+    borderAccent: "border-blue-400/20",
+    glowAccent: "bg-blue-400/20",
+    nodeBorder: "border-blue-400",
+    shadow: "shadow-[0_0_20px_2px_rgba(59,130,246,0.2)]"
   },
   {
     id: 2,
@@ -29,7 +33,12 @@ const cards = [
       { label: 'Response Time', val: 'INSTANT' },
     ],
     color: "from-purple-600 to-rose-400",
-    accent: "purple-400"
+    textAccent: "text-purple-400",
+    bgAccent: "bg-purple-400/10",
+    borderAccent: "border-purple-400/20",
+    glowAccent: "bg-purple-400/20",
+    nodeBorder: "border-purple-400",
+    shadow: "shadow-[0_0_20px_2px_rgba(168,85,247,0.2)]"
   },
   {
     id: 3,
@@ -42,7 +51,12 @@ const cards = [
       { label: 'ROAS Average', val: '8.4x' },
     ],
     color: "from-emerald-600 to-lime-400",
-    accent: "emerald-400"
+    textAccent: "text-emerald-400",
+    bgAccent: "bg-emerald-400/10",
+    borderAccent: "border-emerald-400/20",
+    glowAccent: "bg-emerald-400/20",
+    nodeBorder: "border-emerald-400",
+    shadow: "shadow-[0_0_20px_2px_rgba(16,185,129,0.2)]"
   },
   {
     id: 4,
@@ -55,7 +69,12 @@ const cards = [
       { label: 'Cross-platform UX', val: '100%' },
     ],
     color: "from-sky-600 to-indigo-400",
-    accent: "sky-400"
+    textAccent: "text-sky-400",
+    bgAccent: "bg-sky-400/10",
+    borderAccent: "border-sky-400/20",
+    glowAccent: "bg-sky-400/20",
+    nodeBorder: "border-sky-400",
+    shadow: "shadow-[0_0_20px_2px_rgba(14,165,233,0.2)]"
   },
   {
     id: 5,
@@ -68,120 +87,115 @@ const cards = [
       { label: 'System Uptime', val: '99.9%' },
     ],
     color: "from-amber-600 to-orange-400",
-    accent: "amber-400"
+    textAccent: "text-amber-400",
+    bgAccent: "bg-amber-400/10",
+    borderAccent: "border-amber-400/20",
+    glowAccent: "bg-amber-400/20",
+    nodeBorder: "border-amber-400",
+    shadow: "shadow-[0_0_20px_2px_rgba(245,158,11,0.2)]"
   }
 ];
 
 export default function WhyChooseUs() {
-  const targetRef = useRef<HTMLDivElement>(null);
-  
-  // Create the scroll effect linking to the container's scroll progress
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-  });
-
-  // Calculate horizontal translation based on scroll progress
-  // -80% translates moving exactly 4 full card widths (or viewport percentages)
-  // We use -80% because there are 5 cards, we want to scroll 4 widths sideways
-  // Adjust based on your sizing container constraints 
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
-
   return (
-    // Make the container tall so someone has to scroll down significantly
-    // to map mapping scrollY to translateX
-    <section ref={targetRef} className="relative h-[450vh] bg-black transition-colors duration-1000">
-      <div className="sticky top-0 h-screen flex flex-col items-start overflow-hidden py-12 md:py-24">
+    <section className="relative py-24 md:py-40 bg-black overflow-hidden relative z-10">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(14,165,233,0.03)_0%,transparent_60%)] pointer-events-none" />
+      
+      <div className="max-w-[1400px] mx-auto px-6 relative z-10">
         
-        {/* Header stays pinned at top of viewport */}
-        <div className="w-full max-w-[1550px] mx-auto px-6 mb-8 md:mb-16 shrink-0 z-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0ea5e9]/10 border border-[#0ea5e9]/20 mb-6 backdrop-blur-md"
-          >
-            <Zap className="w-3 h-3 text-[#0ea5e9] animate-pulse" />
-            <span className="font-mono text-[10px] uppercase tracking-widest text-[#0ea5e9]">Why Partner With Us?</span>
-          </motion.div>
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <h2 className="text-[3rem] md:text-[5.5rem] font-heading font-black leading-[0.85] tracking-tighter uppercase">
-              THE <span className="gradient-text italic text-[#0ea5e9]">NEW STANDARD</span><br/>OF GROWTH
-            </h2>
-            <p className="font-mono text-xs md:text-sm text-white/40 uppercase tracking-[0.2em] max-w-sm text-left md:text-right">
-              Every system below represents a non-negotiable pillar of your digital dominance.
-            </p>
+        {/* Header Section */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-20 md:mb-32"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0ea5e9]/10 border border-[#0ea5e9]/20 mb-6 backdrop-blur-md">
+            <Zap className="w-3.5 h-3.5 text-[#0ea5e9] animate-pulse" />
+            <span className="font-mono text-xs uppercase tracking-widest text-[#0ea5e9]">Why Partner With Us</span>
           </div>
-        </div>
+          <h2 className="text-[3rem] md:text-[5rem] lg:text-[6.5rem] font-heading font-black leading-none tracking-tighter uppercase mb-6">
+            THE <span className="gradient-text italic text-[#0ea5e9]">NEW STANDARD</span><br/>OF GROWTH
+          </h2>
+          <p className="font-mono text-sm md:text-base text-white/40 uppercase tracking-[0.2em] max-w-2xl mx-auto">
+            Every system below represents a non-negotiable pillar of your digital dominance.
+          </p>
+        </motion.div>
 
-        {/* The scrolling track of cards */}
-        <div className="relative flex-1 w-full flex items-center">
-          <motion.div style={{ x }} className="flex gap-6 md:gap-12 pl-6 md:pl-24 pr-[50vw]">
-            {cards.map((card, index) => (
-              <Card key={card.id} card={card} index={index + 1} />
-            ))}
-          </motion.div>
-        </div>
-        
-        {/* Progress bar at the bottom */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-64 md:w-96 h-1 bg-white/10 rounded-full overflow-hidden">
-          <motion.div 
-            className="h-full bg-gradient-to-r from-[#0ea5e9] to-blue-400"
-            style={{ scaleX: scrollYProgress, transformOrigin: "left" }}
-          />
+        {/* Vertical Stacking / Popping Cards Array */}
+        <div className="flex flex-col gap-12 md:gap-24 relative">
+          {/* Vertical connection line on desktop */}
+          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-white/10 -translate-x-1/2 z-0" />
+
+          {cards.map((card, index) => {
+            const isEven = index % 2 !== 0; // for alternating layout on desktop
+            
+            return (
+              <motion.div 
+                key={card.id}
+                initial={{ opacity: 0, scale: 0.85, y: 100 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ 
+                  type: "spring", 
+                  stiffness: 100, 
+                  damping: 20, 
+                  mass: 1,
+                  delay: 0.1
+                }}
+                className={`relative z-10 flex flex-col ${isEven ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-8 lg:gap-16 w-full`}
+              >
+                
+                {/* Content Side */}
+                <div className={`w-full lg:w-1/2 flex flex-col ${isEven ? 'lg:items-start lg:text-left' : 'lg:items-end lg:text-right'} items-center text-center`}>
+                  <div className={`mb-6 relative inline-block`}>
+                    <div className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl ${card.bgAccent} flex items-center justify-center border ${card.borderAccent} relative z-10 backdrop-blur-md`}>
+                        <card.icon className={`w-8 h-8 md:w-10 md:h-10 ${card.textAccent}`} />
+                    </div>
+                    <div className={`absolute -inset-4 ${card.glowAccent} blur-2xl rounded-full opacity-50`} />
+                  </div>
+                  
+                  <div className={`font-mono text-xs md:text-sm ${card.textAccent} uppercase tracking-widest mb-3 font-bold flex items-center gap-2`}>
+                    {!isEven && <span className="hidden lg:block w-8 h-px bg-white/20" />}
+                    {card.subtitle}
+                    {isEven && <span className="hidden lg:block w-8 h-px bg-white/20" />}
+                  </div>
+                  
+                  <h3 className="text-[2rem] md:text-[3.5rem] font-heading font-black text-white leading-[0.9] tracking-tighter uppercase mb-6">
+                    {card.title}
+                  </h3>
+                  
+                  <p className="text-white/60 font-mono text-sm md:text-base leading-relaxed max-w-lg mb-8">
+                    {card.description}
+                  </p>
+
+                  <div className={`flex gap-4 w-full justify-center ${isEven ? 'lg:justify-start' : 'lg:justify-end'}`}>
+                    {card.stats.map((stat: any) => (
+                      <div key={stat.label} className="glass-panel p-4 md:p-5 rounded-2xl border-white/5 min-w-[140px]">
+                          <div className="text-white/30 text-[10px] md:text-xs font-mono uppercase tracking-widest mb-2">{stat.label}</div>
+                          <div className="text-white font-heading font-black text-2xl md:text-3xl tracking-tighter">{stat.val}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Number / Visual Side */}
+                <div className="hidden lg:flex w-full lg:w-1/2 flex items-center justify-center relative">
+                    <div className={`text-[15rem] xl:text-[20rem] font-heading font-black text-white/5 leading-none select-none drop-shadow-2xl`}>
+                      0{index + 1}
+                    </div>
+                </div>
+
+                {/* Center Node on Desktop */}
+                <div className="hidden lg:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                  <div className={`w-6 h-6 rounded-full bg-black border-4 ${card.nodeBorder} ${card.shadow}`} />
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
-  );
-}
-
-function Card({ card, index }: { card: any; index: number }) {
-  return (
-    <div className="w-[85vw] md:w-[600px] lg:w-[800px] h-[60vh] md:h-[550px] shrink-0 relative flex items-center justify-center">
-      <div
-        className="relative w-full h-full rounded-[2.5rem] md:rounded-[3rem] border border-white/10 overflow-hidden glass-premium group will-change-transform shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col justify-between"
-      >
-        {/* Background Accents */}
-        <div className={`absolute inset-0 bg-gradient-to-br ${card.color} opacity-5 group-hover:opacity-15 transition-opacity duration-700`} />
-        
-        {/* Top Section */}
-        <div className="relative z-10 p-6 md:p-10 lg:p-12 h-full flex flex-col justify-between">
-          <div>
-            <div className="flex justify-between items-start mb-6 md:mb-10">
-              <div className="relative inline-block">
-                <div className={`w-14 h-14 md:w-20 md:h-20 rounded-2xl bg-${card.accent}/20 flex items-center justify-center border border-${card.accent}/10 relative z-10`}>
-                    <card.icon className={`w-6 h-6 md:w-10 md:h-10 text-${card.accent}`} />
-                </div>
-                <div className={`absolute -inset-4 bg-${card.accent}/30 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000`} />
-              </div>
-              
-              <div className="flex font-heading font-black text-white/5 text-[5rem] md:text-[8rem] leading-none absolute top-4 right-8 select-none pointer-events-none">
-                0{index}
-              </div>
-            </div>
-            
-            <h3 className="text-[1.75rem] md:text-[3rem] lg:text-[4rem] font-heading font-black text-white leading-[0.9] tracking-tighter uppercase mb-2">
-              {card.title}
-            </h3>
-            <div className={`font-mono text-xs md:text-sm text-${card.accent} uppercase tracking-widest mb-6 font-bold`}>
-              {card.subtitle}
-            </div>
-            
-            <p className="text-white/60 font-mono text-xs md:text-sm lg:text-base leading-relaxed max-w-lg">
-              {card.description}
-            </p>
-          </div>
-
-          {/* Bottom Stats */}
-          <div className="grid grid-cols-2 gap-3 md:gap-4 mt-8">
-            {card.stats.map((stat: any) => (
-              <div key={stat.label} className="glass-panel p-4 md:p-6 lg:p-8 rounded-[1.5rem] md:rounded-[2rem] border-white/5 group-hover:border-white/10 transition-all">
-                  <div className="text-white/30 text-[10px] md:text-xs font-mono uppercase tracking-widest mb-1 md:mb-2">{stat.label}</div>
-                  <div className="text-white font-heading font-black text-xl md:text-3xl lg:text-4xl tracking-tighter">{stat.val}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
   );
 }
