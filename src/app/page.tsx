@@ -500,9 +500,9 @@ export default function HomePage() {
               </h2>
               <div className="space-y-12 mt-16">
                 {[
-                  { num: '01', title: 'Neural Blueprints', desc: 'Generating complex digital architectures with AI-driven scaling foundations. We map out the neural pathways of your business.', icon: Cpu },
-                  { num: '02', title: 'System Hardening', desc: 'Stress-testing infrastructure against ultra-high concurrency loads to ensure sub-ms response times at scale.', icon: Shield },
-                  { num: '03', title: 'Deployment Zero', desc: 'Final initialization of mission-critical systems across global edge clusters with real-time health monitoring.', icon: Server },
+                  { num: '01', title: 'AI-Powered Strategy', desc: 'We use advanced AI to analyze your vision and instantly generate perfect blueprints, cutting weeks of planning into minutes.', icon: Cpu },
+                  { num: '02', title: 'Autonomous Building', desc: 'Our AI engines handle 80% of the foundational code with zero errors, letting our experts focus on your unique business features.', icon: Shield },
+                  { num: '03', title: 'Self-Healing Launch', desc: 'Your product is deployed on AI-monitored clusters that scale and fix themselves, ensuring you’re always fast and always online.', icon: Server },
                 ].map((step) => (
                   <div key={step.num} className="flex gap-6 group cursor-default items-start">
                     <div className="w-14 h-14 rounded-2xl bg-[#0ea5e9]/5 border border-[#0ea5e9]/10 flex items-center justify-center shrink-0 group-hover:bg-[#0ea5e9] group-hover:border-[#0ea5e9] group-hover:shadow-[0_0_30px_rgba(14,165,233,0.3)] transition-all duration-500">
@@ -541,14 +541,15 @@ export default function HomePage() {
                   </div>
 
                   <div className="font-mono text-xs md:text-sm leading-6 relative z-10 text-white/70">
-                    <div><span className="text-[#0ea5e9]">import</span> {`{`} <span className="text-purple-400">NeuralCore</span> {`}`} <span className="text-[#0ea5e9]">from</span> <span className="text-amber-400">&apos;@joint/logic&apos;</span>;</div>
-                    <div className="mt-2"><span className="text-[#0ea5e9]">const</span> <span className="text-white">sys</span> = <span className="text-[#0ea5e9]">await</span> <span className="text-purple-400">NeuralCore</span>.<span className="text-green-400">init</span>({`{`}</div>
-                    <div className="pl-6"><span className="text-white/30">scaling:</span> <span className="text-cyan-400">&apos;dynamic&apos;</span>,</div>
-                    <div className="pl-6"><span className="text-white/30">latency:</span> <span className="text-cyan-400">&apos;sub-ms&apos;</span>,</div>
-                    <div className="pl-6"><span className="text-white/30">ai_ready:</span> <span className="text-purple-400">true</span></div>
+                    <div><span className="text-[#0ea5e9]">import</span> {`{`} <span className="text-purple-400">AIBuilder</span> {`}`} <span className="text-[#0ea5e9]">from</span> <span className="text-amber-400">&apos;@joint/engine&apos;</span>;</div>
+                    <div className="mt-2"><span className="text-white/20">// Initialize autonomous build sequence</span></div>
+                    <div><span className="text-[#0ea5e9]">const</span> <span className="text-white">app</span> = <span className="text-[#0ea5e9]">await</span> <span className="text-purple-400">AIBuilder</span>.<span className="text-green-400">generate</span>({`{`}</div>
+                    <div className="pl-6"><span className="text-white/30">vision:</span> <span className="text-cyan-400">&apos;enterprise&apos;</span>,</div>
+                    <div className="pl-6"><span className="text-white/30">efficiency:</span> <span className="text-purple-400">0.98</span>,</div>
+                    <div className="pl-6"><span className="text-white/30">autoOptimize:</span> <span className="text-purple-400">true</span></div>
                     <div>{`}`});</div>
-                    <div className="mt-4"><span className="text-white/20">// Global edge deployment</span></div>
-                    <div><span className="text-[#0ea5e9]">await</span> sys.<span className="text-green-400">deploy</span>({`{`} <span className="text-white/30">nodes:</span> <span className="text-cyan-400">12</span> {`}`});</div>
+                    <div className="mt-4"><span className="text-white/20">// AI-monitored global deployment</span></div>
+                    <div><span className="text-[#0ea5e9]">await</span> app.<span className="text-green-400">launch</span>({`{`} <span className="text-white/30">clusters:</span> <span className="text-cyan-400">&apos;global&apos;</span> {`}`});</div>
                   </div>
                 </div>
 
