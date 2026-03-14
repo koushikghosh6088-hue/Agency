@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { Mail, Phone, MapPin, Send, MessageSquare, Terminal } from 'lucide-react';
+import Image from 'next/image';
 import AnimatedSection from '@/components/AnimatedSection';
 
 const DynamicCoreSphere = dynamic(() => import('@/components/ServiceModels').then(mod => mod.CoreSphere), { ssr: false });
@@ -53,28 +54,21 @@ export default function ContactPage() {
               </p>
             </motion.div>
 
-            {/* Interactive 3D Sidepiece */}
+            {/* Interactive Hero Visual Piece */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
-              className="lg:col-span-5 h-[500px] relative hidden lg:block"
+              className="lg:col-span-1 h-[300px] relative hidden lg:flex items-center justify-center"
             >
-              <View className="w-full h-full">
-                <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={45} />
-                <ambientLight intensity={0.5} />
-                <directionalLight position={[10, 10, 5]} intensity={2} color="#0ea5e9" />
-                <Environment preset="city" />
-                <PresentationControls 
-                  global 
-                  rotation={[0, 0, 0]} 
-                  polar={[-0.3, 0.3]} 
-                  azimuth={[-0.6, 0.6]}
-                  snap={true}
-                >
-                  <DynamicCoreSphere />
-                </PresentationControls>
-              </View>
+              <div className="relative w-full aspect-square max-w-[280px]">
+                <Image
+                  src="/3d-icons/contact_hero.png"
+                  alt="Contact Protocol"
+                  fill
+                  className="object-contain drop-shadow-[0_20px_60px_rgba(14,165,233,0.4)]"
+                />
+              </div>
             </motion.div>
           </div>
         </div>

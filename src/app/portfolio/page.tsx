@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { ArrowRight, ArrowUpRight, FolderGit2 } from 'lucide-react';
+import Image from 'next/image';
 import AnimatedSection from '@/components/AnimatedSection';
 
 const DynamicCyberTorus = dynamic(() => import('@/components/ServiceModels').then(mod => mod.CyberTorus), { ssr: false });
@@ -18,15 +19,15 @@ const Environment = dynamic(() => import('@react-three/drei').then(mod => mod.En
 const categories = ['All', 'Web', 'Mobile', 'AI', 'Automation'];
 
 const projects = [
-  { title: 'AI Sales Dashboard', desc: 'Real-time AI analytics platform with predictive insights and automated reporting.', tags: ['React', 'Node.js', 'TensorFlow'], category: 'AI', size: 'col-span-1 md:col-span-2 row-span-2' },
-  { title: 'E-Commerce Marketplace', desc: 'Full-stack marketplace with multi-vendor support and recommendation engine.', tags: ['Next.js', 'MongoDB', 'Stripe'], category: 'Web', size: 'col-span-1' },
-  { title: 'Health & Fitness App', desc: 'Cross-platform mobile app with workout tracking and social features.', tags: ['React Native', 'Firebase'], category: 'Mobile', size: 'col-span-1' },
-  { title: 'Workflow Automation Suite', desc: 'Enterprise automation platform integrating 50+ tools.', tags: ['Python', 'Node.js', 'APIs'], category: 'Automation', size: 'col-span-1 md:col-span-2' },
-  { title: 'AI Customer Support Bot', desc: 'Intelligent chatbot with NLP and seamless human handoff.', tags: ['Python', 'OpenAI', 'React'], category: 'AI', size: 'col-span-1' },
-  { title: 'FinTech Mobile Banking', desc: 'Secure mobile banking app with biometric auth and investment tools.', tags: ['Flutter', 'Dart', 'Node.js'], category: 'Mobile', size: 'col-span-1' },
-  { title: 'SaaS Analytics Platform', desc: 'Custom analytics dashboard with real-time data visualization.', tags: ['Next.js', 'PostgreSQL', 'D3.js'], category: 'Web', size: 'col-span-1 md:col-span-2 row-span-2' },
-  { title: 'Invoice Automation System', desc: 'End-to-end invoice processing with OCR and accounting integration.', tags: ['Python', 'React', 'AWS'], category: 'Automation', size: 'col-span-1' },
-  { title: 'Enterprise Resource Portal', desc: 'Internal resource management and tracking for a logistics corporation.', tags: ['Vue.js', 'Django', 'Redis'], category: 'Web', size: 'col-span-1' },
+  { title: 'AI Sales Dashboard', desc: 'Real-time AI analytics platform with predictive insights and automated reporting.', tags: ['React', 'Node.js', 'TensorFlow'], category: 'AI', size: 'col-span-1 md:col-span-2 row-span-2', image: '/mockups/ai_sales.png' },
+  { title: 'E-Commerce Marketplace', desc: 'Full-stack marketplace with multi-vendor support and recommendation engine.', tags: ['Next.js', 'MongoDB', 'Stripe'], category: 'Web', size: 'col-span-1', image: '/mockups/ecommerce.png' },
+  { title: 'Health & Fitness App', desc: 'Cross-platform mobile app with workout tracking and social features.', tags: ['React Native', 'Firebase'], category: 'Mobile', size: 'col-span-1', image: '/mockups/fitness.png' },
+  { title: 'Workflow Automation Suite', desc: 'Enterprise automation platform integrating 50+ tools.', tags: ['Python', 'Node.js', 'APIs'], category: 'Automation', size: 'col-span-1 md:col-span-2', image: '/mockups/automation_suite.png' },
+  { title: 'AI Customer Support Bot', desc: 'Intelligent chatbot with NLP and seamless human handoff.', tags: ['Python', 'OpenAI', 'React'], category: 'AI', size: 'col-span-1', image: '/mockups/support_bot.png' },
+  { title: 'FinTech Mobile Banking', desc: 'Secure mobile banking app with biometric auth and investment tools.', tags: ['Flutter', 'Dart', 'Node.js'], category: 'Mobile', size: 'col-span-1', image: '/mockups/fintech.png' },
+  { title: 'SaaS Analytics Platform', desc: 'Custom analytics dashboard with real-time data visualization.', tags: ['Next.js', 'PostgreSQL', 'D3.js'], category: 'Web', size: 'col-span-1 md:col-span-2 row-span-2', image: '/mockups/saas_analytics.png' },
+  { title: 'Invoice Automation System', desc: 'End-to-end invoice processing with OCR and accounting integration.', tags: ['Python', 'React', 'AWS'], category: 'Automation', size: 'col-span-1', image: '/mockups/invoice_system.png' },
+  { title: 'Enterprise Resource Portal', desc: 'Internal resource management and tracking for a logistics corporation.', tags: ['Vue.js', 'Django', 'Redis'], category: 'Web', size: 'col-span-1', image: '/mockups/erp_portal.png' },
 ];
 
 export default function PortfolioPage() {
@@ -64,28 +65,21 @@ export default function PortfolioPage() {
               </p>
             </motion.div>
 
-            {/* Interactive 3D Sidepiece */}
+            {/* Interactive Hero Visual Piece */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
-              className="lg:col-span-5 h-[500px] relative hidden lg:block"
+              className="lg:col-span-5 h-[500px] relative hidden lg:flex items-center justify-center"
             >
-              <View className="w-full h-full">
-                <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={45} />
-                <ambientLight intensity={0.5} />
-                <directionalLight position={[10, 10, 5]} intensity={2} color="#0ea5e9" />
-                <Environment preset="city" />
-                <PresentationControls 
-                  global 
-                  rotation={[0, 0, 0]} 
-                  polar={[-0.3, 0.3]} 
-                  azimuth={[-0.6, 0.6]}
-                  snap={true}
-                >
-                  <DynamicCyberTorus />
-                </PresentationControls>
-              </View>
+              <div className="relative w-full aspect-square max-w-[450px]">
+                <Image
+                  src="/3d-icons/portfolio_hero.png"
+                  alt="Portfolio Architecture"
+                  fill
+                  className="object-contain drop-shadow-[0_20px_60px_rgba(14,165,233,0.4)]"
+                />
+              </div>
             </motion.div>
           </div>
         </div>
@@ -129,33 +123,43 @@ export default function PortfolioPage() {
                 >
                   <div className="group glass-premium border-white/5 rounded-[2.5rem] overflow-hidden cursor-pointer h-full relative flex flex-col justify-end hover-3d transition-all duration-700">
                     
+                    {/* Project Mockup Background */}
+                    <div className="absolute inset-0 z-0">
+                      <Image
+                        src={project.image || '/mockups/default.png'}
+                        alt={project.title}
+                        fill
+                        className="object-cover opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
+                      />
+                    </div>
+
                     {/* Hover Glow Light */}
-                    <div className="absolute -inset-20 bg-blue-400/10 blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0" />
+                    <div className="absolute -inset-20 bg-[#0ea5e9]/10 blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0" />
 
                     {/* Dark gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent z-10 pointer-events-none" />
 
                     <div className="relative z-20 p-8 h-full flex flex-col justify-end">
                       <div className="flex justify-between items-start mb-6 w-full">
                         <div className="flex flex-wrap gap-2">
                           {project.tags.map((tag) => (
-                            <span key={tag} className="px-3 py-1 rounded-md bg-white/5 border border-white/10 text-[9px] font-mono text-white/50 uppercase tracking-widest backdrop-blur-md">
+                            <span key={tag} className="px-3 py-1 rounded-md bg-black/40 border border-white/10 text-[9px] font-mono text-white/70 uppercase tracking-widest backdrop-blur-md">
                               {tag}
                             </span>
                           ))}
                         </div>
-                        <div className="magnetic-wrap w-10 h-10 rounded-full border border-white/10 flex items-center justify-center bg-white/5 text-white/40 group-hover:bg-blue-400 group-hover:text-black group-hover:border-blue-400 transition-all duration-500 scale-0 group-hover:scale-100">
+                        <div className="magnetic-wrap w-10 h-10 rounded-full border border-white/10 flex items-center justify-center bg-black/40 text-white/40 group-hover:bg-[#0ea5e9] group-hover:text-black group-hover:border-[#0ea5e9] transition-all duration-500 scale-0 group-hover:scale-100">
                           <ArrowUpRight className="w-5 h-5" />
                         </div>
                       </div>
                       
-                      <h3 className={`font-heading font-black mb-3 text-white group-hover:text-blue-400 transition-colors uppercase tracking-tighter ${
+                      <h3 className={`font-heading font-black mb-3 text-white group-hover:text-[#0ea5e9] transition-colors uppercase tracking-tighter ${
                         project.size?.includes('row-span-2') ? 'text-4xl' : 'text-2xl'
                       }`}>
                         {project.title}
                       </h3>
                       
-                      <p className="text-white/40 text-xs font-mono leading-relaxed max-w-lg line-clamp-3 uppercase tracking-wider">
+                      <p className="text-white/40 text-[10px] font-mono leading-relaxed max-w-lg line-clamp-2 uppercase tracking-widest bg-black/20 backdrop-blur-sm inline-block px-2 py-1 rounded">
                         {project.desc}
                       </p>
                     </div>

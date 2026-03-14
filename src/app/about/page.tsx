@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { ArrowRight, Zap, Target, Eye, Heart, Users, Globe, Award, ArrowUpRight } from 'lucide-react';
+import Image from 'next/image';
 import AnimatedSection from '@/components/AnimatedSection';
 
 const DynamicCoreSphere = dynamic(() => import('@/components/ServiceModels').then(mod => mod.CoreSphere), { ssr: false });
@@ -70,28 +71,21 @@ export default function AboutPage() {
               </p>
             </motion.div>
 
-            {/* Interactive 3D Sidepiece */}
+            {/* Interactive Hero Visual Piece */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
-              className="lg:col-span-5 h-[500px] relative hidden lg:block"
+              className="lg:col-span-5 h-[500px] relative hidden lg:flex items-center justify-center"
             >
-              <View className="w-full h-full">
-                <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={45} />
-                <ambientLight intensity={0.5} />
-                <directionalLight position={[10, 10, 5]} intensity={2} color="#0ea5e9" />
-                <Environment preset="city" />
-                <PresentationControls 
-                  global 
-                  rotation={[0, 0, 0]} 
-                  polar={[-0.3, 0.3]} 
-                  azimuth={[-0.6, 0.6]}
-                  snap={true}
-                >
-                  <DynamicCoreSphere />
-                </PresentationControls>
-              </View>
+              <div className="relative w-full aspect-square max-w-[450px]">
+                <Image
+                  src="/3d-icons/about_hero.png"
+                  alt="Joint Philosophy"
+                  fill
+                  className="object-contain drop-shadow-[0_20px_60px_rgba(14,165,233,0.4)]"
+                />
+              </div>
             </motion.div>
           </div>
         </div>
@@ -137,13 +131,14 @@ export default function AboutPage() {
             <AnimatedSection delay={0.2} direction="right" className="lg:col-span-6 lg:col-start-7">
               <div className="glass-panel border-blue-400/20 rounded-[3rem] p-8 md:p-12">
                 <div className="space-y-0 relative before:absolute before:inset-y-0 before:left-[17px] md:before:left-[21px] before:w-px before:bg-gradient-to-b before:from-blue-400 before:via-white/10 before:to-transparent">
+                <div className="space-y-0 relative before:absolute before:inset-y-0 before:left-[17px] md:before:left-[21px] before:w-px before:bg-gradient-to-b before:from-[#0ea5e9] before:via-white/10 before:to-transparent">
                   {[
-                    { year: '2019', event: 'Founded Joint WebSolutions' },
-                    { year: '2020', event: 'Launched AI Engineering unit' },
-                    { year: '2021', event: 'Global infrastructure expansion' },
-                    { year: '2022', event: 'Deployed v1 AI Voice Agents' },
-                    { year: '2023', event: 'Surpassed 100+ active enterprise clusters' },
-                    { year: '2024', event: 'Launched Omnichannel Automation Engine' },
+                    { year: '2019', event: 'Founded Joint WebSolutions', detail: 'Initialized with a focus on enterprise-grade web architecture.' },
+                    { year: '2020', event: 'Launched AI Engineering unit', detail: 'Integration of neural processing for automated decision logic.' },
+                    { year: '2021', event: 'Global infrastructure expansion', detail: 'Edge deployment across 12 primary clusters worldwide.' },
+                    { year: '2022', event: 'Deployed v1 AI Voice Agents', detail: 'Sub-500ms conversational agents for enterprise client management.' },
+                    { year: '2023', event: '100+ active enterprise clusters', detail: 'Scale achieved through autonomous optimization protocols.' },
+                    { year: '2024', event: 'Omnichannel Automation Engine', detail: 'Self-healing workflows deployed for mission-critical operations.' },
                   ].map((item, i) => (
                     <motion.div 
                       key={item.year} 
@@ -151,15 +146,19 @@ export default function AboutPage() {
                       whileInView={{ opacity: 1, x: 0 }} 
                       viewport={{ once: true }} 
                       transition={{ delay: i * 0.1 }} 
-                      className="relative pl-12 py-6 border-b border-white/5 last:border-0 group"
+                      className="relative pl-12 py-8 border-b border-white/5 last:border-0 group"
                     >
-                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-9 h-9 md:w-11 md:h-11 rounded-full bg-black border border-white/20 flex items-center justify-center group-hover:border-blue-400 transition-colors">
-                        <div className="w-2 h-2 rounded-full bg-white/40 group-hover:bg-blue-400 transition-colors" />
+                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-9 h-9 md:w-11 md:h-11 rounded-full bg-black border border-white/20 flex items-center justify-center group-hover:border-[#0ea5e9] group-hover:shadow-[0_0_15px_rgba(14,165,233,0.3)] transition-all">
+                        <div className="w-2 h-2 rounded-full bg-white/40 group-hover:bg-[#0ea5e9] transition-colors" />
                       </div>
-                      <div className="text-2xl font-bold font-heading text-white group-hover:text-blue-400 transition-colors">{item.year}</div>
-                      <div className="text-sm font-mono text-white/50">{item.event}</div>
+                      <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-6 mb-2">
+                        <div className="text-2xl font-black font-heading text-white group-hover:text-[#0ea5e9] transition-colors">{item.year}</div>
+                        <div className="text-sm font-bold font-mono text-white/70 uppercase tracking-tighter">{item.event}</div>
+                      </div>
+                      <div className="text-[10px] font-mono text-white/30 uppercase tracking-[0.2em]">{item.detail}</div>
                     </motion.div>
                   ))}
+                </div>
                 </div>
               </div>
             </AnimatedSection>
@@ -218,18 +217,33 @@ export default function AboutPage() {
               <AnimatedSection key={member.name} delay={i * 0.1}>
                 <div className="group text-center cursor-default">
                   <div className={`w-full aspect-square rounded-[2rem] border border-white/10 ${
-                    i % 2 === 0 ? 'bg-blue-400/5 hover:border-blue-400/30' : 'bg-white/5 hover:border-white/30'
-                  } mb-6 flex items-center justify-center group-hover:scale-105 group-hover:shadow-[0_0_30px_rgba(14,165,233,0.1)] transition-all duration-500 overflow-hidden relative`}>
+                    i % 2 === 0 ? 'bg-[#0ea5e9]/5 hover:border-[#0ea5e9]/30' : 'bg-white/5 hover:border-white/30'
+                  } mb-6 flex items-center justify-center group-hover:scale-105 group-hover:shadow-[0_0_50px_rgba(14,165,233,0.1)] transition-all duration-500 overflow-hidden relative backdrop-blur-sm`}>
                     
-                    {/* Placeholder for actual photo, using geometric abstraction for now */}
-                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/50 to-transparent" />
-                    <Users className={`w-10 h-10 ${i % 2 === 0 ? 'text-blue-400/50' : 'text-white/30'} group-hover:scale-110 transition-transform`} />
+                    {/* Abstract Profile Visual */}
+                    <div className="absolute inset-0 z-0">
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(14,165,233,0.1)_0%,transparent_70%)]" />
+                      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent" />
+                    </div>
                     
-                    {/* Scanline effect */}
-                    <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.1)_50%)] bg-[length:100%_4px] opacity-20" />
+                    <Users className={`w-12 h-12 ${i % 2 === 0 ? 'text-[#0ea5e9]/40' : 'text-white/20'} group-hover:text-[#0ea5e9] group-hover:scale-110 transition-all duration-500 z-10`} />
+                    
+                    {/* Scanner Effect */}
+                    <motion.div 
+                      animate={{ top: ['-10%', '110%'] }}
+                      transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+                      className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-[#0ea5e9]/50 to-transparent opacity-0 group-hover:opacity-100 z-20"
+                    />
+                    
+                    {/* Detail Overlay */}
+                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="px-2 py-1 rounded bg-black/40 border border-[#0ea5e9]/20 text-[8px] font-mono text-[#0ea5e9] uppercase tracking-tighter">
+                        Active_Agent
+                      </div>
+                    </div>
                   </div>
-                  <h4 className="text-sm font-bold font-heading text-white mb-1 group-hover:text-blue-400 transition-colors text-balance">{member.name}</h4>
-                  <p className="text-[10px] font-mono text-white/40 uppercase tracking-widest text-balance leading-snug">{member.role}</p>
+                  <h4 className="text-sm font-black font-heading text-white mb-1 group-hover:text-[#0ea5e9] transition-colors text-balance uppercase tracking-tight">{member.name}</h4>
+                  <p className="text-[9px] font-mono text-white/30 uppercase tracking-[0.2em] text-balance leading-snug">{member.role}</p>
                 </div>
               </AnimatedSection>
             ))}

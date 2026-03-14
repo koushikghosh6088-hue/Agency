@@ -7,6 +7,7 @@ import {
   Phone, MessageSquare, Cog, ArrowRight, CheckCircle2, Zap,
   BarChart3, Brain, Radio, ArrowUpRight
 } from 'lucide-react';
+import Image from 'next/image';
 import AnimatedSection from '@/components/AnimatedSection';
 
 const DynamicCoreSphere = dynamic(() => import('@/components/ServiceModels').then(mod => mod.CoreSphere), { ssr: false });
@@ -80,18 +81,17 @@ export default function AISolutionsPage() {
               <div className="glass-panel rounded-[2.5rem] p-8 md:p-10 relative overflow-hidden border-blue-400/20 group">
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-400/10 to-transparent opacity-20 group-hover:opacity-40 transition-opacity duration-500" />
                 
-                {/* Embedded 3D Canvas */}
-                <div className="absolute inset-x-0 top-10 h-64 z-0 opacity-60 mix-blend-screen pointer-events-auto">
-                    <View className="w-full h-full">
-                      <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={50} />
-                      <ambientLight intensity={0.5} />
-                      <directionalLight position={[5, 5, 2]} intensity={2} color="#0ea5e9" />
-                      <Environment preset="studio" />
-                      <PresentationControls global rotation={[0, 0, 0]} polar={[-0.2, 0.2]} azimuth={[-0.5, 0.5]}>
-                        <DynamicCoreSphere />
-                      </PresentationControls>
-                    </View>
+                {/* Embedded 3D Canvas Replacement */}
+            <div className="absolute inset-x-0 top-0 h-80 z-0 opacity-80 mix-blend-screen pointer-events-none group-hover:scale-110 transition-transform duration-700 flex items-center justify-center p-12">
+                <div className="relative w-full aspect-square max-w-[350px]">
+                    <Image
+                      src="/3d-icons/ai_calling.png"
+                      alt="Voice AI"
+                      fill
+                      className="object-contain drop-shadow-[0_20px_50px_rgba(14,165,233,0.3)]"
+                    />
                 </div>
+            </div>
 
                 {/* Voice Wave UI overlay */}
                 <div className="relative z-10 mt-48 bg-black/80 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-2xl">
@@ -235,17 +235,16 @@ export default function AISolutionsPage() {
 
       {/* ── Automation Engine (3D integration) ── */}
       <section id="automation" className="py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-black pointer-events-none" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[600px] z-0 opacity-40 mix-blend-screen pointer-events-none">
-            <View className="w-full h-full">
-              <PerspectiveCamera makeDefault position={[0, 0, 7]} fov={50} />
-              <ambientLight intensity={1} />
-              <directionalLight position={[2, 5, 2]} intensity={2} color="#ffffff" />
-              <Environment preset="studio" />
-              <PresentationControls global rotation={[0, 0, 0]} polar={[-0.1, 0.1]} azimuth={[-0.2, 0.2]}>
-                 <DynamicCyberTorus />
-              </PresentationControls>
-            </View>
+        {/* Centerpiece Visual Replacement */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[600px] z-0 opacity-40 mix-blend-screen pointer-events-none flex items-center justify-center">
+            <div className="relative w-full aspect-square max-w-[500px]">
+                <Image
+                  src="/3d-icons/automation.png"
+                  alt="Automation Logic"
+                  fill
+                  className="object-contain blur-[2px] group-hover:blur-0 transition-all duration-1000"
+                />
+            </div>
         </div>
 
         <div className="max-w-[1200px] mx-auto px-6 relative z-10">

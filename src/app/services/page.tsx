@@ -5,8 +5,9 @@ import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import {
   Globe, Smartphone, Phone, MessageSquare, Cog, TrendingUp,
-  CheckCircle2, ArrowRight, ArrowUpRight, BarChart3, Database, Shield
+  CheckCircle2, ArrowRight, ArrowUpRight, BarChart3, Database, Shield, Bot
 } from 'lucide-react';
+import Image from 'next/image';
 import AnimatedSection from '@/components/AnimatedSection';
 
 // Dynamically load 3D components to keep the page fast
@@ -28,29 +29,9 @@ const services = [
     accent: false,
     features: ['Custom Web Apps', 'SaaS Platforms', 'Dashboard & Admin Panels', 'API Development'],
     benefits: ['Lightning-fast performance', 'Obsidian & Lime Design Systems', 'Scalable infra'],
-    has3D: false
-  },
-  {
-    id: 'calling',
-    icon: Phone,
-    title: 'AI Voice Agents',
-    desc: 'Intelligent voice agents that handle inbound and outbound calls, qualify leads, and provide customer support 24/7.',
-    accent: true, // Lime accented
-    features: ['Inbound Call Handling', 'Lead Qualification', 'Appointment Booking', 'CRM Integration'],
-    benefits: ['24/7 availability', '70% cost reduction', 'Instant response times'],
-    has3D: true,
-    model: 'sphere'
-  },
-  {
-    id: 'automation',
-    icon: Cog,
-    title: 'Business Automation',
-    desc: "End-to-end workflow automation that eliminates repetitive tasks, streamlines operations, and multiplies your team's productivity.",
-    accent: false,
-    features: ['Workflow Automation', 'Data Integration', 'Invoice Processing', 'Custom APIs'],
-    benefits: ['40+ hours saved/week', 'Zero human errors', 'Real-time visibility'],
-    has3D: true,
-    model: 'torus'
+    image: '/3d-icons/web_dev.png',
+    metric: '400ms',
+    metricLabel: 'LCP'
   },
   {
     id: 'mobile',
@@ -60,8 +41,34 @@ const services = [
     accent: true,
     features: ['iOS & Android Apps', 'React Native', 'Push Notifications', 'In-App Payments'],
     benefits: ['Cross-platform efficiency', 'Native performance', 'Seamless updates'],
-    has3D: false
+    image: '/3d-icons/mobile_app.png',
+    metric: '60fps',
+    metricLabel: 'Smoothness'
   },
+  {
+    id: 'workflow',
+    icon: Cog,
+    title: 'AI Automation',
+    desc: "End-to-end workflow automation that eliminates repetitive tasks, streamlines operations, and multiplies your team's productivity.",
+    accent: false,
+    features: ['Workflow Automation', 'Data Integration', 'Invoice Processing', 'Custom APIs'],
+    benefits: ['40+ hours saved/week', 'Zero human errors', 'Real-time visibility'],
+    image: '/3d-icons/automation.png',
+    metric: '98%',
+    metricLabel: 'Efficiency'
+  },
+  {
+    id: 'agents',
+    icon: Bot,
+    title: 'AI Agents',
+    desc: 'Intelligent AI agents that handle inbound and outbound calls, qualify leads, and provide customer support 24/7.',
+    accent: true,
+    features: ['Call Handling', 'Lead Scoring', 'Booking', 'CRM Integration'],
+    benefits: ['24/7 availability', '70% cost reduction', 'Instant response'],
+    image: '/3d-icons/ai_agents.png',
+    metric: '24/7',
+    metricLabel: 'Uptime'
+  }
 ];
 
 export default function ServicesPage() {
@@ -181,50 +188,49 @@ export default function ServicesPage() {
                   delay={0.2} 
                   className={`lg:col-span-6 ${i % 2 !== 0 ? 'lg:order-1' : ''}`}
                 >
-                  <div className={`glass-premium rounded-[2.5rem] p-8 md:p-12 relative overflow-hidden group min-h-[500px] flex flex-col justify-end hover-3d transition-all duration-700 ${
-                    service.accent ? 'border-blue-400/20 hover:border-blue-400/50' : ''
+                  <div className={`glass-premium rounded-[3rem] p-10 md:p-14 relative overflow-hidden group min-h-[550px] flex flex-col justify-end hover-3d transition-all duration-700 ${
+                    service.accent ? 'border-[#0ea5e9]/30 shadow-[0_0_50px_rgba(14,165,233,0.1)]' : 'border-white/5'
                   }`}>
                     
-                    {/* Hover Glow Light */}
-                    <div className="absolute -inset-20 bg-blue-400/10 blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0" />
-
-                    {/* 3D Canvas Context */}
-                    {service.has3D && (
-                      <div className="absolute inset-x-0 top-0 bottom-40 z-10 opacity-70 mix-blend-screen pointer-events-auto group-hover:opacity-100 transition-opacity duration-500">
-                        <View className="w-full h-full">
-                          <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={45} />
-                          <ambientLight intensity={service.accent ? 0.6 : 1} />
-                          <directionalLight position={[5, 5, 2]} intensity={2} color="#0ea5e9" />
-                          <Environment preset="studio" />
-                          <PresentationControls 
-                            global 
-                            rotation={[0.1, 0, 0]} 
-                            polar={[-0.2, 0.2]} 
-                            azimuth={[-0.5, 0.5]}
-                            snap={true}
-                          >
-                            {service.model === 'sphere' ? <DynamicCoreSphere /> : <DynamicCyberTorus />}
-                          </PresentationControls>
-                        </View>
+                    {/* Floating Image Visual */}
+                    <div className="absolute inset-0 flex items-center justify-center p-12 pointer-events-none group-hover:scale-110 transition-transform duration-700">
+                      <div className="relative w-full aspect-square max-w-[400px]">
+                        <Image
+                          src={service.image}
+                          alt={service.title}
+                          fill
+                          className="object-contain drop-shadow-[0_20px_50px_rgba(14,165,233,0.3)]"
+                        />
+                        {/* Recursive scanning light effect */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0ea5e9]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 mix-blend-screen" />
                       </div>
-                    )}
+                    </div>
+
+                    {/* Floating Metric Badge */}
+                    <motion.div 
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      className="absolute top-10 right-10 glass-premium px-6 py-4 rounded-2xl border-[#0ea5e9]/20 animate-float backdrop-blur-2xl z-20"
+                    >
+                      <p className="font-mono text-[10px] text-[#0ea5e9]/60 mb-1 uppercase tracking-tighter">{service.metricLabel}</p>
+                      <p className="text-white font-black tracking-tight text-2xl">{service.metric}</p>
+                    </motion.div>
 
                     {/* Features list overlay at bottom */}
-                    <div className="relative z-20 glass-premium px-8 py-8 rounded-3xl w-full max-w-sm ml-auto backdrop-blur-xl border-white/10 mt-auto magnetic-wrap">
+                    <div className="relative z-20 glass-premium px-8 py-8 rounded-[2.5rem] w-full max-w-[320px] ml-auto backdrop-blur-2xl border-white/10 mt-auto shadow-2xl">
                       <div className="flex items-center justify-between mb-6 border-b border-white/5 pb-4">
-                        <h3 className="text-[10px] font-mono uppercase text-white/40 tracking-[0.2em]">Architecture Subsystem</h3>
-                        <service.icon className={`w-5 h-5 ${service.accent ? 'text-blue-400 animate-pulse-glow' : 'text-white'}`} />
+                        <h3 className="text-[10px] font-mono uppercase text-white/40 tracking-[0.2em]">{service.title} // CORE</h3>
+                        <service.icon className={`w-5 h-5 ${service.accent ? 'text-[#0ea5e9]' : 'text-white/40'}`} />
                       </div>
                       <div className="space-y-3">
                         {service.features.map((feature, idx) => (
-                          <div key={feature} className="flex justify-between items-center text-[11px] font-mono group-hover:pl-2 transition-all duration-300" style={{ transitionDelay: `${idx * 50}ms` }}>
-                            <span className="text-white/60 group-hover:text-blue-400 transition-colors uppercase tracking-wider">{feature}</span>
-                            <div className="w-1 h-1 rounded-full bg-blue-400/50" />
+                          <div key={feature} className="flex justify-between items-center text-[10px] font-mono group-hover:pl-2 transition-all duration-300">
+                            <span className="text-white/60 group-hover:text-[#0ea5e9] transition-colors uppercase tracking-wider">{feature}</span>
+                            <div className="w-1 h-1 rounded-full bg-[#0ea5e9]/50" />
                           </div>
                         ))}
                       </div>
                     </div>
-                    
                   </div>
                 </AnimatedSection>
               </div>
