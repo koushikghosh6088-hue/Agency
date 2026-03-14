@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Rocket, Smartphone, Bot, MessageSquare, Globe, Zap } from 'lucide-react';
+import { Rocket, Smartphone, Bot, Workflow, Globe, Zap } from 'lucide-react';
 import { useRef } from 'react';
 import Image from 'next/image';
 
@@ -48,13 +48,13 @@ const cards = [
   },
   {
     id: 3,
-    title: "AI Calling Agent",
-    subtitle: "Autonomous Voice Ops",
-    description: "Scale your business without the overhead. Our autonomous neural conversational agents handle lead qualification and customer support over the phone 24/7. An intelligent workforce that never sleeps and always sounds human.",
+    title: "AI Autonomous Agents",
+    subtitle: "Conversational Supremacy",
+    description: "Scale without overhead. Our intelligent voice & messaging algorithms intercept, engage, and convert leads 24/7 across Phone, SMS, and Web. It’s an elite digital workforce that never sleeps and always sounds human.",
     icon: Bot,
     stats: [
       { label: 'Operating Cost', val: '-60%' },
-      { label: 'Response Time', val: 'INSTANT' },
+      { label: 'Lead Volume', val: '3x-5x' },
     ],
     color: "from-emerald-600 to-lime-400",
     textAccent: "text-emerald-400",
@@ -68,23 +68,23 @@ const cards = [
   },
   {
     id: 4,
-    title: "AI Messaging Agent",
-    subtitle: "Conversational Supremacy",
-    description: "Intercept, engage, and convert website visitors into booked appointments automatically. Our intelligent messaging algorithms adapt to client intent instantly on SMS, WhatsApp, and Web Chat.",
-    icon: MessageSquare,
+    title: "AI Workflow Automation",
+    subtitle: "Operational Velocity",
+    description: "Eliminate bottlenecks and human error. We build custom neural automation pipelines that instantly sync your CRM, data handling, and internal communications into one seamless, lightning-fast digital factory.",
+    icon: Workflow,
     stats: [
-      { label: 'Lead Volume', val: '3x-5x' },
+      { label: 'Manual Tasks', val: '-90%' },
       { label: 'System Uptime', val: '99.9%' },
     ],
-    color: "from-sky-600 to-indigo-400",
-    textAccent: "text-sky-400",
-    bgAccent: "bg-sky-400/10",
-    borderAccent: "border-sky-400/20",
-    glowAccent: "bg-sky-400/20",
-    nodeBorder: "border-sky-400",
-    shadow: "shadow-[0_0_20px_2px_rgba(14,165,233,0.2)]",
-    solidColor: "bg-sky-500",
-    imageSrc: "/3d-icons/ai_messaging.png"
+    color: "from-fuchsia-600 to-pink-400",
+    textAccent: "text-fuchsia-400",
+    bgAccent: "bg-fuchsia-400/10",
+    borderAccent: "border-fuchsia-400/20",
+    glowAccent: "bg-fuchsia-400/20",
+    nodeBorder: "border-fuchsia-400",
+    shadow: "shadow-[0_0_20px_2px_rgba(192,38,211,0.2)]",
+    solidColor: "bg-fuchsia-500",
+    imageSrc: "/3d-icons/ai_automation.png"
   },
   {
     id: 5,
