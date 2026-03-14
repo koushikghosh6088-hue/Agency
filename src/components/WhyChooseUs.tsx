@@ -1,7 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Rocket, Brain, BarChart3, Zap, Globe } from 'lucide-react';
+import { useRef } from 'react';
 
 const cards = [
   {
@@ -20,7 +21,9 @@ const cards = [
     borderAccent: "border-blue-400/20",
     glowAccent: "bg-blue-400/20",
     nodeBorder: "border-blue-400",
-    shadow: "shadow-[0_0_20px_2px_rgba(59,130,246,0.2)]"
+    shadow: "shadow-[0_0_20px_2px_rgba(59,130,246,0.2)]",
+    solidColor: "bg-blue-500",
+    baseColorName: "blue-500"
   },
   {
     id: 2,
@@ -38,7 +41,9 @@ const cards = [
     borderAccent: "border-purple-400/20",
     glowAccent: "bg-purple-400/20",
     nodeBorder: "border-purple-400",
-    shadow: "shadow-[0_0_20px_2px_rgba(168,85,247,0.2)]"
+    shadow: "shadow-[0_0_20px_2px_rgba(168,85,247,0.2)]",
+    solidColor: "bg-purple-500",
+    baseColorName: "purple-500"
   },
   {
     id: 3,
@@ -56,7 +61,9 @@ const cards = [
     borderAccent: "border-emerald-400/20",
     glowAccent: "bg-emerald-400/20",
     nodeBorder: "border-emerald-400",
-    shadow: "shadow-[0_0_20px_2px_rgba(16,185,129,0.2)]"
+    shadow: "shadow-[0_0_20px_2px_rgba(16,185,129,0.2)]",
+    solidColor: "bg-emerald-500",
+    baseColorName: "emerald-500"
   },
   {
     id: 4,
@@ -74,7 +81,9 @@ const cards = [
     borderAccent: "border-sky-400/20",
     glowAccent: "bg-sky-400/20",
     nodeBorder: "border-sky-400",
-    shadow: "shadow-[0_0_20px_2px_rgba(14,165,233,0.2)]"
+    shadow: "shadow-[0_0_20px_2px_rgba(14,165,233,0.2)]",
+    solidColor: "bg-sky-500",
+    baseColorName: "sky-500"
   },
   {
     id: 5,
@@ -92,9 +101,83 @@ const cards = [
     borderAccent: "border-amber-400/20",
     glowAccent: "bg-amber-400/20",
     nodeBorder: "border-amber-400",
-    shadow: "shadow-[0_0_20px_2px_rgba(245,158,11,0.2)]"
+    shadow: "shadow-[0_0_20px_2px_rgba(245,158,11,0.2)]",
+    solidColor: "bg-amber-500",
+    baseColorName: "amber-500"
   }
 ];
+
+// Interactive 3D Floating Object Component
+function Floating3DShape({ colorClass, solidColor, index }: { colorClass: string, solidColor: string, index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  // Snappy, responsive spring physics for mouse following
+  const mouseX = useSpring(x, { stiffness: 200, damping: 15 });
+  const mouseY = useSpring(y, { stiffness: 200, damping: 15 });
+
+  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    x.set(e.clientX - centerX);
+    y.set(e.clientY - centerY);
+  }
+
+  function handleMouseLeave() {
+    x.set(0);
+    y.set(0);
+  }
+
+  // Choose a different shape for each card based on index (Sphere vs Torus vs Prism aesthetics)
+  const isCircle = index % 2 === 0;
+
+  return (
+    <div 
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative w-full h-[250px] md:h-[350px] lg:h-full flex items-center justify-center perspective-[1000px] group cursor-pointer"
+    >
+      <motion.div 
+        style={{
+          rotateX: useTransform(mouseY, [-100, 100], [25, -25]),
+          rotateY: useTransform(mouseX, [-100, 100], [-25, 25]),
+          x: useTransform(mouseX, [-150, 150], [-25, 25]),
+          y: useTransform(mouseY, [-150, 150], [-25, 25]),
+        }}
+        className={`relative z-20 ${isCircle ? 'rounded-full w-48 h-48 md:w-56 md:h-56 lg:w-72 lg:h-72' : 'rounded-[2.5rem] md:rounded-[4rem] w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64'} border border-white/20 glass-premium duration-200 shadow-[0_30px_60px_rgba(0,0,0,0.8)] flex items-center justify-center overflow-hidden`}
+      >
+        <div className={`absolute inset-0 bg-gradient-to-br ${colorClass} opacity-30 group-hover:opacity-60 transition-opacity duration-500`} />
+        
+        {/* Inner glow or geometric structure */}
+        <div className={`w-3/4 h-3/4 border border-white/10 ${isCircle ? 'rounded-full' : 'rounded-[2rem]'} flex items-center justify-center`}>
+           <div className={`w-1/2 h-1/2 ${solidColor} opacity-30 ${isCircle ? 'rounded-full' : 'rounded-xl'} blur-xl animate-pulse`} />
+        </div>
+        
+        {/* Subtle Number overlay inside the 3D shape */}
+        <div className="absolute inset-0 flex items-center justify-center text-white/20 font-heading font-black text-[5rem] md:text-[8rem] mix-blend-overlay select-none">
+          0{index + 1}
+        </div>
+        
+        {/* Specular highlight */}
+        <div className="absolute top-4 left-4 w-12 h-12 bg-white/30 rounded-full blur-xl" />
+      </motion.div>
+      
+      {/* Background shadow matching shape that moves oppositely for parallax depth */}
+      <motion.div 
+        style={{
+          x: useTransform(mouseX, [-100, 100], [15, -15]),
+          y: useTransform(mouseY, [-100, 100], [15, -15]),
+        }}
+        className={`absolute z-10 ${isCircle ? 'rounded-full w-48 h-48 md:w-56 md:h-56 lg:w-72 lg:h-72' : 'rounded-[2.5rem] md:rounded-[4rem] w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64'} ${solidColor} opacity-10 blur-3xl transition-opacity duration-500 group-hover:opacity-30`}
+      />
+    </div>
+  );
+}
+
 
 export default function WhyChooseUs() {
   return (
@@ -124,7 +207,7 @@ export default function WhyChooseUs() {
         </motion.div>
 
         {/* Vertical Stacking / Popping Cards Array */}
-        <div className="flex flex-col gap-12 md:gap-24 relative">
+        <div className="flex flex-col gap-16 md:gap-32 relative">
           {/* Vertical connection line on desktop */}
           <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-white/10 -translate-x-1/2 z-0" />
 
@@ -134,15 +217,16 @@ export default function WhyChooseUs() {
             return (
               <motion.div 
                 key={card.id}
-                initial={{ opacity: 0, scale: 0.85, y: 100 }}
+                // Snappier POP animation
+                initial={{ opacity: 0, scale: 0.75, y: 150 }}
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ once: true, margin: "-15%" }}
                 transition={{ 
                   type: "spring", 
-                  stiffness: 100, 
+                  stiffness: 220, 
                   damping: 20, 
-                  mass: 1,
-                  delay: 0.1
+                  mass: 0.8,
+                  delay: 0.05
                 }}
                 className={`relative z-10 flex flex-col ${isEven ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-8 lg:gap-16 w-full`}
               >
@@ -180,11 +264,9 @@ export default function WhyChooseUs() {
                   </div>
                 </div>
 
-                {/* Number / Visual Side */}
-                <div className="hidden lg:flex w-full lg:w-1/2 flex items-center justify-center relative">
-                    <div className={`text-[15rem] xl:text-[20rem] font-heading font-black text-white/5 leading-none select-none drop-shadow-2xl`}>
-                      0{index + 1}
-                    </div>
+                {/* Interactive 3D Visual Side (Desktop & Mobile) */}
+                <div className="w-full lg:w-1/2 flex flex-col items-center justify-center relative pt-8 lg:pt-0">
+                    <Floating3DShape colorClass={card.color} solidColor={card.solidColor} index={index} />
                 </div>
 
                 {/* Center Node on Desktop */}
