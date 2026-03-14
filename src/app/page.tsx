@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import AnimatedSection from '@/components/AnimatedSection';
 import WhyChooseUs from '@/components/WhyChooseUs';
+import FeaturedArchive from '@/components/FeaturedArchive';
 
 import { SplineScene } from '@/components/ui/splite';
 import { Spotlight } from '@/components/ui/spotlight';
@@ -301,6 +302,7 @@ export default function HomePage() {
 
       <WhyChooseUs />
 
+      <FeaturedArchive />
 
       {/* ═══════════ SOCIAL PROOF / TESTIMONIALS ═══════════ */}
       <section className="relative py-32 bg-black overflow-hidden z-10">
