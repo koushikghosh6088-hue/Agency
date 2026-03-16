@@ -283,17 +283,23 @@ export default function HomePage() {
           </Canvas>
         </div>
 
-        {/* Spline 3D Robot — ALL SCREENS, positioned right */}
-        <div className="absolute right-0 top-[-5%] sm:top-0 w-full h-full sm:w-[75%] lg:w-[55%] z-[3]">
+        {/* Cinematic Spotlight focal point */}
+        <Spotlight 
+          className="-top-40 left-0 md:left-60 md:-top-20 z-[3]" 
+          fill="rgba(14,165,233,0.15)" 
+        />
+
+        {/* Spline 3D Robot — Positioned right, on top of gradients for clarity */}
+        <div className="absolute right-0 top-[-5%] sm:top-0 w-full h-full sm:w-[75%] lg:w-[65%] 2xl:w-[55%] z-[10] scale-110 md:scale-100">
           <SplineScene 
             scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
             className="w-full h-full"
           />
         </div>
 
-        {/* Dark gradient overlay for text readability — all screens */}
-        <div className="absolute inset-0 z-[4] pointer-events-none bg-gradient-to-r from-obsidian via-obsidian/80 to-transparent sm:via-obsidian/70 lg:via-obsidian/60" />
-        <div className="absolute inset-0 z-[4] pointer-events-none bg-gradient-to-t from-obsidian/60 via-transparent to-obsidian/30 lg:from-transparent lg:to-transparent" />
+        {/* Dark gradient overlay for text readability — refined for robot clarity */}
+        <div className="absolute inset-0 z-[4] pointer-events-none bg-gradient-to-r from-obsidian via-obsidian/70 to-transparent sm:via-obsidian/40 lg:via-obsidian/30" />
+        <div className="absolute inset-0 z-[4] pointer-events-none bg-gradient-to-t from-obsidian/40 via-transparent to-obsidian/20 lg:from-transparent lg:to-transparent" />
 
         {/* Text Content — pointer-events-none so mouse passes through to Spline */}
         <div className="relative z-20 max-w-[1550px] mx-auto px-5 sm:px-6 lg:px-20 w-full pointer-events-none">
