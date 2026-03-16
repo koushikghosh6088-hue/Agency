@@ -56,11 +56,11 @@ export default function ProblemSolution() {
   });
 
   // Calculate index based on scroll progress
-  // We use slightly wider ranges to ensure cards don't flip too fast
+  // Optimized for 250vh height
   const scrollIndex = useTransform(
     scrollYProgress,
-    [0, 0.2, 0.4, 0.6, 0.8, 1],
-    [0, 1, 2, 3, 3, 3]
+    [0, 0.25, 0.5, 0.75, 1],
+    [0, 1, 2, 3, 3]
   );
 
   useEffect(() => {
@@ -73,7 +73,7 @@ export default function ProblemSolution() {
   }, [scrollIndex, activeIndex]);
 
   return (
-    <section ref={containerRef} className="relative py-24 md:py-40 bg-black overflow-hidden border-t border-white/5 min-h-[400vh]">
+    <section ref={containerRef} className="relative py-24 md:py-40 bg-black overflow-hidden border-t border-white/5 min-h-[250vh]">
       {/* Background glow effects */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(14,165,233,0.05)_0%,transparent_50%)] pointer-events-none" />
       <div className="absolute inset-x-0 bottom-0 top-1/2 bg-gradient-to-t from-black via-black to-transparent pointer-events-none z-10" />
@@ -106,8 +106,8 @@ export default function ProblemSolution() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
           
           {/* Left: Sticky 3D Diagnostic Environment */}
-          <div className="lg:col-span-12 lg:h-screen sticky top-0 flex flex-col lg:flex-row items-center justify-center gap-12 py-20 pointer-events-none">
-            <div className="w-full lg:w-5/12 h-[400px] md:h-[600px] relative rounded-[3rem] overflow-hidden border border-white/10 bg-white/[0.02] shadow-[inset_0_0_100px_rgba(0,0,0,0.8)] pointer-events-auto">
+          <div className="lg:col-span-12 h-auto lg:h-screen sticky top-20 lg:top-0 flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 py-10 lg:py-20 pointer-events-none">
+            <div className="w-full lg:w-5/12 h-[350px] md:h-[500px] lg:h-[600px] relative rounded-[2.5rem] lg:rounded-[3rem] overflow-hidden border border-white/10 bg-white/[0.02] shadow-[inset_0_0_100px_rgba(0,0,0,0.8)] pointer-events-auto">
               <div className="absolute inset-0 z-0 mix-blend-screen opacity-80">
                  <Canvas 
                    camera={{ position: [0, 0, 5], fov: 45 }}
