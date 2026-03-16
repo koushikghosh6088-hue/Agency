@@ -73,7 +73,7 @@ export default function ProblemSolution() {
   }, [scrollIndex, activeIndex]);
 
   return (
-    <section ref={containerRef} className="relative py-24 md:py-40 bg-black overflow-hidden border-t border-white/5 min-h-[250vh]">
+    <section ref={containerRef} className="relative py-12 md:py-24 bg-black overflow-hidden border-t border-white/5 min-h-[250vh]">
       {/* Background glow effects */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(14,165,233,0.05)_0%,transparent_50%)] pointer-events-none" />
       <div className="absolute inset-x-0 bottom-0 top-1/2 bg-gradient-to-t from-black via-black to-transparent pointer-events-none z-10" />
