@@ -23,10 +23,10 @@
 
 .scroll-stack-card {
   transform-origin: top center;
-  will-change: transform, filter;
+  will-change: transform, filter, opacity;
   backface-visibility: hidden;
   transform-style: preserve-3d;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.5), 0 30px 60px -30px rgba(0, 0, 0, 0.6);
   min-height: 25rem;
   width: 100%;
   margin: 30px 0;
@@ -36,6 +36,14 @@
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
   position: relative;
+  background: #050505; /* Solid black for absolute overlap protection */
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.scroll-stack-card.active {
+  border-color: rgba(239, 68, 68, 0.5);
+  box-shadow: 0 0 50px rgba(239, 68, 68, 0.1);
 }
 
 .scroll-stack-end {

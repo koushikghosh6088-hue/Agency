@@ -141,11 +141,18 @@ const ScrollStack = ({
         translateY = pinEnd - cardTop + stackPositionPx + itemStackDistance * i;
       }
 
+      let opacity = 1;
+      if (i < currentTopCardIndex) {
+        // Dim cards that are already stacked beneath
+        opacity = Math.max(0.4, 1 - (currentTopCardIndex - i) * 0.15);
+      }
+
       const newTransform = {
         translateY: translateY,
         scale: scale,
         rotation: rotation,
-        blur: blur
+        blur: blur,
+        opacity: opacity
       };
 
       const lastTransform = lastTransformsRef.current.get(i);
@@ -154,7 +161,8 @@ const ScrollStack = ({
         Math.abs(lastTransform.translateY - newTransform.translateY) > 0.01 ||
         Math.abs(lastTransform.scale - newTransform.scale) > 0.0001 ||
         Math.abs(lastTransform.rotation - newTransform.rotation) > 0.01 ||
-        Math.abs(lastTransform.blur - newTransform.blur) > 0.01;
+        Math.abs(lastTransform.blur - newTransform.blur) > 0.01 ||
+        Math.abs(lastTransform.opacity - newTransform.opacity) > 0.01;
 
       if (hasChanged) {
         const transform = `translate3d(0, ${newTransform.translateY}px, 0) scale(${newTransform.scale}) rotate(${newTransform.rotation}deg)`;
@@ -162,6 +170,13 @@ const ScrollStack = ({
 
         card.style.transform = transform;
         card.style.filter = filter;
+        card.style.opacity = newTransform.opacity.toString();
+
+        if (i === currentTopCardIndex) {
+          card.classList.add('active');
+        } else {
+          card.classList.remove('active');
+        }
 
         lastTransformsRef.current.set(i, newTransform);
       }

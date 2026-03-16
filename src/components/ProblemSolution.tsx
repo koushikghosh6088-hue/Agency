@@ -69,7 +69,10 @@ export default function ProblemSolution() {
            </div>
            
            <h2 className="text-[3rem] md:text-[5rem] lg:text-[6.5rem] font-heading font-black leading-[0.85] tracking-tighter uppercase mb-6">
-              DIAGNOSING <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 italic">YOUR BUSINESS</span>
+              <span className="text-white">DIAGNOSING</span> <br/>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-red-500 to-orange-600 italic">
+                YOUR BUSINESS
+              </span>
            </h2>
            <p className="font-mono text-white/50 text-sm md:text-base max-w-2xl mx-auto leading-relaxed uppercase tracking-wider mb-8">
               Scroll through the automated diagnostic sequence to reveal critical failure points and their solutions.
@@ -117,20 +120,21 @@ export default function ProblemSolution() {
             <ScrollStack 
               useWindowScroll={true} 
               itemDistance={150} 
-              itemScale={0.05} 
-              stackPosition="15%"
-              baseScale={0.9}
+              itemScale={0.02} 
+              itemStackDistance={70}
+              stackPosition="12%"
+              baseScale={0.96}
             >
               {painPoints.map((point, index) => (
                 <ScrollStackItem key={point.id}>
-                  <div className="relative h-full w-full rounded-[2.3rem] p-8 md:p-12 border border-white/20 bg-white/[0.03] backdrop-blur-3xl shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden">
-                    <div className={`absolute top-0 right-0 w-[400px] h-[400px] bg-${point.color}-500/10 blur-[120px] pointer-events-none`} />
+                  <div className="relative h-full w-full rounded-[2.3rem] p-8 md:p-12 overflow-hidden">
+                    <div className={`absolute top-0 right-0 w-[400px] h-[400px] bg-red-500/5 blur-[120px] pointer-events-none`} />
                     
                     <div className="flex items-center gap-4 mb-8">
-                       <div className={`w-14 h-14 rounded-2xl flex items-center justify-center bg-${point.color}-500/10 border border-${point.color}-500/20`}>
+                       <div className={`w-14 h-14 rounded-2xl flex items-center justify-center bg-red-500/10 border border-red-500/20`}>
                           {(() => {
                              const Icon = point.icon;
-                             return <Icon className={`w-7 h-7 text-${point.color}-400`} />;
+                             return <Icon className={`w-7 h-7 text-red-400`} />;
                           })()}
                        </div>
                        <div>
@@ -152,8 +156,8 @@ export default function ProblemSolution() {
                           </p>
                        </div>
 
-                       <div className={`p-6 rounded-2xl bg-${point.color}-500/10 border border-${point.color}-500/30`}>
-                          <span className={`text-xs font-mono text-${point.color}-400 uppercase tracking-widest mb-3 block font-bold`}>Premium Solution</span>
+                       <div className={`p-6 rounded-2xl bg-red-500/10 border border-red-500/30`}>
+                          <span className={`text-xs font-mono text-red-400 uppercase tracking-widest mb-3 block font-bold`}>Premium Solution</span>
                           <p className="text-lg md:text-xl text-white font-bold leading-tight">
                              {point.solution}
                           </p>
