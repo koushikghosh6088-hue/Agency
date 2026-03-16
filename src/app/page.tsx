@@ -16,7 +16,6 @@ import WhyChooseUs from '@/components/WhyChooseUs';
 import FeaturedArchive from '@/components/FeaturedArchive';
 import HeroEnvironment from '@/components/HeroEnvironment';
 import ProblemSolution from '@/components/ProblemSolution';
-import ServicesDeepDive from '@/components/ServicesDeepDive';
 import PricingSection from '@/components/PricingSection';
 
 import { Canvas } from '@react-three/fiber';
@@ -436,8 +435,6 @@ export default function HomePage() {
       <section className="relative bg-black z-10">
         <ProblemSolution />
       </section>
-
-      <ServicesDeepDive />
 
       <WhyChooseUs />
 
