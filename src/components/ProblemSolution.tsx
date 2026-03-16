@@ -127,7 +127,10 @@ export default function ProblemSolution() {
                            <div className="relative z-10 flex-1">
                                <div className="flex items-center gap-3 mb-6">
                                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center bg-${point.color}-500/10 border border-${point.color}-500/20`}>
-                                       <point.icon className={`w-6 h-6 text-${point.color}-400 shadow-[0_0_15px_rgba(var(--${point.color}-500),0.5)]`} />
+                                       <point.icon 
+                                         className={`w-6 h-6 text-${point.color}-400`} 
+                                         style={{ filter: `drop-shadow(0 0 15px rgba(var(--${point.color}-500), 0.5))` }}
+                                       />
                                    </div>
                                    <div>
                                        <span className="font-mono text-[10px] uppercase tracking-widest text-white/40 block mb-1">{point.id}</span>
