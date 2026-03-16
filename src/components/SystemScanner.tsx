@@ -54,99 +54,119 @@ export default function SystemScanner() {
   return (
     <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
       <group>
-        {/* The Diagnostic Neon Mainframe (High-Contrast & Lucrative) */}
+        {/* The Diagnostic Luxury Mainframe (Gold & Chrome - High Visibility) */}
         <group ref={meshRef}>
-          {/* Polished Chrome Frame */}
-          <mesh position={[0, 0, 0]}>
-            <boxGeometry args={[4.2, 2.0, 0.3]} />
+          {/* Main Chassis: Polished Gold & Chrome */}
+          <mesh position={[0, -0.2, 0]}>
+            <boxGeometry args={[4.5, 2.2, 0.4]} />
             <meshStandardMaterial 
-              color="#e2e8f0" 
+              color="#fbbf24" 
               roughness={0.05} 
               metalness={1} 
+              emissive="#fbbf24"
+              emissiveIntensity={0.05}
             />
           </mesh>
 
-          {/* High-Impact Neon Lime Display Pad */}
-          <mesh position={[0, 0, 0.16]}>
-            <planeGeometry args={[4, 1.8]} />
+          {/* Platinum Internal Frame */}
+          <mesh position={[0, -0.2, 0.05]}>
+            <boxGeometry args={[4.3, 2.0, 0.35]} />
+            <meshStandardMaterial 
+              color="#ffffff" 
+              roughness={0.1} 
+              metalness={1}
+            />
+          </mesh>
+
+          {/* High-Contrast Violet Glass Display Overlay */}
+          <mesh position={[0, -0.2, 0.25]}>
+            <planeGeometry args={[4.1, 1.8]} />
             <MeshTransmissionMaterial
               backside
-              samples={4}
-              thickness={0.05}
-              chromaticAberration={0.02}
+              samples={8}
+              thickness={0.1}
+              chromaticAberration={0.05}
               anisotropy={1}
               distortion={0}
-              color="#c1ff00"
-              transmission={0.9}
-              emissive="#c1ff00"
-              emissiveIntensity={0.2}
+              color="#4c1d95"
+              transmission={0.8}
             />
           </mesh>
 
-          {/* Technical Detail: Gold-Plated Side Connectors */}
-          <mesh position={[-2.2, 0, 0]}>
-            <boxGeometry args={[0.2, 1.4, 0.5]} />
+          {/* Luxury Detail: Gold Side Pylons */}
+          <mesh position={[-2.4, -0.2, 0]}>
+            <cylinderGeometry args={[0.2, 0.2, 2.6, 6]} />
             <meshStandardMaterial color="#fbbf24" metalness={1} roughness={0.1} />
           </mesh>
-          <mesh position={[2.2, 0, 0]}>
-            <boxGeometry args={[0.2, 1.4, 0.5]} />
+          <mesh position={[2.4, -0.2, 0]}>
+            <cylinderGeometry args={[0.2, 0.2, 2.6, 6]} />
             <meshStandardMaterial color="#fbbf24" metalness={1} roughness={0.1} />
           </mesh>
 
-          {/* Moving Data Strips (Neon Lime) */}
-          <group position={[0, 0, 0.17]}>
-            {[...Array(6)].map((_, i) => (
-              <mesh key={i} position={[(i - 2.5) * 0.6, Math.sin(i + Date.now() * 0.001) * 0.1, 0]}>
-                <boxGeometry args={[0.05, 1.2, 0.01]} />
-                <meshBasicMaterial color="#c1ff00" transparent opacity={0.6} />
-              </mesh>
-            ))}
+          {/* Floating Violet Neon "Brain" Core */}
+          <group position={[0, -0.2, 0.1]}>
+             <mesh>
+                <sphereGeometry args={[0.5, 32, 32]} />
+                <MeshDistortMaterial
+                  color="#a78bfa"
+                  speed={4}
+                  distort={0.4}
+                  radius={1}
+                  emissive="#a78bfa"
+                  emissiveIntensity={2}
+                />
+             </mesh>
+             <pointLight color="#a78bfa" intensity={15} distance={3} />
           </group>
 
-          {/* Rotating Cooling Fan / Tech Core */}
-          <mesh position={[1.5, -0.5, 0.18]} rotation={[0, 0, Date.now() * 0.002]}>
-             <torusGeometry args={[0.2, 0.02, 16, 32]} />
-             <meshBasicMaterial color="#c1ff00" />
+          {/* Technical Detail: Gold Mechanical Blades (Base) */}
+          <mesh position={[0, -1.8, -0.2]}>
+             <boxGeometry args={[1.5, 1.2, 0.05]} />
+             <meshStandardMaterial color="#fbbf24" metalness={1} roughness={0.05} />
+          </mesh>
+          <mesh position={[0, -2.4, 0]}>
+             <boxGeometry args={[3.5, 0.1, 2.5]} />
+             <meshStandardMaterial color="#050505" roughness={0} metalness={1} />
           </mesh>
 
-          {/* High-End Base (Carbon Fiber Look) */}
-          <mesh position={[0, -1.6, 0]}>
-             <boxGeometry args={[2.5, 0.1, 1.2]} />
-             <meshStandardMaterial color="#0a0a0a" roughness={1} metalness={0} />
+          {/* Status Indicators: White LEDs */}
+          <mesh position={[-1.9, -1.0, 0.26]}>
+            <sphereGeometry args={[0.04, 8, 8]} />
+            <meshBasicMaterial color="#ffffff" />
           </mesh>
-          <mesh position={[0, -1.3, -0.1]}>
-             <boxGeometry args={[0.4, 0.6, 0.1]} />
-             <meshStandardMaterial color="#64748b" metalness={1} />
+          <mesh position={[-1.75, -1.0, 0.26]}>
+            <sphereGeometry args={[0.04, 8, 8]} />
+            <meshBasicMaterial color="#ffffff" opacity={0.4} transparent />
           </mesh>
         </group>
 
-        {/* Outer Orbiting Rings (Stitch Neon Lime) */}
-        <group rotation={[Math.PI / 4, Math.PI / 4, 0]}>
+        {/* Orbiting Tech Rings (High-Impact Gold) */}
+        <group rotation={[Math.PI / 3, 0, 0]}>
           <mesh>
-            <torusGeometry args={[4.8, 0.01, 16, 100]} />
-            <meshBasicMaterial color="#c1ff00" transparent opacity={0.3} />
+            <torusGeometry args={[5.2, 0.02, 16, 100]} />
+            <meshStandardMaterial color="#fbbf24" metalness={1} roughness={0.1} emissive="#fbbf24" emissiveIntensity={0.2} />
           </mesh>
         </group>
 
-        {/* High-Intensity Scanning Beam (Restored Red for Danger/Contrast) */}
+        {/* The Scanning Ring (Restored Intense Red for Diagnostic Impact) */}
         <group ref={beamRef}>
           <mesh rotation={[Math.PI / 2, 0, 0]}>
-            <ringGeometry args={[3.8, 3.85, 64]} />
-            <meshBasicMaterial color="#ef4444" transparent opacity={0.9} side={THREE.DoubleSide} />
+            <ringGeometry args={[4.2, 4.3, 64]} />
+            <meshBasicMaterial color="#ef4444" transparent opacity={0.95} side={THREE.DoubleSide} />
           </mesh>
           <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0, 0.01]}>
-            <ringGeometry args={[0, 3.8, 64]} />
-            <meshBasicMaterial color="#ef4444" transparent opacity={0.12} side={THREE.DoubleSide} />
+            <ringGeometry args={[0, 4.2, 64]} />
+            <meshBasicMaterial color="#ef4444" transparent opacity={0.15} side={THREE.DoubleSide} />
           </mesh>
-          <pointLight color="#ef4444" intensity={15} distance={6} />
+          <pointLight color="#ef4444" intensity={20} distance={8} />
         </group>
 
-        {/* Neural Particles (High Visibility) */}
+        {/* Data Stream Particles (High Visibility Platinum) */}
         <group ref={particlesRef}>
           {particles.map((p, i) => (
             <mesh key={i} position={p.position}>
-              <sphereGeometry args={[0.015, 8, 8]} />
-              <meshBasicMaterial color={i % 2 === 0 ? "#c1ff00" : "#ffffff"} transparent opacity={0.8} />
+              <boxGeometry args={[0.02, 0.02, 0.02]} />
+              <meshBasicMaterial color="#ffffff" transparent opacity={0.9} />
             </mesh>
           ))}
         </group>
