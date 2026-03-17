@@ -631,13 +631,42 @@ body {
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
 
-@keyframes scan {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(200%); }
+@keyframes orbit-particle {
+  0% { offset-distance: 0%; opacity: 0; transform: scale(0.5); }
+  10% { opacity: 1; transform: scale(1); }
+  90% { opacity: 1; transform: scale(1); }
+  100% { offset-distance: 100%; opacity: 0; transform: scale(0.5); }
 }
 
-.animate-scan {
-  animation: scan 3s linear infinite;
+.animate-orbit-particle {
+  animation: orbit-particle 10s linear infinite;
+}
+
+@keyframes liquid-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.1); opacity: 0.6; }
+}
+
+.animate-liquid-pulse {
+  animation: liquid-pulse 4s ease-in-out infinite;
+}
+
+@keyframes glow-scan {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-glow-scan {
+  animation: glow-scan 8s linear infinite;
+}
+
+@keyframes reverse-spin {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+.animate-reverse-spin {
+  animation: reverse-spin 10s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
