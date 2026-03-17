@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { ArrowRight, Activity, Cpu, ZapIcon } from "lucide-react";
+import { Activity, Cpu, ZapIcon, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 
@@ -23,7 +23,6 @@ interface RadialOrbitalTimelineProps {
 export default function RadialOrbitalTimeline({
   timelineData,
 }: RadialOrbitalTimelineProps) {
-  const [expandedItems, setExpandedItems] = useState<Record<number, boolean>>({});
   const [rotationAngle, setRotationAngle] = useState<number>(0);
   const [autoRotate, setAutoRotate] = useState<boolean>(true);
   const [activeNodeId, setActiveNodeId] = useState<number | null>(null);
@@ -51,23 +50,17 @@ export default function RadialOrbitalTimeline({
   }, []);
 
   const toggleItem = (id: number) => {
-    setExpandedItems((prev) => {
-      const isCurrentlyExpanded = prev[id];
-      const newState = { [id]: !isCurrentlyExpanded };
-      
-      if (newState[id]) {
-        setActiveNodeId(id);
-        setAutoRotate(false);
-        const nodeIndex = timelineData.findIndex(i => i.id === id);
-        const totalNodes = timelineData.length;
-        const targetAngle = (nodeIndex / totalNodes) * 360;
-        setRotationAngle(270 - targetAngle);
-      } else {
-        setActiveNodeId(null);
-        setAutoRotate(true);
-      }
-      return newState;
-    });
+    if (activeNodeId === id) {
+      setActiveNodeId(null);
+      setAutoRotate(true);
+    } else {
+      setActiveNodeId(id);
+      setAutoRotate(false);
+      const nodeIndex = timelineData.findIndex(i => i.id === id);
+      const totalNodes = timelineData.length;
+      const targetAngle = (nodeIndex / totalNodes) * 360;
+      setRotationAngle(270 - targetAngle);
+    }
   };
 
   useEffect(() => {
@@ -98,12 +91,13 @@ export default function RadialOrbitalTimeline({
     return { x, y, angle, zIndex, opacity };
   };
 
+  const activeItem = timelineData.find(item => item.id === activeNodeId);
+
   return (
     <div
-      className="relative w-full h-full min-h-[500px] lg:min-h-[650px] flex items-center justify-center bg-transparent overflow-visible"
+      className="relative w-full h-full min-h-[500px] lg:min-h-[700px] flex items-center justify-center bg-transparent overflow-visible"
       ref={containerRef}
       onClick={() => {
-        setExpandedItems({});
         setActiveNodeId(null);
         setAutoRotate(true);
       }}
@@ -129,7 +123,7 @@ export default function RadialOrbitalTimeline({
             </filter>
           </defs>
           <AnimatePresence>
-            {activeNodeId && timelineData.find(i => i.id === activeNodeId)?.relatedIds.map(relId => {
+            {activeNodeId && activeItem?.relatedIds.map(relId => {
               const activeIndex = timelineData.findIndex(i => i.id === activeNodeId);
               const relIndex = timelineData.findIndex(i => i.id === relId);
               const p1 = calculateNodePosition(activeIndex, timelineData.length);
@@ -202,9 +196,8 @@ export default function RadialOrbitalTimeline({
         {/* Timeline Nodes */}
         {timelineData.map((item, index) => {
           const position = calculateNodePosition(index, timelineData.length);
-          const isExpanded = expandedItems[item.id];
           const isActive = activeNodeId === item.id;
-          const isRelated = activeNodeId && (item.relatedIds.includes(activeNodeId) || timelineData.find(i => i.id === activeNodeId)?.relatedIds.includes(item.id));
+          const isRelated = activeNodeId && (item.relatedIds.includes(activeNodeId) || activeItem?.relatedIds.includes(item.id));
           const Icon = item.icon;
 
           return (
@@ -213,8 +206,8 @@ export default function RadialOrbitalTimeline({
               className="absolute transition-all duration-700 cursor-pointer"
               style={{
                 transform: `translate(${position.x}px, ${position.y}px)`,
-                zIndex: isExpanded ? 500 : position.zIndex,
-                opacity: activeNodeId && !isActive && !isRelated ? 0.2 : (isExpanded ? 1 : position.opacity),
+                zIndex: isActive ? 500 : position.zIndex,
+                opacity: activeNodeId && !isActive && !isRelated ? 0.2 : (isActive ? 1 : position.opacity),
               }}
               onClick={(e) => {
                 e.stopPropagation();
@@ -250,104 +243,116 @@ export default function RadialOrbitalTimeline({
                  </span>
                  <div className={`h-[2px] bg-gradient-to-r from-transparent via-blue-400 to-transparent transition-all duration-700 mx-auto ${isActive ? "w-full mt-1.5 opacity-100" : "w-0 opacity-0"}`} />
               </div>
-
-              {/* Expansion Card (High-Fidelity) */}
-              <AnimatePresence>
-                {isExpanded && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9, y: 40 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.9, y: 30 }}
-                    className={`
-                      absolute z-[600] 
-                      ${isMobile 
-                        ? "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100vw-48px)] max-w-[340px]" 
-                        : "top-24 left-1/2 -translate-x-1/2 w-[340px]"
-                      }
-                    `}
-                    style={{
-                      // Reset parent transform on mobile if using fixed
-                      transform: isMobile ? 'translate(-50%, -50%)' : undefined,
-                      left: isMobile ? '50%' : '50%',
-                      top: isMobile ? '50%' : '100px',
-                      position: isMobile ? 'fixed' : 'absolute',
-                    }}
-                  >
-                    <div className="relative glass-premium p-7 rounded-[2.5rem] border-white/20 shadow-2xl overflow-hidden group/card bg-black/95">
-                      {/* Border Beam Logic - Intensified Glow */}
-                      <div className="absolute inset-0 opacity-30 pointer-events-none overflow-hidden rounded-[2.5rem]">
-                        <div className="absolute inset-[-100%] bg-[conic-gradient(from_0deg,transparent,#0ea5e9,transparent_30%)] animate-[spin_3s_linear_infinite]" />
-                      </div>
-
-                      <div className="relative z-10">
-                        <div className="flex justify-between items-center mb-5">
-                          <Badge className="bg-blue-400/20 border-blue-400/40 text-blue-400 text-[10px] font-black uppercase tracking-wider rounded-full px-4 py-1.5">
-                            {item.category}
-                          </Badge>
-                          <span className="font-mono text-[10px] text-white/40 tracking-widest font-bold">{item.date}</span>
-                        </div>
-                        
-                        <h3 className="text-2xl font-heading font-black text-white mb-3 tracking-tighter uppercase leading-tight italic">
-                          {item.title}
-                        </h3>
-                        
-                        <p className="text-white/60 text-sm font-mono leading-relaxed mb-8">
-                          {item.content}
-                        </p>
-
-                        <div className="space-y-5">
-                          <div className="p-5 bg-white/[0.03] border border-white/5 rounded-[1.5rem] glow-blue-strong">
-                             <div className="flex justify-between items-center mb-3">
-                                <span className="flex items-center gap-2 text-[11px] text-white/50 uppercase tracking-[0.2em] font-bold">
-                                  <ZapIcon size={14} className="text-blue-400 animate-pulse" /> Neural Impact
-                                </span>
-                                <span className="text-blue-400 font-mono text-sm font-black">{item.energy}%</span>
-                             </div>
-                             <div className="h-2 w-full bg-blue-900/20 rounded-full overflow-hidden">
-                               <motion.div 
-                                 initial={{ width: 0 }}
-                                 animate={{ width: `${item.energy}%` }}
-                                 className="h-full bg-gradient-to-r from-blue-600 via-blue-400 to-cyan-300" 
-                               />
-                             </div>
-                          </div>
-
-                          {item.relatedIds.length > 0 && (
-                            <div className="grid grid-cols-1 gap-3">
-                               {item.relatedIds.map(relId => {
-                                 const rel = timelineData.find(i => i.id === relId);
-                                 return (
-                                   <button 
-                                     key={relId}
-                                     onClick={(e) => { e.stopPropagation(); toggleItem(relId); }}
-                                     className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-blue-400 hover:bg-blue-400/10 transition-all group/btn"
-                                   >
-                                     <span className="text-[11px] font-mono text-white/70 group-hover/btn:text-white uppercase tracking-widest font-black">Sync {rel?.title}</span>
-                                     <Activity size={14} className="text-blue-400 transition-transform group-hover/btn:scale-125" />
-                                   </button>
-                                 )
-                               })}
-                            </div>
-                          )}
-                        </div>
-                        
-                        {/* Close button for mobile accessibility */}
-                        {isMobile && (
-                          <button 
-                            className="mt-6 w-full py-3 rounded-2xl bg-white/5 border border-white/10 font-mono text-[10px] uppercase tracking-widest text-white/40 active:bg-blue-400/10 active:text-blue-400 transition-colors"
-                            onClick={(e) => { e.stopPropagation(); setExpandedItems({}); setActiveNodeId(null); setAutoRotate(true); }}
-                          >
-                            Close Protocol
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </div>
           );
         })}
+
+        {/* Top-Level Expansion Card Modal */}
+        <AnimatePresence>
+          {activeItem && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 10 }}
+              className={`
+                z-[1000] pointer-events-auto
+                ${isMobile 
+                  ? "fixed inset-0 flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm" 
+                  : "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px]"
+                }
+              `}
+              onClick={(e) => {
+                if (isMobile) {
+                  e.stopPropagation();
+                  setActiveNodeId(null);
+                  setAutoRotate(true);
+                }
+              }}
+            >
+              <div 
+                className={`
+                  relative glass-premium p-7 rounded-[2.5rem] border-white/20 shadow-2xl overflow-hidden group/card bg-black/95
+                  ${isMobile ? "w-full max-w-[340px] max-h-[90vh] overflow-y-auto" : "w-full"}
+                `}
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Border Beam Logic - Intensified Glow */}
+                <div className="absolute inset-0 opacity-30 pointer-events-none overflow-hidden rounded-[2.5rem]">
+                  <div className="absolute inset-[-100%] bg-[conic-gradient(from_0deg,transparent,#0ea5e9,transparent_30%)] animate-[spin_3s_linear_infinite]" />
+                </div>
+
+                <div className="relative z-10">
+                  <div className="flex justify-between items-center mb-5">
+                    <Badge className="bg-blue-400/20 border-blue-400/40 text-blue-400 text-[10px] font-black uppercase tracking-wider rounded-full px-4 py-1.5">
+                      {activeItem.category}
+                    </Badge>
+                    <div className="flex items-center gap-3">
+                      <span className="font-mono text-[10px] text-white/40 tracking-widest font-bold">{activeItem.date}</span>
+                      <button 
+                         onClick={() => { setActiveNodeId(null); setAutoRotate(true); }}
+                         className="p-1 hover:bg-white/10 rounded-full transition-colors"
+                      >
+                         <X size={16} className="text-white/40" />
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <h3 className="text-2xl font-heading font-black text-white mb-3 tracking-tighter uppercase leading-tight italic">
+                    {activeItem.title}
+                  </h3>
+                  
+                  <p className="text-white/60 text-sm font-mono leading-relaxed mb-8">
+                    {activeItem.content}
+                  </p>
+
+                  <div className="space-y-5">
+                    <div className="p-5 bg-white/[0.03] border border-white/5 rounded-[1.5rem] glow-blue-strong">
+                       <div className="flex justify-between items-center mb-3">
+                          <span className="flex items-center gap-2 text-[11px] text-white/50 uppercase tracking-[0.2em] font-bold">
+                            <ZapIcon size={14} className="text-blue-400 animate-pulse" /> Neural Impact
+                          </span>
+                          <span className="text-blue-400 font-mono text-sm font-black">{activeItem.energy}%</span>
+                       </div>
+                       <div className="h-2 w-full bg-blue-900/20 rounded-full overflow-hidden">
+                         <motion.div 
+                           initial={{ width: 0 }}
+                           animate={{ width: `${activeItem.energy}%` }}
+                           className="h-full bg-gradient-to-r from-blue-600 via-blue-400 to-cyan-300" 
+                         />
+                       </div>
+                    </div>
+
+                    {activeItem.relatedIds.length > 0 && (
+                      <div className="grid grid-cols-1 gap-3">
+                         <span className="text-[9px] text-white/30 uppercase tracking-[0.2em] pl-1">Neural Synapse</span>
+                         {activeItem.relatedIds.map(relId => {
+                           const rel = timelineData.find(i => i.id === relId);
+                           return (
+                             <button 
+                               key={relId}
+                               onClick={(e) => { e.stopPropagation(); toggleItem(relId); }}
+                               className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-blue-400 hover:bg-blue-400/10 transition-all group/btn"
+                             >
+                               <span className="text-[11px] font-mono text-white/70 group-hover/btn:text-white uppercase tracking-widest font-black">Sync {rel?.title}</span>
+                               <Activity size={14} className="text-blue-400 transition-transform group-hover/btn:scale-125" />
+                             </button>
+                           )
+                         })}
+                      </div>
+                    )}
+                  </div>
+
+                  <button 
+                    className="mt-8 w-full py-4 rounded-2xl bg-blue-500/10 border border-blue-500/30 font-mono text-[10px] uppercase tracking-[0.3em] text-blue-400 hover:bg-blue-500/20 active:scale-[0.98] transition-all"
+                    onClick={() => { setActiveNodeId(null); setAutoRotate(true); }}
+                  >
+                    DISCONNECT PROTOCOL
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
