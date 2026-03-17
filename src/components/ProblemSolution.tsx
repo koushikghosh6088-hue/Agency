@@ -47,15 +47,40 @@ const painPoints = [
 export default function ProblemSolution() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const nextCard = () => {
+  const nextCard = useCallback(() => {
     setDirection(1);
     setActiveIndex((prev) => (prev + 1) % painPoints.length);
-  };
+  }, []);
 
-  const prevCard = () => {
+  const prevCard = useCallback(() => {
     setDirection(-1);
     setActiveIndex((prev) => (prev - 1 + painPoints.length) % painPoints.length);
+  }, []);
+
+  // Auto-scroll logic
+  useEffect(() => {
+    if (!isPaused) {
+      timerRef.current = setInterval(() => {
+        nextCard();
+      }, 5000);
+    }
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [isPaused, nextCard]);
+
+  // Reset timer on manual interaction
+  const handleNext = () => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    nextCard();
+  };
+
+  const handlePrev = () => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    prevCard();
   };
 
   return (
@@ -100,18 +125,22 @@ export default function ProblemSolution() {
         </div>
 
         {/* 3D Perspective Carousel Stage */}
-        <div className="relative h-[650px] md:h-[850px] flex items-center justify-center py-12 mb-12">
+        <div 
+          className="relative h-[650px] md:h-[850px] flex items-center justify-center py-12 mb-12"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
             
             {/* Side Navigation Arrows (Relocated) */}
             <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between px-2 md:px-10 z-[100] pointer-events-none">
               <button 
-                onClick={prevCard}
+                onClick={handlePrev}
                 className="group w-14 h-14 md:w-20 md:h-20 rounded-full border border-white/10 bg-black/40 backdrop-blur-xl flex items-center justify-center hover:bg-red-500/20 hover:border-red-500/40 transition-all pointer-events-auto active:scale-90 shadow-[0_0_30px_rgba(0,0,0,0.5)]"
               >
                 <AlertTriangle className="w-6 h-6 md:w-8 md:h-8 text-white/50 group-hover:text-red-500 transition-colors -rotate-90" />
               </button>
               <button 
-                onClick={nextCard}
+                onClick={handleNext}
                 className="group w-14 h-14 md:w-20 md:h-20 rounded-full border border-white/10 bg-black/40 backdrop-blur-xl flex items-center justify-center hover:bg-red-500/20 hover:border-red-500/40 transition-all pointer-events-auto active:scale-90 shadow-[0_0_30px_rgba(0,0,0,0.5)]"
               >
                 <AlertTriangle className="w-6 h-6 md:w-8 md:h-8 text-white/50 group-hover:text-red-500 transition-colors rotate 90" />
