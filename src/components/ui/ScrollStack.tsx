@@ -1,7 +1,6 @@
 'use client';
 
 import { useLayoutEffect, useRef, useCallback, useEffect } from 'react';
-import { useLenis } from '@studio-freight/react-lenis';
 import './ScrollStack.css';
 
 export const ScrollStackItem = ({ children, itemClassName = '' }: { children: React.ReactNode, itemClassName?: string }) => (
@@ -216,12 +215,6 @@ const ScrollStack = ({
     });
   }, [updateCardTransforms]);
 
-  // Use Lenis for synchronized root scroll updates
-  useLenis(() => {
-    if (useWindowScroll) {
-      updateCardTransforms();
-    }
-  });
 
   useLayoutEffect(() => {
     const scroller = scrollerRef.current;
@@ -258,14 +251,18 @@ const ScrollStack = ({
     measure();
     updateCardTransforms();
 
-    if (!useWindowScroll && scroller) {
+    if (useWindowScroll) {
+      window.addEventListener('scroll', handleScroll, { passive: true });
+    } else if (scroller) {
       scroller.addEventListener('scroll', handleScroll, { passive: true });
     }
     window.addEventListener('resize', measure);
 
     return () => {
       window.removeEventListener('resize', measure);
-      if (!useWindowScroll && scroller) {
+      if (useWindowScroll) {
+        window.removeEventListener('scroll', handleScroll);
+      } else if (scroller) {
         scroller.removeEventListener('scroll', handleScroll);
       }
       if (animationFrameRef.current) {

@@ -6,7 +6,7 @@
   overflow-x: hidden;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
-  /* scroll-behavior: smooth; REMOVED - Conflicts with Lenis */
+  /* scroll-behavior: smooth; */
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
   will-change: transform;
