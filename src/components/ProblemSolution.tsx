@@ -76,11 +76,10 @@ export default function ProblemSolution() {
       </div>
 
       <div className="max-w-[1700px] mx-auto px-6 relative z-10">
-        
         {/* Header Section */}
-        <div className="flex flex-col md:flex-row items-end justify-between gap-12 mb-20 md:mb-32">
+        <div className="flex flex-col items-center text-center gap-8 mb-16 md:mb-24">
           <AnimatedSection className="max-w-4xl">
-            <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full border border-red-500/30 bg-red-500/5 mb-8 backdrop-blur-3xl group cursor-default">
+            <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full border border-red-500/30 bg-red-500/5 mb-8 backdrop-blur-3xl group cursor-default mx-auto">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
@@ -88,46 +87,37 @@ export default function ProblemSolution() {
               <span className="font-mono text-[11px] uppercase tracking-[0.5em] text-red-500 font-black">Scanning_Protocol_Active</span>
             </div>
             
-            <h2 className="text-[4rem] md:text-[7rem] lg:text-[9rem] font-heading font-black leading-[0.75] tracking-tighter uppercase mb-2">
+            <h2 className="text-[4rem] md:text-[6.5rem] lg:text-[8.5rem] font-heading font-black leading-[0.75] tracking-tighter uppercase mb-2">
               <span className="text-white block">REVEALING</span>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-red-500 to-orange-400 italic">SYSTEM_FLOOD</span>
             </h2>
-            <div className="flex items-center gap-4 font-mono text-red-500/40 text-[10px] tracking-[0.4em] uppercase font-bold">
+            <div className="flex items-center justify-center gap-4 font-mono text-red-500/40 text-[10px] tracking-[0.4em] uppercase font-bold">
                <div className="w-12 h-px bg-red-500/20" />
                Critical Breach Analysis Stage 04
+               <div className="w-12 h-px bg-red-500/20" />
             </div>
           </AnimatedSection>
-
-          {/* Nav Controls */}
-          <div className="flex gap-4 pb-4">
-            <div className="flex flex-col items-end gap-2 mr-4 hidden md:flex">
-               <span className="font-mono text-[9px] text-white/20 uppercase tracking-widest">Manual_Override</span>
-               <div className="flex items-center gap-1.5">
-                  {painPoints.map((_, i) => (
-                    <div 
-                      key={i} 
-                      className={`h-1 transition-all duration-500 rounded-full ${i === activeIndex ? 'w-8 bg-red-500' : 'w-2 bg-white/10'}`} 
-                    />
-                  ))}
-               </div>
-            </div>
-            <button 
-              onClick={prevCard}
-              className="group w-16 h-16 md:w-20 md:h-20 rounded-3xl border border-white/5 bg-white/5 flex items-center justify-center hover:bg-red-500/10 hover:border-red-500/30 transition-all active:scale-90"
-            >
-              <AlertTriangle className="w-6 h-6 md:w-8 md:h-8 text-white/30 group-hover:text-red-500 transition-colors -rotate-90" />
-            </button>
-            <button 
-              onClick={nextCard}
-              className="group w-16 h-16 md:w-20 md:h-20 rounded-3xl border border-white/5 bg-white/5 flex items-center justify-center hover:bg-red-500/10 hover:border-red-500/30 transition-all active:scale-90"
-            >
-              <AlertTriangle className="w-6 h-6 md:w-8 md:h-8 text-white/30 group-hover:text-red-500 transition-colors rotate-90" />
-            </button>
-          </div>
         </div>
 
         {/* 3D Perspective Carousel Stage */}
-        <div className="relative h-[600px] md:h-[750px] flex items-center justify-center py-12">
+        <div className="relative h-[650px] md:h-[850px] flex items-center justify-center py-12 mb-12">
+            
+            {/* Side Navigation Arrows (Relocated) */}
+            <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between px-2 md:px-10 z-[100] pointer-events-none">
+              <button 
+                onClick={prevCard}
+                className="group w-14 h-14 md:w-20 md:h-20 rounded-full border border-white/10 bg-black/40 backdrop-blur-xl flex items-center justify-center hover:bg-red-500/20 hover:border-red-500/40 transition-all pointer-events-auto active:scale-90 shadow-[0_0_30px_rgba(0,0,0,0.5)]"
+              >
+                <AlertTriangle className="w-6 h-6 md:w-8 md:h-8 text-white/50 group-hover:text-red-500 transition-colors -rotate-90" />
+              </button>
+              <button 
+                onClick={nextCard}
+                className="group w-14 h-14 md:w-20 md:h-20 rounded-full border border-white/10 bg-black/40 backdrop-blur-xl flex items-center justify-center hover:bg-red-500/20 hover:border-red-500/40 transition-all pointer-events-auto active:scale-90 shadow-[0_0_30px_rgba(0,0,0,0.5)]"
+              >
+                <AlertTriangle className="w-6 h-6 md:w-8 md:h-8 text-white/50 group-hover:text-red-500 transition-colors rotate 90" />
+              </button>
+            </div>
+
             <AnimatePresence mode="popLayout" custom={direction}>
                 <div className="relative w-full h-full flex items-center justify-center preserve-3d">
                     {painPoints.map((point, index) => {
@@ -146,88 +136,88 @@ export default function ProblemSolution() {
                         if (isCenter) {
                             x = 0; z = 0; rotateY = 0; opacity = 1; scale = 1;
                         } else if (isPrev) {
-                            x = -450; z = -200; rotateY = 35; opacity = 0.4;
+                            x = -400; z = -300; rotateY = 45; opacity = 0.3;
                         } else if (isNext) {
-                            x = 450; z = -200; rotateY = -35; opacity = 0.4;
+                            x = 400; z = -300; rotateY = -45; opacity = 0.3;
                         }
+
+                        // Adjust x for mobile
+                        const mobileX = isCenter ? 0 : (isPrev ? -100 : 100);
 
                         return (
                             <motion.div
                                 key={point.id}
-                                className="absolute w-[90vw] md:w-[600px] h-[500px] md:h-[600px] z-10"
+                                className="absolute w-[85vw] md:w-[600px] h-[580px] md:h-[680px] z-10"
                                 initial={false}
                                 animate={{
-                                    x, z, rotateY, opacity, scale,
+                                    x: typeof window !== 'undefined' && window.innerWidth < 768 ? mobileX : x, 
+                                    z, 
+                                    rotateY, 
+                                    opacity, 
+                                    scale: typeof window !== 'undefined' && window.innerWidth < 768 ? (isCenter ? 1 : 0.7) : scale,
                                     transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
                                 }}
                                 style={{ transformStyle: 'preserve-3d' }}
                             >
-                                <div className={`group/card relative h-full flex flex-col p-10 md:p-14 rounded-[4rem] border transition-all duration-700 ${isCenter ? 'bg-[#0a0a0a] border-red-500/40 shadow-[0_0_120px_rgba(239,68,68,0.15)]' : 'bg-black/80 border-white/5'}`}>
+                                <div className={`group/card relative h-full flex flex-col p-8 md:p-12 rounded-[3.5rem] border transition-all duration-700 ${isCenter ? 'bg-[#0a0a0a] border-red-500/40 shadow-[0_0_120px_rgba(239,68,68,0.15)]' : 'bg-black/80 border-white/5'}`}>
                                     
                                     {/* Holographic Border Beam (Active Only) */}
                                     {isCenter && (
-                                        <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-[4rem]">
+                                        <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-[3.5rem]">
                                             <div className="absolute inset-[-100%] animate-border-beam" />
-                                            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-500 to-transparent" />
-                                            <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-red-500 to-transparent" />
                                         </div>
                                     )}
 
-                                    {/* HUD Decorative Elements */}
-                                    <div className="absolute top-10 right-10 flex flex-col items-end gap-1 opacity-20">
-                                        <div className="w-12 h-px bg-red-500" />
-                                        <div className="w-6 h-px bg-red-500" />
-                                        <div className="w-18 h-px bg-red-500" />
-                                    </div>
-
                                     {/* Card Content */}
                                     <div className="relative z-10 flex flex-col h-full">
-                                        <div className="flex items-start justify-between mb-16">
-                                            <div className={`w-20 h-20 md:w-24 md:h-24 rounded-[2rem] flex items-center justify-center transition-all duration-700 ${isCenter ? 'bg-red-600/10 border border-red-500/30 scale-110 shadow-[0_0_40px_rgba(239,68,68,0.2)]' : 'bg-white/5 border border-white/10'}`}>
-                                                <point.icon className={`w-10 h-10 md:w-12 md:h-12 transition-colors duration-700 ${isCenter ? 'text-red-500' : 'text-white/20'}`} />
+                                        <div className="flex items-start justify-between mb-10">
+                                            <div className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center transition-all duration-700 ${isCenter ? 'bg-red-600/10 border border-red-500/30 scale-110' : 'bg-white/5 border border-white/10'}`}>
+                                                <point.icon className={`w-8 h-8 md:w-10 md:h-10 transition-colors duration-700 ${isCenter ? 'text-red-500' : 'text-white/20'}`} />
                                             </div>
                                             <div className="text-right flex flex-col items-end">
-                                                <span className="font-mono text-[10px] uppercase tracking-[0.5em] text-red-500/40 block mb-2">Diagnostic_Report</span>
-                                                <div className="px-4 py-1.5 rounded-full border border-red-500/40 text-red-500 font-mono text-[10px] uppercase tracking-[0.3em] font-black italic">
+                                                <span className="font-mono text-[9px] uppercase tracking-[0.5em] text-red-500/40 block mb-1">Diagnostic_Report</span>
+                                                <div className="px-3 py-1 rounded-full border border-red-500/40 text-red-500 font-mono text-[9px] uppercase tracking-[0.3em] font-black italic">
                                                     Level_Critical
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div className="mb-12">
-                                            <span className="font-mono text-[11px] uppercase tracking-[0.5em] text-white/20 block mb-4">Node_ID // {point.id}</span>
-                                            <h3 className={`text-4xl md:text-5xl lg:text-6xl font-heading font-black uppercase tracking-tighter leading-[0.85] transition-colors duration-700 ${isCenter ? 'text-white' : 'text-white/20'}`}>
+                                        <div className="mb-8">
+                                            <span className="font-mono text-[10px] uppercase tracking-[0.5em] text-white/20 block mb-3">Node_ID // {point.id}</span>
+                                            <h3 className={`text-4xl md:text-5xl font-heading font-black uppercase tracking-tighter leading-[0.85] transition-colors duration-700 ${isCenter ? 'text-white' : 'text-white/20'}`}>
                                                 {point.problem}
                                             </h3>
-                                            <p className={`mt-8 font-mono text-sm md:text-base leading-relaxed max-w-[90%] transition-opacity duration-700 ${isCenter ? 'text-white/50' : 'opacity-0'}`}>
+                                            {isCenter && (
+                                              <p className="mt-6 font-mono text-sm leading-relaxed text-white/50 max-w-[90%] animate-in fade-in slide-in-from-bottom-2 duration-700">
                                                 {point.details}
-                                            </p>
+                                              </p>
+                                            )}
                                         </div>
 
-                                        <div className={`mt-auto space-y-8 transition-all duration-700 transform ${isCenter ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-                                            <div className="p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 backdrop-blur-3xl flex items-center justify-between">
+                                        <div className={`mt-auto space-y-6 transition-all duration-700 transform ${isCenter ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+                                            <div className="p-6 md:p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 backdrop-blur-3xl flex items-center justify-between">
                                                 <div>
-                                                    <span className="text-[10px] font-mono text-white/30 uppercase tracking-[0.4em] block mb-2">Failure_Impact</span>
-                                                    <span className="text-2xl md:text-3xl font-black text-white italic tracking-tighter">{point.metrics}</span>
+                                                    <span className="text-[9px] font-mono text-white/30 uppercase tracking-[0.4em] block mb-2">Failure_Impact</span>
+                                                    <span className="text-xl md:text-2xl font-black text-white italic tracking-tighter">{point.metrics}</span>
                                                 </div>
-                                                <div className="flex gap-1">
+                                                <div className="flex gap-1 md:gap-1.5 pt-4">
                                                     {[1, 2, 3, 4, 5].map((s) => (
-                                                        <div key={s} className={`w-1.5 h-8 rounded-full ${s <= 4 ? 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]' : 'bg-white/10'}`} />
+                                                        <div key={s} className={`w-1.5 h-6 md:h-8 rounded-full ${s <= 4 ? 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]' : 'bg-white/10'}`} />
                                                     ))}
                                                 </div>
                                             </div>
 
                                             <div className="relative group/btn overflow-hidden rounded-[2rem] bg-red-600 p-px">
-                                                <div className="relative bg-black group-hover/btn:bg-red-600 transition-colors duration-500 rounded-[2rem] px-8 py-5 md:py-7 text-center">
-                                                    <span className="text-[10px] font-mono text-red-500 group-hover/btn:text-white uppercase tracking-[0.3em] block mb-2 font-black">Initiate_Resolution</span>
-                                                    <span className="text-xl md:text-2xl font-heading font-black text-white uppercase tracking-tight">{point.solution}</span>
+                                                <div className="relative bg-black group-hover/btn:bg-red-600 transition-colors duration-500 rounded-[2rem] px-8 py-4 md:py-6 text-center">
+                                                    <span className="text-[9px] font-mono text-red-500 group-hover/btn:text-white uppercase tracking-[0.3em] block mb-1 font-black">Initiate_Resolution</span>
+                                                    <span className="text-lg md:text-xl font-heading font-black text-white uppercase tracking-tight">{point.solution}</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     {/* Scanning Motion Grid Overlay */}
-                                    <div className="absolute inset-0 pointer-events-none opacity-[0.05] group-hover/card:opacity-[0.15] transition-opacity">
+                                    <div className="absolute inset-0 pointer-events-none opacity-[0.05] group-hover/card:opacity-[0.15] transition-opacity rounded-[3.5rem] overflow-hidden">
                                         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,0,0,0.1)_1px,transparent_1px)] bg-[size:100%_4px] animate-scan" />
                                     </div>
                                 </div>
@@ -239,7 +229,7 @@ export default function ProblemSolution() {
         </div>
 
         {/* Global HUD Stats Footer */}
-        <div className="mt-20 md:mt-32 border-t border-white/5 pt-16 grid grid-cols-2 md:grid-cols-4 gap-12">
+        <div className="mt-24 md:mt-32 border-t border-white/5 pt-16 grid grid-cols-2 lg:grid-cols-4 gap-12">
            {[
              { label: 'Core_Throughput', val: '984.2 GB/S', icon: Activity },
              { label: 'Threat_Detection', val: 'Active', icon: Lock },
