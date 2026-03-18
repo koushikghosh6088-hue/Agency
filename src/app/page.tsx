@@ -333,7 +333,7 @@ export default function HomePage() {
 
               <h1 
                 ref={headlineRef}
-                className="text-[2.8rem] sm:text-[3.5rem] md:text-[5.5rem] lg:text-[6.5rem] xl:text-[8rem] 2xl:text-[9.5rem] font-heading font-black leading-[0.85] tracking-tighter uppercase"
+                className="text-[2.2rem] sm:text-[3.2rem] md:text-[4.5rem] lg:text-[4.8rem] xl:text-[5.8rem] 2xl:text-[7.2rem] font-heading font-black leading-[0.85] tracking-tighter uppercase"
               >
                 WE BUILD DIGITAL<br />
                 <span className="gradient-text italic opacity-90">PRODUCTS</span>{' '}
@@ -423,7 +423,7 @@ export default function HomePage() {
                     <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
                     <span className="font-mono text-[10px] uppercase tracking-widest text-blue-400">Who We Are</span>
                   </div>
-                  <h2 className="text-[3.5rem] md:text-[5.5rem] lg:text-[6.5rem] font-heading font-black leading-[0.85] tracking-tighter uppercase">
+                  <h2 className="text-[2.2rem] md:text-[3.2rem] lg:text-[4rem] font-heading font-black leading-[0.85] tracking-tighter uppercase">
                     ABOUT<br/><span className="gradient-text italic text-blue-400">US</span>
                   </h2>
                 </div>
@@ -466,7 +466,7 @@ export default function HomePage() {
               <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
               <span className="font-mono text-xs uppercase tracking-widest text-blue-400">Real Numbers</span>
             </div>
-            <h2 className="text-[3rem] md:text-[5rem] lg:text-[6.5rem] font-heading font-black leading-none tracking-tighter uppercase mb-6">
+            <h2 className="text-[2.2rem] md:text-[3.2rem] lg:text-[4rem] font-heading font-black leading-none tracking-tighter uppercase mb-6">
               RESULTS WE'VE <span className="gradient-text italic text-blue-400">DELIVERED</span> FOR REAL BUSINESSES
             </h2>
           </AnimatedSection>
@@ -503,7 +503,7 @@ export default function HomePage() {
               <Star className="w-3.5 h-3.5 text-[#0ea5e9] fill-[#0ea5e9]" />
               <span className="font-mono text-xs uppercase tracking-widest text-[#0ea5e9]">Client Results</span>
             </div>
-            <h2 className="text-[2.5rem] md:text-[5rem] lg:text-[6rem] font-heading font-black leading-none tracking-tighter uppercase mb-4">
+            <h2 className="text-[2rem] md:text-[3rem] lg:text-[3.8rem] font-heading font-black leading-none tracking-tighter uppercase mb-4">
               REAL RESULTS FROM <span className="gradient-text italic text-[#0ea5e9]">REAL CLIENTS</span>
             </h2>
             <p className="font-mono text-sm text-white/30 uppercase tracking-[0.2em] max-w-lg mx-auto">
@@ -640,7 +640,7 @@ export default function HomePage() {
                 <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
                 <span className="text-xs font-mono uppercase tracking-widest text-[#0ea5e9]">How It Works</span>
               </div>
-              <h2 className="text-[3rem] md:text-[5rem] font-heading font-black tracking-tighter leading-[0.9] mb-12 uppercase">
+              <h2 className="text-[2.2rem] md:text-[3.2rem] font-heading font-black tracking-tighter leading-[0.9] mb-12 uppercase">
                 YOUR PROJECT <br/><span className="gradient-text italic text-[#0ea5e9]">IN 3 SIMPLE STEPS</span>
               </h2>
               <div className="space-y-12 mt-16">
@@ -758,7 +758,7 @@ export default function HomePage() {
                   <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse-glow" />
                   <span className="text-xs font-mono uppercase tracking-widest text-[#0ea5e9]">Get In Touch</span>
                 </div>
-                <h2 className="text-[3.5rem] md:text-[6rem] font-heading font-black tracking-tighter leading-[0.8] mb-10 uppercase">
+                <h2 className="text-[2.2rem] md:text-[3.2rem] font-heading font-black tracking-tighter leading-[0.8] mb-10 uppercase">
                   LET'S GROW YOUR <br/><span className="gradient-text italic text-[#0ea5e9]">BUSINESS TOGETHER</span>
                 </h2>
                 <p className="text-white/50 text-lg font-mono font-light max-w-xl mb-12 leading-relaxed">

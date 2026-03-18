@@ -95,7 +95,7 @@ export default function ServicesPage() {
                   Engineering Protocol // Active
                 </span>
               </div>
-              <h1 className="text-[4.5rem] md:text-[6.5rem] lg:text-[8rem] font-heading font-extrabold leading-[0.8] tracking-tighter mb-8">
+              <h1 className="text-[3rem] md:text-[4.5rem] lg:text-[5.2rem] font-heading font-extrabold leading-[0.8] tracking-tighter mb-8">
                 SOLUTIONS<br />
                 <span className="gradient-text italic">ENGINEERED</span>
               </h1>
@@ -162,7 +162,7 @@ export default function ServicesPage() {
                     <span className="text-xs font-mono uppercase tracking-widest text-white/60">Module {i+1}</span>
                   </div>
                   
-                  <h2 className={`text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 ${service.accent ? 'text-blue-400' : 'text-white'}`}>
+                  <h2 className={`text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-6 ${service.accent ? 'text-blue-400' : 'text-white'}`}>
                     {service.title}
                   </h2>
                   <TypewriterSubline 
@@ -262,7 +262,7 @@ export default function ServicesPage() {
             <div className="inline-flex items-center justify-center p-6 rounded-full glass mb-8 animate-float">
                 <Cog className="w-8 h-8 text-blue-400" />
             </div>
-            <h2 className="text-[4rem] md:text-[5rem] font-heading font-black tracking-tighter mb-6">
+            <h2 className="text-[2.5rem] md:text-[3.8rem] font-heading font-black tracking-tighter mb-6">
               SYSTEM <span className="text-blue-400 italic">INITIALIZATION</span>
             </h2>
               <TypewriterSubline 

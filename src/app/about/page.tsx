@@ -64,7 +64,7 @@ export default function AboutPage() {
                   Who We Are // Active
                 </span>
               </div>
-              <h1 className="text-[4.5rem] md:text-[6.5rem] lg:text-[8rem] font-heading font-extrabold leading-[0.8] tracking-tighter mb-8 text-white">
+              <h1 className="text-[3rem] md:text-[4.5rem] lg:text-[5.2rem] font-heading font-extrabold leading-[0.8] tracking-tighter mb-8 text-white">
                 WE BUILD THE <br />
                 <span className="gradient-text italic">DIGITAL FUTURE.</span>
               </h1>
@@ -119,7 +119,7 @@ export default function AboutPage() {
             
             <AnimatedSection className="lg:col-span-5 sticky top-32">
               <span className="font-mono text-xs tracking-widest uppercase block mb-6 text-white/40">Our Story</span>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-8 text-white">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-8 text-white">
                 HOW WE <span className="text-blue-400">STARTED</span>
               </h2>
               <div className="space-y-6 text-white/50 text-xl font-mono font-light leading-relaxed">
@@ -173,7 +173,7 @@ export default function AboutPage() {
       <section className="py-32 relative bg-black">
         <div className="max-w-[1400px] mx-auto px-6">
           <AnimatedSection className="mb-16">
-            <h2 className="text-[3rem] md:text-[4.5rem] font-heading font-black tracking-tighter text-white leading-none">
+            <h2 className="text-[2.2rem] md:text-[3rem] font-heading font-black tracking-tighter text-white leading-none">
               CORE <span className="text-white/30 italic">DIRECTIVES</span>
             </h2>
           </AnimatedSection>
@@ -203,7 +203,7 @@ export default function AboutPage() {
 
         <div className="max-w-[1400px] mx-auto px-6 relative z-10">
           <AnimatedSection className="mb-16 text-center">
-            <h2 className="text-[3rem] md:text-[4.5rem] font-heading font-black tracking-tighter mb-4 text-white leading-none">
+            <h2 className="text-[2.2rem] md:text-[3.2rem] font-heading font-black tracking-tighter mb-4 text-white leading-none">
               <span className="gradient-text italic">THE SYNDICATE</span>
             </h2>
             <p className="font-mono text-white/40 uppercase tracking-widest text-sm max-w-xl mx-auto">
@@ -255,7 +255,7 @@ export default function AboutPage() {
       <section className="py-32 relative bg-black border-t border-white/10">
         <div className="max-w-[1550px] mx-auto px-6 text-center relative z-10">
           <AnimatedSection>
-            <h2 className="text-[4rem] md:text-[5rem] font-heading font-black tracking-tighter mb-6">
+            <h2 className="text-[2.5rem] md:text-[3.5rem] font-heading font-black tracking-tighter mb-6">
               WANT TO <span className="text-blue-400 italic">JOIN US?</span>
             </h2>
             <p className="font-mono text-sm text-white/40 uppercase tracking-widest max-w-xl mx-auto mb-10">

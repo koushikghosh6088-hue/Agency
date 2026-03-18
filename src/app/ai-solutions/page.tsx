@@ -32,7 +32,7 @@ export default function AISolutionsPage() {
               <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse inline-block mr-2" />
               AI & Automation
             </span>
-            <h1 className="text-[4rem] md:text-[6rem] lg:text-[7.5rem] font-heading font-extrabold leading-[0.85] tracking-tighter mb-8 max-w-5xl">
+            <h1 className="text-[3rem] md:text-[4.5rem] lg:text-[5.2rem] font-heading font-extrabold leading-[0.85] tracking-tighter mb-8 max-w-5xl">
               WORK SMARTER WITH <span className="gradient-text italic">CUSTOM AI.</span>
             </h1>
             <TypewriterSubline 
@@ -61,7 +61,7 @@ export default function AISolutionsPage() {
                 <Radio className="w-3 h-3 text-blue-400 animate-pulse" />
                 <span className="text-xs font-mono uppercase tracking-widest text-blue-400">AI Voice Agents</span>
               </div>
-              <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-white text-blue-400 text-none uppercase">
+              <h2 className="text-2xl md:text-3xl font-heading font-bold mb-6 text-blue-400 uppercase">
                 AI VOICE <span className="gradient-text italic">AGENTS</span>
               </h2>
               <p className="text-white/50 text-xl leading-relaxed mb-10 font-mono font-light">
@@ -213,7 +213,7 @@ export default function AISolutionsPage() {
                 <MessageSquare className="w-3 h-3 text-white" />
                 <span className="text-xs font-mono uppercase tracking-widest text-blue-400">AI Messaging Agents</span>
               </div>
-              <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-white text-none uppercase">
+              <h2 className="text-2xl md:text-3xl font-heading font-bold mb-6 text-blue-400 uppercase">
                 24/7 CHAT <span className="gradient-text italic">AGENTS</span>
               </h2>
               <p className="text-white/50 text-xl leading-relaxed mb-10 font-mono font-light">
@@ -258,7 +258,7 @@ export default function AISolutionsPage() {
             <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 mx-auto backdrop-blur-xl">
               <Cog className="w-7 h-7 text-white" />
             </div>
-            <h2 className="text-[3.5rem] md:text-[5rem] font-heading font-black tracking-tighter mb-6 text-white leading-none">
+            <h2 className="text-[2.5rem] md:text-[3.8rem] font-heading font-black tracking-tighter mb-6 text-white leading-none">
               AUTO-PILOT FOR <br/><span className="text-white/30 italic">YOUR BUSINESS</span>
             </h2>
             <p className="font-mono text-sm text-white/50 uppercase tracking-widest max-w-xl mx-auto">
@@ -314,7 +314,7 @@ export default function AISolutionsPage() {
       <section className="py-32 relative bg-obsidian border-t border-white/5">
         <div className="max-w-[1550px] mx-auto px-6 text-center relative z-10">
           <AnimatedSection>
-            <h2 className="text-[4rem] md:text-[5rem] font-heading font-black tracking-tighter mb-6">
+            <h2 className="text-[2.5rem] md:text-[3.8rem] font-heading font-black tracking-tighter mb-6">
               READY TO <span className="text-blue-400 italic">AUTOMATE?</span>
             </h2>
             <p className="font-mono text-sm text-white/40 uppercase tracking-widest max-w-xl mx-auto mb-10">

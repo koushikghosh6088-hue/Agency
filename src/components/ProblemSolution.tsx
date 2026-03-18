@@ -104,7 +104,7 @@ export default function ProblemSolution() {
               <span className="font-mono text-[11px] uppercase tracking-[0.5em] text-red-500 font-black">Common Problems We Solve</span>
             </div>
             
-            <h2 className="text-[4rem] md:text-[6.5rem] lg:text-[8.5rem] font-heading font-black leading-[0.75] tracking-tighter uppercase mb-2">
+            <h2 className="text-[3rem] md:text-[5rem] lg:text-[6.5rem] font-heading font-black leading-[0.75] tracking-tighter uppercase mb-2">
               <span className="text-white block">IS YOUR BUSINESS</span>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-red-500 to-orange-400 italic">LOSING CUSTOMERS ONLINE?</span>
             </h2>
