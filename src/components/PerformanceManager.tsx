@@ -22,17 +22,17 @@ export default function PerformanceManager({ children }: { children: React.React
         }}
         eventSource={container as any}
         frameloop="always" // Use always for smooth transitions, but keep DPR low
-        dpr={[1, 1.5]}
+        dpr={[1, 1.2]}
         gl={{ 
           antialias: false,
           alpha: true,
           powerPreference: 'high-performance',
-          preserveDrawingBuffer: false
+          stencil: false,
+          depth: true
         }}
         performance={{ min: 0.5 }}
       >
         <View.Port />
-        <Preload all />
       </Canvas>
     </div>
   );

@@ -9,19 +9,26 @@ export default function Preloader() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(timer);
-          setTimeout(() => setLoading(false), 300);
-          return 100;
-        }
-        // Accelerated loading: 0 to 100 in ~1 second
-        return prev + Math.random() * 25;
-      });
-    }, 80);
+    let animationFrameId: number;
+    let startTime = Date.now();
+    const duration = 1500; // 1.5s total loading time
 
-    return () => clearInterval(timer);
+    const updateProgress = () => {
+      const elapsed = Date.now() - startTime;
+      const newProgress = Math.min((elapsed / duration) * 100, 100);
+      
+      setProgress(newProgress);
+
+      if (newProgress < 100) {
+        animationFrameId = requestAnimationFrame(updateProgress);
+      } else {
+        setTimeout(() => setLoading(false), 500);
+      }
+    };
+
+    animationFrameId = requestAnimationFrame(updateProgress);
+
+    return () => cancelAnimationFrame(animationFrameId);
   }, []);
 
   const handleSkip = () => {

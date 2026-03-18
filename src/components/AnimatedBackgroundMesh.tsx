@@ -97,7 +97,7 @@ function NebulaBackground() {
   });
 
   return (
-    <Plane ref={meshRef} args={[25, 25, 128, 128]} rotation={[-Math.PI / 4, 0, 0]}>
+    <Plane ref={meshRef} args={[25, 25, 48, 48]} rotation={[-Math.PI / 4, 0, 0]}>
       <shaderMaterial
         transparent
         vertexShader={vertexShader}
@@ -115,7 +115,9 @@ export default function AnimatedBackgroundMesh() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    // Staggered initialization to avoid blocking the main thread during hydration
+    const timer = setTimeout(() => setMounted(true), 500);
+    return () => clearTimeout(timer);
   }, []);
 
   if (!mounted) return <div className="fixed inset-0 -z-10 bg-black" />;

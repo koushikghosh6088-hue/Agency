@@ -16,7 +16,7 @@ export function SplineScene({ scene, className }: SplineSceneProps) {
 
   useEffect(() => {
     // Delay initial mount
-    const timer = setTimeout(() => setShouldRender(true), 800)
+    const timer = setTimeout(() => setShouldRender(true), 1200)
     
     // Observer to cull rendering when off-screen
     const observer = new IntersectionObserver(
