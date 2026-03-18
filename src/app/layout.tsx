@@ -26,8 +26,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Joint WebSolutions | AI-Powered Digital Agency",
-  description: "Futuristic digital experiences and high-energy design.",
+  title: "Vedastra AI Labs | AI-Powered Digital Agency",
+  description: "Next-generation digital products, AI agents, and automation built by Vedastra AI Labs.",
 };
 
 export default function RootLayout({

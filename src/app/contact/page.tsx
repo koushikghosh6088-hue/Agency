@@ -90,7 +90,7 @@ export default function ContactPage() {
                 <h2 className="text-4xl font-heading font-black mb-12 text-white uppercase tracking-tighter">Transmission <span className="text-blue-400 italic">Vectors</span></h2>
                 <div className="space-y-6">
                   {[
-                    { icon: Mail, label: 'Email Protocol', value: 'hello@jointwebsolutions.com', href: 'mailto:hello@jointwebsolutions.com' },
+                    { icon: Mail, label: 'Email Protocol', value: 'hello@vedastraai.com', href: 'mailto:hello@vedastraai.com' },
                     { icon: Phone, label: 'Voice Link', value: '+1 (555) 123-4567', href: 'tel:+15551234567' },
                     { icon: MapPin, label: 'Physical Hub', value: '123 Innovation Drive, NY 10001', href: '#' },
                   ].map((item) => (

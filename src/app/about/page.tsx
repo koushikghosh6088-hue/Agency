@@ -123,7 +123,7 @@ export default function AboutPage() {
                 HOW WE <span className="text-blue-400">STARTED</span>
               </h2>
               <div className="space-y-6 text-white/50 text-xl font-mono font-light leading-relaxed">
-                <p>Joint WebSolutions was forged with a singular mandate: to engineer cutting-edge AI and web architecture accessible to agile enterprises.</p>
+                <p>Vedastra AI Labs was forged with a singular mandate: to engineer cutting-edge AI and web architecture accessible to agile enterprises.</p>
                 <p>Today, we orchestrate systems across 4 continents, helping businesses harness automation and performance to dominate their sectors.</p>
                 <p>Our syndicate combines ruthless technical efficiency with premium design to deliver platforms that run like a machine and look like a masterpiece.</p>
               </div>
@@ -134,7 +134,7 @@ export default function AboutPage() {
                 <div className="space-y-0 relative before:absolute before:inset-y-0 before:left-[17px] md:before:left-[21px] before:w-px before:bg-gradient-to-b before:from-blue-400 before:via-white/10 before:to-transparent">
                 <div className="space-y-0 relative before:absolute before:inset-y-0 before:left-[17px] md:before:left-[21px] before:w-px before:bg-gradient-to-b before:from-[#0ea5e9] before:via-white/10 before:to-transparent">
                   {[
-                    { year: '2019', event: 'The Start', detail: 'Joint WebSolutions was founded with a mission to simplify web development.' },
+                    { year: '2019', event: 'The Start', detail: 'Vedastra AI Labs was founded with a mission to simplify web development.' },
                     { year: '2021', event: 'Growing Fast', detail: 'We reached our 50th project and expanded into mobile app development.' },
                     { year: '2023', event: 'AI Integration', detail: 'We launched our first AI calling and chat agents for lead qualification.' },
                     { year: '2024', event: 'Global Growth', detail: 'Now supporting over 50+ happy clients worldwide with a full tech stack.' },

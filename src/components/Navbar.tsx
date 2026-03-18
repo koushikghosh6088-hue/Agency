@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
-import { PhoneCall } from 'lucide-react';
+import { PhoneCall, Zap } from 'lucide-react';
+import Image from 'next/image';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -38,9 +39,19 @@ export default function Navbar() {
       <div className="max-w-[1550px] mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-12 h-12 bg-blue-400 rounded-xl flex items-center justify-center shadow-lg shadow-blue-400/20 transition-all duration-300 group-hover:scale-105">
-            <span className="text-black font-heading font-bold text-2xl tracking-tighter">J</span>
+          <div className="relative w-12 h-12 flex items-center justify-center transition-all duration-300 group-hover:scale-105">
+            <div className="absolute inset-0 bg-blue-400/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+            <Image 
+              src="/logo.png" 
+              alt="Vedastra Logo" 
+              width={48} 
+              height={48} 
+              className="relative z-10 w-auto h-10 object-contain brightness-110"
+            />
           </div>
+          <span className="hidden sm:block font-heading font-bold text-xl tracking-tight uppercase bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">
+            Vedastra
+          </span>
         </Link>
 
         {/* Desktop Navigation (Pill shape) */}

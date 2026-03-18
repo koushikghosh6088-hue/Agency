@@ -176,7 +176,7 @@ export default function WhyChooseUs() {
             <span className="font-mono text-xs uppercase tracking-widest text-[#0ea5e9]">Why Us</span>
           </div>
           <h2 className="text-[3rem] md:text-[5rem] lg:text-[6.5rem] font-heading font-black leading-none tracking-tighter uppercase mb-6">
-            WHY BUSINESSES CHOOSE <span className="gradient-text italic text-[#0ea5e9]">JOINT</span> OVER OTHER AGENCIES
+            WHY BUSINESSES CHOOSE <span className="gradient-text italic text-[#0ea5e9]">VEDASTRA</span> OVER OTHER AGENCIES
           </h2>
 
           <p className="font-mono text-sm md:text-base text-white/40 uppercase tracking-[0.2em] max-w-2xl mx-auto">

@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { Mail, Phone, MapPin, ArrowUpRight, Github, Twitter, Linkedin } from 'lucide-react';
+import Image from 'next/image';
 
 const footerLinks = {
   services: [
@@ -24,7 +25,7 @@ export default function Footer() {
       {/* Background Watermark */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full text-center pointer-events-none select-none overflow-hidden">
         <h2 className="text-[12rem] md:text-[20rem] font-heading font-bold text-white/[0.02] leading-none tracking-tighter w-full overflow-hidden">
-          JOINT
+          VEDASTRA
         </h2>
       </div>
 
@@ -36,10 +37,17 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-20">
           <div className="lg:col-span-4">
              <Link href="/" className="flex items-center gap-3 group mb-6 inline-flex">
-              <div className="w-10 h-10 bg-blue-400 rounded-xl flex items-center justify-center">
-                <span className="text-black font-heading font-bold text-xl tracking-tighter">J</span>
+              <div className="relative w-10 h-10 flex items-center justify-center">
+                <div className="absolute inset-0 bg-blue-400/20 blur-lg rounded-full" />
+                <Image 
+                  src="/logo.png" 
+                  alt="Vedastra Logo" 
+                  width={40} 
+                  height={40} 
+                  className="relative z-10 w-auto h-8 object-contain brightness-110"
+                />
               </div>
-              <span className="font-heading font-bold text-xl tracking-tight uppercase">Joint WebSolutions</span>
+              <span className="font-heading font-bold text-xl tracking-tight uppercase">Vedastra AI Labs</span>
             </Link>
             <p className="text-white/50 text-sm leading-relaxed max-w-sm mb-8 font-mono">
               We build websites, apps, and AI tools that help businesses grow faster and work smarter.
@@ -85,8 +93,8 @@ export default function Footer() {
             <h4 className="text-xs font-mono text-white/40 mb-6 uppercase tracking-[0.2em]">Contact</h4>
             <ul className="space-y-4">
               <li>
-                <a href="mailto:hello@jointwebsolutions.com" className="text-white/70 text-sm hover:text-blue-400 transition-colors flex items-center gap-2">
-                  <Mail className="w-4 h-4" /> hello@jointwebsolutions.com
+                <a href="mailto:hello@vedastraai.com" className="text-white/70 text-sm hover:text-blue-400 transition-colors flex items-center gap-2">
+                  <Mail className="w-4 h-4" /> hello@vedastraai.com
                 </a>
               </li>
               <li>
@@ -101,7 +109,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-white/30 text-xs font-mono uppercase tracking-widest">
-            © 2026 JOINT WEBSOLUTIONS. ALL RIGHTS RESERVED.
+            © 2026 VEDASTRA AI LABS. ALL RIGHTS RESERVED.
           </p>
           <div className="flex gap-6 font-mono text-xs uppercase tracking-widest">
             <Link href="#" className="text-white/30 hover:text-blue-400 transition-colors">Privacy Policy</Link>

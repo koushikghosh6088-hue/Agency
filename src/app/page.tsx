@@ -516,12 +516,12 @@ export default function HomePage() {
         <div className="relative mb-6 group overflow-hidden">
           <div className={`flex gap-5 animate-marquee-left group-hover:pause-animation ${pauseAnimations ? 'pause-animation' : ''} whitespace-nowrap w-max will-change-transform`}>
             {[...[
-              { quote: "Joint WebSolutions completely reimagined our digital infrastructure. Their AI agents now handle 70% of our lead qualification autonomously.", name: "Sarah Chen", role: "CTO, Nexus Dynamics", rating: 5, accent: "text-blue-400", border: "border-blue-500/20" },
+              { quote: "Vedastra AI Labs completely reimagined our digital infrastructure. Their AI agents now handle 70% of our lead qualification autonomously.", name: "Sarah Chen", role: "CTO, Nexus Dynamics", rating: 5, accent: "text-blue-400", border: "border-blue-500/20" },
               { quote: "The performance optimization was insane — our platform went from 3s load times to under 400ms. Revenue jumped 34% in just one quarter.", name: "Marcus Rivera", role: "Head of Product, FlowStack", rating: 5, accent: "text-purple-400", border: "border-purple-500/20" },
               { quote: "We've worked with 6 agencies before Joint. None delivered this level of engineering precision. They don't just build — they architect.", name: "Elena Kowalski", role: "Founder, AetherLabs", rating: 5, accent: "text-emerald-400", border: "border-emerald-500/20" },
               { quote: "Their AI calling agent converted 40% of cold leads into demo calls in the first week. We've never seen results like this.", name: "Raj Patel", role: "VP Sales, QuantumLeap", rating: 5, accent: "text-sky-400", border: "border-sky-500/20" },
             ], ...[
-              { quote: "Joint WebSolutions completely reimagined our digital infrastructure. Their AI agents now handle 70% of our lead qualification autonomously.", name: "Sarah Chen", role: "CTO, Nexus Dynamics", rating: 5, accent: "text-blue-400", border: "border-blue-500/20" },
+              { quote: "Vedastra AI Labs completely reimagined our digital infrastructure. Their AI agents now handle 70% of our lead qualification autonomously.", name: "Sarah Chen", role: "CTO, Nexus Dynamics", rating: 5, accent: "text-blue-400", border: "border-blue-500/20" },
               { quote: "The performance optimization was insane — our platform went from 3s load times to under 400ms. Revenue jumped 34% in just one quarter.", name: "Marcus Rivera", role: "Head of Product, FlowStack", rating: 5, accent: "text-purple-400", border: "border-purple-500/20" },
               { quote: "We've worked with 6 agencies before Joint. None delivered this level of engineering precision. They don't just build — they architect.", name: "Elena Kowalski", role: "Founder, AetherLabs", rating: 5, accent: "text-emerald-400", border: "border-emerald-500/20" },
               { quote: "Their AI calling agent converted 40% of cold leads into demo calls in the first week. We've never seen results like this.", name: "Raj Patel", role: "VP Sales, QuantumLeap", rating: 5, accent: "text-sky-400", border: "border-sky-500/20" },
@@ -769,7 +769,7 @@ export default function HomePage() {
                    <div className="glass-panel p-6 rounded-3xl border-white/5 hover:border-[#0ea5e9]/30 transition-all group">
                       <Mail className="w-6 h-6 text-[#0ea5e9] mb-4" />
                       <div className="text-[10px] font-mono text-white/30 uppercase tracking-widest mb-1">Email Us</div>
-                      <div className="text-sm font-bold text-white">hello@jointwebsolutions.com</div>
+                      <div className="text-sm font-bold text-white">hello@vedastraai.com</div>
                    </div>
                    <div className="glass-panel p-6 rounded-3xl border-white/5 hover:border-[#0ea5e9]/30 transition-all group">
                       <Phone className="w-6 h-6 text-[#0ea5e9] mb-4" />

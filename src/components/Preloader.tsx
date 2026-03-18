@@ -52,7 +52,7 @@ export default function Preloader() {
             <div className="flex justify-between items-end mb-4">
               <div className="space-y-1">
                 <p className="text-[10px] font-mono text-blue-400 uppercase tracking-[0.3em]">System Initialization</p>
-                <h2 className="text-xl font-heading font-black text-white uppercase tracking-tighter">Joint WebSolutions / Loading...</h2>
+                <h2 className="text-xl font-heading font-black text-white uppercase tracking-tighter">Vedastra AI Labs / Loading...</h2>
               </div>
               <p className="text-xl font-mono text-blue-400 font-bold">{Math.floor(progress)}%</p>
             </div>
