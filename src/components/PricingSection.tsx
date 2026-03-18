@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Check, ArrowRight, Zap, Target, Rocket, Crown } from 'lucide-react';
 import AnimatedSection from './AnimatedSection';
 import Link from 'next/link';

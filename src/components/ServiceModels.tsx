@@ -3,22 +3,18 @@ import { useFrame } from '@react-three/fiber';
 import { Float, MeshDistortMaterial, MeshWobbleMaterial, Sphere, Box, MeshTransmissionMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
+const NEURAL_NODES = Array.from({ length: 40 }).map(() => 
+  new THREE.Vector3(
+    (Math.random() - 0.5) * 3,
+    (Math.random() - 0.5) * 3,
+    (Math.random() - 0.5) * 3
+  )
+);
+
 export function CoreSphere() {
   const outerRef = useRef<THREE.Group>(null);
   const innerRef = useRef<THREE.Mesh>(null);
   
-  // Generate random points for neural nodes
-  const nodes = useMemo(() => {
-    const pts = [];
-    for (let i = 0; i < 40; i++) {
-      pts.push(new THREE.Vector3(
-        (Math.random() - 0.5) * 3,
-        (Math.random() - 0.5) * 3,
-        (Math.random() - 0.5) * 3
-      ));
-    }
-    return pts;
-  }, []);
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
@@ -37,7 +33,7 @@ export function CoreSphere() {
       <group>
         {/* Neural Network Nodes */}
         <group ref={outerRef}>
-          {nodes.map((pos, i) => (
+          {NEURAL_NODES.map((pos, i) => (
             <mesh key={i} position={pos}>
               <sphereGeometry args={[0.03, 8, 8]} />
               <meshBasicMaterial color="#0ea5e9" transparent opacity={0.6} />

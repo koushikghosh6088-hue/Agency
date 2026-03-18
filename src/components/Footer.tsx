@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Mail, Phone, MapPin, ArrowUpRight, Github, Twitter, Linkedin } from 'lucide-react';
+import { Mail, Phone, PhoneCall, ArrowUpRight, Github, Twitter, Linkedin } from 'lucide-react';
 import Image from 'next/image';
 
 const footerLinks = {

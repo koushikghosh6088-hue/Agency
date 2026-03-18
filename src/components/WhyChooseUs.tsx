@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Rocket, Smartphone, Bot, Workflow, Globe, Zap, ArrowRight, Target, Users } from 'lucide-react';
+import { Zap, ArrowRight, Target, Users, Bot } from 'lucide-react';
 import { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -242,7 +242,7 @@ export default function WhyChooseUs() {
                   </Link>
 
                   <div className={`flex gap-4 w-full justify-center ${!isEven ? 'lg:justify-start' : 'lg:justify-end'} relative z-20`}>
-                    {card.stats.map((stat: any) => (
+                    {card.stats.map((stat: { label: string, val: string }) => (
                       <div key={stat.label} className="glass-premium p-4 md:p-5 rounded-2xl border-white/10 min-w-[140px] hover:border-blue-400/30 transition-colors">
                           <div className="text-white/30 text-[10px] md:text-xs font-mono uppercase tracking-widest mb-2">{stat.label}</div>
                           <div className="text-white font-heading font-black text-2xl md:text-3xl tracking-tighter">{stat.val}</div>

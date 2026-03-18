@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
-import { PhoneCall, Zap } from 'lucide-react';
+import { Phone, PhoneCall, MessageSquare, Cog, ArrowRight, CheckCircle2, Menu, X, ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 
 const navLinks = [
@@ -18,15 +18,13 @@ const navLinks = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [visible, setVisible] = useState(true);
   const pathname = usePathname();
 
   const [showSticky, setShowSticky] = useState(false);
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    setScrolled(latest > 50);
-    setShowSticky(latest > 600);
   });
 
   return (

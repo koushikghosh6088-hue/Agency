@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Check, ArrowRight, Server, Smartphone, Cpu, BarChart3 } from 'lucide-react';
 import AnimatedSection from './AnimatedSection';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const services = [
   {
@@ -123,9 +124,11 @@ export default function ServicesDeepDive() {
                       }}
                       className="relative z-10 w-4/5 h-4/5"
                     >
-                      <img 
+                      <Image 
                         src={service.image} 
                         alt={service.title}
+                        width={800}
+                        height={800}
                         className="w-full h-full object-contain mix-blend-screen drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]" 
                       />
                     </motion.div>

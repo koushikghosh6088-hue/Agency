@@ -5,26 +5,20 @@ import { useFrame } from '@react-three/fiber';
 import { Float, MeshDistortMaterial, Sphere, MeshTransmissionMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
+const SCAN_PARTICLES = Array.from({ length: 60 }).map(() => ({
+  position: new THREE.Vector3(
+    (Math.random() - 0.5) * 4,
+    (Math.random() - 0.5) * 4,
+    (Math.random() - 0.5) * 4
+  ),
+  speed: 0.01 + Math.random() * 0.02
+}));
+
 export default function SystemScanner() {
   const meshRef = useRef<THREE.Mesh>(null);
   const beamRef = useRef<THREE.Group>(null);
   const particlesRef = useRef<THREE.Group>(null);
 
-  // Generate data-stream particles
-  const particles = useMemo(() => {
-    const pts = [];
-    for (let i = 0; i < 60; i++) {
-      pts.push({
-        position: new THREE.Vector3(
-          (Math.random() - 0.5) * 4,
-          (Math.random() - 0.5) * 4,
-          (Math.random() - 0.5) * 4
-        ),
-        speed: 0.01 + Math.random() * 0.02
-      });
-    }
-    return pts;
-  }, []);
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
@@ -43,7 +37,7 @@ export default function SystemScanner() {
     // Animate particles
     if (particlesRef.current) {
       particlesRef.current.children.forEach((child, i) => {
-        child.position.y += particles[i].speed;
+        child.position.y += SCAN_PARTICLES[i].speed;
         if (child.position.y > 2) child.position.y = -2;
         child.rotation.x += 0.01;
         child.rotation.z += 0.01;
@@ -164,7 +158,7 @@ export default function SystemScanner() {
 
         {/* Data Stream Particles (High Visibility Platinum) */}
         <group ref={particlesRef}>
-          {particles.map((p, i) => (
+          {SCAN_PARTICLES.map((p, i) => (
             <mesh key={i} position={p.position}>
               <boxGeometry args={[0.02, 0.02, 0.02]} />
               <meshBasicMaterial color="#ffffff" transparent opacity={0.9} />

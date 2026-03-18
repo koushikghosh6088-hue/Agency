@@ -20,6 +20,14 @@ const PerspectiveCamera = dynamic(() => import('@react-three/drei').then(mod => 
 const PresentationControls = dynamic(() => import('@react-three/drei').then(mod => mod.PresentationControls), { ssr: false });
 const Environment = dynamic(() => import('@react-three/drei').then(mod => mod.Environment), { ssr: false });
 
+const WAVE_HEIGHTS = Array.from({ length: 45 }).map(() => [
+  4,
+  Math.floor(Math.random() * 40 + 5),
+  8,
+  Math.floor(Math.random() * 30 + 5),
+  4
+]);
+
 export default function AISolutionsPage() {
   return (
     <>
@@ -118,11 +126,11 @@ export default function AISolutionsPage() {
 
                   {/* Animated voice wave */}
                   <div className="flex items-center justify-center gap-[3px] py-4 h-16">
-                    {Array.from({ length: 45 }).map((_, i) => (
+                    {WAVE_HEIGHTS.map((heights, i) => (
                       <motion.div
                         key={i}
                         className="w-1 bg-blue-400 rounded-full shadow-[0_0_10px_rgba(14,165,233,0.5)]"
-                        animate={{ height: [4, Math.random() * 40 + 5, 8, Math.random() * 30 + 5, 4] }}
+                        animate={{ height: heights }}
                         transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.03, ease: 'easeInOut' }}
                       />
                     ))}
@@ -318,7 +326,7 @@ export default function AISolutionsPage() {
               READY TO <span className="text-blue-400 italic">AUTOMATE?</span>
             </h2>
             <p className="font-mono text-sm text-white/40 uppercase tracking-widest max-w-xl mx-auto mb-10">
-              Let's see how much time and money we can save you with AI.
+              Let&apos;s see how much time and money we can save you with AI.
             </p>
             <Link href="/contact" className="btn-primary group">
               Start Your Project <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

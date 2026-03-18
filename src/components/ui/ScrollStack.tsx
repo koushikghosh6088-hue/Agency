@@ -48,7 +48,10 @@ const ScrollStack = ({
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const frame = requestAnimationFrame(() => {
+      setMounted(true);
+    });
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   const calculateProgress = useCallback((scrollTop: number, start: number, end: number) => {

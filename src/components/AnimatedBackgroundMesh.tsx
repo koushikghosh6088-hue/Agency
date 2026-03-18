@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useMemo, useState, useEffect } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import { Plane, View } from '@react-three/drei';
 import * as THREE from 'three';
 
@@ -77,19 +77,19 @@ function NebulaBackground() {
     }
   `;
 
-  const uniforms = useMemo(() => ({
+  const uniforms = useRef({
     uTime: { value: 0 },
     uMouse: { value: new THREE.Vector2(0.5, 0.5) }
-  }), []);
+  });
 
   useFrame((state) => {
     const { clock, mouse: stateMouse } = state;
-    uniforms.uTime.value = clock.getElapsedTime();
+    uniforms.current.uTime.value = clock.getElapsedTime();
     
     // Smoothly interpolate mouse position
     mouse.current.x += (stateMouse.x * 0.5 + 0.5 - mouse.current.x) * 0.05;
     mouse.current.y += (stateMouse.y * 0.5 + 0.5 - mouse.current.y) * 0.05;
-    uniforms.uMouse.value.set(mouse.current.x, mouse.current.y);
+    uniforms.current.uMouse.value.set(mouse.current.x, mouse.current.y);
 
     if (meshRef.current) {
       meshRef.current.rotation.z = clock.getElapsedTime() * 0.01;
@@ -102,7 +102,7 @@ function NebulaBackground() {
         transparent
         vertexShader={vertexShader}
         fragmentShader={fragmentShader}
-        uniforms={uniforms}
+        uniforms={uniforms.current}
         side={THREE.DoubleSide}
         blending={THREE.AdditiveBlending}
       />

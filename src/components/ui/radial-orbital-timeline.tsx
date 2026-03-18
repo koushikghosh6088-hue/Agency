@@ -10,7 +10,7 @@ export interface TimelineItem {
   date: string;
   content: string;
   category: string;
-  icon: any;
+  icon: React.ElementType;
   relatedIds: number[];
   status: "completed" | "in-progress" | "pending";
   energy: number;
@@ -29,12 +29,10 @@ export default function RadialOrbitalTimeline({
   const velocityRef = useRef<number>(4);
   const containerRef = useRef<HTMLDivElement>(null);
   const [radius, setRadius] = useState(200);
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
-      setIsMobile(width < 768);
       
       if (width < 640) {
         setRadius(Math.min((width / 2) - 40, 160));
@@ -137,8 +135,12 @@ export default function RadialOrbitalTimeline({
           transition={{ duration: 0 }}
           style={{ transformOrigin: 'center center' }}
         >
-          {/* SVG Area for connectivity lines */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none z-10 overflow-visible">
+          {/* SVG Area for connectivity lines - Using viewBox for 0,0 center to avoid ref-reading during render */}
+          <svg 
+            className="absolute inset-0 w-full h-full pointer-events-none z-10 overflow-visible"
+            viewBox="-500 -500 1000 1000"
+            preserveAspectRatio="xMidYMid meet"
+          >
             <defs>
               <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="#0ea5e9" stopOpacity="0" />
@@ -158,10 +160,9 @@ export default function RadialOrbitalTimeline({
                 const p1 = calculateNodePosition(activeIndex, timelineData.length, 0);
                 const p2 = calculateNodePosition(relIndex, timelineData.length, 0);
                 
-                const viewportWidth = containerRef.current?.offsetWidth || 800;
-                const viewportHeight = containerRef.current?.offsetHeight || 600;
-                const cx = viewportWidth / 2;
-                const cy = viewportHeight / 2;
+                // Center is 0,0 in the viewBox
+                const cx = 0;
+                const cy = 0;
 
                 return (
                   <motion.path
@@ -170,7 +171,7 @@ export default function RadialOrbitalTimeline({
                     animate={{ pathLength: 1, opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 1, ease: "circOut" }}
-                    d={`M ${cx + p1.x} ${cy + p1.y} Q ${cx} ${cy} ${cx + p2.x} ${cy + p2.y}`}
+                    d={`M ${p1.x} ${p1.y} Q ${cx} ${cy} ${p2.x} ${p2.y}`}
                     stroke="url(#lineGradient)"
                     strokeWidth="2.5"
                     fill="none"
@@ -208,7 +209,7 @@ export default function RadialOrbitalTimeline({
             const position = calculateNodePosition(index, timelineData.length, 0);
             const isActive = activeNodeId === item.id;
             const isRelated = activeNodeId && (item.relatedIds.includes(activeNodeId) || activeItem?.relatedIds.includes(item.id));
-            const Icon = item.icon;
+            const Icon = item.icon as React.ComponentType<{ className?: string }>;
 
             return (
               <div

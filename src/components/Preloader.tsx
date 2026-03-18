@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { gsap } from 'gsap';
 
 export default function Preloader() {
   const [loading, setLoading] = useState(true);
@@ -10,7 +9,7 @@ export default function Preloader() {
 
   useEffect(() => {
     let animationFrameId: number;
-    let startTime = Date.now();
+    const startTime = Date.now();
     const duration = 1500; // 1.5s total loading time
 
     const updateProgress = () => {

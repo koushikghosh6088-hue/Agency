@@ -5,18 +5,16 @@ import { useFrame } from '@react-three/fiber';
 import { MeshDistortMaterial, Float, Sphere, Icosahedron, Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
+const POINTS_POSITIONS = new Float32Array(500 * 3);
+for (let i = 0; i < 500; i++) {
+  POINTS_POSITIONS[i * 3] = (Math.random() - 0.5) * 20;
+  POINTS_POSITIONS[i * 3 + 1] = (Math.random() - 0.5) * 20;
+  POINTS_POSITIONS[i * 3 + 2] = (Math.random() - 0.5) * 10;
+}
+
 export default function HeroEnvironment() {
   const meshRef = useRef<THREE.Mesh>(null);
   const groupRef = useRef<THREE.Group>(null);
-  const pointsPositions = useMemo(() => {
-    const pos = new Float32Array(500 * 3);
-    for (let i = 0; i < 500; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 20;
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 20;
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 10;
-    }
-    return pos;
-  }, []);
 
   useFrame((state) => {
     const { clock, mouse } = state;
@@ -56,7 +54,7 @@ export default function HeroEnvironment() {
       </Sphere>
 
       {/* Floating Particle Field */}
-      <Points positions={pointsPositions}>
+      <Points positions={POINTS_POSITIONS}>
         <PointMaterial
           transparent
           color="#0ea5e9"

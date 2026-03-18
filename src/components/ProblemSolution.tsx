@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useCallback, useEffect } from 'react';
-import { Activity, Globe, Smartphone, Bot, BarChart3, AlertTriangle, Users, Cpu, Lock } from 'lucide-react';
+import { Activity, Globe, Smartphone, BarChart3, AlertTriangle, Users, Cpu, Lock } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AnimatedSection from './AnimatedSection';
 

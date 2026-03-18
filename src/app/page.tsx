@@ -290,7 +290,7 @@ export default function HomePage() {
 
         {/* R3F Hero Scene — High-Impact UI */}
         <div ref={trackRef} className="absolute inset-0 z-[2] opacity-40 pointer-events-none" id="hero-3d-container">
-          {mounted && trackRef.current && (
+          {mounted && (
             <View track={trackRef as any}>
               <HeroEnvironment />
             </View>
@@ -759,10 +759,10 @@ export default function HomePage() {
                   <span className="text-xs font-mono uppercase tracking-widest text-[#0ea5e9]">Get In Touch</span>
                 </div>
                 <h2 className="text-[2.2rem] md:text-[3.2rem] font-heading font-black tracking-tighter leading-[0.8] mb-10 uppercase">
-                  LET'S GROW YOUR <br/><span className="gradient-text italic text-[#0ea5e9]">BUSINESS TOGETHER</span>
+                  LET&apos;S GROW YOUR <br/><span className="gradient-text italic text-[#0ea5e9]">BUSINESS TOGETHER</span>
                 </h2>
                 <p className="text-white/50 text-lg font-mono font-light max-w-xl mb-12 leading-relaxed">
-                  Book a free 30-minute consultation. We'll look at your current digital presence, tell you exactly what needs fixing, and show you what we'd build for you — no commitment required.
+                  Book a free 30-minute consultation. We&apos;ll look at your current digital presence, tell you exactly what needs fixing, and show you what we&apos;d build for you — no commitment required.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
