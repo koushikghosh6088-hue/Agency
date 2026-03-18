@@ -26,6 +26,7 @@ export default function RadialOrbitalTimeline({
   const [rotationAngle, setRotationAngle] = useState<number>(0);
   const [autoRotate, setAutoRotate] = useState<boolean>(true);
   const [activeNodeId, setActiveNodeId] = useState<number | null>(null);
+  const velocityRef = useRef<number>(4);
   const containerRef = useRef<HTMLDivElement>(null);
   const [radius, setRadius] = useState(200);
   const [isMobile, setIsMobile] = useState(false);
@@ -50,7 +51,8 @@ export default function RadialOrbitalTimeline({
   }, []);
 
   const toggleItem = (id: number) => {
-    if (activeNodeId === id) {
+    const isCurrentlyActive = activeNodeId === id;
+    if (isCurrentlyActive) {
       setActiveNodeId(null);
       setAutoRotate(true);
     } else {
@@ -63,17 +65,34 @@ export default function RadialOrbitalTimeline({
     }
   };
 
+  const spinIt = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    velocityRef.current = Math.min(velocityRef.current + 180, 800); // Cap max velocity
+    if (!autoRotate) {
+      setAutoRotate(true);
+      setActiveNodeId(null);
+    }
+  };
+
   useEffect(() => {
     let animationFrameId: number;
     let lastTime = performance.now();
 
     const animate = (time: number) => {
+      const deltaTime = time - lastTime;
+      lastTime = time;
+
       if (autoRotate) {
-        const deltaTime = time - lastTime;
-        const deltaAngle = (4 / 1000) * deltaTime;
+        // Decay velocity over time - physics based decay
+        // normalized to 60fps (16.6ms)
+        const decayFactor = Math.pow(0.993, deltaTime / 16.6);
+        velocityRef.current = Math.max(4, velocityRef.current * decayFactor);
+        
+        // Apply rotation based on current velocity
+        const deltaAngle = (velocityRef.current / 1000) * deltaTime;
         setRotationAngle((prev) => (prev + deltaAngle) % 360);
       }
-      lastTime = time;
+      
       animationFrameId = requestAnimationFrame(animate);
     };
 
@@ -155,15 +174,18 @@ export default function RadialOrbitalTimeline({
         </svg>
 
         {/* Neural Core */}
-        <div className="absolute flex items-center justify-center z-20 scale-75 md:scale-100">
+        <div 
+          className="absolute flex items-center justify-center z-20 scale-75 md:scale-100 cursor-pointer group active:scale-95 transition-transform"
+          onClick={spinIt}
+        >
           <div className="absolute w-44 h-44 rounded-full bg-blue-400/[0.03] border border-blue-400/20 animate-glow-scan" 
                style={{ background: 'conic-gradient(from 0deg, transparent, rgba(14,165,233,0.3), transparent 30%)' }} />
           <div className="absolute w-36 h-36 rounded-full border border-white/10 animate-reverse-spin duration-[12s]" />
           
-          <div className="relative w-28 h-28 rounded-full flex items-center justify-center glass-premium border-blue-400/40 glow-blue-strong overflow-hidden group">
+          <div className="relative w-28 h-28 rounded-full flex items-center justify-center glass-premium border-blue-400/40 glow-blue-strong overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-400/30 via-transparent to-purple-500/20 animate-pulse" />
             <div className="absolute top-0 left-0 w-full h-[2px] bg-white/20 blur-[1px]" />
-            <Cpu className="w-12 h-12 text-blue-400 animate-float" />
+            <Cpu className="w-12 h-12 text-blue-400 animate-float group-hover:scale-110 transition-transform" />
             
             {/* Spinning inner data ring */}
             <div className="absolute inset-1 border-2 border-dashed border-blue-400/30 rounded-full animate-[spin_8s_linear_infinite]" />
