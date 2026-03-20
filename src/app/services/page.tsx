@@ -55,8 +55,8 @@ const services = [
     features: ['Workflow automation', 'Data handling', 'Error elimination', 'Time saving'],
     benefits: ['40+ hours saved/week', 'Zero human errors', 'Real-time visibility'],
     image: '/3d-icons/automation.png',
-    metric: '98%',
-    metricLabel: 'Efficiency'
+    metric: '1–2 Wks',
+    metricLabel: 'Delivery'
   },
   {
     id: 'agents',

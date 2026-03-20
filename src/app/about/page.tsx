@@ -7,6 +7,7 @@ import { ArrowRight, Zap, Target, Eye, Heart, Users, Globe, Award, ArrowUpRight 
 import Image from 'next/image';
 import AnimatedSection from '@/components/AnimatedSection';
 import TypewriterSubline from '@/components/TypewriterSubline';
+import BenefitStats from '@/components/BenefitStats';
 
 const DynamicCoreSphere = dynamic(() => import('@/components/ServiceModels').then(mod => mod.CoreSphere), { ssr: false });
 
@@ -16,12 +17,7 @@ const PerspectiveCamera = dynamic(() => import('@react-three/drei').then(mod => 
 const PresentationControls = dynamic(() => import('@react-three/drei').then(mod => mod.PresentationControls), { ssr: false });
 const Environment = dynamic(() => import('@react-three/drei').then(mod => mod.Environment), { ssr: false });
 
-const stats = [
-  { value: '150+', label: 'Projects Delivered', icon: Zap },
-  { value: '50+', label: 'Happy Clients', icon: Globe },
-  { value: '20+', label: 'Tech Awards', icon: Award },
-  { value: '5+', label: 'Years Experience', icon: Users },
-];
+
 
 
 const values = [
@@ -94,21 +90,13 @@ export default function AboutPage() {
       </section>
 
       {/* Stats Grid */}
-      <section className="py-12 relative z-20">
-        <div className="max-w-[1400px] mx-auto px-6">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {stats.map((stat, i) => (
-              <AnimatedSection key={stat.label} delay={i * 0.1}>
-                <div className={`glass-panel border-white/5 rounded-[2rem] p-8 text-center group transition-all duration-500 hover:border-blue-400/30 hover:bg-white/5`}>
-                  <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mx-auto mb-6 group-hover:bg-blue-400/10 transition-colors">
-                    <stat.icon className="w-6 h-6 text-white group-hover:text-blue-400 transition-colors" />
-                  </div>
-                  <div className="text-[2.5rem] font-heading font-bold text-white mb-2 leading-none">{stat.value}</div>
-                  <div className="text-xs font-mono text-white/40 uppercase tracking-widest">{stat.label}</div>
-                </div>
-              </AnimatedSection>
-            ))}
+      <section className="py-24 relative z-20">
+        <div className="max-w-[1550px] mx-auto px-6">
+          <div className="mb-12 text-center">
+            <h2 className="text-3xl md:text-4xl font-heading font-black tracking-tighter uppercase mb-4">Our Performance <span className="text-blue-400 italic">Metrics</span></h2>
+            <p className="font-mono text-sm text-white/40 uppercase tracking-widest">Honest results, zero fluff.</p>
           </div>
+          <BenefitStats />
         </div>
       </section>
 
@@ -137,7 +125,7 @@ export default function AboutPage() {
                     { year: '2019', event: 'The Start', detail: 'Vedastra AI Labs was founded with a mission to simplify web development.' },
                     { year: '2021', event: 'Growing Fast', detail: 'We reached our 50th project and expanded into mobile app development.' },
                     { year: '2023', event: 'AI Integration', detail: 'We launched our first AI calling and chat agents for lead qualification.' },
-                    { year: '2024', event: 'Global Growth', detail: 'Now supporting over 50+ happy clients worldwide with a full tech stack.' },
+                    { year: '2024', event: 'Global Growth', detail: 'Now delivering AI-powered solutions with a 100% satisfaction guarantee.' },
                   ].map((item, i) => (
                     <motion.div 
                       key={item.year} 

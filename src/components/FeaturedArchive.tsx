@@ -46,7 +46,7 @@ const projects = [
     id: 4,
     title: "OmniBot Pro",
     subtitle: "AI Customer Support Agent",
-    description: "24/7 autonomous AI agent for customer support that deflects 82% of tickets with 98% accuracy.",
+    description: "24/7 autonomous AI agent for customer support that deflects a vast majority of inquiries with high-precision neural logic.",
     tags: ["AI", "NLP", "Automation", "Chat"],
     image: "/portfolio/ai_chatbot.png",
     color: "from-sky-600 to-blue-400",

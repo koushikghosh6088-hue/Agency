@@ -18,6 +18,7 @@ import FeaturedArchive from '@/components/FeaturedArchive';
 import HeroEnvironment from '@/components/HeroEnvironment';
 import ProblemSolution from '@/components/ProblemSolution';
 import PricingSection from '@/components/PricingSection';
+import BenefitStats from '@/components/BenefitStats';
 
 import { View, Preload } from '@react-three/drei';
 
@@ -366,10 +367,10 @@ export default function HomePage() {
               {/* Mini stats */}
               <div className="flex items-center gap-6 sm:gap-8 pt-4 lg:pt-6 justify-center lg:justify-start">
                 {[
-                  { val: '150+', label: 'Projects Delivered' },
-                  { val: '50+', label: 'Happy Clients' },
-                  { val: '99.9%', label: 'Uptime' },
-                  { val: '4.9★', label: 'Rating' },
+                  { val: '1–2 Wks', label: 'Delivery' },
+                  { val: 'AI-First', label: 'Tech' },
+                  { val: '24/7', label: 'Support' },
+                  { val: '100%', label: 'Satisfaction' },
                 ].map((s) => (
                   <div key={s.label}>
                     <div className="text-base sm:text-lg font-heading font-bold text-white">{s.val}</div>
@@ -396,18 +397,7 @@ export default function HomePage() {
       {/* ═══════════ STATS COUNTER BAR ═══════════ */}
       <section className="relative py-16 bg-black z-20 border-t border-b border-white/5">
         <div className="max-w-[1550px] mx-auto px-6">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { value: '150', label: 'Projects Delivered', suffix: '+' },
-              { value: '50', label: 'Happy Clients', suffix: '+' },
-              { value: '99.9', label: 'Uptime', suffix: '%' },
-              { value: '4.9', label: 'Rating', suffix: '★' },
-            ].map((stat, i) => (
-              <AnimatedSection key={stat.label} delay={i * 0.15}>
-                <StatCounter {...stat} />
-              </AnimatedSection>
-            ))}
-          </div>
+          <BenefitStats />
         </div>
       </section>
 
@@ -598,26 +588,8 @@ export default function HomePage() {
 
         {/* stat bar */}
         <div className="relative z-10 max-w-[1550px] mx-auto px-6 mt-20 md:mt-28">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-            {[
-              { metric: "98%", label: "Client Retention Rate" },
-              { metric: "200+", label: "Projects Delivered" },
-              { metric: "4.9★", label: "Average Rating" },
-              { metric: "4", label: "Continents Served" },
-            ].map((s) => (
-              <motion.div
-                key={s.label}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ type: "spring", stiffness: 120, damping: 18 }}
-                className="glass-panel rounded-2xl md:rounded-3xl p-5 md:p-8 border border-white/5 text-center hover:border-[#0ea5e9]/30 transition-colors duration-500"
-              >
-                <div className="text-3xl md:text-5xl font-heading font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40 tracking-tighter mb-2">
-                  {s.metric}
-                </div>
-                <div className="font-mono text-[10px] md:text-xs text-white/30 uppercase tracking-widest">{s.label}</div>
-              </motion.div>
+          <BenefitStats />
+        </div>
             ))}
           </div>
         </div>
