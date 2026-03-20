@@ -23,6 +23,7 @@ import ServicesSection from '@/components/ServicesSection';
 import IndustriesSection from '@/components/IndustriesSection';
 import FAQSection from '@/components/FAQSection';
 import FinalCTA from '@/components/FinalCTA';
+import TrustBar from '@/components/TrustBar';
 
 import { View, Preload } from '@react-three/drei';
 
@@ -398,17 +399,20 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* ═══════════ STATS COUNTER BAR ═══════════ */}
-      <section className="relative py-16 bg-black z-20 border-t border-b border-white/5">
-        <div className="max-w-[1550px] mx-auto px-6">
-          <BenefitStats />
-        </div>
+      {/* 04 — TRUST BAR */}
+      <TrustBar />
+
+      {/* 05 — PROBLEMS SECTION */}
+      <section className="relative bg-black z-10">
+        <ProblemSolution />
       </section>
 
-      {/* ═══════════ ABOUT US / BENTO GRID ═══════════ */}
+      {/* 06 — SERVICES SECTION */}
+      <ServicesSection />
+
+      {/* 07 — ABOUT US */}
       <section className="relative pt-20 pb-8 lg:py-32 bg-black z-10 rounded-t-[4rem] border-t border-white/10 shadow-[0_-20px_50px_rgba(0,0,0,0.8)]">
         <div className="max-w-[1550px] mx-auto px-6">
-          {/* TEXT + TIMELINE SPLIT GRID */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-center min-h-[450px] lg:min-h-[600px]">
             <AnimatedSection>
               <div className="flex flex-col gap-8">
@@ -423,7 +427,7 @@ export default function HomePage() {
                 </div>
                 <div className="max-w-xl space-y-6">
                    <p className="font-mono text-sm md:text-base text-white/60 uppercase tracking-[0.1em] leading-relaxed">
-                     We are a team of designers, developers, and AI specialists who build digital products that genuinely move the needle. We don't just deliver code — we build tools that bring you more customers, save your team hours every week, and make your business look world-class online.
+                     We are a team of designers, developers, and AI specialists who build digital products that genuinely move the needle. We don&apos;t just deliver code — we build tools that bring you more customers, save your team hours every week, and make your business look world-class online.
                    </p>
                    <div className="h-px w-full bg-gradient-to-r from-blue-400/30 to-transparent" />
                    <p className="font-mono text-[10px] md:text-xs text-white/30 uppercase tracking-[0.3em]">
@@ -432,172 +436,24 @@ export default function HomePage() {
                 </div>
               </div>
             </AnimatedSection>
-
-            {/* TIMELINE INTERFACE START */}
             <AnimatedSection className="w-full h-full relative z-20">
                <RadialOrbitalTimeline timelineData={aboutUsTimelineData} />
             </AnimatedSection>
-            {/* TIMELINE INTERFACE END */}
           </div>
         </div>
       </section>
 
-      <section className="relative bg-black z-10">
-        <ProblemSolution />
-      </section>
-
-      <ServicesSection />
-
-      <IndustriesSection />
-
+      {/* 08 — WHY CHOOSE US */}
       <WhyChooseUs />
 
+      {/* 09 — INDUSTRIES WE SERVE */}
+      <IndustriesSection />
+
+      {/* 10 — PORTFOLIO PREVIEW */}
       <FeaturedArchive />
 
-      <PricingSection />
-
-      {/* ═══════════ RESULTS SECTION ═══════════ */}
-      <section className="relative py-24 bg-black overflow-hidden z-20 border-t border-white/5">
-        <div className="max-w-[1550px] mx-auto px-6">
-          <AnimatedSection className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-              <span className="font-mono text-xs uppercase tracking-widest text-blue-400">Real Numbers</span>
-            </div>
-            <h2 className="text-[2.2rem] md:text-[3.2rem] lg:text-[4rem] font-heading font-black leading-none tracking-tighter uppercase mb-6">
-              RESULTS WE'VE <span className="gradient-text italic text-blue-400">DELIVERED</span> FOR REAL BUSINESSES
-            </h2>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { num: "34%", desc: "Revenue increase for an ecommerce client after we rebuilt their website" },
-              { num: "40%", desc: "Of cold leads converted to demo calls using our AI calling agent" },
-              { num: "82%", desc: "Customer support tickets automatically resolved by our AI chatbot" },
-              { num: "3 sec → 300ms", desc: "Website load time improvement for a SaaS platform — traffic doubled in 60 days" },
-            ].map((card, i) => (
-              <AnimatedSection key={i} delay={i * 0.1}>
-                <div className="glass-panel p-8 rounded-3xl border-white/10 text-center hover:border-blue-400/30 transition-all">
-                  <div className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tighter italic">{card.num}</div>
-                  <p className="font-mono text-xs uppercase text-white/50 leading-relaxed tracking-wider">{card.desc}</p>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════ CLIENT TRANSMISSIONS ═══════════ */}
-      <section ref={marqueeRef} className="relative py-20 md:py-32 bg-black z-10 overflow-hidden">
-        {/* Ambient glows */}
-        <div className="absolute top-0 left-1/4 w-[600px] h-[400px] bg-[#0ea5e9]/5 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[400px] bg-purple-50/5 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute inset-0 bg-transparent pointer-events-none" />
-
-        <div className="relative z-10 max-w-[1550px] mx-auto px-6">
-          {/* Header */}
-          <AnimatedSection className="text-center mb-16 md:mb-24">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0ea5e9]/10 border border-[#0ea5e9]/20 mb-6 backdrop-blur-md">
-              <Star className="w-3.5 h-3.5 text-[#0ea5e9] fill-[#0ea5e9]" />
-              <span className="font-mono text-xs uppercase tracking-widest text-[#0ea5e9]">Client Results</span>
-            </div>
-            <h2 className="text-[2rem] md:text-[3rem] lg:text-[3.8rem] font-heading font-black leading-none tracking-tighter uppercase mb-4">
-              WHAT OUR <span className="gradient-text italic text-[#0ea5e9]">CLIENTS SAY</span>
-            </h2>
-            <p className="font-mono text-sm text-white/30 uppercase tracking-[0.2em] max-w-lg mx-auto">
-              We are just getting started — your testimonial could be here.
-            </p>
-          </AnimatedSection>
-        </div>
-
-        {/* ── MARQUEE ROW 1 — left scroll ── */}
-        <div className="relative mb-6 group overflow-hidden">
-          <div className={`flex gap-5 animate-marquee-left group-hover:pause-animation ${pauseAnimations ? 'pause-animation' : ''} whitespace-nowrap w-max will-change-transform`}>
-            {[...[
-              { quote: "We are just getting started — your success story could be featured here. Be our next happy client and see real results.", name: "Your Name", role: "Your Business", rating: 5, accent: "text-blue-400", border: "border-blue-500/20" },
-              { quote: "Vedastra AI Labs is building a track record of excellence. We deliver results that speak for themselves — stay tuned.", name: "Vedastra", role: "AI Labs", rating: 5, accent: "text-purple-400", border: "border-purple-500/20" },
-            ], ...[
-              { quote: "We are just getting started — your success story could be featured here. Be our next happy client and see real results.", name: "Your Name", role: "Your Business", rating: 5, accent: "text-blue-400", border: "border-blue-500/20" },
-              { quote: "Vedastra AI Labs is building a track record of excellence. We deliver results that speak for themselves — stay tuned.", name: "Vedastra", role: "AI Labs", rating: 5, accent: "text-purple-400", border: "border-purple-500/20" },
-            ]].map((t, i) => (
-              <div
-                key={`r1-${i}`}
-                className={`inline-flex shrink-0 w-[340px] md:w-[420px] flex-col justify-between gap-5 glass-panel rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-8 border ${t.border} group/card hover:scale-[1.02] transition-transform duration-300 cursor-default`}
-              >
-                <div className="flex gap-1 mb-2">
-                  {Array.from({ length: t.rating }).map((_, j) => (
-                    <Star key={j} className={`w-3.5 h-3.5 ${t.accent} fill-current`} />
-                  ))}
-                </div>
-                <p className="text-white/70 text-sm md:text-base font-mono leading-relaxed whitespace-normal">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <div className={`flex items-center gap-4 pt-4 border-t border-white/5`}>
-                  <div className={`w-10 h-10 rounded-full bg-gradient-to-br from-white/10 to-white/5 border ${t.border} flex items-center justify-center shrink-0`}>
-                    <span className={`font-heading font-black text-sm ${t.accent}`}>{t.name[0]}</span>
-                  </div>
-                  <div>
-                    <div className="text-sm font-bold text-white">{t.name}</div>
-                    <div className="text-[10px] font-mono text-white/30 uppercase tracking-widest">{t.role}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* ── MARQUEE ROW 2 — right scroll ── */}
-        <div className="relative group overflow-hidden">
-          <div className={`flex gap-5 animate-marquee-right group-hover:pause-animation ${pauseAnimations ? 'pause-animation' : ''} whitespace-nowrap w-max will-change-transform`}>
-            {[...[
-              { quote: "We are just getting started — your success story could be featured here. Be our next happy client and see real results.", name: "Your Name", role: "Your Business", rating: 5, accent: "text-amber-400", border: "border-amber-500/20" },
-              { quote: "Vedastra AI Labs is building a track record of excellence. We deliver results that speak for themselves — stay tuned.", name: "Vedastra", role: "AI Labs", rating: 5, accent: "text-fuchsia-400", border: "border-fuchsia-500/20" },
-            ], ...[
-              { quote: "We are just getting started — your success story could be featured here. Be our next happy client and see real results.", name: "Your Name", role: "Your Business", rating: 5, accent: "text-amber-400", border: "border-amber-500/20" },
-              { quote: "Vedastra AI Labs is building a track record of excellence. We deliver results that speak for themselves — stay tuned.", name: "Vedastra", role: "AI Labs", rating: 5, accent: "text-fuchsia-400", border: "border-fuchsia-500/20" },
-            ]].map((t, i) => (
-              <div
-                key={`r2-${i}`}
-                className={`inline-flex shrink-0 w-[340px] md:w-[420px] flex-col justify-between gap-5 glass-panel rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-8 border ${t.border} group/card hover:scale-[1.02] transition-transform duration-300 cursor-default`}
-              >
-                <div className="flex gap-1 mb-2">
-                  {Array.from({ length: t.rating }).map((_, j) => (
-                    <Star key={j} className={`w-3.5 h-3.5 ${t.accent} fill-current`} />
-                  ))}
-                </div>
-                <p className="text-white/70 text-sm md:text-base font-mono leading-relaxed whitespace-normal">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <div className={`flex items-center gap-4 pt-4 border-t border-white/5`}>
-                  <div className={`w-10 h-10 rounded-full bg-gradient-to-br from-white/10 to-white/5 border ${t.border} flex items-center justify-center shrink-0`}>
-                    <span className={`font-heading font-black text-sm ${t.accent}`}>{t.name[0]}</span>
-                  </div>
-                  <div>
-                    <div className="text-sm font-bold text-white">{t.name}</div>
-                    <div className="text-[10px] font-mono text-white/30 uppercase tracking-widest">{t.role}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* edge fades */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black to-transparent z-20 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black to-transparent z-20 pointer-events-none" />
-
-        {/* stat bar */}
-        <div className="relative z-10 max-w-[1550px] mx-auto px-6 mt-20 md:mt-28">
-          <BenefitStats />
-        </div>
-      </section>
-
-
-      {/* REDUNDANT ADVANTAGE SECTION REMOVED */}
-
-      {/* ═══════════ TECH PROCESS SECTION ═══════════ */}
+      {/* 11 — HOW IT WORKS */}
       <section className="relative py-40 bg-black overflow-hidden z-10">
-        {/* Background circuit lines visual */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
              style={{backgroundImage: `radial-gradient(#0ea5e9 1px, transparent 1px)`, backgroundSize: '40px 40px'}} />
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-400/20 to-transparent" />
@@ -636,15 +492,11 @@ export default function HomePage() {
             
             <AnimatedSection delay={0.3}>
               <div className="relative">
-                {/* Custom 3D Component */}
                 <div className="mb-12">
                    <Floating3DNeuralCore />
                 </div>
-
-                {/* Floating Code Block */}
                 <div className="glass-panel rounded-[2rem] p-6 md:p-8 relative overflow-hidden border-[#0ea5e9]/10 hover:border-[#0ea5e9]/30 transition-colors duration-500 group">
                   <div className="absolute -inset-20 bg-[#0ea5e9]/5 blur-[80px] pointer-events-none group-hover:opacity-100 transition-opacity" />
-                  
                   <div className="flex items-center gap-2 mb-6 border-b border-white/5 pb-4">
                     <div className="flex gap-1.5">
                        <div className="w-2.5 h-2.5 rounded-full bg-red-500/40" />
@@ -653,7 +505,6 @@ export default function HomePage() {
                     </div>
                     <span className="font-mono text-[10px] text-white/30 ml-3 tracking-widest uppercase">vedastra_engine_v2.ts</span>
                   </div>
-
                   <div className="font-mono text-xs md:text-sm leading-6 relative z-10 text-white/70">
                     <div><span className="text-[#0ea5e9]">import</span> {`{`} <span className="text-purple-400">AIBuilder</span> {`}`} <span className="text-[#0ea5e9]">from</span> <span className="text-amber-400">&apos;@vedastra/engine&apos;</span>;</div>
                     <div className="mt-2"><span className="text-white/20">// Initialize autonomous build sequence</span></div>
@@ -666,8 +517,6 @@ export default function HomePage() {
                     <div><span className="text-[#0ea5e9]">await</span> app.<span className="text-green-400">launch</span>({`{`} <span className="text-white/30">clusters:</span> <span className="text-cyan-400">&apos;global&apos;</span> {`}`});</div>
                   </div>
                 </div>
-
-                {/* Floating metrics */}
                 <div className="absolute -top-12 right-0 glass-premium px-5 py-3 rounded-2xl border-[#0ea5e9]/20 animate-float pointer-events-none backdrop-blur-xl">
                   <p className="font-mono text-[9px] text-[#0ea5e9]/60 mb-1 uppercase tracking-tighter">Throughput</p>
                   <p className="text-white font-black tracking-tight text-xl">1.2M <span className="text-green-400 text-xs">reqs/s</span></p>
@@ -682,128 +531,115 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══════════ TECH INFRASTRUCTURE MARQUEE ═══════════ */}
-      <section className="relative py-20 bg-black overflow-hidden border-t border-white/5">
-        <div className="flex whitespace-nowrap overflow-hidden">
-          <div className="flex animate-[marquee_20s_linear_infinite] gap-20 items-center pr-20">
-            {[
-              { icon: Shield, text: "ENCRYPTED PROTOCOLS" },
-              { icon: Zap, text: "LOW-LATENCY EDGE" },
-              { icon: Server, text: "NODE NEURAL SYNC" },
-              { icon: Bot, text: "AUTONOMOUS LOGIC" },
-            ].map((item, i) => (
-              <div key={i} className="flex items-center gap-6">
-                <item.icon className="w-8 h-8 text-blue-400" />
-                <span className="text-4xl md:text-6xl font-heading font-black text-white/20 uppercase tracking-tighter">{item.text}</span>
-                <span className="text-blue-400">•</span>
-              </div>
-            ))}
-            {[
-              { icon: Shield, text: "ENCRYPTED PROTOCOLS" },
-              { icon: Zap, text: "LOW-LATENCY EDGE" },
-              { icon: Server, text: "NODE NEURAL SYNC" },
-              { icon: Bot, text: "AUTONOMOUS LOGIC" },
-            ].map((item, i) => (
-              <div key={i+"dup"} className="flex items-center gap-6">
-                <item.icon className="w-8 h-8 text-blue-400" />
-                <span className="text-4xl md:text-6xl font-heading font-black text-white/20 uppercase tracking-tighter">{item.text}</span>
-                <span className="text-blue-400">•</span>
-              </div>
-            ))}
-          </div>
+      {/* 12 — STATS */}
+      <section className="relative py-16 bg-black z-20 border-t border-b border-white/5">
+        <div className="max-w-[1550px] mx-auto px-6">
+          <BenefitStats />
         </div>
       </section>
 
+      {/* 13 — PRICING */}
+      <PricingSection />
+
+      {/* 14 — FAQ */}
       <FAQSection />
 
-      <FinalCTA />
+      {/* 15 — TESTIMONIALS */}
+      <section ref={marqueeRef} className="relative py-20 md:py-32 bg-black z-10 overflow-hidden">
+        <div className="absolute top-0 left-1/4 w-[600px] h-[400px] bg-[#0ea5e9]/5 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[400px] bg-purple-50/5 rounded-full blur-[120px] pointer-events-none" />
 
-      {/* ═══════════ CINEMATIC CONTACT SECTION ═══════════ */}
-      <section className="relative py-20 bg-obsidian overflow-hidden z-10 border-t border-white/5">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(14,165,233,0.15)_0%,transparent_60%)] pointer-events-none" />
-        
-        <div className="max-w-[1550px] mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-            {/* Left Content */}
-            <div className="lg:col-span-6">
-              <AnimatedSection>
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-400/20 bg-blue-400/5 mb-8">
-                  <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse-glow" />
-                  <span className="text-xs font-mono uppercase tracking-widest text-[#0ea5e9]">Get In Touch</span>
+        <div className="relative z-10 max-w-[1550px] mx-auto px-6">
+          <AnimatedSection className="text-center mb-16 md:mb-24">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0ea5e9]/10 border border-[#0ea5e9]/20 mb-6 backdrop-blur-md">
+              <Star className="w-3.5 h-3.5 text-[#0ea5e9] fill-[#0ea5e9]" />
+              <span className="font-mono text-xs uppercase tracking-widest text-[#0ea5e9]">Client Results</span>
+            </div>
+            <h2 className="text-[2rem] md:text-[3rem] lg:text-[3.8rem] font-heading font-black leading-none tracking-tighter uppercase mb-4">
+              WHAT OUR <span className="gradient-text italic text-[#0ea5e9]">CLIENTS SAY</span>
+            </h2>
+            <p className="font-mono text-sm text-white/30 uppercase tracking-[0.2em] max-w-lg mx-auto">
+              We are just getting started — your testimonial could be here.
+            </p>
+          </AnimatedSection>
+        </div>
+
+        <div className="relative mb-6 group overflow-hidden">
+          <div className={`flex gap-5 animate-marquee-left group-hover:pause-animation ${pauseAnimations ? 'pause-animation' : ''} whitespace-nowrap w-max will-change-transform`}>
+            {[...[
+              { quote: "We are just getting started — your success story could be featured here. Be our next happy client and see real results.", name: "Your Name", role: "Your Business", rating: 5, accent: "text-blue-400", border: "border-blue-500/20" },
+              { quote: "Vedastra AI Labs is building a track record of excellence. We deliver results that speak for themselves — stay tuned.", name: "Vedastra", role: "AI Labs", rating: 5, accent: "text-purple-400", border: "border-purple-500/20" },
+            ], ...[
+              { quote: "We are just getting started — your success story could be featured here. Be our next happy client and see real results.", name: "Your Name", role: "Your Business", rating: 5, accent: "text-blue-400", border: "border-blue-500/20" },
+              { quote: "Vedastra AI Labs is building a track record of excellence. We deliver results that speak for themselves — stay tuned.", name: "Vedastra", role: "AI Labs", rating: 5, accent: "text-purple-400", border: "border-purple-500/20" },
+            ]].map((t, i) => (
+              <div
+                key={`r1-${i}`}
+                className={`inline-flex shrink-0 w-[340px] md:w-[420px] flex-col justify-between gap-5 glass-panel rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-8 border ${t.border} group/card hover:scale-[1.02] transition-transform duration-300 cursor-default`}
+              >
+                <div className="flex gap-1 mb-2">
+                  {Array.from({ length: t.rating }).map((_, j) => (
+                    <Star key={j} className={`w-3.5 h-3.5 ${t.accent} fill-current`} />
+                  ))}
                 </div>
-                <h2 className="text-[2.2rem] md:text-[3.2rem] font-heading font-black tracking-tighter leading-[0.8] mb-10 uppercase">
-                  LET&apos;S GROW YOUR <br/><span className="gradient-text italic text-[#0ea5e9]">BUSINESS TOGETHER</span>
-                </h2>
-                <p className="text-white/50 text-lg font-mono font-light max-w-xl mb-12 leading-relaxed">
-                  Book a free 30-minute consultation. We&apos;ll look at your current digital presence, tell you exactly what needs fixing, and show you what we&apos;d build for you — no commitment required.
+                <p className="text-white/70 text-sm md:text-base font-mono leading-relaxed whitespace-normal">
+                  &ldquo;{t.quote}&rdquo;
                 </p>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                   <div className="glass-panel p-6 rounded-3xl border-white/5 hover:border-[#0ea5e9]/30 transition-all group">
-                      <Mail className="w-6 h-6 text-[#0ea5e9] mb-4" />
-                      <div className="text-[10px] font-mono text-white/30 uppercase tracking-widest mb-1">Email Us</div>
-                      <div className="text-sm font-bold text-white">hello@vedastraai.com</div>
-                   </div>
-                   <div className="glass-panel p-6 rounded-3xl border-white/5 hover:border-[#0ea5e9]/30 transition-all group">
-                      <Phone className="w-6 h-6 text-[#0ea5e9] mb-4" />
-                      <div className="text-[10px] font-mono text-white/30 uppercase tracking-widest mb-1">Call Us</div>
-                      <div className="text-sm font-bold text-white">+91 70033 83676 / +91 80176 83428</div>
-                   </div>
+                <div className={`flex items-center gap-4 pt-4 border-t border-white/5`}>
+                  <div className={`w-10 h-10 rounded-full bg-gradient-to-br from-white/10 to-white/5 border ${t.border} flex items-center justify-center shrink-0`}>
+                    <span className={`font-heading font-black text-sm ${t.accent}`}>{t.name[0]}</span>
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold text-white">{t.name}</div>
+                    <div className="text-[10px] font-mono text-white/30 uppercase tracking-widest">{t.role}</div>
+                  </div>
                 </div>
-              </AnimatedSection>
-            </div>
-
-            {/* Right Form */}
-            <div className="lg:col-span-6">
-              <AnimatedSection delay={0.2}>
-                <div className="glass-premium rounded-[3rem] p-8 md:p-12 border-white/10 relative overflow-hidden">
-                   <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#0ea5e9]/50 to-transparent" />
-                   
-                   <form className="space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                           <input
-                             type="text"
-                             placeholder="IDENTIFIER / NAME"
-                             className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white font-mono text-xs focus:outline-none focus:border-[#0ea5e9] focus:ring-1 focus:ring-[#0ea5e9]/50 transition-all placeholder:text-white/20"
-                           />
-                        </div>
-                        <div className="space-y-2">
-                           <input
-                             type="email"
-                             placeholder="COMM LINK / EMAIL"
-                             className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white font-mono text-xs focus:outline-none focus:border-[#0ea5e9] focus:ring-1 focus:ring-[#0ea5e9]/50 transition-all placeholder:text-white/20"
-                           />
-                        </div>
-                      </div>
-                      
-                      <select className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white font-mono text-xs focus:outline-none focus:border-[#0ea5e9] transition-all appearance-none cursor-pointer">
-                        <option className="bg-black text-white">WEB ARCHITECTURE</option>
-                        <option className="bg-black text-white">AI SOLUTIONS</option>
-                        <option className="bg-black text-white">WORKFLOW AUTOMATION</option>
-                        <option className="bg-black text-white">OTHER</option>
-                      </select>
-
-                      <textarea
-                        placeholder="SYSTEM REQUIREMENTS / MESSAGE"
-                        rows={4}
-                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white font-mono text-xs focus:outline-none focus:border-[#0ea5e9] transition-all resize-none placeholder:text-white/20"
-                      />
-
-                      <p className="text-center font-mono text-[10px] uppercase tracking-widest text-blue-400 mb-4 animate-pulse">
-                        ⚡ We respond to every inquiry within 24 hours.
-                      </p>
-                      <button className="w-full py-5 rounded-2xl bg-[#0ea5e9] text-black font-black font-mono tracking-[0.2em] uppercase hover:scale-[1.02] active:scale-[0.98] transition-all shadow-[0_0_30px_rgba(14,165,233,0.3)] flex items-center justify-center gap-3">
-                        Send Message <Send className="w-4 h-4" />
-                      </button>
-
-                   </form>
-                </div>
-              </AnimatedSection>
-            </div>
+              </div>
+            ))}
           </div>
         </div>
+
+        <div className="relative group overflow-hidden">
+          <div className={`flex gap-5 animate-marquee-right group-hover:pause-animation ${pauseAnimations ? 'pause-animation' : ''} whitespace-nowrap w-max will-change-transform`}>
+            {[...[
+              { quote: "We are just getting started — your success story could be featured here. Be our next happy client and see real results.", name: "Your Name", role: "Your Business", rating: 5, accent: "text-amber-400", border: "border-amber-500/20" },
+              { quote: "Vedastra AI Labs is building a track record of excellence. We deliver results that speak for themselves — stay tuned.", name: "Vedastra", role: "AI Labs", rating: 5, accent: "text-fuchsia-400", border: "border-fuchsia-500/20" },
+            ], ...[
+              { quote: "We are just getting started — your success story could be featured here. Be our next happy client and see real results.", name: "Your Name", role: "Your Business", rating: 5, accent: "text-amber-400", border: "border-amber-500/20" },
+              { quote: "Vedastra AI Labs is building a track record of excellence. We deliver results that speak for themselves — stay tuned.", name: "Vedastra", role: "AI Labs", rating: 5, accent: "text-fuchsia-400", border: "border-fuchsia-500/20" },
+            ]].map((t, i) => (
+              <div
+                key={`r2-${i}`}
+                className={`inline-flex shrink-0 w-[340px] md:w-[420px] flex-col justify-between gap-5 glass-panel rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-8 border ${t.border} group/card hover:scale-[1.02] transition-transform duration-300 cursor-default`}
+              >
+                <div className="flex gap-1 mb-2">
+                  {Array.from({ length: t.rating }).map((_, j) => (
+                    <Star key={j} className={`w-3.5 h-3.5 ${t.accent} fill-current`} />
+                  ))}
+                </div>
+                <p className="text-white/70 text-sm md:text-base font-mono leading-relaxed whitespace-normal">
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+                <div className={`flex items-center gap-4 pt-4 border-t border-white/5`}>
+                  <div className={`w-10 h-10 rounded-full bg-gradient-to-br from-white/10 to-white/5 border ${t.border} flex items-center justify-center shrink-0`}>
+                    <span className={`font-heading font-black text-sm ${t.accent}`}>{t.name[0]}</span>
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold text-white">{t.name}</div>
+                    <div className="text-[10px] font-mono text-white/30 uppercase tracking-widest">{t.role}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black to-transparent z-20 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black to-transparent z-20 pointer-events-none" />
       </section>
+
+      {/* 16 — FINAL CTA */}
+      <FinalCTA />
     </>
   );
 }
