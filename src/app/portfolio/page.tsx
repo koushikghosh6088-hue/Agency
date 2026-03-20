@@ -20,15 +20,15 @@ const Environment = dynamic(() => import('@react-three/drei').then(mod => mod.En
 const categories = ['All', 'Web', 'Mobile', 'AI', 'Automation'];
 
 const projects = [
-  { title: 'AI Sales Dashboard', desc: 'Real-time AI analytics platform with predictive insights and automated reporting.', tags: ['React', 'Node.js', 'TensorFlow'], category: 'AI', size: 'col-span-1 md:col-span-2 row-span-2', image: '/mockups/ai_sales.png' },
-  { title: 'E-Commerce Marketplace', desc: 'Full-stack marketplace with multi-vendor support and recommendation engine.', tags: ['Next.js', 'MongoDB', 'Stripe'], category: 'Web', size: 'col-span-1', image: '/mockups/ecommerce.png' },
-  { title: 'Health & Fitness App', desc: 'Cross-platform mobile app with workout tracking and social features.', tags: ['React Native', 'Firebase'], category: 'Mobile', size: 'col-span-1', image: '/mockups/fitness.png' },
-  { title: 'Workflow Automation Suite', desc: 'Enterprise automation platform integrating all your industry-standard tools.', tags: ['Python', 'Node.js', 'APIs'], category: 'Automation', size: 'col-span-1 md:col-span-2', image: '/mockups/automation_suite.png' },
-  { title: 'AI Customer Support Bot', desc: 'Intelligent chatbot with NLP and seamless human handoff.', tags: ['Python', 'OpenAI', 'React'], category: 'AI', size: 'col-span-1', image: '/mockups/support_bot.png' },
-  { title: 'FinTech Mobile Banking', desc: 'Secure mobile banking app with biometric auth and investment tools.', tags: ['Flutter', 'Dart', 'Node.js'], category: 'Mobile', size: 'col-span-1', image: '/mockups/fintech.png' },
-  { title: 'SaaS Analytics Platform', desc: 'Custom analytics dashboard with real-time data visualization.', tags: ['Next.js', 'PostgreSQL', 'D3.js'], category: 'Web', size: 'col-span-1 md:col-span-2 row-span-2', image: '/mockups/saas_analytics.png' },
-  { title: 'Invoice Automation System', desc: 'End-to-end invoice processing with OCR and accounting integration.', tags: ['Python', 'React', 'AWS'], category: 'Automation', size: 'col-span-1', image: '/mockups/invoice_system.png' },
-  { title: 'Enterprise Resource Portal', desc: 'Internal resource management and tracking for a logistics corporation.', tags: ['Vue.js', 'Django', 'Redis'], category: 'Web', size: 'col-span-1', image: '/mockups/erp_portal.png' },
+  { title: 'AI Sales Dashboard', desc: 'Real-time AI analytics platform with predictive insights and automated reporting.', tags: ['React', 'Node.js', 'TensorFlow'], category: 'AI', size: 'col-span-1 md:col-span-2 row-span-2', image: '/mockups/ai_sales.png', type: 'Concept Project' },
+  { title: 'E-Commerce Marketplace', desc: 'Full-stack marketplace with multi-vendor support and recommendation engine.', tags: ['Next.js', 'MongoDB', 'Stripe'], category: 'Web', size: 'col-span-1', image: '/mockups/ecommerce.png', type: 'Concept Project' },
+  { title: 'Health & Fitness App', desc: 'Cross-platform mobile app with workout tracking and social features.', tags: ['React Native', 'Firebase'], category: 'Mobile', size: 'col-span-1', image: '/mockups/fitness.png', type: 'Concept Project' },
+  { title: 'Workflow Automation Suite', desc: 'Enterprise automation platform integrating all your industry-standard tools.', tags: ['Python', 'Node.js', 'APIs'], category: 'Automation', size: 'col-span-1 md:col-span-2', image: '/mockups/automation_suite.png', type: 'Concept Project' },
+  { title: 'AI Customer Support Bot', desc: 'Intelligent chatbot with NLP and seamless human handoff.', tags: ['Python', 'OpenAI', 'React'], category: 'AI', size: 'col-span-1', image: '/mockups/support_bot.png', type: 'Concept Project' },
+  { title: 'FinTech Mobile Banking', desc: 'Secure mobile banking app with biometric auth and investment tools.', tags: ['Flutter', 'Dart', 'Node.js'], category: 'Mobile', size: 'col-span-1', image: '/mockups/fintech.png', type: 'Concept Project' },
+  { title: 'SaaS Analytics Platform', desc: 'Custom analytics dashboard with real-time data visualization.', tags: ['Next.js', 'PostgreSQL', 'D3.js'], category: 'Web', size: 'col-span-1 md:col-span-2 row-span-2', image: '/mockups/saas_analytics.png', type: 'Concept Project' },
+  { title: 'Invoice Automation System', desc: 'End-to-end invoice processing with OCR and accounting integration.', tags: ['Python', 'React', 'AWS'], category: 'Automation', size: 'col-span-1', image: '/mockups/invoice_system.png', type: 'Concept Project' },
+  { title: 'Enterprise Resource Portal', desc: 'Internal resource management and tracking for a logistics corporation.', tags: ['Vue.js', 'Django', 'Redis'], category: 'Web', size: 'col-span-1', image: '/mockups/erp_portal.png', type: 'Concept Project' },
 ];
 
 export default function PortfolioPage() {
@@ -141,6 +141,11 @@ export default function PortfolioPage() {
                     {/* Hover Glow Light */}
                     <div className="absolute -inset-20 bg-[#0ea5e9]/10 blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0" />
 
+                    {/* Badge */}
+                    <div className="absolute top-4 left-4 z-30 px-3 py-1 rounded-full bg-blue-400/10 border border-blue-400/20 text-[9px] font-mono text-blue-400 uppercase tracking-widest backdrop-blur-md">
+                      {project.type}
+                    </div>
+
                     {/* Dark gradient overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent z-10 pointer-events-none" />
 
@@ -177,24 +182,18 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* CTA Footnote */}
+      {/* CTA */}
       <section className="py-32 relative bg-black border-t border-white/5">
         <div className="max-w-[1550px] mx-auto px-6 text-center relative z-10">
           <AnimatedSection>
-            <h2 className="text-[4rem] md:text-[5rem] font-heading font-black tracking-tighter mb-6">
-              READY TO <span className="text-blue-400 italic">DEPLOY?</span>
+            <h2 className="text-[3rem] md:text-[4rem] font-heading font-black tracking-tighter mb-6">
+              WANT RESULTS <span className="text-blue-400 italic">LIKE THESE?</span>
             </h2>
-              <TypewriterSubline 
-                phrases={[
-                  "Engineering High-Performance Web",
-                  "Scaling Advanced Mobile Systems",
-                  "Developing Autonomous AI Pipelines",
-                  "Architecting Mission-Critical Platforms"
-                ]}
-                className="mb-10 text-xl md:text-2xl justify-center lg:justify-start"
-              />
+            <p className="font-mono text-sm text-white/40 uppercase tracking-widest max-w-xl mx-auto mb-10">
+              Let&apos;s build your next digital product.
+            </p>
             <Link href="/contact" className="btn-primary group">
-              Initiate Project Request <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              Start Your Project <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </AnimatedSection>
         </div>

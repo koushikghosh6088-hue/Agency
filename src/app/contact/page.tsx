@@ -92,7 +92,7 @@ export default function ContactPage() {
                   {[
                     { icon: Mail, label: 'Email Protocol', value: 'hello@vedastraai.com', href: 'mailto:hello@vedastraai.com' },
                     { icon: Phone, label: 'Voice Link', value: '+91 70033 83676 / +91 80176 83428', href: 'tel:+917003383676' },
-                    { icon: MapPin, label: 'Physical Hub', value: '123 Innovation Drive, NY 10001', href: '#' },
+                    { icon: MapPin, label: 'Physical Hub', value: 'India', href: '#' },
                   ].map((item) => (
                     <a key={item.label} href={item.href} className="flex items-start gap-6 group glass-premium p-6 rounded-3xl transition-all duration-500 hover-3d border-white/5 hover:border-blue-400/30 magnetic-wrap">
                       <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-blue-400 group-hover:text-black group-hover:shadow-[0_0_30px_rgba(14,165,233,0.5)] transition-all duration-500">
@@ -236,6 +236,26 @@ export default function ContactPage() {
               </AnimatedSection>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Calendly Placeholder */}
+      <section className="py-16 bg-black border-t border-white/5">
+        <div className="max-w-xl mx-auto px-6 text-center">
+          <AnimatedSection>
+            <h3 className="text-2xl md:text-3xl font-heading font-black text-white uppercase tracking-tighter mb-4">
+              PREFER TO BOOK A <span className="text-blue-400 italic">CALL DIRECTLY?</span>
+            </h3>
+            <p className="text-white/40 font-mono text-sm mb-6">
+              Skip the form — schedule a free 30-minute strategy call at a time that works for you.
+            </p>
+            <a href="#" className="btn-primary inline-flex items-center gap-2">
+              📞 Book a Free 30-Min Call
+            </a>
+            <p className="mt-6 text-blue-400/60 font-mono text-xs uppercase tracking-widest">
+              ⚡ We respond within 2 hours
+            </p>
+          </AnimatedSection>
         </div>
       </section>
     </>

@@ -19,6 +19,10 @@ import HeroEnvironment from '@/components/HeroEnvironment';
 import ProblemSolution from '@/components/ProblemSolution';
 import PricingSection from '@/components/PricingSection';
 import BenefitStats from '@/components/BenefitStats';
+import ServicesSection from '@/components/ServicesSection';
+import IndustriesSection from '@/components/IndustriesSection';
+import FAQSection from '@/components/FAQSection';
+import FinalCTA from '@/components/FinalCTA';
 
 import { View, Preload } from '@react-three/drei';
 
@@ -442,6 +446,10 @@ export default function HomePage() {
         <ProblemSolution />
       </section>
 
+      <ServicesSection />
+
+      <IndustriesSection />
+
       <WhyChooseUs />
 
       <FeaturedArchive />
@@ -494,10 +502,10 @@ export default function HomePage() {
               <span className="font-mono text-xs uppercase tracking-widest text-[#0ea5e9]">Client Results</span>
             </div>
             <h2 className="text-[2rem] md:text-[3rem] lg:text-[3.8rem] font-heading font-black leading-none tracking-tighter uppercase mb-4">
-              REAL RESULTS FROM <span className="gradient-text italic text-[#0ea5e9]">REAL CLIENTS</span>
+              WHAT OUR <span className="gradient-text italic text-[#0ea5e9]">CLIENTS SAY</span>
             </h2>
             <p className="font-mono text-sm text-white/30 uppercase tracking-[0.2em] max-w-lg mx-auto">
-              Here's what business owners say after working with us.
+              We are just getting started — your testimonial could be here.
             </p>
           </AnimatedSection>
         </div>
@@ -506,15 +514,11 @@ export default function HomePage() {
         <div className="relative mb-6 group overflow-hidden">
           <div className={`flex gap-5 animate-marquee-left group-hover:pause-animation ${pauseAnimations ? 'pause-animation' : ''} whitespace-nowrap w-max will-change-transform`}>
             {[...[
-              { quote: "Vedastra AI Labs completely reimagined our digital infrastructure. Their AI agents now handle 70% of our lead qualification autonomously.", name: "Sarah Chen", role: "CTO, Nexus Dynamics", rating: 5, accent: "text-blue-400", border: "border-blue-500/20" },
-              { quote: "The performance optimization was insane — our platform went from 3s load times to under 400ms. Revenue jumped 34% in just one quarter.", name: "Marcus Rivera", role: "Head of Product, FlowStack", rating: 5, accent: "text-purple-400", border: "border-purple-500/20" },
-              { quote: "We've worked with 6 agencies before Joint. None delivered this level of engineering precision. They don't just build — they architect.", name: "Elena Kowalski", role: "Founder, AetherLabs", rating: 5, accent: "text-emerald-400", border: "border-emerald-500/20" },
-              { quote: "Their AI calling agent converted 40% of cold leads into demo calls in the first week. We've never seen results like this.", name: "Raj Patel", role: "VP Sales, QuantumLeap", rating: 5, accent: "text-sky-400", border: "border-sky-500/20" },
+              { quote: "We are just getting started — your success story could be featured here. Be our next happy client and see real results.", name: "Your Name", role: "Your Business", rating: 5, accent: "text-blue-400", border: "border-blue-500/20" },
+              { quote: "Vedastra AI Labs is building a track record of excellence. We deliver results that speak for themselves — stay tuned.", name: "Vedastra", role: "AI Labs", rating: 5, accent: "text-purple-400", border: "border-purple-500/20" },
             ], ...[
-              { quote: "Vedastra AI Labs completely reimagined our digital infrastructure. Their AI agents now handle 70% of our lead qualification autonomously.", name: "Sarah Chen", role: "CTO, Nexus Dynamics", rating: 5, accent: "text-blue-400", border: "border-blue-500/20" },
-              { quote: "The performance optimization was insane — our platform went from 3s load times to under 400ms. Revenue jumped 34% in just one quarter.", name: "Marcus Rivera", role: "Head of Product, FlowStack", rating: 5, accent: "text-purple-400", border: "border-purple-500/20" },
-              { quote: "We've worked with 6 agencies before Joint. None delivered this level of engineering precision. They don't just build — they architect.", name: "Elena Kowalski", role: "Founder, AetherLabs", rating: 5, accent: "text-emerald-400", border: "border-emerald-500/20" },
-              { quote: "Their AI calling agent converted 40% of cold leads into demo calls in the first week. We've never seen results like this.", name: "Raj Patel", role: "VP Sales, QuantumLeap", rating: 5, accent: "text-sky-400", border: "border-sky-500/20" },
+              { quote: "We are just getting started — your success story could be featured here. Be our next happy client and see real results.", name: "Your Name", role: "Your Business", rating: 5, accent: "text-blue-400", border: "border-blue-500/20" },
+              { quote: "Vedastra AI Labs is building a track record of excellence. We deliver results that speak for themselves — stay tuned.", name: "Vedastra", role: "AI Labs", rating: 5, accent: "text-purple-400", border: "border-purple-500/20" },
             ]].map((t, i) => (
               <div
                 key={`r1-${i}`}
@@ -546,15 +550,11 @@ export default function HomePage() {
         <div className="relative group overflow-hidden">
           <div className={`flex gap-5 animate-marquee-right group-hover:pause-animation ${pauseAnimations ? 'pause-animation' : ''} whitespace-nowrap w-max will-change-transform`}>
             {[...[
-              { quote: "Our ecommerce platform's conversion rate went from 1.8% to 4.9% after Joint rebuilt our funnel. Absolutely transformative work.", name: "Nina Torres", role: "CEO, LuxeCart", rating: 5, accent: "text-amber-400", border: "border-amber-500/20" },
-              { quote: "The AI messaging bot they built for us now books 30+ appointments daily on autopilot. The ROI is genuinely incredible.", name: "James Okonkwo", role: "Director, ScaleForce", rating: 5, accent: "text-fuchsia-400", border: "border-fuchsia-500/20" },
-              { quote: "We asked for a mobile app and they delivered a full product ecosystem. The design quality rivals top-tier Silicon Valley products.", name: "Priya Nair", role: "CPO, NovaBridge", rating: 5, accent: "text-teal-400", border: "border-teal-500/20" },
-              { quote: "Their team understands business, not just code. Everything they built ties directly to our revenue and growth metrics.", name: "Leo Strauss", role: "Co-Founder, ArcVentures", rating: 5, accent: "text-rose-400", border: "border-rose-500/20" },
+              { quote: "We are just getting started — your success story could be featured here. Be our next happy client and see real results.", name: "Your Name", role: "Your Business", rating: 5, accent: "text-amber-400", border: "border-amber-500/20" },
+              { quote: "Vedastra AI Labs is building a track record of excellence. We deliver results that speak for themselves — stay tuned.", name: "Vedastra", role: "AI Labs", rating: 5, accent: "text-fuchsia-400", border: "border-fuchsia-500/20" },
             ], ...[
-              { quote: "Our ecommerce platform's conversion rate went from 1.8% to 4.9% after Joint rebuilt our funnel. Absolutely transformative work.", name: "Nina Torres", role: "CEO, LuxeCart", rating: 5, accent: "text-amber-400", border: "border-amber-500/20" },
-              { quote: "The AI messaging bot they built for us now books 30+ appointments daily on autopilot. The ROI is genuinely incredible.", name: "James Okonkwo", role: "Director, ScaleForce", rating: 5, accent: "text-fuchsia-400", border: "border-fuchsia-500/20" },
-              { quote: "We asked for a mobile app and they delivered a full product ecosystem. The design quality rivals top-tier Silicon Valley products.", name: "Priya Nair", role: "CPO, NovaBridge", rating: 5, accent: "text-teal-400", border: "border-teal-500/20" },
-              { quote: "Their team understands business, not just code. Everything they built ties directly to our revenue and growth metrics.", name: "Leo Strauss", role: "Co-Founder, ArcVentures", rating: 5, accent: "text-rose-400", border: "border-rose-500/20" },
+              { quote: "We are just getting started — your success story could be featured here. Be our next happy client and see real results.", name: "Your Name", role: "Your Business", rating: 5, accent: "text-amber-400", border: "border-amber-500/20" },
+              { quote: "Vedastra AI Labs is building a track record of excellence. We deliver results that speak for themselves — stay tuned.", name: "Vedastra", role: "AI Labs", rating: 5, accent: "text-fuchsia-400", border: "border-fuchsia-500/20" },
             ]].map((t, i) => (
               <div
                 key={`r2-${i}`}
@@ -651,11 +651,11 @@ export default function HomePage() {
                        <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/40" />
                        <div className="w-2.5 h-2.5 rounded-full bg-green-500/40" />
                     </div>
-                    <span className="font-mono text-[10px] text-white/30 ml-3 tracking-widest uppercase">joint_protocol_v2.ts</span>
+                    <span className="font-mono text-[10px] text-white/30 ml-3 tracking-widest uppercase">vedastra_engine_v2.ts</span>
                   </div>
 
                   <div className="font-mono text-xs md:text-sm leading-6 relative z-10 text-white/70">
-                    <div><span className="text-[#0ea5e9]">import</span> {`{`} <span className="text-purple-400">AIBuilder</span> {`}`} <span className="text-[#0ea5e9]">from</span> <span className="text-amber-400">&apos;@joint/engine&apos;</span>;</div>
+                    <div><span className="text-[#0ea5e9]">import</span> {`{`} <span className="text-purple-400">AIBuilder</span> {`}`} <span className="text-[#0ea5e9]">from</span> <span className="text-amber-400">&apos;@vedastra/engine&apos;</span>;</div>
                     <div className="mt-2"><span className="text-white/20">// Initialize autonomous build sequence</span></div>
                     <div><span className="text-[#0ea5e9]">const</span> <span className="text-white">app</span> = <span className="text-[#0ea5e9]">await</span> <span className="text-purple-400">AIBuilder</span>.<span className="text-green-400">generate</span>({`{`}</div>
                     <div className="pl-6"><span className="text-white/30">vision:</span> <span className="text-cyan-400">&apos;enterprise&apos;</span>,</div>
@@ -713,6 +713,10 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <FAQSection />
+
+      <FinalCTA />
 
       {/* ═══════════ CINEMATIC CONTACT SECTION ═══════════ */}
       <section className="relative py-20 bg-obsidian overflow-hidden z-10 border-t border-white/5">

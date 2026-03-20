@@ -19,6 +19,8 @@ body {
   background-color: #000000; /* Absolute Black Shell */
   color: #ebebeb;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* ── Glassmorphism 2.0 ── */

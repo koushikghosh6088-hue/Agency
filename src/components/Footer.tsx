@@ -15,6 +15,7 @@ const footerLinks = {
   company: [
     { label: 'About Us', href: '/about' },
     { label: 'Portfolio', href: '/portfolio' },
+    { label: 'Pricing', href: '/pricing' },
     { label: 'Contact', href: '/contact' },
   ],
 };
@@ -112,8 +113,9 @@ export default function Footer() {
             © 2026 VEDASTRA AI LABS. ALL RIGHTS RESERVED.
           </p>
           <div className="flex gap-6 font-mono text-xs uppercase tracking-widest">
-            <Link href="#" className="text-white/30 hover:text-blue-400 transition-colors">Privacy Policy</Link>
-            <Link href="#" className="text-white/30 hover:text-blue-400 transition-colors">Terms of Service</Link>
+            <Link href="/privacy-policy" className="text-white/30 hover:text-blue-400 transition-colors">Privacy Policy</Link>
+            <Link href="/terms-of-service" className="text-white/30 hover:text-blue-400 transition-colors">Terms of Service</Link>
+            <Link href="/refund-policy" className="text-white/30 hover:text-blue-400 transition-colors">Refund Policy</Link>
           </div>
         </div>
       </div>
