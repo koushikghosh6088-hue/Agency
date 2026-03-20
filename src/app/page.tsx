@@ -590,9 +590,6 @@ export default function HomePage() {
         <div className="relative z-10 max-w-[1550px] mx-auto px-6 mt-20 md:mt-28">
           <BenefitStats />
         </div>
-            ))}
-          </div>
-        </div>
       </section>
 
 
