@@ -210,6 +210,8 @@ export default function ServicesPage() {
                           src={service.image}
                           alt={service.title}
                           fill
+                          loading="lazy"
+                          sizes="400px"
                           className="object-contain drop-shadow-[0_20px_50px_rgba(14,165,233,0.3)]"
                         />
                         {/* Recursive scanning light effect */}

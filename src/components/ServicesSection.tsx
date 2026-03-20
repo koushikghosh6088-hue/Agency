@@ -1,200 +1,198 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Globe, Smartphone, Monitor, Bot, Phone, Cog, ArrowRight, Zap } from 'lucide-react';
+import { ArrowUpRight, Zap, Target, Bot, Smartphone, Globe, Cog } from 'lucide-react';
 import AnimatedSection from '@/components/AnimatedSection';
 
 const services = [
   {
-    icon: Globe,
-    title: 'Website Development',
-    description: 'Ultra-fast websites that rank on Google and convert visitors into paying customers.',
-    badge: null,
+    id: 'web',
+    title: 'Precision Web Architectures',
+    description: 'We build high-fidelity web ecosystems engineered for dominance. Zero-latency interfaces with sub-400ms load times and elite SEO performance.',
+    icon: '/3d-icons/web_dev.png',
     link: '/services#web',
     accent: '#0ea5e9',
     metric: '< 400ms',
-    metricLabel: 'Load Time',
+    metricLabel: 'Engine Response',
+    span: 'lg:col-span-2'
   },
   {
-    icon: Smartphone,
-    title: 'Mobile App Development',
-    description: 'iOS & Android apps that keep your brand in your customer\u2019s pocket 24/7.',
-    badge: null,
+    id: 'mobile',
+    title: 'Native Mobility',
+    description: 'Sculpting elite mobile experiences for iOS and Android. High-performance native builds designed for zero friction.',
+    icon: '/3d-icons/mobile_app.png',
     link: '/services#mobile',
     accent: '#a855f7',
     metric: '60 FPS',
-    metricLabel: 'Smooth',
+    metricLabel: 'Fluid Motion',
+    span: 'lg:col-span-1'
   },
   {
-    icon: Monitor,
-    title: 'Web App & Dashboard',
-    description: 'Custom platforms, admin panels and CRMs built exactly for your workflow.',
-    badge: null,
-    link: '/services#webapp',
-    accent: '#06b6d4',
-    metric: 'Custom',
-    metricLabel: 'Built For You',
-  },
-  {
-    icon: Bot,
-    title: 'AI Chat Agent',
-    description: '24/7 AI that answers questions, qualifies leads and books appointments automatically.',
-    badge: '\uD83D\uDD25 HOT',
-    link: '/ai-solutions#chat',
-    accent: '#f97316',
-    metric: '24/7',
-    metricLabel: 'Always On',
-  },
-  {
-    icon: Phone,
-    title: 'AI Calling Agent',
-    description: 'AI that calls your leads, speaks naturally and books appointments on autopilot.',
-    badge: '\uD83D\uDD25 HOT',
+    id: 'calling',
+    title: 'Neural Voice Intelligence',
+    description: 'Autonomous conversational AI that qualifies leads and closes appointments with human-level natural speech processing.',
+    icon: '/3d-icons/ai_calling.png',
     link: '/ai-solutions#calling',
     accent: '#ef4444',
-    metric: '40%',
-    metricLabel: 'Lead Convert',
+    badge: 'ADVANCED AI',
+    metric: '24/7',
+    metricLabel: 'Lead Capture',
+    span: 'lg:col-span-1'
   },
   {
-    icon: Cog,
-    title: 'Business Automation',
-    description: 'Automate repetitive tasks and save your team 15+ hours every single week.',
-    badge: null,
+    id: 'messaging',
+    title: 'Contextual AI Chat',
+    description: 'Intelligent RAG-powered chat agents trained on your private knowledge nodes for absolute precision conversion.',
+    icon: '/3d-icons/ai_messaging.png',
+    link: '/ai-solutions#chat',
+    accent: '#f97316',
+    metric: '98%',
+    metricLabel: 'Accuracy',
+    span: 'lg:col-span-1'
+  },
+  {
+    id: 'automation',
+    title: 'Flow Logic Systems',
+    description: 'Connecting fragmented workflows into a self-optimizing business engine. Eliminate the mundane, accelerate the critical.',
+    icon: '/3d-icons/ai_automation.png',
     link: '/services#automation',
     accent: '#22c55e',
-    metric: '15+ hrs',
-    metricLabel: 'Saved/Week',
-  },
+    metric: '20Hr+',
+    metricLabel: 'weekly saved',
+    span: 'lg:col-span-1'
+  }
 ];
 
 export default function ServicesSection() {
   return (
-    <section className="relative py-20 md:py-32 bg-black overflow-hidden z-10 border-t border-white/5">
-      {/* Ambient background effects */}
-      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-blue-500/[0.07] rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-purple-500/[0.05] rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
-           style={{backgroundImage: `radial-gradient(#0ea5e9 1px, transparent 1px)`, backgroundSize: '40px 40px'}} />
+    <section className="relative py-24 md:py-44 bg-black overflow-hidden z-10">
+      {/* Background Authority Layer */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(14,165,233,0.05)_0%,transparent_50%)]" />
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+        <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+        <div className="absolute top-2/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="absolute top-3/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+      </div>
 
       <div className="max-w-[1550px] mx-auto px-6 relative z-10">
-        {/* Header */}
-        <AnimatedSection className="text-center mb-16 md:mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
-            <Zap className="w-3.5 h-3.5 text-blue-400 fill-blue-400" />
-            <span className="font-mono text-xs uppercase tracking-widest text-blue-400">Our Services</span>
-          </div>
-          <h2 className="text-[2.2rem] md:text-[3.2rem] lg:text-[4rem] font-heading font-black leading-[0.85] tracking-tighter uppercase mb-6">
-            EVERYTHING YOUR BUSINESS<br/>NEEDS TO <span className="gradient-text italic">DOMINATE ONLINE</span>
-          </h2>
-          <p className="font-mono text-sm text-white/40 uppercase tracking-[0.15em] max-w-lg mx-auto">
-            One agency. Every digital solution. Zero compromises.
-          </p>
-        </AnimatedSection>
+        {/* Header Section */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-20 md:mb-32">
+          <AnimatedSection className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#C1FF00]/10 border border-[#C1FF00]/20 mb-8 backdrop-blur-md">
+              <Zap className="w-3.5 h-3.5 text-[#C1FF00] fill-[#C1FF00]" />
+              <span className="font-mono text-[10px] uppercase tracking-widest text-[#C1FF00] font-bold">Tactical Deployment</span>
+            </div>
+            <h2 className="text-[2.5rem] md:text-[4.5rem] lg:text-[6rem] font-heading font-black leading-[0.85] tracking-tighter uppercase mb-6">
+              STRATEGIC <span className="gradient-text italic opacity-90">SOLUTIONS</span> FOR DIGITAL DOMINANCE.
+            </h2>
+            <p className="text-white/40 font-mono text-sm md:text-base uppercase tracking-[0.2em]">
+              We don&apos;t just build. We architect high-performance business engines.
+            </p>
+          </AnimatedSection>
+          
+          <AnimatedSection className="flex flex-col gap-4 lg:mb-4">
+             <div className="flex items-center gap-6">
+                <div>
+                  <div className="text-2xl font-heading font-bold text-white tracking-widest leading-none">99.9%</div>
+                  <div className="text-[10px] font-mono text-white/30 uppercase tracking-[0.2em] mt-1">Uptime SLA</div>
+                </div>
+                <div className="w-px h-10 bg-white/10" />
+                <div>
+                  <div className="text-2xl font-heading font-bold text-white tracking-widest leading-none">256-BIT</div>
+                  <div className="text-[10px] font-mono text-white/30 uppercase tracking-[0.2em] mt-1">Encryption</div>
+                </div>
+             </div>
+          </AnimatedSection>
+        </div>
 
-        {/* Service Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+        {/* Strategic Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {services.map((service, i) => (
-            <AnimatedSection key={service.title} delay={i * 0.08}>
-              <Link href={service.link} className="block h-full">
-                <motion.div
-                  whileHover={{ y: -8, scale: 1.02 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                  className="relative h-full rounded-[2rem] p-[1px] group cursor-pointer overflow-hidden"
-                  style={{
-                    background: `linear-gradient(135deg, ${service.accent}20, transparent 50%, ${service.accent}10)`,
-                  }}
-                >
-                  {/* Hover glow border */}
-                  <div
-                    className="absolute inset-0 rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-                    style={{
-                      background: `linear-gradient(135deg, ${service.accent}40, transparent 40%, transparent 60%, ${service.accent}30)`,
-                    }}
+            <AnimatedSection 
+              key={service.id} 
+              delay={i * 0.1}
+              className={`${service.span}`}
+            >
+              <Link href={service.link} className="group block h-full">
+                <div className="relative h-full glass-panel-premium rounded-[3rem] p-1 overflow-hidden transition-all duration-500 hover:scale-[1.01] hover:shadow-2xl">
+                  {/* Neon Glow Corner */}
+                  <div 
+                    className="absolute top-0 right-0 w-48 h-48 blur-[100px] opacity-10 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none"
+                    style={{ background: service.accent }}
                   />
+                  
+                  {/* Card Inner */}
+                  <div className="relative h-full bg-black/80 backdrop-blur-3xl rounded-[2.9rem] p-8 md:p-12 flex flex-col justify-between">
+                    
+                    <div>
+                      <div className="flex items-start justify-between mb-10">
+                        {/* 3D Icon with Shadow */}
+                        <div className="relative">
+                          <div 
+                            className="absolute inset-0 blur-2xl opacity-40 group-hover:opacity-80 transition-opacity"
+                            style={{ background: service.accent }}
+                          />
+                          <Image 
+                            src={service.icon} 
+                            alt={service.title} 
+                            width={120} 
+                            height={120} 
+                            className="relative z-10 w-20 h-20 md:w-28 md:h-28 object-contain drop-shadow-2xl group-hover:scale-110 transition-transform duration-700"
+                          />
+                        </div>
+                        
+                        {service.badge && (
+                          <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white font-mono text-[9px] font-black uppercase tracking-[0.2em]">
+                            {service.badge}
+                          </span>
+                        )}
+                      </div>
 
-                  {/* Card inner */}
-                  <div className="relative h-full bg-black/90 backdrop-blur-xl rounded-[calc(2rem-1px)] p-7 md:p-8 flex flex-col overflow-hidden">
-                    {/* Background glow */}
-                    <div
-                      className="absolute -top-20 -right-20 w-40 h-40 rounded-full blur-[80px] opacity-20 group-hover:opacity-50 transition-opacity duration-700 pointer-events-none"
-                      style={{ background: service.accent }}
-                    />
-
-                    {/* Corner decorative */}
-                    <div className="absolute top-4 right-4 flex gap-1 opacity-30 group-hover:opacity-60 transition-opacity">
-                      <div className="w-1 h-1 rounded-full" style={{ background: service.accent }} />
-                      <div className="w-1 h-1 rounded-full" style={{ background: service.accent }} />
-                      <div className="w-1 h-1 rounded-full" style={{ background: service.accent }} />
+                      <h3 className="text-2xl md:text-3xl lg:text-4xl font-heading font-black text-white uppercase tracking-tighter mb-4 leading-none">
+                        {service.title}
+                      </h3>
+                      
+                      <p className="text-white/50 font-mono text-sm md:text-base leading-relaxed mb-8 max-w-md group-hover:text-white/70 transition-colors">
+                        {service.description}
+                      </p>
                     </div>
 
-                    {/* Badge */}
-                    {service.badge && (
-                      <motion.span
-                        animate={{ scale: [1, 1.05, 1] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                        className="absolute top-6 right-6 px-3 py-1 rounded-full bg-orange-500/20 border border-orange-500/40 text-orange-400 font-mono text-[10px] font-black uppercase tracking-widest shadow-[0_0_15px_rgba(249,115,22,0.3)]"
-                      >
-                        {service.badge}
-                      </motion.span>
-                    )}
-
-                    {/* Icon */}
-                    <div className="relative mb-6">
-                      <div
-                        className="w-16 h-16 rounded-2xl border flex items-center justify-center transition-all duration-500 group-hover:shadow-[0_0_30px_var(--glow)]"
-                        style={{
-                          background: `${service.accent}10`,
-                          borderColor: `${service.accent}30`,
-                          '--glow': `${service.accent}50`,
-                        } as React.CSSProperties}
-                      >
-                        <service.icon className="w-7 h-7 transition-all duration-500 group-hover:scale-110" style={{ color: service.accent }} />
+                    <div className="flex items-end justify-between pt-8 border-t border-white/5">
+                      <div className="space-y-1">
+                        <div className="text-3xl md:text-4xl font-heading font-black tracking-tighter" style={{ color: service.accent }}>
+                          {service.metric}
+                        </div>
+                        <div className="text-[10px] font-mono text-white/30 uppercase tracking-[0.3em] font-bold">
+                          {service.metricLabel}
+                        </div>
                       </div>
-                      {/* Pulse ring on hover */}
-                      <div
-                        className="absolute inset-0 w-16 h-16 rounded-2xl opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-opacity pointer-events-none"
-                        style={{ background: `${service.accent}10` }}
-                      />
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="text-xl md:text-2xl font-heading font-black text-white uppercase tracking-tight mb-3 group-hover:transition-colors duration-300" style={{ ['--hover-color' as string]: service.accent }}>
-                      <span className="group-hover:text-[var(--hover-color)]" style={{ '--hover-color': service.accent } as React.CSSProperties}>{service.title}</span>
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-white/50 font-mono text-sm leading-relaxed mb-6 flex-grow">
-                      {service.description}
-                    </p>
-
-                    {/* Bottom bar: metric + arrow */}
-                    <div className="flex items-center justify-between pt-5 border-t border-white/5">
-                      <div>
-                        <span className="text-2xl font-heading font-black tracking-tighter" style={{ color: service.accent }}>{service.metric}</span>
-                        <span className="block font-mono text-[9px] text-white/30 uppercase tracking-widest mt-1">{service.metricLabel}</span>
-                      </div>
-                      <div
-                        className="w-10 h-10 rounded-full border flex items-center justify-center opacity-40 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110"
-                        style={{ borderColor: `${service.accent}40`, background: `${service.accent}10` }}
-                      >
-                        <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" style={{ color: service.accent }} />
+                      
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 group-hover:bg-white group-hover:text-black transition-all duration-500">
+                        <ArrowUpRight className="w-6 h-6" />
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               </Link>
             </AnimatedSection>
           ))}
+          
+          {/* Final Call to Action Node */}
+          <AnimatedSection className="lg:col-span-1">
+             <div className="relative h-full rounded-[3rem] p-8 md:p-12 flex flex-col items-center justify-center text-center bg-gradient-to-br from-[#C1FF00]/5 to-transparent border border-[#C1FF00]/10">
+                <div className="w-16 h-16 rounded-full bg-[#C1FF00] flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(193,255,0,0.3)] anim-pulse">
+                   <Target className="w-8 h-8 text-black" />
+                </div>
+                <h3 className="text-2xl font-heading font-black text-white uppercase tracking-tighter mb-4">Ready for Deployment?</h3>
+                <p className="text-white/40 font-mono text-xs mb-8">Schedule a strategic diagnostic call to identify your business bottlenecks.</p>
+                <Link href="/contact" className="btn-primary w-full text-center py-4">
+                  GET AUDIT NOW
+                </Link>
+             </div>
+          </AnimatedSection>
         </div>
-
-        {/* Bottom CTA */}
-        <AnimatedSection className="text-center mt-16">
-          <p className="text-white/40 font-mono text-sm mb-4">Not sure what you need?</p>
-          <Link href="/contact" className="btn-primary inline-flex items-center gap-2">
-            Get Free Consultation <ArrowRight className="w-4 h-4" />
-          </Link>
-        </AnimatedSection>
       </div>
     </section>
   );

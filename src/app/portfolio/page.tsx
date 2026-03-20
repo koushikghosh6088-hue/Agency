@@ -83,6 +83,8 @@ export default function PortfolioPage() {
                   src="/3d-icons/portfolio_hero.png"
                   alt="Portfolio Architecture"
                   fill
+                  loading="lazy"
+                  sizes="450px"
                   className="object-contain drop-shadow-[0_20px_60px_rgba(14,165,233,0.4)]"
                 />
               </div>
@@ -134,6 +136,8 @@ export default function PortfolioPage() {
                         src={project.image || '/mockups/default.png'}
                         alt={project.title}
                         fill
+                        loading="lazy"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
                         className="object-cover opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
                       />
                     </div>

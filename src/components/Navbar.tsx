@@ -45,6 +45,9 @@ export default function Navbar() {
               alt="Vedastra Logo" 
               width={48} 
               height={48} 
+              priority
+              loading="eager"
+              sizes="48px"
               className="relative z-10 w-auto h-10 object-contain brightness-110"
             />
           </div>

@@ -1,264 +1,140 @@
 'use client';
 
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Zap, ArrowRight, Target, Users, Bot } from 'lucide-react';
-import { useRef } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { Target, Zap, Bot, Layers, Check, X, Shield, Cpu } from 'lucide-react';
+import AnimatedSection from '@/components/AnimatedSection';
 
-const cards = [
-  {
-    id: 1,
-    title: "We're Faster",
-    subtitle: "Why Us",
-    description: "Most agencies take 3–6 months to deliver. We deliver most projects in 3–6 weeks without cutting a single corner.",
-    icon: Zap,
-    stats: [
-      { label: 'Delivery Time', val: '3–6 Weeks' },
-      { label: 'Efficiency', val: '100%' },
-    ],
-    color: "from-blue-600 to-cyan-400",
-    textAccent: "text-blue-400",
-    bgAccent: "bg-blue-400/10",
-    borderAccent: "border-blue-400/20",
-    glowAccent: "bg-blue-400/20",
-    nodeBorder: "border-blue-400",
-    shadow: "shadow-[0_0_20px_2px_rgba(59,130,246,0.2)]",
-    solidColor: "bg-blue-500",
-    imageSrc: "/3d-icons/web_dev.png",
-    link: "/services"
+const advantagePoints = [
+  { 
+    label: "Design", 
+    vedastra: "Premium / High-Fidelity", 
+    others: "Generic / Template-based",
+    icon: Layers,
+    color: "text-cyan-400"
   },
-  {
-    id: 2,
-    title: "We Focus on Results",
-    subtitle: "Why Us",
-    description: "A pretty website that doesn't convert is worthless. Everything we build is designed to bring you more customers and more revenue.",
+  { 
+    label: "Code", 
+    vedastra: "100% Bespoke / Scalable", 
+    others: "Bloated / Rigid / Plugin-heavy",
+    icon: Cpu,
+    color: "text-[#C1FF00]"
+  },
+  { 
+    label: "Strategy", 
+    vedastra: "Problem-Solver First", 
+    others: "Order-Taker Only",
     icon: Target,
-    stats: [
-      { label: 'Core Focus', val: 'Revenue' },
-      { label: 'Goal', val: 'Conversion' },
-    ],
-    color: "from-purple-600 to-fuchsia-400",
-    textAccent: "text-purple-400",
-    bgAccent: "bg-purple-400/10",
-    borderAccent: "border-purple-400/20",
-    glowAccent: "bg-purple-400/20",
-    nodeBorder: "border-purple-400",
-    shadow: "shadow-[0_0_20px_2px_rgba(168,85,247,0.2)]",
-    solidColor: "bg-purple-500",
-    imageSrc: "/3d-icons/mobile_app.png",
-    link: "/services"
-  },
-  {
-    id: 3,
-    title: "We Use AI To Work Smarter",
-    subtitle: "Why Us",
-    description: "We combine human creativity with AI tools to build better products, faster and at a fraction of the cost of traditional agencies.",
-    icon: Bot,
-    stats: [
-      { label: 'Tech Stack', val: 'AI-Enhanced' },
-      { label: 'Cost Savings', val: 'Significant' },
-    ],
-    color: "from-emerald-600 to-lime-400",
-    textAccent: "text-emerald-400",
-    bgAccent: "bg-emerald-400/10",
-    borderAccent: "border-emerald-400/20",
-    glowAccent: "bg-emerald-400/20",
-    nodeBorder: "border-emerald-400",
-    shadow: "shadow-[0_0_20px_2px_rgba(16,185,129,0.2)]",
-    solidColor: "bg-emerald-500",
-    imageSrc: "/3d-icons/ai_calling.png",
-    link: "/ai-solutions"
-  },
-  {
-    id: 4,
-    title: "We're Partners, Not Vendors",
-    subtitle: "Why Us",
-    description: "We don't disappear after launch. We stay with you, support you, and grow with you long-term.",
-    icon: Users,
-    stats: [
-      { label: 'Relationship', val: 'Long-term' },
-      { label: 'Support', val: 'Ongoing' },
-    ],
-    color: "from-fuchsia-600 to-pink-400",
-    textAccent: "text-fuchsia-400",
-    bgAccent: "bg-fuchsia-400/10",
-    borderAccent: "border-fuchsia-400/20",
-    glowAccent: "bg-fuchsia-400/20",
-    nodeBorder: "border-fuchsia-400",
-    shadow: "shadow-[0_0_20px_2px_rgba(192,38,211,0.2)]",
-    solidColor: "bg-fuchsia-500",
-    imageSrc: "/3d-icons/ai_automation.png",
-    link: "/about"
+    color: "text-purple-400"
   }
 ];
 
-
-// Interactive 3D Image Component
-function Floating3DImage({ imageSrc, solidColor, index }: { imageSrc: string, solidColor: string, index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  // Snappy, responsive spring physics for mouse following
-  const mouseX = useSpring(x, { stiffness: 200, damping: 15 });
-  const mouseY = useSpring(y, { stiffness: 200, damping: 15 });
-
-  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    x.set(e.clientX - centerX);
-    y.set(e.clientY - centerY);
-  }
-
-  function handleMouseLeave() {
-    x.set(0);
-    y.set(0);
-  }
-
-  return (
-    <div 
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="relative w-full h-[300px] md:h-[450px] lg:h-[500px] flex items-center justify-center perspective-[1000px] group cursor-pointer"
-    >
-      <motion.div 
-        style={{
-          rotateX: useTransform(mouseY, [-200, 200], [15, -15]),
-          rotateY: useTransform(mouseX, [-200, 200], [-15, 15]),
-          x: useTransform(mouseX, [-200, 200], [-15, 15]),
-          y: useTransform(mouseY, [-200, 200], [-15, 15]),
-        }}
-        className="relative z-20 w-full h-full flex items-center justify-center"
-      >
-        <Image
-           src={imageSrc}
-           alt="3D Service Rendering"
-           fill
-           priority={index < 2}
-           className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.8)] mix-blend-screen hover:scale-105 transition-transform duration-500 ease-out"
-        />
-      </motion.div>
-      
-      {/* Dynamic ambient underglow based on mouse movement */}
-      <motion.div 
-        style={{
-          x: useTransform(mouseX, [-200, 200], [30, -30]),
-          y: useTransform(mouseY, [-200, 200], [30, -30]),
-        }}
-        className={`absolute z-10 w-48 h-48 md:w-64 md:h-64 rounded-full ${solidColor} opacity-10 blur-[80px] transition-opacity duration-500 group-hover:opacity-40`}
-      />
-    </div>
-  );
-}
-
-
 export default function WhyChooseUs() {
   return (
-    <section className="relative py-24 md:py-40 bg-black overflow-hidden z-10">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(14,165,233,0.03)_0%,transparent_60%)] pointer-events-none" />
+    <section className="relative py-20 md:py-32 bg-black overflow-hidden z-10 border-t border-white/5">
+      {/* Background Graphic Element */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500/[0.03] rounded-full blur-[120px] pointer-events-none" />
       
       <div className="max-w-[1400px] mx-auto px-6 relative z-10">
         
-        {/* Header Section */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-20 md:mb-32"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0ea5e9]/10 border border-[#0ea5e9]/20 mb-6 backdrop-blur-md">
-            <Zap className="w-3.5 h-3.5 text-[#0ea5e9] animate-pulse" />
-            <span className="font-mono text-xs uppercase tracking-widest text-[#0ea5e9]">Why Us</span>
+        {/* Compact Header */}
+        <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-8 mb-16 md:mb-24">
+          <AnimatedSection className="max-w-xl text-center md:text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C1FF00]/10 border border-[#C1FF00]/20 mb-6">
+              <Shield className="w-3 h-3 text-[#C1FF00]" />
+              <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#C1FF00] font-bold">The Vedastra Advantage</span>
+            </div>
+            <h2 className="text-[2.2rem] md:text-[3.5rem] lg:text-[4.5rem] font-heading font-black leading-none tracking-tighter uppercase">
+              NOT JUST BETTER.<br/>
+              <span className="gradient-text italic opacity-90">GENUINELY DIFFERENT.</span>
+            </h2>
+          </AnimatedSection>
+          
+          <AnimatedSection className="hidden lg:block">
+            <p className="font-mono text-sm text-white/30 uppercase tracking-[0.1em] max-w-xs text-right">
+              We eliminate the waste of traditional agency cycles.
+            </p>
+          </AnimatedSection>
+        </div>
+
+        {/* Graphical Superiority Matrix */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          {/* Left Side: The "Others" (Smaller, Dimmer) */}
+          <div className="lg:col-span-4 space-y-4 opacity-40">
+            <div className="flex items-center gap-3 mb-6 px-4">
+               <X className="w-5 h-5 text-red-500" />
+               <span className="font-heading font-bold text-lg uppercase tracking-tight text-white/60 text-red-500/80">Standard Agency</span>
+            </div>
+            {advantagePoints.map((point, i) => (
+              <div key={i} className="glass-panel p-5 rounded-2xl border-white/5 bg-white/[0.01]">
+                <div className="text-[10px] font-mono text-white/30 uppercase mb-2">{point.label}</div>
+                <div className="text-sm font-medium text-white/60 line-through">{point.others}</div>
+              </div>
+            ))}
           </div>
-          <h2 className="text-[3rem] md:text-[5rem] lg:text-[6.5rem] font-heading font-black leading-none tracking-tighter uppercase mb-6">
-            WHY BUSINESSES CHOOSE <span className="gradient-text italic text-[#0ea5e9]">VEDASTRA</span> OVER OTHER AGENCIES
-          </h2>
 
-          <p className="font-mono text-sm md:text-base text-white/40 uppercase tracking-[0.2em] max-w-2xl mx-auto">
-            Every system below represents a non-negotiable pillar of your digital dominance.
-          </p>
-        </motion.div>
-
-        {/* Vertical Stacking / Popping Cards Array */}
-        <div className="flex flex-col gap-16 md:gap-32 relative">
-          {/* Vertical connection line on desktop */}
-          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-white/10 -translate-x-1/2 z-0" />
-
-          {cards.map((card, index) => {
-            const isEven = index % 2 !== 0; // for alternating layout on desktop
-            
-            return (
-              <motion.div 
-                key={card.id}
-                initial={{ opacity: 0, scale: 0.75, y: 150 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                viewport={{ once: true, margin: "-15%" }}
-                transition={{ 
-                  type: "spring", 
-                  stiffness: 220, 
-                  damping: 20, 
-                  mass: 0.8,
-                  delay: 0.05
-                }}
-                className={`relative z-10 flex flex-col ${isEven ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-4 lg:gap-16 w-full group`}
-              >
-                {/* Border Animation Container */}
-                <div className="absolute inset-x-0 -inset-y-4 rounded-[4rem] border border-white/0 group-hover:border-blue-500/30 transition-all duration-700 pointer-events-none" />
-                
-                {/* Interactive 3D Image Side (Desktop & Mobile) */}
-                <div className="w-full lg:w-1/2 flex flex-col items-center justify-center relative pb-8 lg:pb-0">
-                    <Floating3DImage imageSrc={card.imageSrc} solidColor={card.solidColor} index={index} />
+          {/* Center: Graphical Connection */}
+          <div className="hidden lg:flex lg:col-span-1 h-full items-center justify-center">
+             <div className="w-px h-64 bg-gradient-to-b from-transparent via-white/10 to-transparent relative">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
+                   <div className="w-1 h-1 rounded-full bg-blue-500 animate-ping" />
                 </div>
+             </div>
+          </div>
 
-                {/* Content Side */}
-                <div className={`w-full lg:w-1/2 flex flex-col ${!isEven ? 'lg:items-start lg:text-left' : 'lg:items-end lg:text-right'} items-center text-center group`}>
-                  <Link href={card.link} className={`flex flex-col ${!isEven ? 'lg:items-start lg:text-left' : 'lg:items-end lg:text-right'} items-center text-center cursor-pointer relative z-20`}>
-                    <div className={`mb-6 relative inline-block transition-transform duration-300 group-hover:scale-110`}>
-                      <div className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl ${card.bgAccent} flex items-center justify-center border ${card.borderAccent} relative z-10 backdrop-blur-2xl`}>
-                          <card.icon className={`w-8 h-8 md:w-10 md:h-10 ${card.textAccent}`} />
-                      </div>
-                      <div className={`absolute -inset-4 ${card.glowAccent} blur-2xl rounded-full opacity-50 transition-opacity group-hover:opacity-100`} />
-                    </div>
-                    
-                    <div className={`font-mono text-xs md:text-sm ${card.textAccent} uppercase tracking-widest mb-3 font-bold flex items-center gap-2 transition-colors duration-300 group-hover:text-white`}>
-                      {!isEven && <span className="hidden lg:block w-8 h-px bg-white/20" />}
-                      {card.subtitle}
-                      {isEven && <span className="hidden lg:block w-8 h-px bg-white/20" />}
-                    </div>
-                    
-                    <h3 className="text-[2rem] md:text-[3.5rem] font-heading font-black text-white leading-[0.9] tracking-tighter uppercase mb-6 flex items-center gap-4 transition-all duration-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-white/50">
-                      {card.title}
-                      <ArrowRight className={`w-6 h-6 md:w-8 md:h-8 ${card.textAccent} opacity-0 -ml-8 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300`} />
-                    </h3>
-                    
-                    <p className="text-white/60 font-mono text-sm md:text-base leading-relaxed max-w-lg mb-8 transition-colors duration-300 group-hover:text-white/80">
-                      {card.description}
-                    </p>
-                  </Link>
+          {/* Right Side: Vedastra (Elite, Vibrant, Detailed) */}
+          <div className="lg:col-span-7 space-y-6">
+             <div className="flex items-center gap-3 mb-8 px-4">
+                <Check className="w-6 h-6 text-[#C1FF00]" />
+                <span className="font-heading font-black text-2xl uppercase tracking-tighter text-[#C1FF00] drop-shadow-[0_0_10px_rgba(193,255,0,0.3)]">Vedastra AI Labs</span>
+             </div>
 
-                  <div className={`flex gap-4 w-full justify-center ${!isEven ? 'lg:justify-start' : 'lg:justify-end'} relative z-20`}>
-                    {card.stats.map((stat: { label: string, val: string }) => (
-                      <div key={stat.label} className="glass-premium p-4 md:p-5 rounded-2xl border-white/10 min-w-[140px] hover:border-blue-400/30 transition-colors">
-                          <div className="text-white/30 text-[10px] md:text-xs font-mono uppercase tracking-widest mb-2">{stat.label}</div>
-                          <div className="text-white font-heading font-black text-2xl md:text-3xl tracking-tighter">{stat.val}</div>
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {advantagePoints.map((point, i) => (
+                  <AnimatedSection key={i} delay={i * 0.1} className={i === 2 ? "md:col-span-2" : ""}>
+                    <div className="group relative glass-panel-premium p-6 md:p-8 rounded-[2rem] border-white/10 hover:border-[#C1FF00]/30 transition-all duration-500 hover:-translate-y-1 hover:bg-white/[0.03]">
+                      <div className={`absolute top-6 right-6 ${point.color} opacity-20 group-hover:opacity-100 transition-all duration-500`}>
+                        <point.icon className="w-8 h-8 md:w-10 md:h-10" />
                       </div>
-                    ))}
+                      
+                      <div className="relative z-10">
+                        <div className="font-mono text-[9px] md:text-[10px] text-white/30 uppercase tracking-[0.3em] mb-3">{point.label} EXCELLENCE</div>
+                        <h3 className="text-lg md:text-xl lg:text-2xl font-heading font-black text-white uppercase tracking-tight mb-2 group-hover:text-[#C1FF00] transition-colors">
+                          {point.vedastra}
+                        </h3>
+                        <p className="text-white/40 font-mono text-[10px] md:text-xs leading-relaxed max-w-sm">
+                          Engineered for maximum business impact and zero technical debt.
+                        </p>
+                      </div>
+                    </div>
+                  </AnimatedSection>
+                ))}
+             </div>
+          </div>
+        </div>
+
+        {/* Bottom Graphic Metric Bar */}
+        <AnimatedSection className="mt-20 md:mt-32">
+           <div className="glass-panel p-6 md:p-8 rounded-[2.5rem] border-white/5 flex flex-wrap items-center justify-around gap-8 md:gap-12 relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-purple-500/5 pointer-events-none" />
+              {[
+                { val: '2X', label: 'Faster Load', icon: Zap },
+                { val: '0', label: 'Templates Used', icon: Bot },
+                { val: '100%', label: 'Ownership', icon: Shield },
+                { val: 'Infinity', label: 'Scalability', icon: Layers },
+              ].map((m, i) => (
+                <div key={i} className="flex items-center gap-4 group">
+                  <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-[#C1FF00]/10 transition-colors">
+                     <m.icon className="w-5 h-5 text-white/40 group-hover:text-[#C1FF00]" />
+                  </div>
+                  <div>
+                    <div className="text-xl md:text-2xl font-heading font-black text-white">{m.val}</div>
+                    <div className="text-[10px] font-mono text-white/30 uppercase tracking-widest">{m.label}</div>
                   </div>
                 </div>
-
-                {/* Center Node on Desktop */}
-                <div className="hidden lg:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-                  <div className={`w-6 h-6 rounded-full bg-black border-4 ${card.nodeBorder} ${card.shadow} group-hover:scale-150 transition-transform duration-500`} />
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
+              ))}
+           </div>
+        </AnimatedSection>
       </div>
     </section>
   );

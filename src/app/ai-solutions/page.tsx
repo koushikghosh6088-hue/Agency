@@ -102,6 +102,8 @@ export default function AISolutionsPage() {
                       src="/3d-icons/ai_calling.png"
                       alt="Voice AI"
                       fill
+                      loading="lazy"
+                      sizes="350px"
                       className="object-contain drop-shadow-[0_20px_50px_rgba(14,165,233,0.3)]"
                     />
                 </div>
@@ -256,6 +258,8 @@ export default function AISolutionsPage() {
                   src="/3d-icons/automation.png"
                   alt="Automation Logic"
                   fill
+                  loading="lazy"
+                  sizes="500px"
                   className="object-contain blur-[2px] group-hover:blur-0 transition-all duration-1000"
                 />
             </div>

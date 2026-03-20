@@ -57,7 +57,7 @@ function StatCard({ icon, value, label, delay = 0 }: StatProps) {
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
       whileHover={{ y: -10, transition: { duration: 0.3 } }}
-      className="group relative"
+      className="group relative gpu-accelerated"
     >
       {/* Animated Glowing Border - Ultra-Intensified */}
       <div className="absolute -inset-[2px] bg-gradient-to-r from-blue-400 via-green-400 to-blue-400 rounded-[2.5rem] opacity-40 group-hover:opacity-100 blur-[4px] transition-all duration-500 animate-pulse" />

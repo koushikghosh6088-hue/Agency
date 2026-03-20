@@ -45,6 +45,8 @@ export default function Footer() {
                   alt="Vedastra Logo" 
                   width={40} 
                   height={40} 
+                  loading="lazy"
+                  sizes="40px"
                   className="relative z-10 w-auto h-8 object-contain brightness-110"
                 />
               </div>

@@ -72,6 +72,8 @@ export default function ContactPage() {
                   src="/3d-icons/contact_hero.png"
                   alt="Contact Protocol"
                   fill
+                  loading="lazy"
+                  sizes="280px"
                   className="object-contain drop-shadow-[0_20px_60px_rgba(14,165,233,0.4)]"
                 />
               </div>

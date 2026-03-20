@@ -45,7 +45,7 @@ export default function IndustriesSection() {
               <motion.div
                 whileHover={{ y: -6, scale: 1.04 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-                className="relative group cursor-default overflow-hidden rounded-2xl p-[1px]"
+                className="relative group cursor-default overflow-hidden rounded-2xl p-[1px] gpu-accelerated"
                 style={{
                   background: `linear-gradient(135deg, ${industry.accent}25, transparent 50%, ${industry.accent}15)`,
                 }}

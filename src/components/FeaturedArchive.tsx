@@ -114,11 +114,10 @@ export default function FeaturedArchive() {
     if (!trackRef.current) return;
     const el = trackRef.current.children[index] as HTMLElement;
     if (el) {
-      const container = trackRef.current;
-      const targetScrollPos = el.offsetLeft - container.offsetLeft;
-      container.scrollTo({
-        left: targetScrollPos,
-        behavior: 'smooth'
+      el.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'start'
       });
     }
     setActiveIndex(index);
@@ -208,7 +207,7 @@ export default function FeaturedArchive() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ type: 'spring', stiffness: 120, damping: 18, delay: i * 0.05 }}
-                className={`snap-start shrink-0 w-[80vw] sm:w-[60vw] md:w-[45vw] lg:w-[38vw] xl:w-[30vw] group relative rounded-[2rem] border ${project.border} ${project.glow} overflow-hidden glass-panel flex flex-col cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:-translate-y-2`}
+                className={`snap-start shrink-0 w-[80vw] sm:w-[60vw] md:w-[45vw] lg:w-[38vw] xl:w-[30vw] group relative rounded-[2rem] border ${project.border} ${project.glow} overflow-hidden glass-panel flex flex-col cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:-translate-y-2 gpu-accelerated`}
               >
                 {/* Project Image */}
                 <div className="relative w-full aspect-video overflow-hidden">
@@ -216,7 +215,7 @@ export default function FeaturedArchive() {
                     src={project.image}
                     alt={project.title}
                     fill
-                    sizes="(max-width: 768px) 640px, 1280px"
+                    sizes="(max-width: 640px) 80vw, (max-width: 1024px) 45vw, 400px"
                     loading="lazy"
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />

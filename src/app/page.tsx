@@ -10,7 +10,8 @@ import Image from 'next/image';
 import {
   ArrowRight, Globe, Smartphone, Phone, MessageSquare, Cog, TrendingUp,
   ArrowUpRight, Bot, Workflow, Users, Target, Star, Shield, Zap, Server,
-  Code2, Layers, Database, Cpu, Lock, BarChart3, Mail, MapPin, Send
+  Code2, Layers, Database, Cpu, Lock, BarChart3, Mail, MapPin, Send,
+  CheckCircle, Rocket, Check
 } from 'lucide-react';
 import AnimatedSection from '@/components/AnimatedSection';
 import WhyChooseUs from '@/components/WhyChooseUs';
@@ -142,10 +143,12 @@ function Floating3DNeuralCore() {
         <Image 
           src="/3d-icons/neural_core.png" 
           alt="Neural Core" 
-          width={640}
-          height={640}
+          width={400}
+          height={400}
           className="w-full h-full object-contain pointer-events-none mix-blend-screen drop-shadow-[0_0_60px_rgba(14,165,233,0.3)] group-hover:scale-105 transition-transform duration-700" 
           priority
+          loading="eager"
+          sizes="(max-width: 768px) 250px, 400px"
         />
       </motion.div>
       <motion.div 
@@ -411,34 +414,96 @@ export default function HomePage() {
       <ServicesSection />
 
       {/* 07 — ABOUT US */}
-      <section className="relative pt-20 pb-8 lg:py-32 bg-black z-10 rounded-t-[4rem] border-t border-white/10 shadow-[0_-20px_50px_rgba(0,0,0,0.8)]">
-        <div className="max-w-[1550px] mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-center min-h-[450px] lg:min-h-[600px]">
-            <AnimatedSection>
-              <div className="flex flex-col gap-8">
-                <div className="space-y-4">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 w-max">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-                    <span className="font-mono text-[10px] uppercase tracking-widest text-blue-400">Who We Are</span>
+      <section className="relative pt-24 pb-12 lg:py-32 bg-black z-10 rounded-t-[4rem] border-t border-white/10 shadow-[0_-20px_50px_rgba(0,0,0,0.8)] overflow-hidden">
+        {/* Subtle background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 via-transparent to-transparent pointer-events-none" />
+        
+        <div className="max-w-[1550px] mx-auto px-6 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+            
+            {/* MOBILE ONLY: Animation on top */}
+            <div className="block lg:hidden w-full">
+              <AnimatedSection>
+                <div className="flex justify-center scale-90 sm:scale-100">
+                  <RadialOrbitalTimeline timelineData={aboutUsTimelineData} />
+                </div>
+              </AnimatedSection>
+            </div>
+
+            <div className="flex flex-col gap-10">
+              <AnimatedSection>
+                <div className="space-y-6">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#C1FF00]/10 border border-[#C1FF00]/20 w-max shadow-[0_0_15px_rgba(193,255,0,0.1)]">
+                    <span className="w-2 h-2 rounded-full bg-[#C1FF00] animate-pulse shadow-[0_0_8px_#C1FF00]" />
+                    <span className="font-mono text-[10px] uppercase tracking-widest text-[#C1FF00] font-bold">Who We Are</span>
                   </div>
-                  <h2 className="text-[2.2rem] md:text-[3.2rem] lg:text-[4rem] font-heading font-black leading-[0.85] tracking-tighter uppercase">
-                    ABOUT<br/><span className="gradient-text italic text-blue-400">US</span>
-                  </h2>
+                  
+                  <div className="space-y-4">
+                    <h2 className="text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem] font-heading font-black leading-none tracking-tighter uppercase text-white">
+                      WE ARE <span className="gradient-text italic text-[#0ea5e9]">VEDASTRA AI LABS</span>
+                    </h2>
+                    <p className="text-xl md:text-2xl font-bold text-white/90 leading-tight tracking-tight max-w-xl">
+                      A focused team of builders who create websites, apps and AI systems that bring your business more customers — every single day.
+                    </p>
+                  </div>
+
+                  <div className="max-w-xl space-y-6">
+                    <p className="text-white/60 font-medium leading-relaxed">
+                      We are not a massive agency with 200 employees where you become just another ticket number. 
+                      We are a lean, dedicated team that treats every project like it&apos;s our own business. 
+                      We don&apos;t just deliver code and disappear — we stay with you, support you and grow with you.
+                    </p>
+                    
+                    <div className="flex items-center gap-3 py-4 border-t border-white/5">
+                      <div className="w-10 h-10 rounded-full bg-[#0ea5e9]/10 border border-[#0ea5e9]/20 flex items-center justify-center shrink-0">
+                        <Target className="w-5 h-5 text-[#0ea5e9]" />
+                      </div>
+                      <p className="font-mono text-xs md:text-sm text-white/80 uppercase tracking-wider font-bold">
+                        🎯 Our Mission: Help every business — big or small — compete and win in the digital world.
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div className="max-w-xl space-y-6">
-                   <p className="font-mono text-sm md:text-base text-white/60 uppercase tracking-[0.1em] leading-relaxed">
-                     We are a team of designers, developers, and AI specialists who build digital products that genuinely move the needle. We don&apos;t just deliver code — we build tools that bring you more customers, save your team hours every week, and make your business look world-class online.
-                   </p>
-                   <div className="h-px w-full bg-gradient-to-r from-blue-400/30 to-transparent" />
-                   <p className="font-mono text-[10px] md:text-xs text-white/30 uppercase tracking-[0.3em]">
-                     Our Mission: Help every business compete and win in the digital world.
-                   </p>
-                </div>
+              </AnimatedSection>
+
+              {/* Trust Badges Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[
+                  { icon: Zap, color: 'text-yellow-400', glow: 'shadow-yellow-400/10', title: '1–2 Week Delivery', desc: 'Most projects done in under 2 weeks' },
+                  { icon: Bot, color: 'text-green-400', glow: 'shadow-green-400/10', title: 'AI-Powered Builds', desc: 'Every project uses cutting edge AI tools' },
+                  { icon: Shield, color: 'text-blue-400', glow: 'shadow-blue-400/10', title: '24/7 Support', desc: 'We are always available when you need us' },
+                  { icon: CheckCircle, color: 'text-purple-400', glow: 'shadow-purple-400/10', title: 'Satisfaction Guaranteed', desc: 'We revise until you are 100% happy' },
+                ].map((badge, i) => (
+                  <AnimatedSection key={i} delay={0.1 + i * 0.1}>
+                    <div className="group relative glass-panel p-5 rounded-2xl border-white/5 hover:border-white/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl gpu-accelerated">
+                      <div className={`absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-10 transition-opacity bg-gradient-to-br from-white to-transparent`} />
+                      <badge.icon className={`w-6 h-6 ${badge.color} mb-3 filter drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]`} />
+                      <h4 className="text-white font-bold text-sm mb-1">{badge.title}</h4>
+                      <p className="text-white/40 text-xs leading-relaxed">{badge.desc}</p>
+                    </div>
+                  </AnimatedSection>
+                ))}
               </div>
-            </AnimatedSection>
-            <AnimatedSection className="w-full h-full relative z-20">
-               <RadialOrbitalTimeline timelineData={aboutUsTimelineData} />
-            </AnimatedSection>
+
+              <AnimatedSection delay={0.5}>
+                <Link 
+                  href="/about" 
+                  className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#0ea5e9]/50 transition-all duration-300"
+                >
+                  <span className="text-white font-bold tracking-tight">Learn More About Us</span>
+                  <ArrowRight className="w-5 h-5 text-[#0ea5e9] group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </AnimatedSection>
+            </div>
+
+            {/* DESKTOP ONLY: Animation on right */}
+            <div className="hidden lg:block w-full h-full relative z-20">
+              <AnimatedSection delay={0.3}>
+                <div className="flex justify-center">
+                  <RadialOrbitalTimeline timelineData={aboutUsTimelineData} />
+                </div>
+              </AnimatedSection>
+            </div>
           </div>
         </div>
       </section>
@@ -453,81 +518,159 @@ export default function HomePage() {
       <FeaturedArchive />
 
       {/* 11 — HOW IT WORKS */}
-      <section className="relative py-40 bg-black overflow-hidden z-10">
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-             style={{backgroundImage: `radial-gradient(#0ea5e9 1px, transparent 1px)`, backgroundSize: '40px 40px'}} />
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-400/20 to-transparent" />
+      <section className="relative py-24 md:py-40 bg-black overflow-hidden z-10">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(193,255,0,0.02)_0%,transparent_50%)] pointer-events-none" />
         
         <div className="max-w-[1550px] mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-center">
-            <AnimatedSection>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-400/10 bg-blue-400/5 mb-8">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-                <span className="text-xs font-mono uppercase tracking-widest text-[#0ea5e9]">How It Works</span>
-              </div>
-              <h2 className="text-[2.2rem] md:text-[3.2rem] font-heading font-black tracking-tighter leading-[0.9] mb-12 uppercase">
-                YOUR PROJECT <br/><span className="gradient-text italic text-[#0ea5e9]">IN 3 SIMPLE STEPS</span>
-              </h2>
-              <div className="space-y-12 mt-16">
-                {[
-                  { num: '01', title: '1. We Understand Your Business', desc: 'We start with a free consultation to learn about your goals, your customers, and what success looks like for you. No jargon, just a real conversation.', icon: Cpu },
-                  { num: '02', title: '2. We Build Fast & Transparently', desc: 'You get regular updates, live previews, and full visibility throughout. Our AI-assisted build process means faster delivery without sacrificing quality.', icon: Shield },
-                  { num: '03', title: '3. We Launch & Keep Supporting You', desc: 'We go live on fast, reliable infrastructure and monitor everything. You get ongoing support so your digital product keeps growing with your business.', icon: Server },
-                ].map((step) => (
-                  <div key={step.num} className="flex gap-6 group cursor-default items-start">
-                    <div className="w-14 h-14 rounded-2xl bg-[#0ea5e9]/5 border border-[#0ea5e9]/10 flex items-center justify-center shrink-0 group-hover:bg-[#0ea5e9] group-hover:border-[#0ea5e9] group-hover:shadow-[0_0_30px_rgba(14,165,233,0.3)] transition-all duration-500">
-                      <step.icon className="w-6 h-6 text-[#0ea5e9] group-hover:text-black transition-colors" />
+          <AnimatedSection className="text-center mb-20 md:mb-32">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 mb-6 backdrop-blur-md shadow-[0_0_15px_rgba(6,182,212,0.1)]">
+              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#22d3ee]" />
+              <span className="font-mono text-[10px] uppercase tracking-widest text-cyan-400 font-bold">The Process</span>
+            </div>
+            <h2 className="text-[2.2rem] md:text-[3.5rem] lg:text-[4.5rem] font-heading font-black leading-none tracking-tighter uppercase mb-6">
+              FROM IDEA TO LAUNCH IN <span className="gradient-text italic text-[#0ea5e9]">3 SIMPLE STEPS</span>
+            </h2>
+            <p className="font-mono text-sm md:text-base text-white/40 uppercase tracking-[0.2em] max-w-2xl mx-auto">
+              No technical knowledge needed. No confusing jargon. Just results.
+            </p>
+          </AnimatedSection>
+
+          {/* Steps Timeline Container */}
+          <div className="relative">
+            {/* Desktop: Horizontal connecting line */}
+            <div className="hidden lg:block absolute top-[100px] left-[15%] right-[15%] h-1 bg-white/5 overflow-hidden">
+               <motion.div 
+                 initial={{ width: 0 }}
+                 whileInView={{ width: '100%' }}
+                 viewport={{ once: true }}
+                 transition={{ duration: 1.5, ease: "easeInOut" }}
+                 className="h-full bg-gradient-to-r from-cyan-500 via-green-500 to-purple-500 shadow-[0_0_15px_rgba(34,211,238,0.5)] relative"
+               >
+                 <div className="absolute top-0 bottom-0 flex gap-20 animate-marquee-left pointer-events-none opacity-50">
+                   {Array.from({ length: 20 }).map((_, i) => (
+                     <div key={i} className="w-1.5 h-1.5 rounded-full bg-white shrink-0" />
+                   ))}
+                 </div>
+               </motion.div>
+            </div>
+
+            {/* Mobile: Vertical connecting line */}
+            <div className="lg:hidden absolute left-[28px] top-10 bottom-10 w-1 bg-white/5 overflow-hidden">
+               <motion.div 
+                  initial={{ height: 0 }}
+                  whileInView={{ height: '100%' }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.5, ease: "easeInOut" }}
+                  className="w-full bg-gradient-to-b from-cyan-500 via-green-500 to-purple-500 shadow-[0_0_15px_rgba(34,211,238,0.5)] relative"
+               />
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-8 items-start">
+              {[
+                { 
+                  num: '01', 
+                  icon: Phone, 
+                  badge: "FREE — No commitment", 
+                  title: "We Have a Free Call", 
+                  desc: "Book a free 30-minute call with us. Tell us about your business, your goals and what success looks like for you. We will tell you exactly what we would build — no jargon, no pressure.", 
+                  duration: "⏱ 30 minutes", 
+                  color: "text-cyan-400", 
+                  border: "border-cyan-500/20", 
+                  bg: "bg-cyan-500/5", 
+                  bullet: "bg-cyan-400" 
+                },
+                { 
+                  num: '02', 
+                  icon: Cog, 
+                  badge: "FAST & TRANSPARENT", 
+                  title: "We Build Your Project", 
+                  desc: "Once you approve the plan, we get to work immediately. You receive weekly updates and live previews at every stage. You always know exactly what is happening — no surprises, no excuses.", 
+                  duration: "⏱ 1–6 weeks depending on project", 
+                  color: "text-green-400", 
+                  border: "border-green-500/20", 
+                  bg: "bg-green-500/5", 
+                  bullet: "bg-green-400" 
+                },
+                { 
+                  num: '03', 
+                  icon: Rocket, 
+                  badge: "ONGOING SUPPORT INCLUDED", 
+                  title: "We Launch and Stay With You", 
+                  desc: "Your project goes live on fast, reliable infrastructure. We monitor everything, fix any issues instantly and continue supporting you long after launch. You grow — we grow with you.", 
+                  duration: "⏱ Ongoing — we never disappear", 
+                  color: "text-purple-400", 
+                  border: "border-purple-500/20", 
+                  bg: "bg-purple-500/5", 
+                  bullet: "bg-purple-400" 
+                },
+              ].map((step, i) => (
+                <AnimatedSection key={i} delay={i * 0.2}>
+                  <div className="group relative glass-panel p-8 pt-12 rounded-[2.5rem] border-white/5 hover:border-white/10 transition-all duration-500 hover:-translate-y-2 lg:text-center flex flex-col items-center lg:items-center text-left md:text-center lg:min-h-[480px]">
+                    {/* Background decorative number */}
+                    <div className="absolute -top-6 lg:top-10 left-8 lg:left-1/2 lg:-translate-x-1/2 font-heading font-black text-8xl lg:text-9xl text-white/[0.03] select-none z-0">
+                      {step.num}
                     </div>
-                    <div>
-                      <div className="flex items-center gap-4 mb-3">
-                        <span className="font-mono text-sm font-black text-[#0ea5e9]/30">{step.num}</span>
-                        <h4 className="text-xl md:text-2xl font-black font-heading text-white group-hover:text-[#0ea5e9] transition-colors uppercase tracking-tight">{step.title}</h4>
-                      </div>
-                      <p className="text-white/40 text-sm md:text-base leading-relaxed max-w-md font-mono">{step.desc}</p>
+
+                    {/* Step Icon Container */}
+                    <div className={`relative z-10 w-20 h-20 rounded-full ${step.bg} border ${step.border} flex items-center justify-center mb-8 shadow-inner group-hover:scale-110 transition-transform duration-500`}>
+                      <step.icon className={`w-10 h-10 ${step.color} filter drop-shadow-[0_0_8px_currentColor]`} />
+                      <div className={`absolute -inset-4 ${step.bg.replace('5/', '20/')} blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity`} />
+                    </div>
+
+                    {/* Badge */}
+                    <div className={`relative z-10 inline-flex items-center gap-2 px-4 py-1.5 rounded-full ${step.bg} border ${step.border} mb-6`}>
+                       <div className={`w-1.5 h-1.5 rounded-full ${step.bullet} animate-pulse`} />
+                       <span className={`font-mono text-[10px] uppercase tracking-widest font-bold ${step.color}`}>{step.badge}</span>
+                    </div>
+
+                    <h4 className="relative z-10 text-2xl font-heading font-black text-white mb-4 uppercase tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-white/60 transition-all duration-500">
+                      {step.title}
+                    </h4>
+
+                    <p className="relative z-10 text-white/50 font-mono text-sm leading-relaxed mb-8 max-w-xs group-hover:text-white/70 transition-colors">
+                      {step.desc}
+                    </p>
+
+                    <div className="mt-auto relative z-10 pt-6 border-t border-white/5 w-full">
+                       <span className={`font-mono text-xs uppercase tracking-widest ${step.color} font-bold opacity-60`}>{step.duration}</span>
                     </div>
                   </div>
-                ))}
-              </div>
-            </AnimatedSection>
-            
-            <AnimatedSection delay={0.3}>
-              <div className="relative">
-                <div className="mb-12">
-                   <Floating3DNeuralCore />
-                </div>
-                <div className="glass-panel rounded-[2rem] p-6 md:p-8 relative overflow-hidden border-[#0ea5e9]/10 hover:border-[#0ea5e9]/30 transition-colors duration-500 group">
-                  <div className="absolute -inset-20 bg-[#0ea5e9]/5 blur-[80px] pointer-events-none group-hover:opacity-100 transition-opacity" />
-                  <div className="flex items-center gap-2 mb-6 border-b border-white/5 pb-4">
-                    <div className="flex gap-1.5">
-                       <div className="w-2.5 h-2.5 rounded-full bg-red-500/40" />
-                       <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/40" />
-                       <div className="w-2.5 h-2.5 rounded-full bg-green-500/40" />
-                    </div>
-                    <span className="font-mono text-[10px] text-white/30 ml-3 tracking-widest uppercase">vedastra_engine_v2.ts</span>
-                  </div>
-                  <div className="font-mono text-xs md:text-sm leading-6 relative z-10 text-white/70">
-                    <div><span className="text-[#0ea5e9]">import</span> {`{`} <span className="text-purple-400">AIBuilder</span> {`}`} <span className="text-[#0ea5e9]">from</span> <span className="text-amber-400">&apos;@vedastra/engine&apos;</span>;</div>
-                    <div className="mt-2"><span className="text-white/20">// Initialize autonomous build sequence</span></div>
-                    <div><span className="text-[#0ea5e9]">const</span> <span className="text-white">app</span> = <span className="text-[#0ea5e9]">await</span> <span className="text-purple-400">AIBuilder</span>.<span className="text-green-400">generate</span>({`{`}</div>
-                    <div className="pl-6"><span className="text-white/30">vision:</span> <span className="text-cyan-400">&apos;enterprise&apos;</span>,</div>
-                    <div className="pl-6"><span className="text-white/30">efficiency:</span> <span className="text-purple-400">0.98</span>,</div>
-                    <div className="pl-6"><span className="text-white/30">autoOptimize:</span> <span className="text-purple-400">true</span></div>
-                    <div>{`}`});</div>
-                    <div className="mt-4"><span className="text-white/20">// AI-monitored global deployment</span></div>
-                    <div><span className="text-[#0ea5e9]">await</span> app.<span className="text-green-400">launch</span>({`{`} <span className="text-white/30">clusters:</span> <span className="text-cyan-400">&apos;global&apos;</span> {`}`});</div>
-                  </div>
-                </div>
-                <div className="absolute -top-12 right-0 glass-premium px-5 py-3 rounded-2xl border-[#0ea5e9]/20 animate-float pointer-events-none backdrop-blur-xl">
-                  <p className="font-mono text-[9px] text-[#0ea5e9]/60 mb-1 uppercase tracking-tighter">Throughput</p>
-                  <p className="text-white font-black tracking-tight text-xl">1.2M <span className="text-green-400 text-xs">reqs/s</span></p>
-                </div>
-                <div className="absolute -bottom-8 -left-4 glass-premium px-5 py-3 rounded-2xl border-white/10 animate-float [animation-delay:1.5s] pointer-events-none backdrop-blur-xl">
-                  <p className="font-mono text-[9px] text-white/30 mb-1 uppercase tracking-tighter">Global Uptime</p>
-                  <p className="text-[#0ea5e9] font-black tracking-tight text-xl">99.999%</p>
-                </div>
-              </div>
-            </AnimatedSection>
+                </AnimatedSection>
+              ))}
+            </div>
           </div>
+
+          {/* Reassurance Strip */}
+          <AnimatedSection delay={0.8}>
+            <div className="mt-20 md:mt-32 glass-panel p-6 md:p-8 rounded-[2rem] border-white/5 flex flex-col md:flex-row items-center justify-around gap-8 md:gap-4 shadow-2xl relative overflow-hidden group">
+               <div className="absolute inset-0 bg-gradient-to-r from-green-500/[0.02] via-transparent to-green-500/[0.02]" />
+               {[
+                 "Free consultation — zero commitment",
+                 "Fixed timeline — no delays",
+                 "Unlimited revisions — until you love it"
+               ].map((text, i) => (
+                 <div key={i} className="flex items-center gap-3 relative z-10 group/item">
+                    <div className="w-8 h-8 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center group-hover/item:scale-110 transition-transform">
+                      <Check className="w-4 h-4 text-green-400 font-black" />
+                    </div>
+                    <span className="text-white/80 font-heading font-bold uppercase tracking-tight text-sm md:text-base">{text}</span>
+                 </div>
+               ))}
+            </div>
+          </AnimatedSection>
+
+          {/* Final Process CTA */}
+          <AnimatedSection delay={1} className="text-center mt-20">
+            <p className="font-mono text-sm text-white/40 uppercase tracking-[0.2em] mb-8">Ready to start? Book your free call today</p>
+            <Link 
+              href="/contact"
+              className="group relative inline-flex items-center gap-4 px-12 py-6 rounded-full bg-[#C1FF00] text-black font-heading font-black text-xl uppercase tracking-tighter hover:scale-105 transition-all duration-300 shadow-[0_0_30px_rgba(193,255,0,0.3)] hover:shadow-[0_0_50px_rgba(193,255,0,0.5)] active:scale-95 overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+              <span>BOOK FREE CALL</span>
+              <ArrowRight className="w-6 h-6 transition-transform group-hover:translate-x-2" />
+            </Link>
+          </AnimatedSection>
         </div>
       </section>
 
@@ -565,7 +708,7 @@ export default function HomePage() {
         </div>
 
         <div className="relative mb-6 group overflow-hidden">
-          <div className={`flex gap-5 animate-marquee-left group-hover:pause-animation ${pauseAnimations ? 'pause-animation' : ''} whitespace-nowrap w-max will-change-transform`}>
+          <div className="flex gap-5 animate-marquee-left group-hover:pause-animation whitespace-nowrap w-max gpu-accelerated">
             {[...[
               { quote: "We are just getting started — your success story could be featured here. Be our next happy client and see real results.", name: "Your Name", role: "Your Business", rating: 5, accent: "text-blue-400", border: "border-blue-500/20" },
               { quote: "Vedastra AI Labs is building a track record of excellence. We deliver results that speak for themselves — stay tuned.", name: "Vedastra", role: "AI Labs", rating: 5, accent: "text-purple-400", border: "border-purple-500/20" },
@@ -575,7 +718,7 @@ export default function HomePage() {
             ]].map((t, i) => (
               <div
                 key={`r1-${i}`}
-                className={`inline-flex shrink-0 w-[340px] md:w-[420px] flex-col justify-between gap-5 glass-panel rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-8 border ${t.border} group/card hover:scale-[1.02] transition-transform duration-300 cursor-default`}
+                className={`inline-flex shrink-0 w-[340px] md:w-[420px] flex-col justify-between gap-5 glass-panel rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-8 border ${t.border} group/card hover:scale-[1.02] transition-transform duration-300 cursor-default gpu-accelerated`}
               >
                 <div className="flex gap-1 mb-2">
                   {Array.from({ length: t.rating }).map((_, j) => (
@@ -600,17 +743,17 @@ export default function HomePage() {
         </div>
 
         <div className="relative group overflow-hidden">
-          <div className={`flex gap-5 animate-marquee-right group-hover:pause-animation ${pauseAnimations ? 'pause-animation' : ''} whitespace-nowrap w-max will-change-transform`}>
+          <div className="flex gap-5 animate-marquee-right group-hover:pause-animation whitespace-nowrap w-max gpu-accelerated">
             {[...[
-              { quote: "We are just getting started — your success story could be featured here. Be our next happy client and see real results.", name: "Your Name", role: "Your Business", rating: 5, accent: "text-amber-400", border: "border-amber-500/20" },
-              { quote: "Vedastra AI Labs is building a track record of excellence. We deliver results that speak for themselves — stay tuned.", name: "Vedastra", role: "AI Labs", rating: 5, accent: "text-fuchsia-400", border: "border-fuchsia-500/20" },
+              { quote: "The future is AI, and Vedastra is the bridge. Their commitment to speed and quality is something we haven't seen elsewhere.", name: "Future Vision", role: "Partner", rating: 5, accent: "text-emerald-400", border: "border-emerald-500/20" },
+              { quote: "Highly recommend for any business looking to automate their workflows and scale up efficiently. A true 10/10 experience.", name: "ScaleUp", role: "SaaS Founder", rating: 5, accent: "text-blue-400", border: "border-blue-500/20" },
             ], ...[
-              { quote: "We are just getting started — your success story could be featured here. Be our next happy client and see real results.", name: "Your Name", role: "Your Business", rating: 5, accent: "text-amber-400", border: "border-amber-500/20" },
-              { quote: "Vedastra AI Labs is building a track record of excellence. We deliver results that speak for themselves — stay tuned.", name: "Vedastra", role: "AI Labs", rating: 5, accent: "text-fuchsia-400", border: "border-fuchsia-500/20" },
+              { quote: "The future is AI, and Vedastra is the bridge. Their commitment to speed and quality is something we haven't seen elsewhere.", name: "Future Vision", role: "Partner", rating: 5, accent: "text-emerald-400", border: "border-emerald-500/20" },
+              { quote: "Highly recommend for any business looking to automate their workflows and scale up efficiently. A true 10/10 experience.", name: "ScaleUp", role: "SaaS Founder", rating: 5, accent: "text-blue-400", border: "border-blue-500/20" },
             ]].map((t, i) => (
               <div
                 key={`r2-${i}`}
-                className={`inline-flex shrink-0 w-[340px] md:w-[420px] flex-col justify-between gap-5 glass-panel rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-8 border ${t.border} group/card hover:scale-[1.02] transition-transform duration-300 cursor-default`}
+                className={`inline-flex shrink-0 w-[340px] md:w-[420px] flex-col justify-between gap-5 glass-panel rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-8 border ${t.border} group/card hover:scale-[1.02] transition-transform duration-300 cursor-default gpu-accelerated`}
               >
                 <div className="flex gap-1 mb-2">
                   {Array.from({ length: t.rating }).map((_, j) => (
@@ -633,9 +776,6 @@ export default function HomePage() {
             ))}
           </div>
         </div>
-
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black to-transparent z-20 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black to-transparent z-20 pointer-events-none" />
       </section>
 
       {/* 16 — FINAL CTA */}

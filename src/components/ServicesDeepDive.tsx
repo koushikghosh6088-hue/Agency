@@ -127,8 +127,10 @@ export default function ServicesDeepDive() {
                       <Image 
                         src={service.image} 
                         alt={service.title}
-                        width={800}
-                        height={800}
+                        width={600}
+                        height={600}
+                        loading="lazy"
+                        sizes="(max-width: 768px) 80vw, 500px"
                         className="w-full h-full object-contain mix-blend-screen drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]" 
                       />
                     </motion.div>
