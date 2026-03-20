@@ -490,10 +490,34 @@ export default function HomePage() {
                   href="/about" 
                   className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#0ea5e9]/50 transition-all duration-300"
                 >
-                  <span className="text-white font-bold tracking-tight">Learn More About Us</span>
+                  <span className="text-white font-bold tracking-tight">Meet the Team</span>
                   <ArrowRight className="w-5 h-5 text-[#0ea5e9] group-hover:translate-x-1 transition-transform" />
                 </Link>
               </AnimatedSection>
+
+              {/* TEAM SECTION — LUXURY FACES */}
+              <div className="grid grid-cols-2 gap-4 md:gap-6 mt-8">
+                {[
+                  { name: "Koushik", role: "Visionary Architect", img: "/3d-icons/founder_1.png", accent: "text-blue-400" },
+                  { name: "Anirban", role: "Elite Neural Lead", img: "/3d-icons/founder_2.png", accent: "text-[#C1FF00]" },
+                ].map((member, i) => (
+                  <AnimatedSection key={i} delay={0.6 + i * 0.1}>
+                    <div className="group relative glass-panel-premium p-4 rounded-[2rem] border-white/5 hover:border-white/20 transition-all duration-500 overflow-hidden">
+                       <div className="relative aspect-square rounded-2xl overflow-hidden mb-4 bg-white/5">
+                          <Image 
+                            src={member.img} 
+                            alt={member.name}
+                            fill
+                            className="object-cover group-hover:scale-110 transition-transform duration-700"
+                          />
+                          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black to-transparent opacity-60" />
+                       </div>
+                       <h4 className="text-white font-black text-sm uppercase tracking-tight">{member.name}</h4>
+                       <p className={`font-mono text-[9px] uppercase tracking-widest ${member.accent} font-bold`}>{member.role}</p>
+                    </div>
+                  </AnimatedSection>
+                ))}
+              </div>
             </div>
 
             {/* DESKTOP ONLY: Animation on right */}
@@ -508,17 +532,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 08 — WHY CHOOSE US */}
-      <WhyChooseUs />
-
-      {/* 09 — INDUSTRIES WE SERVE */}
-      <IndustriesSection />
-
-      {/* 10 — PORTFOLIO PREVIEW */}
+      {/* 08 — PORTFOLIO PREVIEW */}
       <FeaturedArchive />
 
-      {/* 11 — HOW IT WORKS */}
-      <section className="relative py-24 md:py-40 bg-black overflow-hidden z-10">
+      {/* 09 — HOW IT WORKS */}
+      <section id="process" className="relative py-24 md:py-40 bg-black overflow-hidden z-10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(193,255,0,0.02)_0%,transparent_50%)] pointer-events-none" />
         
         <div className="max-w-[1550px] mx-auto px-6 relative z-10">
@@ -674,20 +692,19 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 12 — STATS */}
-      <section className="relative py-16 bg-black z-20 border-t border-b border-white/5">
-        <div className="max-w-[1550px] mx-auto px-6">
-          <BenefitStats />
-        </div>
-      </section>
+      {/* 10 — WHY CHOOSE US (MOVED BELOW PROCESS) */}
+      <WhyChooseUs />
 
-      {/* 13 — PRICING */}
+      {/* 11 — INDUSTRIES WE SERVE */}
+      <IndustriesSection />
+
+      {/* 12 — PRICING SECTION */}
       <PricingSection />
 
-      {/* 14 — FAQ */}
+      {/* 13 — FAQ */}
       <FAQSection />
 
-      {/* 15 — TESTIMONIALS */}
+      {/* 14 — TESTIMONIALS */}
       <section ref={marqueeRef} className="relative py-20 md:py-32 bg-black z-10 overflow-hidden">
         <div className="absolute top-0 left-1/4 w-[600px] h-[400px] bg-[#0ea5e9]/5 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute bottom-0 right-1/4 w-[500px] h-[400px] bg-purple-50/5 rounded-full blur-[120px] pointer-events-none" />
