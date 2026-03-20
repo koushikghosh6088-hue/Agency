@@ -255,7 +255,7 @@ export default function ServicesPage() {
         ))}
       </div>
 
-      {/* CTA Footnote */}
+      {/* CTA */}
       <section className="py-32 relative bg-obsidian">
         <div className="max-w-[1550px] mx-auto px-6 text-center relative z-10">
           <AnimatedSection>
@@ -263,19 +263,13 @@ export default function ServicesPage() {
                 <Cog className="w-8 h-8 text-blue-400" />
             </div>
             <h2 className="text-[2.5rem] md:text-[3.8rem] font-heading font-black tracking-tighter mb-6">
-              SYSTEM <span className="text-blue-400 italic">INITIALIZATION</span>
+              READY TO <span className="text-blue-400 italic">BUILD?</span>
             </h2>
-              <TypewriterSubline 
-                phrases={[
-                  "Optimizing Enterprise Workflows",
-                  "Deploying Mission-Critical Labs",
-                  "Engineering Autonomous Systems",
-                  "Architecting Digital Futures"
-                ]}
-                className="mb-10 text-xl md:text-2xl justify-center lg:justify-start"
-              />
+            <p className="font-mono text-sm text-white/40 uppercase tracking-widest max-w-xl mx-auto mb-10">
+              Tell us what you need and we&apos;ll give you a free quote within 24 hours.
+            </p>
             <Link href="/contact" className="btn-primary group">
-              Start Project Sequence <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              Start Your Project <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </AnimatedSection>
         </div>
