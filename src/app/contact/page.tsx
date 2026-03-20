@@ -91,7 +91,7 @@ export default function ContactPage() {
                 <div className="space-y-6">
                   {[
                     { icon: Mail, label: 'Email Protocol', value: 'hello@vedastraai.com', href: 'mailto:hello@vedastraai.com' },
-                    { icon: Phone, label: 'Voice Link', value: '+1 (555) 123-4567', href: 'tel:+15551234567' },
+                    { icon: Phone, label: 'Voice Link', value: '+91 70033 83676 / +91 80176 83428', href: 'tel:+917003383676' },
                     { icon: MapPin, label: 'Physical Hub', value: '123 Innovation Drive, NY 10001', href: '#' },
                   ].map((item) => (
                     <a key={item.label} href={item.href} className="flex items-start gap-6 group glass-premium p-6 rounded-3xl transition-all duration-500 hover-3d border-white/5 hover:border-blue-400/30 magnetic-wrap">

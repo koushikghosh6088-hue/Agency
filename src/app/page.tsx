@@ -774,7 +774,7 @@ export default function HomePage() {
                    <div className="glass-panel p-6 rounded-3xl border-white/5 hover:border-[#0ea5e9]/30 transition-all group">
                       <Phone className="w-6 h-6 text-[#0ea5e9] mb-4" />
                       <div className="text-[10px] font-mono text-white/30 uppercase tracking-widest mb-1">Call Us</div>
-                      <div className="text-sm font-bold text-white">+1 (555) 123-4567</div>
+                      <div className="text-sm font-bold text-white">+91 70033 83676 / +91 80176 83428</div>
                    </div>
                 </div>
               </AnimatedSection>
