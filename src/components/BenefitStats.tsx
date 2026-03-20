@@ -59,8 +59,8 @@ function StatCard({ icon, value, label, delay = 0 }: StatProps) {
       whileHover={{ y: -10, transition: { duration: 0.3 } }}
       className="group relative"
     >
-      {/* Animated Glowing Border */}
-      <div className="absolute -inset-[1px] bg-gradient-to-r from-blue-400/50 via-green-400/50 to-blue-400/50 rounded-[2rem] opacity-20 group-hover:opacity-100 blur-[2px] transition-all duration-500 animate-pulse" />
+      {/* Animated Glowing Border - Intensified for Cyberpunk feel */}
+      <div className="absolute -inset-[1px] bg-gradient-to-r from-blue-400 via-green-400 to-blue-400 rounded-[2rem] opacity-30 group-hover:opacity-100 blur-[3px] transition-all duration-500 animate-pulse" />
       
       <div className="relative h-full bg-obsidian/80 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 flex flex-col items-center text-center overflow-hidden transition-all duration-500 group-hover:border-blue-400/40 group-hover:shadow-[0_0_40px_rgba(14,165,233,0.15)]">
         
@@ -95,13 +95,13 @@ function StatCard({ icon, value, label, delay = 0 }: StatProps) {
 export default function BenefitStats() {
   const stats = [
     { icon: "⚡", value: "1–2 Weeks", label: "Average Delivery Time" },
-    { icon: "🤖", value: "AI-Powered", label: "Every Build We Do" },
+    { icon: "🎯", value: "Custom Built", label: "Tailored to your needs" },
     { icon: "🛡️", value: "24/7", label: "Support & Monitoring" },
     { icon: "💯", value: "100%", label: "Satisfaction Guaranteed" },
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
       {stats.map((stat, i) => (
         <StatCard key={i} {...stat} delay={i * 0.15} />
       ))}
