@@ -45,14 +45,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="bg-[#0A0A0F] text-white font-body antialiased min-h-screen">
+      <body className="bg-black text-white font-body antialiased min-h-screen">
         <CustomCursor />
         {/* Global Cinematic Grain Overlay */}
         <div className="grain-overlay" />
-        {/* Floating Shell Container */}
-        <div className="max-w-[1600px] mx-auto min-h-screen bg-[#111118]/40 backdrop-blur-sm rounded-[2.5rem] ring-1 ring-white/10 shadow-2xl relative overflow-hidden flex flex-col my-4">
-          <BGPattern variant="grid" mask="fade-edges" size={32} fill="#ffffff08" className="opacity-40" />
-          <AnimatedBackgroundMesh />
+        {/* Main Content Container */}
+        <div className="max-w-[1600px] mx-auto min-h-screen relative flex flex-col my-4">
           <Navbar />
           <main className="flex-grow z-10 w-full relative">
             <PerformanceManager>

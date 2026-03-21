@@ -302,19 +302,9 @@ export default function HomePage() {
       <div className="grainy-overlay" />
       
       {/* 01–03 — HERO SECTION (REDESIGNED) */}
-      <section className="relative min-h-[95vh] flex items-center pt-24 lg:pt-0 overflow-hidden bg-[#0A0A0F]">
-        {/* Animated Grid Background */}
-        <div className="absolute inset-0 z-0 opacity-[0.08]" 
-          style={{ 
-            backgroundImage: `linear-gradient(rgba(0, 212, 255, 0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 212, 255, 0.2) 1px, transparent 1px)`,
-            backgroundSize: '40px 40px' 
-          }} 
-        />
-        
-        {/* Dynamic Atmospheric Layer (Nebula Blobs) */}
-        <div className="absolute top-1/4 -left-24 w-96 h-96 bg-[#00D4FF]/10 rounded-full blur-[120px] animate-float pointer-events-none" />
-        <div className="absolute bottom-1/4 -right-24 w-[500px] h-[500px] bg-[#7B2FFF]/5 rounded-full blur-[150px] animate-pulse pointer-events-none" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(0,212,255,0.03)_0%,transparent_70%)] pointer-events-none" />
+      <section className="relative min-h-[95vh] flex items-center pt-24 lg:pt-0 overflow-hidden bg-black">
+        {/* Simple Backdrop Glow for Robot only */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(0,212,255,0.02)_0%,transparent_70%)] pointer-events-none" />
 
         <div className="relative z-20 max-w-[1550px] mx-auto px-6 w-full h-full flex items-center">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center w-full">
