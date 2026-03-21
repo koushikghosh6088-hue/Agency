@@ -28,6 +28,7 @@ import TrustBar from '@/components/TrustBar';
 import TeamSection from '@/components/TeamSection';
 import Testimonials from '@/components/Testimonials';
 import HowItWorks from '@/components/HowItWorks';
+import StatsSection from '@/components/StatsSection';
 
 import { View, Preload } from '@react-three/drei';
 
@@ -426,28 +427,13 @@ export default function HomePage() {
       {/* 04 — TRUST BAR */}
       <TrustBar />
 
-      {/* 05 — THE PROBLEM (Why You Need Us) */}
+      {/* 05 — THE PROBLEM */}
       <ProblemSolution />
 
-      {/* 06 — SERVICES (What We Do) */}
+      {/* 06 — SERVICES */}
       <ServicesSection />
 
-      {/* 07 — WHY CHOOSE US (What We Provide / Differentiation) */}
-      <WhyChooseUs />
-
-      {/* 08 — HOW IT WORKS (Our Process) */}
-      <HowItWorks />
-
-      {/* 09 — PORTFOLIO (Proof of Work) */}
-      <FeaturedArchive />
-
-      {/* 10 — PRICING (Full Investment Table) */}
-      <FullPricing />
-
-      {/* 11 — TESTIMONIALS (Client Validation) */}
-      <Testimonials />
-
-      {/* 12 — ABOUT / TEAM SECTION */}
+      {/* 07 — ABOUT US (Team & Vision) */}
       <section id="about" className="relative pt-32 pb-24 lg:py-56 z-10 overflow-hidden border-t border-white/5 bg-black">
         <div className="max-w-[1550px] mx-auto px-6 relative z-10">
           <div className="flex flex-col gap-24">
@@ -514,10 +500,31 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 13 — FAQ SECTION */}
+      {/* 08 — WHY CHOOSE US */}
+      <WhyChooseUs />
+
+      {/* 09 — INDUSTRIES WE SERVE */}
+      <IndustriesSection />
+
+      {/* 10 — PORTFOLIO PREVIEW */}
+      <FeaturedArchive />
+
+      {/* 11 — HOW IT WORKS */}
+      <HowItWorks />
+
+      {/* 12 — STATS */}
+      <StatsSection />
+
+      {/* 13 — PRICING */}
+      <FullPricing />
+
+      {/* 14 — FAQ */}
       <FAQSection />
 
-      {/* 14 — FINAL CTA */}
+      {/* 15 — TESTIMONIALS */}
+      <Testimonials />
+
+      {/* 16 — FINAL CTA */}
       <FinalCTA />
     </>
   );
