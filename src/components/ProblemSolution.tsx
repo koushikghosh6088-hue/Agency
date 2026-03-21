@@ -1,71 +1,162 @@
 'use client';
 
-import { AlertCircle, ArrowRight, TrendingDown, ShieldAlert, MessageSquareX, Lock, Database, EyeOff, Skull, AlertTriangle } from 'lucide-react';
+import { useState } from 'react';
+import { AlertCircle, ArrowRight, Ban, Gauge, Smartphone, Moon, Cog, Bot, AlertTriangle, Skull, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import AnimatedSection from './AnimatedSection';
 
 const threats = [
   { 
-    title: "LEAKING REVENUE", 
-    stat: "73%",
-    statLabel: "visitors leave in <3s",
-    desc: "Your website loads slow, looks outdated, and fails to convert. Every second of delay costs you paying customers — competitors are stealing them right now.",
-    icon: TrendingDown,
+    title: "NO WEBSITE — OR EMBARRASSINGLY OUTDATED", 
+    emoji: "🚫",
+    stat: "3s",
+    statLabel: "to make a first impression",
+    preview: "Someone is searching for exactly what you sell. They find your competitor instead.",
+    desc: "Right now, someone is searching for exactly what you sell. They find your competitor instead — because you either don\u2019t have a website, or yours looks like it was built in 2010. First impressions online happen in 3 seconds. If yours isn\u2019t making the cut, you\u2019re handing customers to your competition every single day.",
+    icon: Ban,
     severity: "CRITICAL"
   },
   { 
-    title: "MANUAL CHAOS", 
-    stat: "40hrs",
-    statLabel: "wasted per month",
-    desc: "You're doing invoices, follow-ups, and scheduling by hand. A single AI workflow could save your team 40+ hours every month — automatically.",
-    icon: ShieldAlert,
-    severity: "HIGH"
-  },
-  { 
-    title: "GHOSTED LEADS", 
-    stat: "78%",
-    statLabel: "buy from first responder",
-    desc: "A customer messaged you at 11pm. You replied at 9am. They already bought from your competitor. No AI agent = no after-hours sales.",
-    icon: MessageSquareX,
+    title: "YOUR WEBSITE IS SLOW & LOSING CUSTOMERS", 
+    emoji: "🐌",
+    stat: "40%",
+    statLabel: "leave if site loads >3s",
+    preview: "You're spending money bringing people to your site — then watching them walk out.",
+    desc: "Did you know 40% of people leave a website if it takes more than 3 seconds to load? If your site is slow, broken on mobile, or hard to navigate — visitors leave before they even see what you offer. You\u2019re spending money to bring people to your site and then watching them walk straight out the door.",
+    icon: Gauge,
     severity: "CRITICAL"
   },
   { 
-    title: "STAGNANT GROWTH", 
-    stat: "5x",
-    statLabel: "slower than AI-powered rivals",
-    desc: "While you debate upgrading, your competitors already deployed AI agents, automated their ops, and are scaling 5x faster than you.",
-    icon: Lock,
+    title: "INVISIBLE ON MOBILE — WHERE CUSTOMERS ARE", 
+    emoji: "📵",
+    stat: "70%",
+    statLabel: "browse & buy on phones",
+    preview: "No mobile-friendly site in 2025 is like having a shop with no front door.",
+    desc: "Over 70% of people browse and buy from their phones. If your website looks broken on mobile, has tiny buttons, or is painful to scroll through — those customers are gone forever. Not having a mobile-friendly site in 2025 is like having a shop with no front door.",
+    icon: Smartphone,
     severity: "HIGH"
   },
   { 
-    title: "DATA BLINDNESS", 
-    stat: "0",
-    statLabel: "data-driven decisions",
-    desc: "You're guessing what works. No analytics dashboard, no customer insights, no conversion tracking. Flying blind in a data-driven world.",
-    icon: Database,
-    severity: "MEDIUM"
+    title: "LOSING LEADS EVERY NIGHT WHILE YOU SLEEP", 
+    emoji: "💸",
+    stat: "10pm",
+    statLabel: "leads you're missing",
+    preview: "Every missed message outside business hours is money you'll never see.",
+    desc: "What happens when a potential customer messages you at 10pm? Nothing — until the next morning, when they\u2019ve already moved on to someone else. Every missed message, every unanswered enquiry outside business hours is money you\u2019ll never see. Your competitors who use AI never miss a lead. You do.",
+    icon: Moon,
+    severity: "CRITICAL"
   },
   { 
-    title: "ZERO VISIBILITY", 
-    stat: "90%",
-    statLabel: "of searches you're missing",
-    desc: "Page 2 of Google is a graveyard. No SEO, no social presence, no content strategy — your ideal customers can't find you.",
-    icon: EyeOff,
+    title: "YOUR TEAM WASTES HOURS ON AUTOMATABLE TASKS", 
+    emoji: "⚙️",
+    stat: "40+",
+    statLabel: "hours wasted per month",
+    preview: "Every hour on repetitive tasks is an hour not spent growing your business.",
+    desc: "Manually sending invoices. Copy-pasting data between apps. Following up leads one by one. Replying to the same questions over and over. Every hour your team spends on repetitive tasks is an hour not spent on growing your business. These are problems that can be fully automated — and most business owners don\u2019t even realise it.",
+    icon: Cog,
+    severity: "HIGH"
+  },
+  { 
+    title: "COMPETITORS USE AI — AND PULLING AHEAD FAST", 
+    emoji: "🤖",
+    stat: "NOW",
+    statLabel: "AI isn't the future — it's",
+    preview: "The gap gets bigger every month you wait. You're not standing still — you're falling behind.",
+    desc: "AI isn\u2019t the future anymore — it\u2019s right now. Your competitors are already using AI to respond to customers faster, generate more leads, cut their costs, and run leaner operations. If you\u2019re not using AI in your business yet, you\u2019re not just standing still — you\u2019re falling behind. The gap gets bigger every month you wait.",
+    icon: Bot,
     severity: "HIGH"
   },
 ];
 
 function SeverityBadge({ level }: { level: string }) {
-  const colors = {
+  const colors: Record<string, string> = {
     CRITICAL: 'bg-[#FF2D55]/20 text-[#FF2D55] border-[#FF2D55]/40 shadow-[0_0_15px_rgba(255,45,85,0.15)]',
     HIGH: 'bg-[#FF6B00]/15 text-[#FF6B00] border-[#FF6B00]/30 shadow-[0_0_15px_rgba(255,107,0,0.1)]',
     MEDIUM: 'bg-[#FFB800]/10 text-[#FFB800] border-[#FFB800]/25',
   };
   return (
-    <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[8px] font-mono font-black uppercase tracking-[0.25em] border ${colors[level as keyof typeof colors] || colors.MEDIUM}`}>
+    <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[8px] font-mono font-black uppercase tracking-[0.25em] border ${colors[level] || colors.MEDIUM}`}>
       <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
       {level}
     </span>
+  );
+}
+
+function ThreatCard({ threat, index }: { threat: typeof threats[0]; index: number }) {
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <AnimatedSection delay={0.08 * index}>
+      <div 
+        className={`
+          group relative bg-white/[0.015] border rounded-2xl overflow-hidden h-full cursor-pointer
+          transition-all duration-500 ease-out
+          ${expanded 
+            ? 'border-[#FF2D55]/40 shadow-[0_0_40px_rgba(255,45,85,0.1)] bg-[#FF2D55]/[0.03]' 
+            : 'border-white/[0.06] hover:border-[#FF2D55]/30 hover:shadow-[0_0_30px_rgba(255,45,85,0.08)]'
+          }
+        `}
+        onClick={() => setExpanded(!expanded)}
+        onMouseEnter={() => setExpanded(true)}
+        onMouseLeave={() => setExpanded(false)}
+      >
+        {/* Top scanning line — animates on hover/expand */}
+        <div className={`absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#FF2D55] to-transparent transition-opacity duration-500 ${expanded ? 'opacity-60' : 'opacity-0'}`} />
+        
+        {/* Bottom scanning line */}
+        <div className={`absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#FF2D55]/30 to-transparent transition-opacity duration-500 ${expanded ? 'opacity-100' : 'opacity-0'}`} />
+
+        {/* Corner accents — appear on interaction */}
+        <div className={`absolute top-0 right-0 w-10 h-10 border-r-2 border-t-2 transition-all duration-500 pointer-events-none ${expanded ? 'border-[#FF2D55]/50' : 'border-transparent'}`} />
+        <div className={`absolute bottom-0 left-0 w-10 h-10 border-l-2 border-b-2 transition-all duration-500 pointer-events-none ${expanded ? 'border-[#FF2D55]/50' : 'border-transparent'}`} />
+
+        {/* Threat level indicator strip — left edge */}
+        <div className={`absolute top-0 left-0 w-[3px] h-full transition-all duration-500 ${expanded ? 'bg-[#FF2D55] shadow-[0_0_10px_rgba(255,45,85,0.5)]' : 'bg-[#FF2D55]/10'}`} />
+
+        <div className="p-7 md:p-8 relative z-10">
+          {/* Header Row: Emoji + Severity */}
+          <div className="flex items-start justify-between mb-4">
+            <div className={`w-12 h-12 rounded-xl flex items-center justify-center border transition-all duration-500 ${expanded ? 'bg-[#FF2D55]/15 border-[#FF2D55]/30 shadow-[0_0_20px_rgba(255,45,85,0.2)] scale-110' : 'bg-[#FF2D55]/[0.07] border-[#FF2D55]/15'}`}>
+              <span className="text-xl">{threat.emoji}</span>
+            </div>
+            <SeverityBadge level={threat.severity} />
+          </div>
+
+          {/* Title */}
+          <h3 className={`text-[15px] md:text-base font-heading font-black mb-3 uppercase tracking-tight leading-tight transition-colors duration-300 ${expanded ? 'text-[#FF2D55]' : 'text-white'}`}>
+            {threat.title}
+          </h3>
+
+          {/* Stat Callout */}
+          <div className="flex items-baseline gap-2 mb-4">
+            <span className={`text-3xl font-heading font-black tracking-tighter transition-all duration-500 ${expanded ? 'text-[#FF2D55] drop-shadow-[0_0_20px_rgba(255,45,85,0.4)]' : 'text-[#FF2D55]'}`}>
+              {threat.stat}
+            </span>
+            <span className="text-[10px] font-mono text-white/30 uppercase tracking-widest">{threat.statLabel}</span>
+          </div>
+          
+          {/* Preview Text (always visible) */}
+          <p className={`font-body text-[13px] leading-relaxed transition-all duration-500 ${expanded ? 'text-white/40 mb-3' : 'text-white/35'}`}>
+            {threat.preview}
+          </p>
+
+          {/* Expanded Detail — full pain point copy */}
+          <div className={`overflow-hidden transition-all duration-500 ease-out ${expanded ? 'max-h-[300px] opacity-100 mt-4' : 'max-h-0 opacity-0'}`}>
+            <div className="border-t border-[#FF2D55]/15 pt-4">
+              <p className="font-body text-[13px] text-white/55 leading-[1.7]">
+                {threat.desc}
+              </p>
+            </div>
+          </div>
+
+          {/* Expand hint */}
+          <div className={`flex items-center gap-1.5 mt-4 transition-all duration-300 ${expanded ? 'opacity-0 h-0' : 'opacity-50'}`}>
+            <ChevronDown className="w-3 h-3 text-[#FF2D55]" />
+            <span className="text-[9px] font-mono text-[#FF2D55]/60 uppercase tracking-[0.2em]">Tap to read more</span>
+          </div>
+        </div>
+      </div>
+    </AnimatedSection>
   );
 }
 
@@ -104,7 +195,6 @@ export default function ProblemSolution() {
         
         {/* Terminal Header */}
         <AnimatedSection className="text-center mb-16 md:mb-20">
-          {/* Terminal Window Bar */}
           <div className="inline-flex flex-col items-center">
             <div className="flex items-center gap-2 px-5 py-2.5 rounded-t-xl bg-[#FF2D55]/5 border border-b-0 border-[#FF2D55]/20">
               <div className="flex gap-1.5">
@@ -129,61 +219,23 @@ export default function ProblemSolution() {
             <span className="italic text-[#FF2D55] drop-shadow-[0_0_30px_rgba(255,45,85,0.3)]">BLEEDING MONEY</span> RIGHT NOW?
           </h2>
           <p className="text-white/40 text-lg max-w-2xl mx-auto font-body leading-relaxed">
-            Every day without AI, automation, and a modern website costs you <span className="text-[#FF2D55] font-bold">real customers and real revenue</span>. Here&apos;s what&apos;s killing your growth:
+            Every day without AI, automation, and a modern website costs you <span className="text-[#FF2D55] font-bold">real customers and real revenue</span>. Hover over each threat to see how it&apos;s hurting you:
           </p>
         </AnimatedSection>
 
         {/* Threat Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6 mb-16 md:mb-20">
           {threats.map((threat, i) => (
-            <AnimatedSection key={i} delay={0.08 * i}>
-              <div className="group relative bg-white/[0.015] border border-white/[0.06] rounded-2xl p-7 md:p-8 hover:border-[#FF2D55]/30 transition-all duration-500 overflow-hidden h-full">
-                
-                {/* Hover Glow — top edge */}
-                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#FF2D55]/0 to-transparent group-hover:via-[#FF2D55]/50 transition-all duration-700" />
-                
-                {/* Corner accent */}
-                <div className="absolute top-0 right-0 w-8 h-8 border-r border-t border-[#FF2D55]/0 group-hover:border-[#FF2D55]/30 transition-all duration-500 pointer-events-none" />
-                <div className="absolute bottom-0 left-0 w-8 h-8 border-l border-b border-[#FF2D55]/0 group-hover:border-[#FF2D55]/30 transition-all duration-500 pointer-events-none" />
-
-                <div className="relative z-10">
-                  {/* Header Row: Icon + Severity */}
-                  <div className="flex items-start justify-between mb-5">
-                    <div className="w-12 h-12 rounded-xl bg-[#FF2D55]/[0.07] flex items-center justify-center border border-[#FF2D55]/15 group-hover:bg-[#FF2D55]/[0.12] group-hover:shadow-[0_0_25px_rgba(255,45,85,0.15)] transition-all duration-500">
-                      <threat.icon className="w-5 h-5 text-[#FF2D55]" />
-                    </div>
-                    <SeverityBadge level={threat.severity} />
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="text-lg font-heading font-black text-white mb-2 uppercase tracking-tight group-hover:text-[#FF2D55] transition-colors duration-300">
-                    {threat.title}
-                  </h3>
-
-                  {/* Stat Callout */}
-                  <div className="flex items-baseline gap-2 mb-4">
-                    <span className="text-3xl font-heading font-black text-[#FF2D55] tracking-tighter">{threat.stat}</span>
-                    <span className="text-[10px] font-mono text-white/30 uppercase tracking-widest">{threat.statLabel}</span>
-                  </div>
-                  
-                  {/* Description */}
-                  <p className="text-white/35 font-body text-[13px] leading-relaxed group-hover:text-white/55 transition-colors duration-500">
-                    {threat.desc}
-                  </p>
-                </div>
-              </div>
-            </AnimatedSection>
+            <ThreatCard key={i} threat={threat} index={i} />
           ))}
         </div>
 
         {/* Diagnosis CTA */}
         <AnimatedSection>
           <div className="relative max-w-4xl mx-auto">
-            {/* Outer Glitch Border */}
             <div className="absolute -inset-[1px] rounded-[2rem] bg-gradient-to-r from-[#FF2D55]/20 via-[#FF2D55]/40 to-[#FF2D55]/20 opacity-60 blur-[1px]" />
             
             <div className="relative bg-black/90 backdrop-blur-sm rounded-[2rem] border border-[#FF2D55]/15 p-10 md:p-14 text-center overflow-hidden">
-              {/* Inner scanline texture */}
               <div className="absolute inset-0 opacity-[0.02] pointer-events-none"
                 style={{
                   backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(255,45,85,0.15) 1px, rgba(255,45,85,0.15) 2px)',
