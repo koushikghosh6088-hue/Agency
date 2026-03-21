@@ -47,8 +47,6 @@ export default function RootLayout({
     <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="bg-black text-white font-body antialiased min-h-screen">
         <CustomCursor />
-        {/* Global Cinematic Grain Overlay */}
-        <div className="grain-overlay" />
         {/* Main Content Container */}
         <div className="max-w-[1600px] mx-auto min-h-screen relative flex flex-col my-4">
           <Navbar />

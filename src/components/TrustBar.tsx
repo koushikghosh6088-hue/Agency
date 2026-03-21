@@ -25,19 +25,25 @@ const techStack = [
 
 export default function TrustBar() {
   return (
-    <section className="relative py-3.5 bg-[#060608] border-t border-b border-[#00D4FF]/15 overflow-hidden z-20">
+    <section className="relative py-6 bg-black/80 backdrop-blur-md border-y border-[#00D4FF]/20 overflow-hidden z-20 group">
+      {/* Premium Shimmer Line */}
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#00D4FF]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+      
       <div className="flex whitespace-nowrap">
-        <div className="flex animate-[marquee_50s_linear_infinite] items-center gap-10 sm:gap-14">
+        <div className="flex animate-[marquee_50s_linear_infinite] items-center gap-12 sm:gap-16">
           {[...techStack, ...techStack, ...techStack].map((tech, i) => (
-            <div key={i} className="flex items-center gap-3 shrink-0">
-              <span className="font-mono font-bold text-[10px] sm:text-xs uppercase tracking-[0.15em] text-white/50">
+            <div key={i} className="flex items-center gap-4 shrink-0 px-2">
+              <span className="font-heading font-black text-xs sm:text-sm uppercase tracking-[0.2em] text-white/40 group-hover:text-white/70 transition-colors duration-500 hover:text-[#00D4FF] hover:drop-shadow-[0_0_8px_rgba(0,212,255,0.6)]">
                 {tech}
               </span>
-              <div className="w-1 h-1 bg-[#00D4FF]/30 rounded-full" />
+              <div className="w-1.5 h-1.5 bg-[#00D4FF]/20 rounded-full shadow-[0_0_8px_rgba(0,212,255,0.2)]" />
             </div>
           ))}
         </div>
       </div>
+
+      {/* Underline Shimmer */}
+      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#00D4FF]/20 to-transparent" />
 
       <style jsx global>{`
         @keyframes marquee {

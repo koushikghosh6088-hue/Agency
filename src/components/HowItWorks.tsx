@@ -59,7 +59,7 @@ export default function HowItWorks() {
           {steps.map((step, i) => (
             <AnimatedSection key={i} delay={i * 0.1}>
               <div className="relative group p-8 lg:p-10 glass-premium rounded-[3rem] border-white/5 hover:border-white/20 transition-all duration-700 z-10 shimmer-border overflow-hidden flex flex-col items-center text-center">
-                <div className="grainy-overlay opacity-[0.03]" />
+
                 
                 {/* Number Background */}
                 <div className="absolute -top-4 -right-2 text-[120px] font-heading font-black text-white/[0.02] pointer-events-none group-hover:text-[#00D4FF]/5 transition-all duration-700 group-hover:-translate-x-4">

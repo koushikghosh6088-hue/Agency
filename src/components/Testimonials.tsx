@@ -100,7 +100,7 @@ export default function Testimonials() {
 function TestimonialCard({ quote, author, role, accent }: any) {
   return (
     <div className="w-[450px] p-8 glass-premium rounded-[2.5rem] relative overflow-hidden group hover:border-white/20 transition-all duration-700 shimmer-border">
-      <div className="grainy-overlay opacity-[0.03]" />
+
       
       <div 
         className="absolute top-0 right-0 w-32 h-32 blur-[80px] opacity-10 group-hover:opacity-30 transition-opacity"

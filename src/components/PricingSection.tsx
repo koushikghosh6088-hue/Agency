@@ -93,7 +93,7 @@ export default function PricingSection() {
               transition={{ duration: 0.4 }}
               className="glass-premium rounded-[3rem] p-8 md:p-16 relative overflow-hidden group hover:border-[#00D4FF]/20 transition-all duration-700 shimmer-border"
             >
-              <div className="grainy-overlay opacity-[0.03]" />
+
               
               {/* Glow Accent */}
               <div 

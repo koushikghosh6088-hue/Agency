@@ -316,8 +316,6 @@ export default function HomePage() {
 
   return (
     <>
-      <div className="grainy-overlay" />
-      
       {/* 01–03 — HERO SECTION (REDESIGNED) */}
       <section className="relative min-h-[95vh] flex items-center pt-24 lg:pt-0 overflow-hidden bg-black">
         {/* Simple Backdrop Glow for Robot only */}
@@ -350,16 +348,19 @@ export default function HomePage() {
                 Websites. Mobile Apps. AI Agents. Automation. Built for businesses that are serious about growth.
               </p>
 
-              {/* Animated Cycling Service Text */}
-              <div className="h-8 sm:h-10 flex items-center justify-center lg:justify-start overflow-hidden px-4 sm:px-0">
+              {/* Animated Cycling Service Text (Lukritive Upgrade) */}
+              <div className="h-12 sm:h-16 flex items-center justify-center lg:justify-start overflow-hidden px-4 sm:px-0">
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={heroServiceIndex}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.4, ease: 'easeInOut' }}
-                    className="text-[#00D4FF] font-heading font-black text-sm sm:text-lg uppercase tracking-wider"
+                    initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95, y: -30 }}
+                    transition={{ 
+                      duration: 0.5, 
+                      ease: [0.22, 1, 0.36, 1] 
+                    }}
+                    className="text-[#00D4FF] font-heading font-black text-2xl sm:text-3xl md:text-4xl uppercase tracking-wider drop-shadow-[0_0_20px_rgba(0,212,255,0.4)]"
                   >
                     {heroServices[heroServiceIndex]}
                   </motion.span>

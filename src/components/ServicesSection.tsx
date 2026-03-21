@@ -128,7 +128,7 @@ export default function ServicesSection() {
           {services.map((service, i) => (
             <AnimatedSection key={service.id} delay={i * 0.1}>
               <div className="group relative h-full p-8 glass-premium rounded-[2.5rem] border-white/5 hover:border-white/20 transition-all duration-700 flex flex-col shimmer-border overflow-hidden">
-                <div className="grainy-overlay opacity-[0.03]" />
+
                 
                 <div className="mb-10 relative">
                    <div 
