@@ -39,7 +39,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="relative w-12 h-12 flex items-center justify-center transition-all duration-300 group-hover:scale-105">
-            <div className="absolute inset-0 bg-blue-400/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="absolute inset-0 bg-[#0066ff]/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
             <Image 
               src="/logo.png" 
               alt="Vedastra Logo" 
@@ -51,7 +51,7 @@ export default function Navbar() {
               className="relative z-10 w-auto h-10 object-contain brightness-110"
             />
           </div>
-          <span className="hidden sm:block font-heading font-bold text-xl tracking-tight uppercase glow-cyan">
+          <span className="hidden sm:block font-heading font-black text-xl tracking-tighter uppercase">
             Vedastra
           </span>
         </Link>
@@ -67,7 +67,7 @@ export default function Navbar() {
                 className={`px-5 py-2 rounded-full text-[0.75rem] font-medium font-body uppercase tracking-[0.1em] transition-all duration-300 relative z-10 ${
                   isActive
                     ? 'text-white'
-                    : 'text-white/70 hover:text-[#00d4ff]'
+                    : 'text-white/70 hover:text-[#0066ff]'
                 }`}
               >
                 {link.label}
@@ -94,7 +94,7 @@ export default function Navbar() {
               >
                 <Link
                   href="/contact"
-                  className="bg-blue-400 text-black px-6 py-2.5 rounded-full text-[0.7rem] font-heading font-bold uppercase tracking-[0.08em] shadow-[0_0_20px_rgba(14,165,233,0.3)] hover:scale-105 transition-all flex items-center gap-2"
+                  className="bg-[#0066ff] text-white px-6 py-2.5 rounded-full text-[0.7rem] font-heading font-black uppercase tracking-[0.08em] shadow-[0_0_20px_rgba(0,102,255,0.3)] hover:scale-105 transition-all flex items-center gap-2"
                 >
                   <PhoneCall className="w-4 h-4" /> Start Your Project
                 </Link>
@@ -103,14 +103,14 @@ export default function Navbar() {
           </AnimatePresence>
           
           <div className="flex items-center gap-6 bg-white/[0.02] backdrop-blur-[12px] border border-white/5 rounded-full p-1.5 pr-2">
-            <div className="flex items-center gap-2 pl-4 pr-2 font-mono text-[9px] uppercase tracking-[0.2em] glow-green">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse-fast inline-block" />
+            <div className="flex items-center gap-2 pl-4 pr-2 font-mono text-[9px] uppercase tracking-[0.2em] text-[#ccff00]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#ccff00] animate-pulse shadow-[0_0_10px_rgba(204,255,0,0.5)] inline-block" />
               System Online
             </div>
             {!showSticky && (
               <Link
                 href="/contact"
-                className="bg-white text-black hover:bg-blue-400 hover:shadow-[0_0_30px_rgba(14,165,233,0.3)] transition-all duration-300 px-6 py-2.5 rounded-full text-[0.7rem] font-heading font-bold uppercase tracking-[0.08em]"
+                className="bg-white text-black hover:bg-[#0066ff] hover:text-white hover:shadow-[0_0_30px_rgba(0,102,255,0.3)] transition-all duration-300 px-6 py-2.5 rounded-full text-[0.7rem] font-heading font-black uppercase tracking-[0.08em]"
               >
                 Start Your Project
               </Link>
@@ -157,7 +157,7 @@ export default function Navbar() {
                     onClick={() => setIsOpen(false)}
                     className={`block py-3 px-4 rounded-xl text-sm font-medium transition-all ${
                       pathname === link.href
-                        ? 'text-blue-400 bg-blue-400/10'
+                        ? 'text-[#0066ff] bg-[#0066ff]/10'
                         : 'text-white/70 hover:text-white hover:bg-white/5'
                     }`}
                   >
@@ -171,14 +171,14 @@ export default function Navbar() {
                 transition={{ delay: 0.3 }}
                 className="pt-4 border-t border-white/10"
               >
-                <div className="flex items-center gap-2 mb-4 font-mono text-xs uppercase tracking-[0.2em] text-white/50 px-4">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse-fast inline-block" />
+                <div className="flex items-center gap-2 mb-4 font-mono text-xs uppercase tracking-[0.2em] text-[#ccff00] px-4">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#ccff00] animate-pulse-fast inline-block" />
                   System Online
                 </div>
                 <Link
                   href="/contact"
                   onClick={() => setIsOpen(false)}
-                  className="bg-blue-400 block text-center text-black font-bold px-6 py-4 rounded-xl text-sm"
+                  className="bg-[#0066ff] block text-center text-white font-black px-6 py-4 rounded-xl text-sm uppercase tracking-widest"
                 >
                   Start Your Project
                 </Link>

@@ -198,7 +198,7 @@ function TypewriterSubline() {
     return () => clearTimeout(timer);
   }, [text, isDeleting, loopNum, typingSpeed, phrases]);
 
-  return <span className="text-blue-400 border-r-2 border-blue-400 ml-1 pr-1">{text}</span>;
+  return <span className="text-[#0066ff] border-r-2 border-[#0066ff] ml-1 pr-1">{text}</span>;
 }
 
 // Stats Counter Component
@@ -334,19 +334,19 @@ export default function HomePage() {
               transition={{ duration: 1, delay: 1.8, ease: [0.16, 1, 0.3, 1] }}
               className="max-w-lg sm:max-w-xl lg:max-w-4xl space-y-6 lg:space-y-8 mx-auto lg:mx-0 text-center lg:text-left"
             >
-              <div className="inline-flex items-center gap-3 px-4 sm:px-6 py-2 rounded-full glass-premium border-blue-400/20">
-                <span className="w-2 h-2 bg-[#00ff9d] rounded-full animate-pulse-glow" />
-                <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.3em] sm:tracking-[0.4em] glow-green">
+              <div className="inline-flex items-center gap-3 px-4 sm:px-6 py-2 rounded-full glass-premium border-[#0066ff]/20">
+                <span className="w-2 h-2 bg-[#ccff00] rounded-full animate-pulse-glow shadow-[0_0_15px_rgba(204,255,0,0.5)]" />
+                <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.3em] sm:tracking-[0.4em] text-[#ccff00] glow-green">
                   AI-Powered Digital Agency
                 </span>
               </div>
 
               <h1 
                 ref={headlineRef}
-                className="text-[2.2rem] sm:text-[3.2rem] md:text-[4.5rem] lg:text-[4.8rem] xl:text-[5.8rem] 2xl:text-[7.2rem] font-heading font-black leading-[0.95] tracking-tighter uppercase glow-white"
+                className="text-[2.2rem] sm:text-[3.2rem] md:text-[4.5rem] lg:text-[4.8rem] xl:text-[5.8rem] 2xl:text-[7.2rem] font-heading font-black leading-[0.95] tracking-tighter uppercase text-white"
               >
                 WE BUILD DIGITAL<br />
-                PRODUCTS THAT <span className="glow-green italic">GROW</span> YOUR BUSINESS.
+                PRODUCTS THAT <span className="italic text-[#ccff00]">GROW</span> YOUR BUSINESS.
               </h1>
 
               <p 
@@ -360,13 +360,13 @@ export default function HomePage() {
               {/* pointer-events-auto on interactive elements */}
               <div className="flex flex-row items-center justify-center lg:justify-start gap-4 sm:gap-6 pt-2 lg:pt-4 pointer-events-auto">
                 <div className="magnetic-wrap relative">
-                  <div className="absolute -inset-1 bg-blue-400/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity animate-pulse" />
+                  <div className="absolute -inset-1 bg-[#0066ff]/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity animate-pulse" />
                   <Link href="/contact" className="btn-primary px-7 sm:px-10 py-4 sm:py-5 text-[0.8rem] font-heading font-bold uppercase tracking-[0.1em] relative">
                     START YOUR PROJECT <ArrowUpRight className="ml-1 sm:ml-2 w-4 h-4 sm:w-5 sm:h-5" />
                   </Link>
                 </div>
                 <div className="magnetic-wrap">
-                  <Link href="/portfolio" className="text-white/60 hover:text-[#00d4ff] font-heading font-bold text-[0.8rem] uppercase tracking-widest underline underline-offset-8 transition-all whitespace-nowrap">
+                  <Link href="/portfolio" className="text-white/60 hover:text-[#0066ff] font-heading font-bold text-[0.8rem] uppercase tracking-widest underline underline-offset-8 transition-all whitespace-nowrap">
                     See Our Work
                   </Link>
                 </div>
@@ -413,45 +413,54 @@ export default function HomePage() {
       {/* 06 — SERVICES SECTION */}
       <ServicesSection />
 
-      {/* 07 — ABOUT US */}
-      <section id="about" className="relative pt-32 pb-12 lg:py-48 bg-black z-10 overflow-hidden">
-        {/* Elite Background Elements */}
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(6,182,212,0.05)_0%,transparent_70%)] pointer-events-none" />
-        <div className="absolute -bottom-48 -left-24 w-[600px] h-[600px] bg-purple-500/5 blur-[150px] rounded-full pointer-events-none" />
+      {/* 07 — ABOUT US (REDESIGNED) */}
+      <section id="about" className="relative pt-32 pb-24 lg:py-56 mesh-gradient z-10 overflow-hidden border-t border-white/5">
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#0066ff]/[0.05] rounded-full blur-[150px] pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#ccff00]/[0.03] rounded-full blur-[150px] pointer-events-none" />
         
         <div className="max-w-[1550px] mx-auto px-6 relative z-10">
-          <div className="flex flex-col gap-32">
-            
-            {/* Top Area: Mission & Vision */}
+          <div className="flex flex-col gap-24">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-               <div className="lg:col-span-12 xl:col-span-10">
+               <div className="lg:col-span-12 xl:col-span-10 mx-auto text-center lg:text-left">
                   <AnimatedSection>
-                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 mb-8 backdrop-blur-md">
-                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#22d3ee]" />
-                        <span className="font-mono text-[9px] uppercase tracking-widest text-cyan-400 font-bold italic">Executive Mission</span>
+                     <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full glass-premium border-white/10 mb-10 mx-auto lg:mx-0">
+                        <span className="w-2 h-2 rounded-full bg-[#0066ff] animate-pulse shadow-[0_0_10px_#0066ff]" />
+                        <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/60 font-black">Engineering the Future</span>
                      </div>
                      
-                     <h2 className="text-[2.8rem] md:text-[4.5rem] lg:text-[6.5rem] font-heading font-black leading-[0.9] tracking-tighter uppercase text-white mb-12">
-                        WE ARE THE <span className="font-outline-sm text-transparent border-white/40">ARCHITECTS</span> OF YOUR <span className="gradient-text italic text-[#0ea5e9]">GROWTH</span>
+                     <h2 className="text-[3rem] md:text-[5rem] lg:text-[7rem] font-heading font-black leading-[0.85] tracking-[0.02em] uppercase text-white mb-16 max-w-6xl mx-auto lg:mx-0">
+                        WHERE <span className="italic text-[#0066ff]">ELITE ARCHITECTURE</span> <br/>MEETS <span className="italic text-[#ccff00]">BUSINESS DOMINANCE</span>
                      </h2>
 
-                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-                        <p className="text-xl md:text-3xl font-bold text-white leading-tight tracking-tight max-w-xl group">
-                           A focused lab of engineers who spend every waking hour <span className="text-[#C1FF00] italic group-hover:not-italic transition-all duration-500 underline decoration-[#C1FF00]/30 underline-offset-8">building the future</span> of your business.
-                        </p>
+                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-start text-left">
                         <div className="space-y-8">
-                           <p className="text-white/50 font-mono text-sm leading-relaxed max-w-lg">
-                              We are not a traditional agency. We are a dedicated growth partner. 
-                              We don&apos;t count hours, we count results. We don&apos;t follow instructions, we diagnose problems and architect solutions that scale.
+                           <p className="text-2xl md:text-3xl font-heading font-bold text-white leading-[1.1] tracking-tight">
+                              We aren&apos;t just another agency. We are a <span className="text-[#0066ff]">specialized lab</span> of full-stack engineers and data scientists.
                            </p>
+                           <p className="text-white/40 font-body text-lg leading-relaxed">
+                              At Vedastra AI Labs, we translate complex business logic into high-performance digital products. 
+                              From server-less scalable architectures to autonomous AI workflows, we bridge the gap between technical complexity and pure operational success.
+                           </p>
+                        </div>
+                        <div className="space-y-8 lg:pt-4">
+                           <div className="glass-premium p-8 rounded-[2.5rem] border-white/5 hover:border-[#0066ff]/30 transition-all duration-700">
+                              <h4 className="text-lg font-heading font-black text-white mb-4 uppercase tracking-[0.05em]">Our Core Protocol</h4>
+                              <p className="text-white/50 font-body text-sm leading-relaxed mb-6">
+                                 We diagnose before we build. Every line of code is written with two goals in mind: 
+                                 <span className="text-white font-bold"> Extreme Performance</span> and <span className="text-white font-bold">Absolute Scalability</span>.
+                              </p>
+                              <div className="flex flex-wrap gap-3">
+                                 {['Next.js 15', 'RTK Query', 'AI RAG', 'Edge Computing'].map((tech) => (
+                                    <span key={tech} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[9px] font-mono text-white/40 uppercase tracking-widest">{tech}</span>
+                                 ))}
+                              </div>
+                           </div>
                            <Link 
                              href="/about" 
-                             className="group inline-flex items-center gap-4 px-8 py-5 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#0ea5e9]/50 transition-all duration-500"
+                             className="group flex items-center gap-4 px-10 py-6 rounded-3xl bg-white/5 border border-white/10 hover:bg-[#0066ff] hover:text-white transition-all duration-500 w-fit mx-auto md:mx-0"
                            >
-                              <span className="text-white font-bold tracking-tight uppercase text-sm">Our Full Story</span>
-                              <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center group-hover:bg-blue-500 group-hover:text-black transition-all">
-                                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                              </div>
+                              <span className="font-heading font-black uppercase text-sm tracking-widest">Learn Our Full Protocol</span>
+                              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
                            </Link>
                         </div>
                      </div>
@@ -459,44 +468,21 @@ export default function HomePage() {
                </div>
             </div>
 
-            {/* Bottom Area: Team & Orbital Synergy (High Class Composition) */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
-               
-               {/* Team Portraits Section */}
-               <div className="lg:col-span-7 xl:col-span-6 relative">
-                  <AnimatedSection delay={0.2}>
-                     <TeamSection />
-                  </AnimatedSection>
-               </div>
-
-               {/* Orbital Logic Section */}
-               <div className="lg:col-span-5 xl:col-span-6 flex flex-col items-center">
-                  <AnimatedSection delay={0.4}>
-                     <div className="relative p-10 lg:p-16 rounded-[4rem] bg-white/[0.01] border border-white/5 backdrop-blur-sm group hover:border-white/10 transition-colors duration-700">
-                        {/* Title for Orbital area */}
-                        <div className="absolute top-12 left-1/2 -translate-x-1/2 text-center w-full">
-                           <div className="font-mono text-[9px] uppercase tracking-[0.5em] text-white/20 mb-2">Neural Coordination</div>
-                           <h4 className="text-lg font-heading font-black text-white/40 uppercase tracking-widest italic leading-none">THE CORE ENGINE</h4>
-                        </div>
-                        
-                        <div className="scale-75 md:scale-95 lg:scale-100 xl:scale-110">
-                           <RadialOrbitalTimeline timelineData={aboutUsTimelineData} />
-                        </div>
-
-                        {/* Status Strip Bottom */}
-                        <div className="absolute bottom-10 left-0 right-0 flex justify-center gap-6 opacity-30">
-                           {['SYNC: 100%', 'FRAME: 60FPS', 'THREAT: NONE'].map((status, si) => (
-                             <span key={si} className="text-[8px] font-mono uppercase tracking-[0.3em] text-white">{status}</span>
-                           ))}
-                        </div>
-                     </div>
-                  </AnimatedSection>
-               </div>
+            <div className="relative pt-16 border-t border-white/5">
+                <AnimatedSection className="text-center mb-16">
+                   <h3 className="text-2xl md:text-4xl font-heading font-black text-white uppercase tracking-tighter mb-4">
+                      THE <span className="italic text-[#0066ff]">ENGINEERS</span> BEHIND THE <span className="italic text-[#ccff00]">VISION</span>
+                   </h3>
+                   <p className="text-white/30 font-mono text-xs uppercase tracking-[0.25em]">Direct Access to Technical Founders // Verified Architecture</p>
+                </AnimatedSection>
+                <div className="max-w-6xl mx-auto">
+                   <TeamSection />
+                </div>
             </div>
 
-            {/* Elite Trust Strip */}
+            {/* Elite Trust Strip (Re-integrated) */}
             <AnimatedSection delay={0.6}>
-               <div className="py-12 border-t border-b border-white/5 flex flex-wrap justify-center md:justify-around gap-12 items-center opacity-40 hover:opacity-100 transition-opacity duration-1000">
+               <div className="py-12 border-t border-white/5 flex flex-wrap justify-center md:justify-around gap-12 items-center opacity-40 hover:opacity-100 transition-opacity duration-1000">
                   {[
                     { icon: Zap, text: "1–2 Week Velocity" },
                     { icon: Sparkles, text: "Elite AI Toolstack" },
@@ -504,7 +490,7 @@ export default function HomePage() {
                     { icon: Target, text: "Result-First Diagnostic" }
                   ].map((item, ii) => (
                     <div key={ii} className="flex items-center gap-4 group">
-                       <item.icon className="w-5 h-5 text-white/40 group-hover:text-[#C1FF00] transition-colors" />
+                       <item.icon className="w-5 h-5 text-white/40 group-hover:text-[#ccff00] transition-colors" />
                        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white font-bold">{item.text}</span>
                     </div>
                   ))}
@@ -528,7 +514,7 @@ export default function HomePage() {
               <span className="font-mono text-[10px] uppercase tracking-widest text-cyan-400 font-bold">The Process</span>
             </div>
             <h2 className="text-[2.2rem] md:text-[3.5rem] lg:text-[4.5rem] font-heading font-black leading-none tracking-tighter uppercase mb-6">
-              FROM IDEA TO LAUNCH IN <span className="gradient-text italic text-[#0ea5e9]">3 SIMPLE STEPS</span>
+              FROM IDEA TO LAUNCH IN <span className="italic text-[#0ea5e9]">3 SIMPLE STEPS</span>
             </h2>
             <p className="font-mono text-sm md:text-base text-white/40 uppercase tracking-[0.2em] max-w-2xl mx-auto">
               No technical knowledge needed. No confusing jargon. Just results.
@@ -664,7 +650,7 @@ export default function HomePage() {
             <p className="font-mono text-sm text-white/40 uppercase tracking-[0.2em] mb-8">Ready to start? Book your free call today</p>
             <Link 
               href="/contact"
-              className="group relative inline-flex items-center gap-4 px-12 py-6 rounded-full bg-[#C1FF00] text-black font-heading font-black text-xl uppercase tracking-tighter hover:scale-105 transition-all duration-300 shadow-[0_0_30px_rgba(193,255,0,0.3)] hover:shadow-[0_0_50px_rgba(193,255,0,0.5)] active:scale-95 overflow-hidden"
+              className="group relative inline-flex items-center gap-4 px-12 py-6 rounded-full bg-[#ccff00] text-black font-heading font-black text-xl uppercase tracking-tighter hover:scale-105 transition-all duration-300 shadow-[0_0_30px_rgba(204,255,0,0.3)] hover:shadow-[0_0_50px_rgba(204,255,0,0.5)] active:scale-95 overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
               <span>BOOK FREE CALL</span>
@@ -698,7 +684,7 @@ export default function HomePage() {
               <span className="font-mono text-xs uppercase tracking-widest text-[#0ea5e9]">Client Results</span>
             </div>
             <h2 className="text-[2rem] md:text-[3rem] lg:text-[3.8rem] font-heading font-black leading-none tracking-tighter uppercase mb-4">
-              WHAT OUR <span className="gradient-text italic text-[#0ea5e9]">CLIENTS SAY</span>
+              WHAT OUR <span className="italic text-[#0ea5e9]">CLIENTS SAY</span>
             </h2>
             <p className="font-mono text-sm text-white/30 uppercase tracking-[0.2em] max-w-lg mx-auto">
               We are just getting started — your testimonial could be here.

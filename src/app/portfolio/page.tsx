@@ -40,7 +40,7 @@ export default function PortfolioPage() {
       <section className="relative pt-32 pb-20 overflow-hidden min-h-[70vh] flex flex-col justify-center cursor-default">
         {/* Immersive Atmosphere */}
         <div className="absolute inset-0 bg-black z-0" />
-        <div className="absolute top-0 right-[-10%] w-[1000px] h-[1000px] bg-[#00d4ff]/[0.05] rounded-full blur-[150px] pointer-events-none" />
+        <div className="absolute top-0 right-[-10%] w-[1000px] h-[1000px] bg-[#0066ff]/[0.05] rounded-full blur-[150px] pointer-events-none" />
 
         <div className="max-w-[1550px] mx-auto px-6 relative z-10 w-full text-center lg:text-left">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -51,14 +51,14 @@ export default function PortfolioPage() {
               className="lg:col-span-7"
             >
               <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full glass-premium border-white/10 mb-8 magnetic-wrap">
-                <span className="w-2 h-2 bg-[#00ff9d] rounded-full animate-pulse-glow" />
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[#00ff9d] glow-green">
+                <span className="w-2 h-2 bg-[#ccff00] rounded-full animate-pulse" />
+                <span className="font-mono text-[10px] uppercase tracking-widest text-[#ccff00]">
                   Project Archive // Active
                 </span>
               </div>
-              <h1 className="text-[4.5rem] md:text-[6.5rem] lg:text-[8rem] font-heading font-black leading-[0.8] tracking-tighter mb-8 text-white uppercase glow-white">
+              <h1 className="text-[4.5rem] md:text-[6.5rem] lg:text-[8rem] font-heading font-black leading-[0.8] tracking-tighter mb-8 text-white uppercase">
                 DIGITAL<br />
-                <span className="glow-cyan italic">FUTURES</span>
+                <span className="italic text-[#0066ff]">FUTURES</span>
               </h1>
               <TypewriterSubline 
                 phrases={[
@@ -103,7 +103,7 @@ export default function PortfolioPage() {
                 onClick={() => setActiveFilter(cat)}
                 className={`px-6 py-2.5 rounded-full text-[0.7rem] font-mono uppercase tracking-widest transition-all duration-300 ${
                   activeFilter === cat
-                    ? 'bg-[#00ff9d] text-black shadow-[0_0_20px_rgba(0,255,157,0.3)] font-black'
+                    ? 'bg-[#ccff00] text-black shadow-[0_0_20px_rgba(204,255,0,0.3)] font-black'
                     : 'bg-white/5 border border-white/10 text-white/60 hover:bg-white/10 hover:text-white'
                 }`}
               >
@@ -143,10 +143,10 @@ export default function PortfolioPage() {
                     </div>
 
                     {/* Hover Glow Light */}
-                    <div className="absolute -inset-20 bg-[#00d4ff]/10 blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0" />
+                    <div className="absolute -inset-20 bg-[#0066ff]/10 blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0" />
 
                     {/* Badge */}
-                    <div className="absolute top-4 left-4 z-30 px-3 py-1 rounded-full bg-[#00d4ff]/10 border border-[#00d4ff]/20 text-[9px] font-mono text-[#00d4ff] uppercase tracking-widest backdrop-blur-md glow-cyan">
+                    <div className="absolute top-4 left-4 z-30 px-3 py-1 rounded-full bg-[#0066ff]/10 border border-[#0066ff]/20 text-[9px] font-mono text-[#0066ff] uppercase tracking-widest backdrop-blur-md">
                       {project.type}
                     </div>
 
@@ -162,12 +162,12 @@ export default function PortfolioPage() {
                             </span>
                           ))}
                         </div>
-                        <div className="magnetic-wrap w-10 h-10 rounded-full border border-white/10 flex items-center justify-center bg-black/40 text-white/40 group-hover:bg-[#00d4ff] group-hover:text-black group-hover:border-[#00d4ff] transition-all duration-500 scale-0 group-hover:scale-100 shadow-[0_0_30px_rgba(0,212,255,0.4)]">
+                        <div className="magnetic-wrap w-10 h-10 rounded-full border border-white/10 flex items-center justify-center bg-black/40 text-white/40 group-hover:bg-[#0066ff] group-hover:text-black group-hover:border-[#0066ff] transition-all duration-500 scale-0 group-hover:scale-100 shadow-[0_0_30px_rgba(0,102,255,0.4)]">
                           <ArrowUpRight className="w-5 h-5" />
                         </div>
                       </div>
                       
-                      <h3 className={`font-heading font-black mb-3 text-white group-hover:text-[#00d4ff] transition-colors uppercase tracking-tighter glow-white ${
+                      <h3 className={`font-heading font-black mb-3 text-white group-hover:text-[#0066ff] transition-colors uppercase tracking-tighter ${
                         project.size?.includes('row-span-2') ? 'text-4xl' : 'text-2xl'
                       }`}>
                         {project.title}
@@ -190,13 +190,13 @@ export default function PortfolioPage() {
       <section className="py-32 relative bg-black border-t border-white/5">
         <div className="max-w-[1550px] mx-auto px-6 text-center relative z-10">
           <AnimatedSection>
-            <h2 className="text-[3.5rem] md:text-[5.5rem] font-heading font-black tracking-tighter mb-8 text-white uppercase glow-white">
-              WANT RESULTS <span className="glow-cyan italic">LIKE THESE?</span>
+            <h2 className="text-[3.5rem] md:text-[5.5rem] font-heading font-black tracking-tighter mb-8 text-white uppercase">
+              WANT RESULTS <span className="italic text-[#0066ff]">LIKE THESE?</span>
             </h2>
-            <p className="font-mono text-[0.7rem] text-white/40 uppercase tracking-[0.3em] max-w-xl mx-auto mb-12 glow-white">
+            <p className="font-mono text-[0.7rem] text-white/40 uppercase tracking-[0.3em] max-w-xl mx-auto mb-12">
               Let&apos;s build your next digital product.
             </p>
-            <Link href="/contact" className="group px-12 py-6 rounded-2xl text-[0.9rem] font-heading font-black uppercase tracking-[0.15em] bg-[#00ff9d] text-black shadow-[0_0_40px_rgba(0,255,157,0.3)] hover:scale-[1.05] transition-all duration-300 inline-flex items-center gap-4">
+            <Link href="/contact" className="group px-12 py-6 rounded-2xl text-[0.9rem] font-heading font-black uppercase tracking-[0.15em] bg-[#ccff00] text-black shadow-[0_0_40px_rgba(204,255,0,0.3)] hover:scale-[1.05] transition-all duration-300 inline-flex items-center gap-4">
               Start Your Project <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </AnimatedSection>

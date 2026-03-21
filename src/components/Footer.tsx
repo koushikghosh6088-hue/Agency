@@ -39,7 +39,7 @@ export default function Footer() {
           <div className="lg:col-span-4">
              <Link href="/" className="flex items-center gap-3 group mb-6 inline-flex">
               <div className="relative w-10 h-10 flex items-center justify-center">
-                <div className="absolute inset-0 bg-blue-400/20 blur-lg rounded-full" />
+                <div className="absolute inset-0 bg-[#0066ff]/20 blur-lg rounded-full" />
                 <Image 
                   src="/logo.png" 
                   alt="Vedastra Logo" 
@@ -50,14 +50,14 @@ export default function Footer() {
                   className="relative z-10 w-auto h-8 object-contain brightness-110"
                 />
               </div>
-              <span className="font-heading font-black text-2xl tracking-tight uppercase glow-green">VEDASTRA</span>
+              <span className="font-heading font-black text-2xl tracking-tighter uppercase text-white">VEDASTRA</span>
             </Link>
             <p className="text-white/50 text-sm leading-relaxed max-w-sm mb-8 font-body">
               We build websites, apps, and AI tools that help businesses grow faster and work smarter.
             </p>
             <div className="flex gap-4">
               {[Twitter, Github, Linkedin].map((Icon, i) => (
-                <a key={i} href="#" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:bg-blue-400 hover:text-black hover:border-blue-400 transition-all duration-300">
+                <a key={i} href="#" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:bg-[#0066ff] hover:text-white hover:border-[#0066ff] transition-all duration-300">
                   <Icon className="w-4 h-4" />
                 </a>
               ))}
@@ -65,7 +65,7 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-2 lg:col-start-7">
-            <h4 className="text-[0.75rem] font-heading font-bold mb-6 uppercase tracking-[0.15em] glow-green">Services</h4>
+            <h4 className="text-[0.75rem] font-heading font-black mb-6 uppercase tracking-[0.15em] text-[#ccff00]">Services</h4>
             <ul className="space-y-4">
               {footerLinks.services.map((link) => (
                 <li key={link.label}>
@@ -79,7 +79,7 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-2">
-            <h4 className="text-[0.75rem] font-heading font-bold mb-6 uppercase tracking-[0.15em] glow-green">Company</h4>
+            <h4 className="text-[0.75rem] font-heading font-black mb-6 uppercase tracking-[0.15em] text-[#ccff00]">Company</h4>
             <ul className="space-y-4">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
@@ -93,7 +93,7 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-2">
-            <h4 className="text-[0.75rem] font-heading font-bold mb-6 uppercase tracking-[0.15em] glow-green">Contact</h4>
+            <h4 className="text-[0.75rem] font-heading font-black mb-6 uppercase tracking-[0.15em] text-[#ccff00]">Contact</h4>
             <ul className="space-y-4">
               <li>
                 <a href="mailto:hello@vedastraai.com" className="text-white/70 text-sm font-body hover:text-white transition-colors flex items-center gap-2">
@@ -115,9 +115,9 @@ export default function Footer() {
             © 2026 VEDASTRA AI LABS. ALL RIGHTS RESERVED.
           </p>
           <div className="flex gap-6 font-mono text-[0.65rem] uppercase tracking-[0.08em]">
-            <Link href="/privacy-policy" className="text-white/30 hover:text-blue-400 transition-colors">Privacy Policy</Link>
-            <Link href="/terms-of-service" className="text-white/30 hover:text-blue-400 transition-colors">Terms of Service</Link>
-            <Link href="/refund-policy" className="text-white/30 hover:text-blue-400 transition-colors">Refund Policy</Link>
+            <Link href="/privacy-policy" className="text-white/30 hover:text-[#0066ff] transition-colors">Privacy Policy</Link>
+            <Link href="/terms-of-service" className="text-white/30 hover:text-[#0066ff] transition-colors">Terms of Service</Link>
+            <Link href="/refund-policy" className="text-white/30 hover:text-[#0066ff] transition-colors">Refund Policy</Link>
           </div>
         </div>
       </div>

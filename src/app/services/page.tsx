@@ -79,7 +79,7 @@ export default function ServicesPage() {
       <section className="relative pt-32 pb-20 overflow-hidden min-h-[70vh] flex flex-col justify-center cursor-default">
         {/* Immersive Atmosphere */}
         <div className="absolute inset-0 bg-black z-0" />
-        <div className="absolute top-0 left-[-10%] w-[1000px] h-[1000px] bg-blue-400/[0.05] rounded-full blur-[150px] pointer-events-none" />
+        <div className="absolute top-0 left-[-10%] w-[1000px] h-[1000px] bg-[#0066ff]/[0.05] rounded-full blur-[150px] pointer-events-none" />
 
         <div className="max-w-[1550px] mx-auto px-6 relative z-10 w-full text-center lg:text-left">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -89,15 +89,15 @@ export default function ServicesPage() {
               transition={{ duration: 0.8 }}
               className="lg:col-span-7"
             >
-              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full glass-premium border-blue-400/20 mb-8 magnetic-wrap">
-                <span className="w-2 h-2 bg-[#00ff9d] rounded-full animate-pulse-glow" />
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[#00ff9d]">
+              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full glass-premium border-[#0066ff]/20 mb-8 magnetic-wrap">
+                <span className="w-2 h-2 bg-[#ccff00] rounded-full animate-pulse-glow" />
+                <span className="font-mono text-[10px] uppercase tracking-widest text-[#ccff00]">
                   Engineering Protocol // Active
                 </span>
               </div>
-              <h1 className="text-[3rem] md:text-[4.5rem] lg:text-[5.2rem] font-heading font-black leading-[0.95] tracking-tighter mb-8 glow-white uppercase">
+              <h1 className="text-[3rem] md:text-[4.5rem] lg:text-[5.2rem] font-heading font-black leading-[0.95] tracking-tighter mb-8 text-white uppercase">
                 SOLUTIONS<br />
-                <span className="glow-green italic">ENGINEERED</span>
+                <span className="italic text-[#ccff00]">ENGINEERED</span>
               </h1>
               <TypewriterSubline 
                 phrases={[
@@ -128,7 +128,7 @@ export default function ServicesPage() {
               <View className="w-full h-full">
                 <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={45} />
                 <ambientLight intensity={0.5} />
-                <directionalLight position={[10, 10, 5]} intensity={2} color="#00ff9d" />
+                <directionalLight position={[10, 10, 5]} intensity={2} color="#ccff00" />
                 <Environment preset="city" />
                 <PresentationControls 
                   global 
@@ -162,7 +162,7 @@ export default function ServicesPage() {
                     <span className="text-[0.65rem] font-mono uppercase tracking-[0.15em] text-[#888888]">Module_{i+1}</span>
                   </div>
                   
-                  <h2 className={`text-3xl md:text-4xl lg:text-5xl font-heading font-black mb-6 uppercase tracking-tighter ${service.accent ? 'glow-cyan' : 'text-white'}`}>
+                  <h2 className={`text-3xl md:text-4xl lg:text-5xl font-heading font-black mb-6 uppercase tracking-tighter ${service.accent ? 'text-[#0066ff]' : 'text-white'}`}>
                     {service.title}
                   </h2>
                   <p className="text-[#888888] font-body text-base md:text-lg leading-relaxed mb-8">
@@ -172,8 +172,8 @@ export default function ServicesPage() {
                   <div className="space-y-4 mb-10">
                     {service.benefits.map((benefit) => (
                       <div key={benefit} className="flex items-center gap-4">
-                        <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${service.accent ? 'bg-[#00d4ff]' : 'bg-white/10'}`}>
-                          <CheckCircle2 className={`w-3 h-3 ${service.accent ? 'text-black' : 'text-[#00ff9d]'}`} />
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${service.accent ? 'bg-[#0066ff]' : 'bg-white/10'}`}>
+                          <CheckCircle2 className={`w-3 h-3 ${service.accent ? 'text-black' : 'text-[#ccff00]'}`} />
                         </div>
                         <span className="text-white/80 font-mono text-[0.7rem] uppercase tracking-[0.1em]">{benefit}</span>
                       </div>
@@ -181,7 +181,7 @@ export default function ServicesPage() {
                   </div>
 
                   <Link href="/contact" className={`group relative overflow-hidden px-10 py-5 rounded-full text-[0.8rem] font-heading font-black uppercase tracking-[0.12em] transition-all duration-300 inline-flex items-center gap-2 ${
-                    service.accent ? 'bg-[#00d4ff] text-black shadow-[0_0_30px_rgba(0,212,255,0.2)] hover:scale-105' : 'bg-white/5 border border-white/10 text-white hover:bg-white/10 hover:border-[#00d4ff]/40'
+                    service.accent ? 'bg-[#0066ff] text-black shadow-[0_0_30px_rgba(0,102,255,0.2)] hover:scale-105' : 'bg-white/5 border border-white/10 text-white hover:bg-white/10 hover:border-[#0066ff]/40'
                   }`}>
                     Deploy Module <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
@@ -194,7 +194,7 @@ export default function ServicesPage() {
                   className={`lg:col-span-6 ${i % 2 !== 0 ? 'lg:order-1' : ''}`}
                 >
                   <div className={`glass-premium rounded-[3rem] p-10 md:p-14 relative overflow-hidden group min-h-[550px] flex flex-col justify-end hover-3d transition-all duration-700 ${
-                    service.accent ? 'border-[#00d4ff]/30 shadow-[0_0_50px_rgba(0,212,255,0.1)]' : 'border-white/5'
+                    service.accent ? 'border-[#0066ff]/30 shadow-[0_0_50px_rgba(0,102,255,0.1)]' : 'border-white/5'
                   }`}>
                     
                     {/* Floating Image Visual */}
@@ -209,7 +209,7 @@ export default function ServicesPage() {
                           className="object-contain drop-shadow-[0_20px_50px_rgba(0,212,255,0.3)]"
                         />
                         {/* Recursive scanning light effect */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#00d4ff]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 mix-blend-screen" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0066ff]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 mix-blend-screen" />
                       </div>
                     </div>
 
@@ -217,23 +217,23 @@ export default function ServicesPage() {
                     <motion.div 
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      className="absolute top-10 right-10 glass-premium px-6 py-4 rounded-2xl border-[#00d4ff]/20 animate-float backdrop-blur-2xl z-20"
+                      className="absolute top-10 right-10 glass-premium px-6 py-4 rounded-2xl border-[#0066ff]/20 animate-float backdrop-blur-2xl z-20"
                     >
                       <p className="font-mono text-[0.6rem] text-[#888888] mb-1 uppercase tracking-[0.1em]">{service.metricLabel}</p>
-                      <p className="text-white font-heading font-black tracking-tight text-2xl glow-white">{service.metric}</p>
+                      <p className="text-white font-heading font-black tracking-tight text-2xl">{service.metric}</p>
                     </motion.div>
 
                     {/* Features list overlay at bottom */}
                     <div className="relative z-20 glass-premium px-8 py-8 rounded-[2.5rem] w-full max-w-[320px] ml-auto backdrop-blur-2xl border-white/10 mt-auto shadow-2xl">
                       <div className="flex items-center justify-between mb-6 border-b border-white/5 pb-4">
                         <h3 className="text-[0.65rem] font-mono uppercase text-[#888888] tracking-[0.15em]">{service.title} // CORE</h3>
-                        <service.icon className={`w-5 h-5 ${service.accent ? 'text-[#00d4ff]' : 'text-white/40'}`} />
+                        <service.icon className={`w-5 h-5 ${service.accent ? 'text-[#0066ff]' : 'text-white/40'}`} />
                       </div>
                       <div className="space-y-3">
                         {service.features.map((feature, idx) => (
                           <div key={feature} className="flex justify-between items-center text-[0.65rem] font-mono group-hover:pl-2 transition-all duration-300">
-                            <span className="text-[#888888] group-hover:text-[#00d4ff] transition-colors uppercase tracking-wider">{feature}</span>
-                            <div className="w-1 h-1 rounded-full bg-[#00d4ff]/50" />
+                            <span className="text-[#888888] group-hover:text-[#0066ff] transition-colors uppercase tracking-wider">{feature}</span>
+                            <div className="w-1 h-1 rounded-full bg-[#0066ff]/50" />
                           </div>
                         ))}
                       </div>
@@ -256,10 +256,10 @@ export default function ServicesPage() {
         <div className="max-w-[1550px] mx-auto px-6 text-center relative z-10">
           <AnimatedSection>
             <div className="inline-flex items-center justify-center p-6 rounded-full glass mb-8 animate-float">
-                <Cog className="w-8 h-8 text-[#00d4ff]" />
+                <Cog className="w-8 h-8 text-[#0066ff]" />
             </div>
-            <h2 className="text-[2.5rem] md:text-[3.8rem] font-heading font-black tracking-tighter mb-6 uppercase glow-white">
-              READY TO <span className="glow-cyan italic">BUILD?</span>
+            <h2 className="text-[2.5rem] md:text-[3.8rem] font-heading font-black tracking-tighter mb-6 uppercase text-white">
+              READY TO <span className="italic text-[#0066ff]">BUILD?</span>
             </h2>
             <p className="font-mono text-[0.7rem] text-[#888888] uppercase tracking-[0.15em] max-w-xl mx-auto mb-10">
               Tell us what you need and we&apos;ll give you a free quote within 24 hours.

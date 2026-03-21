@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
-import { Mail, Phone, MapPin, Send, MessageSquare, Terminal } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, MessageSquare } from 'lucide-react';
 import Image from 'next/image';
 import AnimatedSection from '@/components/AnimatedSection';
 import TypewriterSubline from '@/components/TypewriterSubline';
@@ -30,7 +30,7 @@ export default function ContactPage() {
       <section className="relative pt-32 pb-20 overflow-hidden min-h-[70vh] flex flex-col justify-center cursor-default">
         {/* Immersive Atmosphere */}
         <div className="absolute inset-0 bg-black z-0" />
-        <div className="absolute top-0 right-[-10%] w-[1000px] h-[1000px] bg-blue-400/[0.05] rounded-full blur-[150px] pointer-events-none" />
+        <div className="absolute top-0 right-[-10%] w-[1000px] h-[1000px] bg-[#0066ff]/[0.05] rounded-full blur-[150px] pointer-events-none" />
 
         <div className="max-w-[1550px] mx-auto px-6 relative z-10 w-full text-center lg:text-left">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -38,16 +38,16 @@ export default function ContactPage() {
               initial={{ opacity: 0, x: -30 }} 
               animate={{ opacity: 1, x: 0 }} 
               transition={{ duration: 0.8 }}
-              className="lg:col-span-7"
+              className="lg:col-span-12"
             >
-              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full glass-premium border-blue-400/20 mb-8 magnetic-wrap">
-                <span className="w-2 h-2 bg-[#00ff9d] rounded-full animate-pulse-glow" />
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[#00ff9d]">
+              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full glass-premium border-[#0066ff]/20 mb-8 magnetic-wrap">
+                <span className="w-2 h-2 bg-[#ccff00] rounded-full animate-pulse shadow-[0_0_10px_rgba(204,255,0,0.5)]" />
+                <span className="font-mono text-[10px] uppercase tracking-widest text-[#ccff00]">
                   Secure Channel // Active
                 </span>
               </div>
-              <h1 className="text-[4.5rem] md:text-[6.5rem] lg:text-[8rem] font-heading font-black leading-[0.95] tracking-tighter mb-8 text-white uppercase glow-white">
-                INITIATE <br/><span className="glow-cyan italic">CONNECTION</span>
+              <h1 className="text-[4.5rem] md:text-[6.5rem] lg:text-[8rem] font-heading font-black leading-[0.95] tracking-tighter mb-8 text-white uppercase">
+                INITIATE <br/><span className="italic text-[#0066ff]">CONNECTION</span>
               </h1>
               <TypewriterSubline 
                 phrases={[
@@ -59,49 +59,30 @@ export default function ContactPage() {
                 className="mb-10 text-xl md:text-2xl justify-center lg:justify-start font-body font-medium text-white/80"
               />
             </motion.div>
-
-            {/* Interactive Hero Visual Piece */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.2 }}
-              className="lg:col-span-1 h-[300px] relative hidden lg:flex items-center justify-center"
-            >
-              <div className="relative w-full aspect-square max-w-[280px]">
-                <Image
-                  src="/3d-icons/contact_hero.png"
-                  alt="Contact Protocol"
-                  fill
-                  loading="lazy"
-                  sizes="280px"
-                  className="object-contain drop-shadow-[0_20px_60px_rgba(0,212,255,0.4)]"
-                />
-              </div>
-            </motion.div>
           </div>
         </div>
       </section>
 
-      <section className="py-24 relative bg-obsidian">
+      <section className="py-24 relative bg-black">
         <div className="max-w-[1550px] mx-auto px-6 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
             
             {/* Contact Info & 3D Interactive Terminal */}
             <div className="lg:col-span-5 space-y-12">
               <AnimatedSection>
-                <h2 className="text-4xl font-heading font-black mb-12 text-white uppercase tracking-tighter glow-white">Transmission <span className="glow-cyan italic">Vectors</span></h2>
+                <h2 className="text-4xl font-heading font-black mb-12 text-white uppercase tracking-tighter">Transmission <span className="italic text-[#0066ff]">Vectors</span></h2>
                 <div className="space-y-6">
                   {[
                     { icon: Mail, label: 'Email Protocol', value: 'hello@vedastraai.com', href: 'mailto:hello@vedastraai.com' },
                     { icon: Phone, label: 'Voice Link', value: '+91 70033 83676 / +91 80176 83428', href: 'tel:+917003383676' },
                     { icon: MapPin, label: 'Physical Hub', value: 'India', href: '#' },
                   ].map((item) => (
-                    <a key={item.label} href={item.href} className="flex items-start gap-6 group glass-premium p-6 rounded-3xl transition-all duration-500 hover-3d border-white/5 hover:border-[#00d4ff]/30 magnetic-wrap">
-                      <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-[#00d4ff] group-hover:text-black group-hover:shadow-[0_0_30px_rgba(0,212,255,0.5)] transition-all duration-500">
+                    <a key={item.label} href={item.href} className="flex items-start gap-6 group glass-premium p-6 rounded-3xl transition-all duration-500 hover-3d border-white/5 hover:border-[#0066ff]/30 magnetic-wrap">
+                      <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-[#0066ff] group-hover:text-white group-hover:shadow-[0_0_30px_rgba(0,102,255,0.5)] transition-all duration-500">
                         <item.icon className="w-6 h-6" />
                       </div>
                       <div>
-                        <div className="text-[0.65rem] font-mono uppercase tracking-[0.15em] text-[#888888] mb-2 group-hover:text-[#00d4ff] transition-colors">{item.label}</div>
+                        <div className="text-[0.65rem] font-mono uppercase tracking-[0.15em] text-[#888888] mb-2 group-hover:text-[#0066ff] transition-colors">{item.label}</div>
                         <div className="text-white font-black font-heading uppercase tracking-tight group-hover:text-white transition-colors">{item.value}</div>
                       </div>
                     </a>
@@ -111,17 +92,17 @@ export default function ContactPage() {
               
               {/* 3D Decor Element */}
               <AnimatedSection delay={0.2} className="hidden lg:block relative h-[350px] rounded-[3rem] glass-premium border-white/10 overflow-hidden group hover-3d transition-all duration-700">
-                <div className="absolute inset-0 bg-gradient-to-t from-[#00d4ff]/5 to-transparent pointer-events-none z-10" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0066ff]/5 to-transparent pointer-events-none z-10" />
                 <div className="absolute top-8 left-8 z-20 flex items-center gap-3">
-                  <div className="w-2 h-2 rounded-full bg-[#00ff9d] animate-pulse-glow" />
-                  <span className="text-[10px] font-mono text-white/50 uppercase tracking-[0.3em] glow-green">Awaiting Signal Input</span>
+                  <div className="w-2 h-2 rounded-full bg-[#ccff00] animate-pulse shadow-[0_0_10px_rgba(204,255,0,0.5)]" />
+                  <span className="text-[10px] font-mono text-white/50 uppercase tracking-[0.3em]">Awaiting Signal Input</span>
                 </div>
                 
                 <div className="absolute inset-0 z-0 opacity-60 mix-blend-screen pointer-events-auto">
                     <View className="w-full h-full">
                       <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={50} />
                       <ambientLight intensity={0.5} />
-                      <directionalLight position={[2, 5, 2]} intensity={2} color="#00d4ff" />
+                      <directionalLight position={[2, 5, 2]} intensity={2} color="#0066ff" />
                       <Environment preset="studio" />
                       <PresentationControls 
                         global 
@@ -144,27 +125,27 @@ export default function ContactPage() {
                   <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.2)_50%)] bg-[length:100%_4px] opacity-20 pointer-events-none" />
                   
                   <div className="flex items-center gap-4 mb-12 pb-8 border-b border-white/10 relative z-10">
-                    <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-[#00d4ff] group-hover:text-black group-hover:shadow-[0_0_30px_rgba(0,212,255,0.5)] transition-all">
+                    <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-[#0066ff] group-hover:text-white group-hover:shadow-[0_0_30px_rgba(0,102,255,0.5)] transition-all">
                       <MessageSquare className="w-6 h-6" />
                     </div>
                     <div>
-                      <h2 className="text-3xl font-heading font-black text-white uppercase tracking-tighter glow-white">Project <span className="glow-cyan italic">Scope</span></h2>
+                      <h2 className="text-3xl font-heading font-black text-white uppercase tracking-tighter">Project <span className="italic text-[#0066ff]">Scope</span></h2>
                       <p className="text-[0.65rem] font-mono text-[#888888] uppercase tracking-[0.15em]">Submit Parameters // 2hr Response Time</p>
                     </div>
                   </div>
 
                   {formState === 'success' ? (
                     <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-20 relative z-10">
-                      <div className="w-20 h-20 rounded-full bg-[#00d4ff]/10 flex items-center justify-center mx-auto mb-6 border border-[#00d4ff]/30">
+                      <div className="w-20 h-20 rounded-full bg-[#0066ff]/10 flex items-center justify-center mx-auto mb-6 border border-[#0066ff]/30">
                         <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.2, type: 'spring' }}>
-                          <Send className="w-10 h-10 text-[#00d4ff]" />
+                          <Send className="w-10 h-10 text-[#0066ff]" />
                         </motion.div>
                       </div>
-                      <h3 className="text-3xl font-heading font-black mb-4 text-white uppercase glow-white">Transmission Confirmed</h3>
+                      <h3 className="text-3xl font-heading font-black mb-4 text-white uppercase">Transmission Confirmed</h3>
                       <p className="text-[#888888] font-body text-base max-w-sm mx-auto">
                         Your data packet has been received by our terminal. A lead architect will contact you shortly.
                       </p>
-                      <button onClick={() => setFormState('idle')} className="mt-8 text-[#00d4ff] font-mono text-sm hover:text-white transition-colors underline decoration-[#00d4ff]/30 underline-offset-4 uppercase tracking-[0.1em]">
+                      <button onClick={() => setFormState('idle')} className="mt-8 text-[#0066ff] font-mono text-sm hover:text-white transition-colors underline decoration-[#0066ff]/30 underline-offset-4 uppercase tracking-[0.1em]">
                         Initialize New Request
                       </button>
                     </motion.div>
@@ -176,7 +157,7 @@ export default function ContactPage() {
                           <input
                             type="text"
                             required
-                            className="w-full bg-black/50 border border-white/10 rounded-2xl px-5 py-4 text-white font-mono text-[0.7rem] focus:outline-none focus:border-[#00d4ff] focus:ring-1 focus:ring-[#00d4ff]/50 transition-all placeholder:text-[#888888]/30 uppercase tracking-[0.05em]"
+                            className="w-full bg-black/50 border border-white/10 rounded-2xl px-5 py-4 text-white font-mono text-[0.7rem] focus:outline-none focus:border-[#0066ff] focus:ring-1 focus:ring-[#0066ff]/50 transition-all placeholder:text-[#888888]/30 uppercase tracking-[0.05em]"
                             placeholder="OPERATOR_NAME"
                           />
                         </div>
@@ -185,7 +166,7 @@ export default function ContactPage() {
                           <input
                             type="email"
                             required
-                            className="w-full bg-black/50 border border-white/10 rounded-2xl px-5 py-4 text-white font-mono text-[0.7rem] focus:outline-none focus:border-[#00d4ff] focus:ring-1 focus:ring-[#00d4ff]/50 transition-all placeholder:text-[#888888]/30 uppercase tracking-[0.05em]"
+                            className="w-full bg-black/50 border border-white/10 rounded-2xl px-5 py-4 text-white font-mono text-[0.7rem] focus:outline-none focus:border-[#0066ff] focus:ring-1 focus:ring-[#0066ff]/50 transition-all placeholder:text-[#888888]/30 uppercase tracking-[0.05em]"
                             placeholder="COMM_LINK@IO.GLOBAL"
                           />
                         </div>
@@ -193,7 +174,7 @@ export default function ContactPage() {
 
                       <div className="space-y-2">
                         <label className="text-[0.65rem] font-mono text-[#888888] uppercase tracking-[0.15em] block ml-2">Project Category</label>
-                        <select className="w-full bg-black/50 border border-white/10 rounded-2xl px-5 py-4 text-white font-mono text-[0.7rem] focus:outline-none focus:border-[#00d4ff] focus:ring-1 focus:ring-[#00d4ff]/50 transition-all appearance-none cursor-pointer uppercase tracking-[0.05em]">
+                        <select className="w-full bg-black/50 border border-white/10 rounded-2xl px-5 py-4 text-white font-mono text-[0.7rem] focus:outline-none focus:border-[#0066ff] focus:ring-1 focus:ring-[#0066ff]/50 transition-all appearance-none cursor-pointer uppercase tracking-[0.05em]">
                           <option className="bg-black text-white">Web Architecture</option>
                           <option className="bg-black text-white">Autonomous AI Agent</option>
                           <option className="bg-black text-white">Workflow Automation</option>
@@ -207,7 +188,7 @@ export default function ContactPage() {
                         <textarea
                           required
                           rows={6}
-                          className="w-full bg-black/50 border border-white/10 rounded-2xl px-5 py-4 text-white font-mono text-[0.7rem] focus:outline-none focus:border-[#00d4ff] focus:ring-1 focus:ring-[#00d4ff]/50 transition-all resize-none placeholder:text-[#888888]/30 uppercase tracking-[0.05em]"
+                          className="w-full bg-black/50 border border-white/10 rounded-2xl px-5 py-4 text-white font-mono text-[0.7rem] focus:outline-none focus:border-[#0066ff] focus:ring-1 focus:ring-[#0066ff]/50 transition-all resize-none placeholder:text-[#888888]/30 uppercase tracking-[0.05em]"
                           placeholder="Detail your operational parameters here..."
                         />
                       </div>
@@ -218,7 +199,7 @@ export default function ContactPage() {
                         className={`w-full py-5 rounded-2xl font-heading font-black tracking-[0.12em] uppercase transition-all flex items-center justify-center gap-3 text-[0.8rem] ${
                           formState === 'submitting'
                             ? 'bg-white/10 text-[#888888] cursor-not-allowed'
-                            : 'bg-[#00d4ff] text-black shadow-[0_0_30px_rgba(0,212,255,0.2)] hover:scale-[1.02]'
+                            : 'bg-[#ccff00] text-black shadow-[0_0_30px_rgba(204,255,0,0.2)] hover:scale-[1.02]'
                         }`}
                       >
                         {formState === 'submitting' ? (
@@ -245,8 +226,8 @@ export default function ContactPage() {
       <section className="py-16 bg-black border-t border-white/5">
         <div className="max-w-xl mx-auto px-6 text-center">
           <AnimatedSection>
-            <h3 className="text-2xl md:text-3xl font-heading font-black text-white uppercase tracking-tighter mb-4 glow-white">
-              PREFER TO BOOK A <span className="glow-cyan italic">CALL DIRECTLY?</span>
+            <h3 className="text-2xl md:text-3xl font-heading font-black text-white uppercase tracking-tighter mb-4">
+              PREFER TO BOOK A <span className="italic text-[#0066ff]">CALL DIRECTLY?</span>
             </h3>
             <p className="text-[#888888] font-body text-base mb-8">
               Skip the form — schedule a free 30-minute strategy call at a time that works for you.
@@ -254,7 +235,7 @@ export default function ContactPage() {
             <a href="#" className="btn-primary inline-flex items-center gap-2 px-10 py-5 font-heading font-black uppercase tracking-[0.1em] text-[0.8rem]">
               📞 Book a Free 30-Min Call
             </a>
-            <p className="mt-8 text-[#00ff9d] font-mono text-[0.65rem] uppercase tracking-[0.2em] glow-green">
+            <p className="mt-8 text-[#ccff00] font-mono text-[0.65rem] uppercase tracking-[0.2em]">
               ⚡ Response_Latency: &lt; 2 Hours
             </p>
           </AnimatedSection>

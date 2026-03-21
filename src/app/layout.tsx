@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, JetBrains_Mono, Orbitron } from "next/font/google";
+import { Outfit, Geist_Mono, Orbitron } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -19,16 +19,16 @@ const orbitron = Orbitron({
   display: 'swap',
 });
 
-const spaceGrotesk = Space_Grotesk({
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  variable: "--font-outfit",
   weight: ["300", "400", "500", "700"],
   display: 'swap',
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const geistMono = Geist_Mono({
   subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
+  variable: "--font-geist-mono",
   weight: ["400", "700"],
   display: 'swap',
 });
@@ -44,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${orbitron.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${orbitron.variable} ${outfit.variable} ${geistMono.variable}`}>
       <body className="bg-black text-white font-body antialiased min-h-screen">
         <Preloader />
         <CustomCursor />

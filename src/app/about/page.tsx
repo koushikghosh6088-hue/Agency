@@ -168,27 +168,82 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team Section — Honest */}
-      <section className="py-24 md:py-32 bg-obsidian border-t border-white/5 relative overflow-hidden">
-        <div className="max-w-[1000px] mx-auto px-6 relative z-10 text-center">
-          <AnimatedSection>
-            <h2 className="text-[2.2rem] md:text-[3.2rem] font-heading font-black tracking-tighter mb-10 text-white leading-none uppercase glow-white">
-              OUR <span className="glow-green italic">TEAM</span>
+      {/* Team Section — Redesigned with Founders */}
+      <section className="py-24 md:py-40 bg-obsidian relative overflow-hidden">
+        {/* Decorative Background Element */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#ccff00]/[0.03] rounded-full blur-[120px] pointer-events-none" />
+        
+        <div className="max-w-[1200px] mx-auto px-6 relative z-10 text-center">
+          <AnimatedSection className="mb-20">
+            <h2 className="text-[3rem] md:text-[5rem] font-heading font-black tracking-tighter text-white leading-none uppercase glow-white mb-6">
+              THE <span className="glow-green italic text-[#ccff00]">VISIONARIES</span>
             </h2>
-            <div className="glass-panel rounded-[2.5rem] p-8 md:p-12 border-white/10 mx-auto max-w-2xl">
-              <Users className="w-16 h-16 text-[#00ff9d]/20 mx-auto mb-8" />
-              <p className="text-white/80 font-body text-base md:text-lg leading-relaxed mb-10">
-                Our team is small, focused and obsessed with building things that work. No bloated agency overhead — just skilled developers, designers and AI specialists who genuinely care about your results.
-              </p>
-              <div className="flex flex-wrap justify-center gap-3">
-                {['Full-Stack Developers', 'UI/UX Designers', 'AI Engineers', 'Project Managers'].map((role) => (
-                  <span key={role} className="px-5 py-2.5 rounded-full bg-blue-400/5 border border-white/10 text-[#00ff9d] font-mono text-[0.65rem] uppercase tracking-[0.15em]">
-                    {role}
-                  </span>
-                ))}
-              </div>
-            </div>
+            <p className="text-[#888888] font-body text-base md:text-xl max-w-2xl mx-auto leading-relaxed">
+              Meet the minds behind Vedastra AI Labs. We don't just build software — we architect digital futures.
+            </p>
           </AnimatedSection>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center justify-center">
+            {/* Founder 1: Koushik Ghosh */}
+            <AnimatedSection delay={0.2}>
+              <div className="group relative">
+                <div className="relative w-64 h-64 md:w-80 md:h-80 mx-auto mb-8">
+                  {/* Outer Glow Ring */}
+                  <div className="absolute -inset-4 rounded-full bg-gradient-to-tr from-[#ccff00] to-[#0066ff] opacity-20 group-hover:opacity-40 blur-2xl transition-opacity duration-700 animate-pulse-slow" />
+                  
+                  {/* Image Container */}
+                  <div className="relative w-full h-full rounded-full border-2 border-white/10 overflow-hidden glass-premium group-hover:border-[#ccff00]/50 transition-colors duration-500 shadow-2xl">
+                    <Image 
+                      src="/team/koushik.png" 
+                      alt="Koushik Ghosh - Founder & CEO" 
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                  </div>
+                  
+                  {/* Floating Badge */}
+                  <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full bg-black/80 border border-white/10 backdrop-blur-xl z-20 shadow-[0_0_20px_rgba(204,255,0,0.2)]">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#ccff00]">CEO // FOUNDER</span>
+                  </div>
+                </div>
+                
+                <h3 className="text-2xl md:text-3xl font-heading font-black text-white uppercase tracking-tighter mb-2 glow-white">
+                  KOUSHIK <span className="text-[#ccff00] italic">GHOSH</span>
+                </h3>
+                <p className="font-body text-white/40 text-sm uppercase tracking-widest font-medium">Chief Architect & Visionary</p>
+              </div>
+            </AnimatedSection>
+
+            {/* Founder 2: Anirban */}
+            <AnimatedSection delay={0.4}>
+              <div className="group relative">
+                <div className="relative w-64 h-64 md:w-80 md:h-80 mx-auto mb-8">
+                  {/* Outer Glow Ring */}
+                  <div className="absolute -inset-4 rounded-full bg-gradient-to-tl from-[#0066ff] to-[#ccff00] opacity-20 group-hover:opacity-40 blur-2xl transition-opacity duration-700 animate-pulse-slow" />
+                  
+                  {/* Image Container */}
+                  <div className="relative w-full h-full rounded-full border-2 border-white/10 overflow-hidden glass-premium group-hover:border-[#0066ff]/50 transition-colors duration-500 shadow-2xl">
+                    <Image 
+                      src="/team/anirban.png" 
+                      alt="Anirban - Co-Founder & CTO" 
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                  </div>
+                  
+                  {/* Floating Badge */}
+                  <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full bg-black/80 border border-white/10 backdrop-blur-xl z-20 shadow-[0_0_20px_rgba(0,102,255,0.2)]">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#0066ff]">CTO // CO-FOUNDER</span>
+                  </div>
+                </div>
+                
+                <h3 className="text-2xl md:text-3xl font-heading font-black text-white uppercase tracking-tighter mb-2 glow-white">
+                  ANIR<span className="text-[#0066ff] italic">BAN</span>
+                </h3>
+                <p className="font-body text-white/40 text-sm uppercase tracking-widest font-medium">Head of AI Research & Dev</p>
+              </div>
+            </AnimatedSection>
+          </div>
         </div>
       </section>
 
