@@ -1,7 +1,7 @@
 'use client';
 
 import AnimatedSection from '@/components/AnimatedSection';
-import PricingSection from '@/components/PricingSection';
+import FullPricing from '@/components/FullPricing';
 import Link from 'next/link';
 import { ArrowRight, MessageSquare } from 'lucide-react';
 
@@ -30,7 +30,7 @@ export default function PricingPage() {
       </section>
 
       {/* Reuse existing PricingSection */}
-      <PricingSection />
+      <FullPricing />
 
       {/* Bottom CTA */}
       <section className="py-24 bg-black relative overflow-hidden">

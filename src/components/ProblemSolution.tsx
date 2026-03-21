@@ -289,7 +289,7 @@ export default function ProblemSolution() {
                   }`}>
                     {checkedIds.includes(p.id) && <Check className="w-3 h-3 text-black font-bold" />}
                   </div>
-                  <span className={`font-mono text-[9px] md:text-[10px] uppercase tracking-wider text-left line-clamp-1 ${checkedIds.includes(p.id) ? 'text-white' : 'text-white/40'}`}>
+                  <span className={`font-mono text-[8px] sm:text-[10px] uppercase tracking-wider text-left ${checkedIds.includes(p.id) ? 'text-white' : 'text-white/40'}`}>
                     {p.p_title}
                   </span>
                 </button>

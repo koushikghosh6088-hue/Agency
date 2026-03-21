@@ -421,14 +421,14 @@ export default function HomePage() {
         <div className="max-w-[1550px] mx-auto px-6 relative z-10">
           <div className="flex flex-col gap-24">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-               <div className="lg:col-span-12 xl:col-span-10 mx-auto text-center lg:text-left">
+               <div className="lg:col-span-12 xl:col-span-10 mx-auto text-center lg:text-center">
                   <AnimatedSection>
-                     <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full glass-premium border-white/10 mb-10 mx-auto lg:mx-0">
+                     <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full glass-premium border-white/10 mb-10 mx-auto">
                         <span className="w-2 h-2 rounded-full bg-[#0066ff] animate-pulse shadow-[0_0_10px_#0066ff]" />
                         <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/60 font-black">Engineering the Future</span>
                      </div>
                      
-                     <h2 className="text-[3rem] md:text-[5rem] lg:text-[7rem] font-heading font-black leading-[0.85] tracking-[0.02em] uppercase text-white mb-16 max-w-6xl mx-auto lg:mx-0">
+                     <h2 className="text-[2rem] md:text-[5rem] lg:text-[7rem] font-heading font-black leading-[0.85] tracking-[0.02em] uppercase text-white mb-16 max-w-6xl mx-auto">
                         WHERE <span className="italic text-[#0066ff]">ELITE ARCHITECTURE</span> <br/>MEETS <span className="italic text-[#ccff00]">BUSINESS DOMINANCE</span>
                      </h2>
 
@@ -660,8 +660,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 10 — WHY CHOOSE US (MOVED BELOW PROCESS) */}
-      <WhyChooseUs />
 
       {/* 11 — INDUSTRIES WE SERVE */}
       <IndustriesSection />
