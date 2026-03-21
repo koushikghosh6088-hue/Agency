@@ -188,7 +188,7 @@ export default function ProblemSolution() {
               <div className="flex items-center gap-2">
                 <AlertTriangle className="w-4 h-4 text-[#FF2D55] animate-pulse" />
                 <span className="font-mono text-[10px] text-[#FF2D55] font-black uppercase tracking-[0.2em]">
-                  6 Critical Vulnerabilities Detected
+                  4 Critical Vulnerabilities Detected
                 </span>
               </div>
             </div>
