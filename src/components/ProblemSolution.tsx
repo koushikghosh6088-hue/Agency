@@ -1,256 +1,272 @@
 'use client';
 
-import { useState } from 'react';
-import { AlertCircle, ArrowRight, Ban, Gauge, Smartphone, Moon, Cog, Bot, AlertTriangle, Skull, ChevronDown } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { 
+  AlertCircle, ArrowRight, Ban, Smartphone, Moon, Cog, 
+  AlertTriangle, Skull, ChevronDown, Zap, ShieldAlert, 
+  Activity, Clock, PhoneIncoming, MousePointer2 
+} from 'lucide-react';
 import Link from 'next/link';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import AnimatedSection from './AnimatedSection';
 
 const threats = [
   { 
-    title: "NO WEBSITE — OR EMBARRASSINGLY OUTDATED", 
+    title: "OUTDATED OR NO WEBSITE", 
     emoji: "🚫",
     stat: "3s",
-    statLabel: "to make a first impression",
-    preview: "Someone is searching for exactly what you sell. They find your competitor instead.",
-    desc: "Right now, someone is searching for exactly what you sell. They find your competitor instead — because you either don’t have a website, or yours looks like it was built in 2010. First impressions online happen in 3 seconds. If yours isn’t making the cut, you’re handing customers to your competition every single day.",
+    statLabel: "to capture a lead",
+    preview: "Your first impression is a digital rejection letter.",
+    desc: "Someone is searching for exactly what you sell right now. If they find an outdated site or a dead link, they go to your competitor. In 2025, an ugly site is a sign of an amateur business.",
     icon: Ban,
-    severity: "CRITICAL"
+    severity: "CRITICAL",
+    color: "#FF2D55"
   },
   { 
-    title: "INVISIBLE ON MOBILE — WHERE CUSTOMERS ARE", 
+    title: "MOBILE USERS CAN'T BUY", 
     emoji: "📵",
-    stat: "70%",
-    statLabel: "browse & buy on phones",
-    preview: "No mobile-friendly site in 2025 is like having a shop with no front door.",
-    desc: "Over 70% of people browse and buy from their phones. If your website looks broken on mobile, has tiny buttons, or is painful to scroll through — those customers are gone forever. Not having a mobile-friendly site in 2025 is like having a shop with no front door.",
+    stat: "80%",
+    statLabel: "mobile traffic share",
+    preview: "Your storefront is locked for 80% of your audience.",
+    desc: "If your site isn't perfectly responsive, you're ghosting your customers. Tiny buttons and broken layouts on mobile are the #1 reason leads abandon their journey.",
     icon: Smartphone,
-    severity: "HIGH"
+    severity: "CRITICAL",
+    color: "#0066ff"
   },
   { 
-    title: "LOSING LEADS EVERY NIGHT WHILE YOU SLEEP", 
+    title: "MISSING LEADS WHILE YOU SLEEP", 
     emoji: "💸",
-    stat: "10pm",
-    statLabel: "leads you're missing",
-    preview: "Every missed message outside business hours is money you'll never see.",
-    desc: "What happens when a potential customer messages you at 10pm? Nothing — until the next morning, when they’ve already moved on to someone else. Every missed message, every unanswered enquiry outside business hours is money you’ll never see. Your competitors who use AI never miss a lead. You do.",
+    stat: "24/7",
+    statLabel: "leads lost after-hours",
+    preview: "Every night is a silent revenue leak.",
+    desc: "Leads don't wait until 9am. If you don't have an AI agent replying instantly at 2am, those customers are gone by breakfast. Answering 'whenever you see it' is too late.",
     icon: Moon,
-    severity: "CRITICAL"
+    severity: "ULTRA",
+    color: "#ccff00"
   },
   { 
-    title: "YOUR TEAM WASTES HOURS ON AUTOMATABLE TASKS", 
+    title: "TEAM WASTES HOURS ON LOOPS", 
     emoji: "⚙️",
-    stat: "40+",
-    statLabel: "hours wasted per month",
-    preview: "Every hour on repetitive tasks is an hour not spent growing your business.",
-    desc: "Manually sending invoices. Copy-pasting data between apps. Following up leads one by one. Replying to the same questions over and over. Every hour your team spends on repetitive tasks is an hour not spent on growing your business. These are problems that can be fully automated — and most business owners don’t even realise it.",
+    stat: "60h",
+    statLabel: "wasted per staff/mo",
+    preview: "Repetitive tasks are killing your innovation.",
+    desc: "Manual invoicing, copy-pasting, and repetitive follow-ups are a 1990s problem. If your team isn't automated, you're paying expert salaries for robot-level work.",
     icon: Cog,
-    severity: "HIGH"
+    severity: "HIGH",
+    color: "#FF2D55"
+  },
+  { 
+    title: "SLOW LOADING SPEED (EXIT)", 
+    emoji: "⚡",
+    stat: "300%",
+    statLabel: "higher bounce rate",
+    preview: "Every second of delay costs you 10% conversion.",
+    desc: "Speed is the new luxury. If your page takes more than 2 seconds to load, Google punishes you and users exit before they even see your logo. Efficiency is mandatory.",
+    icon: Activity,
+    severity: "HIGH",
+    color: "#0066ff"
+  },
+  { 
+    title: "MISSED CALLS = LOST MONEY", 
+    emoji: "📞",
+    stat: "62%",
+    statLabel: "calls go unanswered",
+    preview: "Your phone is ringing, but nobody is selling.",
+    desc: "Missed calls are missed revenue. Our AI Voice Agents ensure every call is answered immediately, queries resolved, and appointments booked without you lifting a finger.",
+    icon: PhoneIncoming,
+    severity: "CRITICAL",
+    color: "#ccff00"
   },
 ];
 
 function SeverityBadge({ level }: { level: string }) {
   const colors: Record<string, string> = {
-    CRITICAL: 'bg-[#FF2D55]/20 text-[#FF2D55] border-[#FF2D55]/40 shadow-[0_0_15px_rgba(255,45,85,0.15)]',
-    HIGH: 'bg-[#FF6B00]/15 text-[#FF6B00] border-[#FF6B00]/30 shadow-[0_0_15px_rgba(255,107,0,0.1)]',
-    MEDIUM: 'bg-[#FFB800]/10 text-[#FFB800] border-[#FFB800]/25',
+    ULTRA: 'bg-[#FF2D55] text-black border-transparent shadow-[0_0_20px_#FF2D55]',
+    CRITICAL: 'bg-white/5 text-[#FF2D55] border-[#FF2D55]/30',
+    HIGH: 'bg-white/5 text-white/50 border-white/10',
   };
   return (
-    <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[8px] font-mono font-black uppercase tracking-[0.25em] border ${colors[level] || colors.MEDIUM}`}>
-      <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
-      {level}
+    <span className={`px-2 py-0.5 rounded-sm text-[7px] font-mono font-black uppercase tracking-[0.2em] border ${colors[level] || colors.HIGH}`}>
+      {level}_DETECTION
     </span>
   );
 }
 
-function ThreatCard({ threat, index }: { threat: typeof threats[0]; index: number }) {
-  const [expanded, setExpanded] = useState(false);
+export default function ProblemSolution() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeIdx, setActiveIdx] = useState(0);
 
   return (
-    <AnimatedSection delay={0.08 * index}>
-      <div 
-        className={`
-          group relative bg-white/[0.015] border rounded-2xl overflow-hidden h-full cursor-pointer
-          transition-all duration-500 ease-out
-          ${expanded 
-            ? 'border-[#FF2D55]/40 shadow-[0_0_40px_rgba(255,45,85,0.1)] bg-[#FF2D55]/[0.03]' 
-            : 'border-white/[0.06] hover:border-[#FF2D55]/30 hover:shadow-[0_0_30px_rgba(255,45,85,0.08)]'
-          }
-        `}
-        onClick={() => setExpanded(!expanded)}
-        onMouseEnter={() => setExpanded(true)}
-        onMouseLeave={() => setExpanded(false)}
-      >
-        {/* Top scanning line — animates on hover/expand */}
-        <div className={`absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#FF2D55] to-transparent transition-opacity duration-500 ${expanded ? 'opacity-60' : 'opacity-0'}`} />
-        
-        {/* Bottom scanning line */}
-        <div className={`absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#FF2D55]/30 to-transparent transition-opacity duration-500 ${expanded ? 'opacity-100' : 'opacity-0'}`} />
+    <section className="relative py-24 md:py-40 bg-black overflow-hidden" id="problems">
+      
+      {/* Cyberpunk Ambiance */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,45,85,0.05)_0%,transparent_70%)]" />
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#FF2D55]/50 to-transparent" />
+      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#FF2D55]/50 to-transparent" />
 
-        {/* Corner accents — appear on interaction */}
-        <div className={`absolute top-0 right-0 w-10 h-10 border-r-2 border-t-2 transition-all duration-500 pointer-events-none ${expanded ? 'border-[#FF2D55]/50' : 'border-transparent'}`} />
-        <div className={`absolute bottom-0 left-0 w-10 h-10 border-l-2 border-b-2 transition-all duration-500 pointer-events-none ${expanded ? 'border-[#FF2D55]/50' : 'border-transparent'}`} />
-
-        {/* Threat level indicator strip — left edge */}
-        <div className={`absolute top-0 left-0 w-[3px] h-full transition-all duration-500 ${expanded ? 'bg-[#FF2D55] shadow-[0_0_10px_rgba(255,45,85,0.5)]' : 'bg-[#FF2D55]/10'}`} />
-
-        <div className="p-7 md:p-8 relative z-10">
-          {/* Header Row: Emoji + Severity */}
-          <div className="flex items-start justify-between mb-4">
-            <div className={`w-12 h-12 rounded-xl flex items-center justify-center border transition-all duration-500 ${expanded ? 'bg-[#FF2D55]/15 border-[#FF2D55]/30 shadow-[0_0_20px_rgba(255,45,85,0.2)] scale-110' : 'bg-[#FF2D55]/[0.07] border-[#FF2D55]/15'}`}>
-              <span className="text-xl">{threat.emoji}</span>
-            </div>
-            <SeverityBadge level={threat.severity} />
+      {/* Matrix Text Rain (Subtle) */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none font-mono text-[8px] overflow-hidden whitespace-nowrap text-[#FF2D55] [mask-image:linear-gradient(to_bottom,transparent,black,transparent)]">
+        {Array.from({length: 20}).map((_, i) => (
+          <div key={i} className="animate-matrix" style={{ animationDelay: `${i * 0.5}s`, left: `${i * 5}%`, position: 'absolute' }}>
+            01011100101010110101010111101010101011101010<br/>SYSTEM_INFECTED_BY_INEFFICIENCY<br/>REVENUE_LEAK_DETECTED
           </div>
+        ))}
+      </div>
 
-          {/* Title */}
-          <h3 className={`text-[15px] md:text-base font-heading font-black mb-3 uppercase tracking-tight leading-tight transition-colors duration-300 ${expanded ? 'text-[#FF2D55]' : 'text-white'}`}>
-            {threat.title}
-          </h3>
-
-          {/* Stat Callout */}
-          <div className="flex items-baseline gap-2 mb-4">
-            <span className={`text-3xl font-heading font-black tracking-tighter transition-all duration-500 ${expanded ? 'text-[#FF2D55] drop-shadow-[0_0_20px_rgba(255,45,85,0.4)]' : 'text-[#FF2D55]'}`}>
-              {threat.stat}
-            </span>
-            <span className="text-[10px] font-mono text-white/30 uppercase tracking-widest">{threat.statLabel}</span>
+      <div className="max-w-[1550px] mx-auto px-6 relative z-10">
+        
+        <AnimatedSection className="text-center mb-20 lg:mb-32">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-white/5 border border-white/10 mb-8">
+            <ShieldAlert className="w-3 h-3 text-[#FF2D55]" />
+            <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-white/40">Diagnostic Protocol v41.0</span>
           </div>
           
-          {/* Preview Text (always visible) */}
-          <p className={`font-body text-[13px] leading-relaxed transition-all duration-500 ${expanded ? 'text-white/40 mb-3' : 'text-white/35'}`}>
-            {threat.preview}
-          </p>
-
-          {/* Expanded Detail — full pain point copy */}
-          <div className={`overflow-hidden transition-all duration-500 ease-out ${expanded ? 'max-h-[300px] opacity-100 mt-4' : 'max-h-0 opacity-0'}`}>
-            <div className="border-t border-[#FF2D55]/15 pt-4">
-              <p className="font-body text-[13px] text-white/55 leading-[1.7]">
-                {threat.desc}
-              </p>
-            </div>
-          </div>
-
-          {/* Expand hint */}
-          <div className={`flex items-center gap-1.5 mt-4 transition-all duration-300 ${expanded ? 'opacity-0 h-0' : 'opacity-50'}`}>
-            <ChevronDown className="w-3 h-3 text-[#FF2D55]" />
-            <span className="text-[9px] font-mono text-[#FF2D55]/60 uppercase tracking-[0.2em]">Tap to read more</span>
-          </div>
-        </div>
-      </div>
-    </AnimatedSection>
-  );
-}
-
-export default function ProblemSolution() {
-  return (
-    <section className="relative py-24 md:py-32 bg-black overflow-hidden" id="problems">
-      
-      {/* Cyberpunk Grid Background — CSS only */}
-      <div className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(255, 45, 85, 0.3) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 45, 85, 0.3) 1px, transparent 1px)
-          `,
-          backgroundSize: '60px 60px',
-        }}
-      />
-
-      {/* Scanline Effect — CSS only */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
-        style={{
-          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,45,85,0.1) 2px, rgba(255,45,85,0.1) 4px)',
-        }}
-      />
-
-      {/* Top Warning Line */}
-      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#FF2D55]/60 to-transparent" />
-      
-      {/* Corner Decorations */}
-      <div className="absolute top-6 left-6 w-16 h-16 border-l-2 border-t-2 border-[#FF2D55]/20 pointer-events-none hidden lg:block" />
-      <div className="absolute top-6 right-6 w-16 h-16 border-r-2 border-t-2 border-[#FF2D55]/20 pointer-events-none hidden lg:block" />
-      <div className="absolute bottom-6 left-6 w-16 h-16 border-l-2 border-b-2 border-[#FF2D55]/20 pointer-events-none hidden lg:block" />
-      <div className="absolute bottom-6 right-6 w-16 h-16 border-r-2 border-b-2 border-[#FF2D55]/20 pointer-events-none hidden lg:block" />
-
-      <div className="max-w-[1400px] mx-auto px-6 relative z-10">
-        
-        {/* Terminal Header */}
-        <AnimatedSection className="text-center mb-16 md:mb-20">
-          <div className="inline-flex flex-col items-center">
-            <div className="flex items-center gap-2 px-5 py-2.5 rounded-t-xl bg-[#FF2D55]/5 border border-b-0 border-[#FF2D55]/20">
-              <div className="flex gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#FF2D55] shadow-[0_0_8px_rgba(255,45,85,0.5)]" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#FF6B00]/60" />
-                <span className="w-2.5 h-2.5 rounded-full bg-white/10" />
-              </div>
-              <span className="font-mono text-[9px] text-[#FF2D55]/70 uppercase tracking-[0.3em] ml-3">threat_scanner.exe</span>
-            </div>
-            <div className="px-6 py-3 rounded-b-xl rounded-tr-xl bg-[#FF2D55]/[0.03] border border-[#FF2D55]/20 mb-10">
-              <div className="flex items-center gap-2">
-                <AlertTriangle className="w-4 h-4 text-[#FF2D55] animate-pulse" />
-                <span className="font-mono text-[10px] text-[#FF2D55] font-black uppercase tracking-[0.2em]">
-                  4 Critical Vulnerabilities Detected
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <h2 className="text-[2.2rem] md:text-[3.5rem] lg:text-[4.5rem] font-heading font-black leading-[0.95] tracking-tighter uppercase mb-6 text-white">
-            IS YOUR BUSINESS <br className="md:hidden" />
-            <span className="italic text-[#FF2D55] drop-shadow-[0_0_30px_rgba(255,45,85,0.3)]">BLEEDING MONEY</span> RIGHT NOW?
+          <h2 className="text-[2.2rem] md:text-[5rem] lg:text-[6.5rem] font-heading font-black leading-[0.85] tracking-tighter uppercase mb-6 text-white italic">
+            YOUR BUSINESS IS <br/>
+            <span className="text-[#FF2D55] drop-shadow-[0_0_40px_rgba(255,45,85,0.5)]">BLEEDING REVENUE</span>
           </h2>
-          <p className="text-white/40 text-lg max-w-2xl mx-auto font-body leading-relaxed">
-            Every day without AI, automation, and a modern website costs you <span className="text-[#FF2D55] font-bold">real customers and real revenue</span>. Hover over each threat to see how it&apos;s hurting you:
+          <p className="text-[#8A8A9A] text-lg md:text-xl font-body font-light max-w-2xl mx-auto">
+            6 System Critical Vulnerabilities Detected. Every 24 hours without remediation costs you 15% in potential conversion.
           </p>
         </AnimatedSection>
 
-        {/* Threat Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6 mb-16 md:mb-20">
-          {threats.map((threat, i) => (
-            <ThreatCard key={i} threat={threat} index={i} />
-          ))}
+        {/* Swipeable Container (Mobile) / Grid (PC) */}
+        <div className="relative group">
+          {/* Mobile Swiper Indicator */}
+          <div className="flex md:hidden items-center justify-between mb-6 px-2">
+            <div className="flex gap-2">
+              {threats.map((_, i) => (
+                <div key={i} className={`h-1 transition-all duration-300 rounded-full ${activeIdx === i ? 'w-8 bg-[#FF2D55]' : 'w-2 bg-white/10'}`} />
+              ))}
+            </div>
+            <span className="font-mono text-[8px] text-white/40 uppercase tracking-widest flex items-center gap-1">
+              Swipe to Audit <ArrowRight className="w-2 h-2" />
+            </span>
+          </div>
+
+          <div 
+            ref={scrollRef}
+            className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8 overflow-x-auto md:overflow-visible no-scrollbar snap-x snap-mandatory pb-12 transition-all"
+            onScroll={(e) => {
+              const el = e.currentTarget;
+              setActiveIdx(Math.round(el.scrollLeft / el.offsetWidth));
+            }}
+          >
+            {threats.map((threat, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ y: -5 }}
+                className="min-w-[85vw] md:min-w-0 snap-center"
+              >
+                <div className={`relative h-full bg-white/[0.01] border border-white/5 group/card transition-all duration-500 p-8 lg:p-10 rounded-[2.5rem] overflow-hidden hover:bg-[#FF2D55]/[0.02] hover:border-[#FF2D55]/30 shadow-2xl`}>
+                  
+                  {/* Glitch Overlay */}
+                  <div className="absolute inset-0 bg-[#FF2D55]/5 opacity-0 group-hover/card:opacity-20 mix-blend-overlay transition-opacity pointer-events-none" />
+                  
+                  <div className="relative z-10 flex flex-col h-full">
+                    <div className="flex items-start justify-between mb-10">
+                      <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-2xl group-hover/card:scale-110 transition-transform duration-500 shadow-inner">
+                        {threat.emoji}
+                      </div>
+                      <SeverityBadge level={threat.severity} />
+                    </div>
+
+                    <h3 className="text-xl md:text-2xl font-heading font-black text-white uppercase tracking-tighter mb-4 leading-tight group-hover/card:text-[#FF2D55] transition-colors">
+                      {threat.title}
+                    </h3>
+                    
+                    <div className="flex items-baseline gap-2 mb-6">
+                      <span className="text-4xl lg:text-5xl font-heading font-black text-[#FF2D55] tracking-tighter drop-shadow-[0_0_15px_rgba(255,45,85,0.3)]">
+                        {threat.stat}
+                      </span>
+                      <span className="font-mono text-[9px] text-white/40 uppercase tracking-widest">{threat.statLabel}</span>
+                    </div>
+
+                    <p className="text-[#8A8A9A] text-sm leading-relaxed mb-8 flex-grow">
+                      {threat.desc}
+                    </p>
+
+                    <div className="pt-6 border-t border-white/5 flex items-center justify-between">
+                       <span className="font-mono text-[9px] text-white/20 uppercase tracking-[0.2em]">Risk_Factor: {i + 1}0%</span>
+                       <Zap className="w-3 h-3 text-[#FF2D55] animate-pulse" />
+                    </div>
+                  </div>
+
+                  {/* Corner Accent */}
+                  <div className="absolute top-0 right-0 p-2 opacity-10 group-hover/card:opacity-100 transition-opacity">
+                    <motion.div animate={{ rotate: 90 }}>
+                      <Zap className="w-4 h-4 text-[#FF2D55]" />
+                    </motion.div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Desktop Controls (Arrows) - Hidden on mobile */}
+          <div className="hidden lg:flex absolute top-1/2 -translate-y-1/2 -left-20 group-hover:left-4 transition-all opacity-0 group-hover:opacity-100 items-center justify-center w-12 h-12 rounded-full border border-white/10 bg-black/50 backdrop-blur-md cursor-pointer hover:bg-[#FF2D55] hover:text-white"
+            onClick={() => scrollRef.current?.scrollBy({ left: -400, behavior: 'smooth' })}
+          >
+            <ArrowRight className="w-4 h-4 rotate-180" />
+          </div>
+          <div className="hidden lg:flex absolute top-1/2 -translate-y-1/2 -right-20 group-hover:right-4 transition-all opacity-0 group-hover:opacity-100 items-center justify-center w-12 h-12 rounded-full border border-white/10 bg-black/50 backdrop-blur-md cursor-pointer hover:bg-[#FF2D55] hover:text-white"
+            onClick={() => scrollRef.current?.scrollBy({ left: 400, behavior: 'smooth' })}
+          >
+            <ArrowRight className="w-4 h-4" />
+          </div>
         </div>
 
-        {/* Diagnosis CTA */}
-        <AnimatedSection>
-          <div className="relative max-w-4xl mx-auto">
-            <div className="absolute -inset-[1px] rounded-[2rem] bg-gradient-to-r from-[#FF2D55]/20 via-[#FF2D55]/40 to-[#FF2D55]/20 opacity-60 blur-[1px]" />
+        {/* Final Trigger */}
+        <AnimatedSection className="mt-20 lg:mt-32">
+          <div className="max-w-4xl mx-auto glass-premium rounded-[3rem] p-10 lg:p-20 text-center border-[#FF2D55]/20 hover:border-[#FF2D55]/40 transition-all group overflow-hidden relative">
+            {/* Animated Glow behind CTA */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#FF2D55]/[0.05] rounded-full blur-[120px] pointer-events-none group-hover:bg-[#FF2D55]/[0.1] transition-all" />
             
-            <div className="relative bg-black/90 backdrop-blur-sm rounded-[2rem] border border-[#FF2D55]/15 p-10 md:p-14 text-center overflow-hidden">
-              <div className="absolute inset-0 opacity-[0.02] pointer-events-none"
-                style={{
-                  backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(255,45,85,0.15) 1px, rgba(255,45,85,0.15) 2px)',
-                }}
-              />
+            <div className="relative z-10">
+              <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full bg-[#FF2D55]/10 border border-[#FF2D55]/20">
+                <Skull className="w-4 h-4 text-[#FF2D55]" />
+                <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#FF2D55] font-black">STRIKE PROTOCOL ACTIVE</span>
+              </div>
               
-              <div className="relative z-10">
-                <div className="inline-flex items-center gap-2 mb-6">
-                  <Skull className="w-5 h-5 text-[#FF2D55]" />
-                  <span className="font-mono text-[10px] text-[#FF2D55] font-black uppercase tracking-[0.25em]">System Diagnostic Available</span>
-                </div>
-                
-                <h4 className="text-xl md:text-3xl font-heading font-black text-white mb-3 uppercase tracking-tight">
-                  HOW MANY OF THESE <span className="italic text-[#FF2D55]">APPLY TO YOU?</span>
-                </h4>
-                <p className="text-white/40 font-body text-sm mb-8 max-w-lg mx-auto leading-relaxed">
-                  Book a free 30-minute diagnosis call. We&apos;ll audit your entire digital presence and tell you 
-                  <span className="text-white font-bold"> exactly</span> what&apos;s leaking revenue — and how to fix it.
-                </p>
-                
-                <Link 
-                  href="/contact"
-                  className="inline-flex items-center gap-3 px-10 py-5 bg-[#FF2D55] text-white font-heading font-black text-sm uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300 rounded-xl shadow-[0_0_40px_rgba(255,45,85,0.25)] hover:shadow-[0_0_50px_rgba(255,255,255,0.15)]"
-                >
-                  GET FREE DIAGNOSIS <ArrowRight className="w-5 h-5" />
-                </Link>
-                
-                <p className="mt-5 text-white/20 font-mono text-[9px] uppercase tracking-[0.3em]">
-                  ⚡ Limited spots — Zero commitment — Results in 48hrs
-                </p>
+              <h3 className="text-2xl md:text-5xl font-heading font-black text-white uppercase tracking-tighter mb-8 leading-tight">
+                STOP THE BLEEDING. <br/>
+                <span className="italic text-[#FF2D55]">INITIATE AUDIT NOW.</span>
+              </h3>
+              
+              <Link 
+                href="/contact"
+                className="inline-flex items-center gap-4 px-12 py-7 bg-[#FF2D55] text-white font-heading font-black text-base uppercase tracking-widest rounded-2xl shadow-[0_20px_60px_rgba(255,45,85,0.4)] hover:shadow-[0_25px_80px_rgba(255,45,85,0.6)] hover:scale-105 transition-all group"
+              >
+                <span>Launch Free Diagnostic</span>
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+              </Link>
+              
+              <div className="mt-10 flex flex-wrap justify-center gap-8 opacity-40">
+                {['No Commitment', '48hr Results', 'Direct Founder Lead'].map(t => (
+                  <span key={t} className="font-mono text-[8px] uppercase tracking-[0.3em] text-white underline underline-offset-4">{t}</span>
+                ))}
               </div>
             </div>
           </div>
         </AnimatedSection>
       </div>
+
+      <style jsx global>{`
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .no-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        @keyframes matrix {
+          0% { transform: translateY(-100%); }
+          100% { transform: translateY(100vh); }
+        }
+        .animate-matrix {
+          animation: matrix 15s linear infinite;
+        }
+      `}</style>
     </section>
   );
 }
