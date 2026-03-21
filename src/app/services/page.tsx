@@ -206,7 +206,7 @@ export default function ServicesPage() {
                           fill
                           loading="lazy"
                           sizes="400px"
-                          className="object-contain drop-shadow-[0_20px_50px_rgba(0,212,255,0.3)]"
+                          className="object-contain drop-shadow-[0_20px_50px_rgba(0,102,255,0.3)]"
                         />
                         {/* Recursive scanning light effect */}
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0066ff]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 mix-blend-screen" />

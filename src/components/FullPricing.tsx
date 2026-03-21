@@ -290,7 +290,7 @@ export default function PricingSection() {
                   onClick={() => setActiveTab(tab)}
                   className={`flex-1 min-w-[90px] py-3 px-4 rounded-xl font-mono text-[0.6rem] font-black uppercase tracking-widest transition-all ${
                     activeTab === tab 
-                    ? tab === 'Starter' ? 'bg-[#00d4ff] text-black shadow-[0_0_15px_rgba(0,212,255,0.3)]' : tab === 'Growth' ? 'bg-[#00ff9d] text-black shadow-[0_0_15px_rgba(0,255,157,0.3)]' : 'bg-white text-black shadow-[0_0_15px_rgba(255,255,255,0.3)]'
+                    ? tab === 'Starter' ? 'bg-[#0066ff] text-black shadow-[0_0_15px_rgba(0,102,255,0.3)]' : tab === 'Growth' ? 'bg-[#00ff9d] text-black shadow-[0_0_15px_rgba(0,255,157,0.3)]' : 'bg-white text-black shadow-[0_0_15px_rgba(255,255,255,0.3)]'
                     : 'text-white/40 hover:text-white hover:bg-white/5'
                   }`}
                 >
@@ -376,7 +376,7 @@ export default function PricingSection() {
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {addons.map((addon, i) => (
-              <div key={i} className="glass-premium p-8 rounded-[2.5rem] border-white/5 hover:border-[#00d4ff]/30 transition-all duration-500 group flex flex-col justify-between h-full bg-white/[0.01]">
+              <div key={i} className="glass-premium p-8 rounded-[2.5rem] border-white/5 hover:border-[#0066ff]/30 transition-all duration-500 group flex flex-col justify-between h-full bg-white/[0.01]">
                 <div>
                   <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 group-hover:bg-[#0066ff] group-hover:text-white transition-all shadow-[0_0_20px_rgba(0,102,255,0.2)]">
                     {addon.icon}

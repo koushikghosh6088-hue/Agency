@@ -5,7 +5,7 @@
 :root {
   --background: #0A0A0F;
   --background-secondary: #111118;
-  --accent-cyan: #00D4FF;
+  --accent-cyan: #0066ff;
   --accent-purple: #7B2FFF;
   --accent-red: #FF2D55;
   --accent-green: #00FF88;
@@ -99,7 +99,7 @@ button, .btn {
 .btn-primary {
   background: var(--accent-cyan);
   color: #000000;
-  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+  box-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
   transition: all 0.3s ease;
   font-weight: 700;
   border-radius: 9999px;
@@ -115,7 +115,7 @@ button, .btn {
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+  box-shadow: 0 0 30px rgba(0, 102, 255, 0.5);
   background-color: #ffffff;
   box-shadow: 0 15px 40px rgba(0, 102, 255, 0.4);
   transform: translateY(-4px) scale(1.02);
@@ -163,7 +163,7 @@ button, .btn {
 /* ── Premium Aesthetic Tools ── */
 
 .text-glow {
-  text-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+  text-shadow: 0 0 15px rgba(0, 102, 255, 0.4);
 }
 
 
@@ -210,12 +210,12 @@ button, .btn {
 }
 
 .glass-holographic {
-  background: rgba(0, 212, 255, 0.03);
+  background: rgba(0, 102, 255, 0.03);
   backdrop-filter: blur(30px);
-  border: 1px solid rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 102, 255, 0.1);
   box-shadow: 
-    0 0 30px rgba(0, 212, 255, 0.05),
-    inset 0 0 20px rgba(0, 212, 255, 0.03);
+    0 0 30px rgba(0, 102, 255, 0.05),
+    inset 0 0 20px rgba(0, 102, 255, 0.03);
 }
 
 /* ── Active-Glow Indicator ── */
@@ -238,7 +238,7 @@ button, .btn {
 
 /* ── High-End Typography Styling ── */
 .gradient-text-premium {
-  background: linear-gradient(135deg, #ffffff 0%, #00D4FF 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #0066ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -253,8 +253,8 @@ button, .btn {
 .loader {
   width: 40px;
   height: 40px;
-  border: 3px solid rgba(14, 165, 233, 0.15);
-  border-top-color: #0ea5e9;
+  border: 3px solid rgba(0, 102, 255, 0.15);
+  border-top-color: #0066ff;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }

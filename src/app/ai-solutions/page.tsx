@@ -113,15 +113,15 @@ export default function AISolutionsPage() {
                 <div className="relative z-10 mt-48 bg-black/80 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-2xl">
                   <div className="flex items-center justify-between mb-8">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-[#00d4ff]/20 flex items-center justify-center border border-[#00d4ff]/30">
-                        <Phone className="w-4 h-4 text-[#00d4ff]" />
+                      <div className="w-10 h-10 rounded-full bg-[#0066ff]/20 flex items-center justify-center border border-[#0066ff]/30">
+                        <Phone className="w-4 h-4 text-[#0066ff]" />
                       </div>
                       <div>
                         <div className="text-[0.6rem] font-mono uppercase text-white/40 tracking-wider">Active Instance</div>
                         <div className="text-sm font-heading font-black text-white uppercase tracking-tight">Lead Qualification</div>
                       </div>
                     </div>
-                    <div className="px-3 py-1 rounded-full bg-[#00d4ff]/10 border border-[#00d4ff]/30 text-[#00d4ff] text-[0.65rem] font-mono animate-pulse">
+                    <div className="px-3 py-1 rounded-full bg-[#0066ff]/10 border border-[#0066ff]/30 text-[#0066ff] text-[0.65rem] font-mono animate-pulse">
                       01:24
                     </div>
                   </div>
@@ -164,7 +164,7 @@ export default function AISolutionsPage() {
             
             {/* Chat UI Panel */}
             <AnimatedSection direction="left" className="lg:col-span-6">
-              <div className="glass-panel rounded-[2.5rem] p-6 lg:p-8 relative overflow-hidden group border-white/5 hover:border-[#00d4ff]/30 transition-all duration-500">
+              <div className="glass-panel rounded-[2.5rem] p-6 lg:p-8 relative overflow-hidden group border-white/5 hover:border-[#0066ff]/30 transition-all duration-500">
                 <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/10">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center border border-white/10">

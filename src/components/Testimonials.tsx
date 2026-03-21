@@ -9,7 +9,7 @@ const testimonials = [
     quote: "Vedastra didn't just build a site; they built a revenue engine. Our lead conversion jumped 40% in the first two weeks.",
     author: "Jameson Wright",
     role: "Founder of Nexus Logistics",
-    accent: "#00D4FF"
+    accent: "#0066ff"
   },
   {
     quote: "The AI Voice agent they deployed handles 90% of our discovery calls. It's like having a 24/7 sales team that never sleeps.",
@@ -39,7 +39,7 @@ const testimonials = [
     quote: "Their 'Pause Anytime' model gave us the confidence to start. We haven't paused yet because the results are too good.",
     author: "Liam O'Connor",
     role: "Founder of Stealth Saas",
-    accent: "#00D4FF"
+    accent: "#0066ff"
   }
 ];
 
@@ -53,11 +53,11 @@ export default function Testimonials() {
         
         {/* Header */}
         <AnimatedSection className="text-center mb-20">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00D4FF]/10 border border-[#00D4FF]/20 mb-6 font-mono text-[10px] uppercase tracking-widest text-[#00D4FF] font-black">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0066ff]/10 border border-[#0066ff]/20 mb-6 font-mono text-[10px] uppercase tracking-widest text-[#0066ff] font-black">
             Partners & Proof
           </div>
           <h2 className="text-[2.2rem] md:text-[4rem] font-heading font-black uppercase tracking-tighter text-white mb-6">
-            PROOF IN THE <span className="italic text-[#00D4FF]">PERFORMANCE</span>
+            PROOF IN THE <span className="italic text-[#0066ff]">PERFORMANCE</span>
           </h2>
           <p className="text-[#8A8A9A] text-lg max-w-2xl mx-auto font-body">
             We don't just talk. We deliver. Here's what our partners say about the Vedastra advantage.
@@ -115,7 +115,7 @@ function TestimonialCard({ quote, author, role, accent }: any) {
 
       <div className="flex items-center gap-4 pt-8 border-t border-white/5 mt-auto relative z-10">
         <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-white/10 group-hover:border-white/20 transition-all">
-          <User className="w-7 h-7 text-white/30 group-hover:text-[#00D4FF]" />
+          <User className="w-7 h-7 text-white/30 group-hover:text-[#0066ff]" />
         </div>
         <div>
           <div className="text-white font-heading font-black text-sm uppercase tracking-widest">{author}</div>

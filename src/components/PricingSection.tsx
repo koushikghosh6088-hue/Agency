@@ -12,7 +12,7 @@ const plans = [
     price: "2,499",
     focus: "MVPs / Startups",
     description: "Perfect for companies looking to launch fast with elite quality.",
-    color: "#00D4FF",
+    color: "#0066ff",
     features: [
       "High-Performance Website",
       "Core AI Integration",
@@ -48,12 +48,12 @@ export default function PricingSection() {
       <div className="max-w-[1200px] mx-auto px-6">
         
         <AnimatedSection className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00D4FF]/10 border border-[#00D4FF]/20 mb-6">
-            <Rocket className="w-3.5 h-3.5 text-[#00D4FF]" />
-            <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#00D4FF] font-black">Investment Plans</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0066ff]/10 border border-[#0066ff]/20 mb-6">
+            <Rocket className="w-3.5 h-3.5 text-[#0066ff]" />
+            <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#0066ff] font-black">Investment Plans</span>
           </div>
           <h2 className="text-[2.2rem] md:text-[3.8rem] font-heading font-black uppercase tracking-tighter text-white mb-6 leading-[1]">
-            READY TO <span className="italic text-[#00D4FF]">ACCELERATE?</span>
+            READY TO <span className="italic text-[#0066ff]">ACCELERATE?</span>
           </h2>
           <p className="text-[#8A8A9A] text-lg max-w-2xl mx-auto font-body">
             Pick a plan that fits your business stage. No long-term contracts. Pause or cancel anytime.
@@ -74,7 +74,7 @@ export default function PricingSection() {
               {activeTab === i && (
                 <motion.div
                   layoutId="pricing-pill"
-                  className="absolute inset-0 bg-[#00D4FF] rounded-xl -z-10"
+                  className="absolute inset-0 bg-[#0066ff] rounded-xl -z-10"
                   transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                 />
               )}
@@ -91,7 +91,7 @@ export default function PricingSection() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.98, y: -10 }}
               transition={{ duration: 0.4 }}
-              className="glass-premium rounded-[3rem] p-8 md:p-16 relative overflow-hidden group hover:border-[#00D4FF]/20 transition-all duration-700 shimmer-border"
+              className="glass-premium rounded-[3rem] p-8 md:p-16 relative overflow-hidden group hover:border-[#0066ff]/20 transition-all duration-700 shimmer-border"
             >
 
               
@@ -109,7 +109,7 @@ export default function PricingSection() {
                          {plans[activeTab].focus}
                        </span>
                        {plans[activeTab].isPopular && (
-                        <span className="px-4 py-1.5 rounded-full bg-[#00D4FF] text-black font-mono text-[10px] font-black uppercase tracking-widest shadow-[0_0_20px_rgba(0,212,255,0.4)]">
+                        <span className="px-4 py-1.5 rounded-full bg-[#0066ff] text-black font-mono text-[10px] font-black uppercase tracking-widest shadow-[0_0_20px_rgba(0,102,255,0.4)]">
                           Recommended
                         </span>
                        )}
@@ -124,13 +124,13 @@ export default function PricingSection() {
 
                   <Link 
                     href="#booking"
-                    className="flex h-20 items-center justify-center bg-[#00D4FF] text-black font-heading font-black text-sm uppercase tracking-widest rounded-3xl hover:bg-white hover:scale-[1.02] transition-all group/btn shadow-[0_15px_40px_rgba(0,212,255,0.3)]"
+                    className="flex h-20 items-center justify-center bg-[#0066ff] text-black font-heading font-black text-sm uppercase tracking-widest rounded-3xl hover:bg-white hover:scale-[1.02] transition-all group/btn shadow-[0_15px_40px_rgba(0,102,255,0.3)]"
                   >
                     SELECT {plans[activeTab].name} PLAN <ArrowRight className="ml-3 w-6 h-6 group-hover/btn:translate-x-1 transition-transform" />
                   </Link>
 
                   <div className="flex items-center gap-4 text-white/40 font-mono text-[10px] uppercase tracking-[0.3em] font-black">
-                     <ShieldCheck className="w-4 h-4 text-[#00D4FF] shadow-[0_0_10px_#00D4FF]" /> SECURE CHECKOUT — Stripe Verified
+                     <ShieldCheck className="w-4 h-4 text-[#0066ff] shadow-[0_0_10px_#0066ff]" /> SECURE CHECKOUT — Stripe Verified
                   </div>
                 </div>
 
@@ -140,15 +140,15 @@ export default function PricingSection() {
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       {plans[activeTab].features.map((feature, i) => (
                         <div key={i} className="flex items-center gap-4 group/item">
-                           <div className="w-6 h-6 rounded-full bg-[#00D4FF]/10 flex items-center justify-center border border-[#00D4FF]/30 group-hover/item:bg-[#00D4FF]/20 transition-colors">
-                            <Check className="w-3.5 h-3.5 text-[#00D4FF]" />
+                           <div className="w-6 h-6 rounded-full bg-[#0066ff]/10 flex items-center justify-center border border-[#0066ff]/30 group-hover/item:bg-[#0066ff]/20 transition-colors">
+                            <Check className="w-3.5 h-3.5 text-[#0066ff]" />
                            </div>
                            <span className="text-white/80 font-heading font-bold uppercase text-xs tracking-wide group-hover/item:text-white transition-colors">{feature}</span>
                         </div>
                       ))}
                    </div>
                    <div className="mt-12 pt-8 border-t border-white/5 text-center lg:text-left">
-                      <Link href="/pricing" className="text-[10px] font-mono font-black text-[#00D4FF] uppercase tracking-[0.4em] hover:text-white transition-all group/link">
+                      <Link href="/pricing" className="text-[10px] font-mono font-black text-[#0066ff] uppercase tracking-[0.4em] hover:text-white transition-all group/link">
                         VIEW ALL ADD-ONS & FULL COMPARISON <ArrowRight className="inline ml-2 w-3 h-3 group-hover/link:translate-x-1 transition-transform" />
                       </Link>
                    </div>

@@ -20,9 +20,9 @@ export default function WhyChooseUs() {
         
         {/* Header */}
         <AnimatedSection className="text-center mb-20">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00D4FF]/10 border border-[#00D4FF]/20 mb-6">
-            <ShieldCheck className="w-3.5 h-3.5 text-[#00D4FF]" />
-            <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#00D4FF] font-black">Strategic Advantage</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0066ff]/10 border border-[#0066ff]/20 mb-6">
+            <ShieldCheck className="w-3.5 h-3.5 text-[#0066ff]" />
+            <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#0066ff] font-black">Strategic Advantage</span>
           </div>
           <h2 className="text-[2.2rem] md:text-[3.2rem] font-heading font-black leading-[1] tracking-tighter uppercase mb-6 text-white">
             WHY VEDASTRA — <br />
@@ -40,7 +40,7 @@ export default function WhyChooseUs() {
             <div className="grid grid-cols-4 gap-4 mb-4 items-center">
               <div className="px-6 py-4 font-mono text-[10px] text-white/30 uppercase tracking-widest">Feature</div>
               <div className="px-6 py-4 text-center font-heading font-black text-[#8A8A9A] uppercase tracking-wider">Freelancer</div>
-              <div className="px-6 py-6 text-center font-heading font-black text-[#00D4FF] uppercase tracking-widest bg-[#00D4FF]/10 border border-[#00D4FF]/30 rounded-t-3xl shadow-[0_0_20px_rgba(0,212,255,0.1)]">
+              <div className="px-6 py-6 text-center font-heading font-black text-[#0066ff] uppercase tracking-widest bg-[#0066ff]/10 border border-[#0066ff]/30 rounded-t-3xl shadow-[0_0_20px_rgba(0,102,255,0.1)]">
                 ✅ Vedastra AI Labs
               </div>
               <div className="px-6 py-4 text-center font-heading font-black text-[#8A8A9A] uppercase tracking-wider">Big Agency</div>
@@ -59,9 +59,9 @@ export default function WhyChooseUs() {
                 >
                   <div className="px-6 py-4 font-heading font-bold text-white uppercase text-sm">{row.feature}</div>
                   <div className="px-6 py-4 text-center text-[#8A8A9A] font-body text-sm line-through opacity-50">{row.freelancer}</div>
-                  <div className="px-6 py-6 text-center text-white font-heading font-black text-base md:text-lg uppercase tracking-tight bg-[#00D4FF]/5 border-x border-[#00D4FF]/20 relative">
+                  <div className="px-6 py-6 text-center text-white font-heading font-black text-base md:text-lg uppercase tracking-tight bg-[#0066ff]/5 border-x border-[#0066ff]/20 relative">
                     {row.vedastra}
-                    {i === comparisonData.length - 1 && <div className="absolute bottom-0 left-0 right-0 h-4 bg-[#00D4FF]/5 border-b border-[#00D4FF]/20 rounded-b-3xl" />}
+                    {i === comparisonData.length - 1 && <div className="absolute bottom-0 left-0 right-0 h-4 bg-[#0066ff]/5 border-b border-[#0066ff]/20 rounded-b-3xl" />}
                   </div>
                   <div className="px-6 py-4 text-center text-[#8A8A9A] font-body text-sm opacity-50 italic">{row.agency}</div>
                 </motion.div>
@@ -104,27 +104,27 @@ export default function WhyChooseUs() {
           </div>
 
           {/* Column: VEDASTRA (Center Spotlight) */}
-          <div className="glass-holographic p-10 rounded-[2.5rem] border-[#00D4FF]/30 relative overflow-hidden group hover:shadow-[0_0_50px_rgba(0,212,255,0.15)] transition-all duration-700 shimmer-border">
+          <div className="glass-holographic p-10 rounded-[2.5rem] border-[#0066ff]/30 relative overflow-hidden group hover:shadow-[0_0_50px_rgba(0,102,255,0.15)] transition-all duration-700 shimmer-border">
             <div className="absolute top-0 right-0 p-4">
-              <div className="px-3 py-1 rounded-full bg-[#00D4FF] text-black font-mono text-[9px] font-black uppercase tracking-tighter">Recommended</div>
+              <div className="px-3 py-1 rounded-full bg-[#0066ff] text-black font-mono text-[9px] font-black uppercase tracking-tighter">Recommended</div>
             </div>
 
             <div className="flex items-center gap-4 mb-10">
-              <div className="w-14 h-14 rounded-2xl bg-[#00D4FF]/10 flex items-center justify-center border border-[#00D4FF]/20 shadow-[0_0_20px_rgba(0,212,255,0.2)]">
-                <Zap className="w-7 h-7 text-[#00D4FF]" />
+              <div className="w-14 h-14 rounded-2xl bg-[#0066ff]/10 flex items-center justify-center border border-[#0066ff]/20 shadow-[0_0_20px_rgba(0,102,255,0.2)]">
+                <Zap className="w-7 h-7 text-[#0066ff]" />
               </div>
               <div>
                 <h4 className="font-heading font-black text-white uppercase tracking-widest text-lg text-glow">Vedastra</h4>
-                <p className="text-[10px] font-mono uppercase text-[#00D4FF] font-bold">Elite Engineering</p>
+                <p className="text-[10px] font-mono uppercase text-[#0066ff] font-bold">Elite Engineering</p>
               </div>
             </div>
             
             <ul className="space-y-8">
               {[
-                { label: 'Price', value: 'Fixed / Premium Value', icon: DollarSign, color: '#00D4FF' },
+                { label: 'Price', value: 'Fixed / Premium Value', icon: DollarSign, color: '#0066ff' },
                 { label: 'Speed', value: '1–2 Week Launch', icon: Timer, color: '#00FF88' },
                 { label: 'AI expertise', value: 'Specialized Labs', icon: Bot, color: '#7B2FFF' },
-                { label: 'Security', value: 'Bank-Grade Protocol', icon: ShieldCheck, color: '#00D4FF' },
+                { label: 'Security', value: 'Bank-Grade Protocol', icon: ShieldCheck, color: '#0066ff' },
               ].map((item) => (
                 <li key={item.label} className="flex flex-col gap-2">
                   <div className="flex items-center gap-2">

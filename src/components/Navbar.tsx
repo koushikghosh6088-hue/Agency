@@ -39,24 +39,24 @@ export default function Navbar() {
       <div className="absolute inset-0 glass-premium transition-all duration-300" />
       
       {/* Bottom Glowing Line */}
-      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#00D4FF]/20 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#0066ff]/20 to-transparent" />
 
       <div className="max-w-[1550px] mx-auto px-6 relative flex items-center justify-between">
         {/* Left: Logo */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="relative w-10 h-10 flex items-center justify-center">
-            <div className="absolute inset-0 bg-[#00D4FF]/20 blur-xl rounded-full opacity-30 group-hover:opacity-60 transition-opacity" />
+            <div className="absolute inset-0 bg-[#0066ff]/20 blur-xl rounded-full opacity-30 group-hover:opacity-60 transition-opacity" />
             <Image 
               src="/logo.png" 
               alt="Vedastra Logo" 
               width={40} 
               height={40} 
               priority
-              className="relative z-10 w-auto h-8 object-contain drop-shadow-[0_0_10px_rgba(0,212,255,0.4)]"
+              className="relative z-10 w-auto h-8 object-contain drop-shadow-[0_0_10px_rgba(0,102,255,0.4)]"
             />
           </div>
           <span className="font-heading font-black text-xl tracking-tighter uppercase text-white group-hover:text-glow transition-all">
-            Vedastra <span className="text-[#00D4FF]">AI</span>
+            Vedastra <span className="text-[#0066ff]">AI</span>
           </span>
         </Link>
 
@@ -68,8 +68,8 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-[0.7rem] font-heading font-black uppercase tracking-[0.2em] transition-all hover:text-[#00D4FF] relative ${
-                  isActive ? 'text-[#00D4FF] nav-glow' : 'text-white/40'
+                className={`text-[0.7rem] font-heading font-black uppercase tracking-[0.2em] transition-all hover:text-[#0066ff] relative ${
+                  isActive ? 'text-[#0066ff] nav-glow' : 'text-white/40'
                 }`}
               >
                 {link.label}
@@ -90,7 +90,7 @@ export default function Navbar() {
           </a>
           <Link
             href="#booking"
-            className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#00D4FF] text-black text-[0.7rem] font-heading font-black uppercase tracking-widest shadow-[0_0_20px_rgba(0,212,255,0.3)] hover:scale-105 transition-all animate-pulse-subtle"
+            className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#0066ff] text-black text-[0.7rem] font-heading font-black uppercase tracking-widest shadow-[0_0_20px_rgba(0,102,255,0.3)] hover:scale-105 transition-all animate-pulse-subtle"
             style={{ animation: 'pulse-subtle 2s infinite ease-in-out' }}
           >
             Book Free Call <ArrowRight className="w-4 h-4" />
@@ -138,7 +138,7 @@ export default function Navbar() {
                     href={link.href}
                     onClick={() => setIsOpen(false)}
                     className={`text-xl font-heading font-bold uppercase tracking-widest ${
-                      pathname === link.href ? 'text-[#00D4FF]' : 'text-white/60'
+                      pathname === link.href ? 'text-[#0066ff]' : 'text-white/60'
                     }`}
                   >
                     {link.label}
@@ -156,7 +156,7 @@ export default function Navbar() {
                 <Link
                   href="#booking"
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center justify-center gap-3 w-full py-4 rounded-xl bg-[#00D4FF] text-black font-heading font-black uppercase tracking-widest shadow-[0_0_20px_rgba(0,212,255,0.3)]"
+                  className="flex items-center justify-center gap-3 w-full py-4 rounded-xl bg-[#0066ff] text-black font-heading font-black uppercase tracking-widest shadow-[0_0_20px_rgba(0,102,255,0.3)]"
                 >
                   Book Free Call <ArrowRight className="w-5 h-5" />
                 </Link>
@@ -168,8 +168,8 @@ export default function Navbar() {
 
       <style jsx global>{`
         @keyframes pulse-subtle {
-          0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.3); transform: scale(1); }
-          50% { box-shadow: 0 0 35px rgba(0, 212, 255, 0.5); transform: scale(1.02); }
+          0%, 100% { box-shadow: 0 0 20px rgba(0, 102, 255, 0.3); transform: scale(1); }
+          50% { box-shadow: 0 0 35px rgba(0, 102, 255, 0.5); transform: scale(1.02); }
         }
       `}</style>
     </motion.nav>

@@ -68,7 +68,7 @@ export default function AboutPage() {
                   fill
                   loading="lazy"
                   sizes="450px"
-                  className="object-contain drop-shadow-[0_20px_60px_rgba(0,212,255,0.4)]"
+                  className="object-contain drop-shadow-[0_20px_60px_rgba(0,102,255,0.4)]"
                 />
               </div>
             </motion.div>
@@ -82,7 +82,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {honestStats.map((stat, i) => (
               <AnimatedSection key={stat.label} delay={i * 0.1}>
-                <div className="glass-panel rounded-2xl p-6 md:p-8 text-center border-white/10 hover:border-[#00d4ff]/30 transition-all">
+                <div className="glass-panel rounded-2xl p-6 md:p-8 text-center border-white/10 hover:border-[#0066ff]/30 transition-all">
                   <div className="text-2xl md:text-3xl font-heading font-black text-white mb-2 tracking-tighter glow-white uppercase">{stat.value}</div>
                   <div className="font-mono text-[0.7rem] text-[#888888] uppercase tracking-[0.1em]">{stat.label}</div>
                 </div>
@@ -131,7 +131,7 @@ export default function AboutPage() {
                       transition={{ delay: i * 0.1 }} 
                       className="border-b border-white/5 last:border-0 pb-6 last:pb-0 group"
                     >
-                      <h4 className="text-[0.8rem] font-heading font-bold text-white uppercase tracking-[0.05em] mb-2 group-hover:text-[#00d4ff] transition-colors">{item.title}</h4>
+                      <h4 className="text-[0.8rem] font-heading font-bold text-white uppercase tracking-[0.05em] mb-2 group-hover:text-[#0066ff] transition-colors">{item.title}</h4>
                       <p className="text-[0.7rem] font-mono text-[#888888] leading-relaxed uppercase tracking-wide">{item.detail}</p>
                     </motion.div>
                   ))}
@@ -154,13 +154,13 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {values.map((value, i) => (
               <AnimatedSection key={value.title} delay={i * 0.1}>
-                <div className="glass-premium border-white/10 rounded-[2.5rem] p-10 h-full group hover-3d transition-all duration-700 hover:border-[#00d4ff]/30 relative overflow-hidden">
-                  <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 group-hover:bg-[#00d4ff] group-hover:text-black group-hover:shadow-[0_0_30px_rgba(0,212,255,0.5)] transition-all">
+                <div className="glass-premium border-white/10 rounded-[2.5rem] p-10 h-full group hover-3d transition-all duration-700 hover:border-[#0066ff]/30 relative overflow-hidden">
+                  <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 group-hover:bg-[#0066ff] group-hover:text-black group-hover:shadow-[0_0_30px_rgba(0,102,255,0.5)] transition-all">
                     <value.icon className="w-6 h-6" />
                   </div>
                   <h3 className="text-lg font-heading font-bold mb-3 text-white group-hover:glow-cyan transition-colors uppercase tracking-tight">{value.title}</h3>
                   <p className="text-[#888888] text-sm font-body leading-relaxed">{value.desc}</p>
-                  <div className="absolute -inset-20 bg-[#00d4ff]/10 blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                  <div className="absolute -inset-20 bg-[#0066ff]/10 blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                 </div>
               </AnimatedSection>
             ))}

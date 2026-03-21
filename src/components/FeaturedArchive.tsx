@@ -50,7 +50,7 @@ const projects = [
     tags: ["AI", "NLP", "Automation", "Chat"],
     image: "/portfolio/ai_chatbot.png",
     color: "from-sky-600 to-blue-400",
-    border: "border-sky-500/30",
+    border: "border-[#0066ff]/30",
     glow: "shadow-[0_0_40px_rgba(14,165,233,0.15)]",
     label: "AI Agents"
   },

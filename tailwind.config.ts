@@ -11,8 +11,8 @@ const config: Config = {
       colors: {
         obsidian: "#000000",
         blue: {
-          400: "#0ea5e9", // Sky blue
-          glow: "rgba(14, 165, 233, 0.3)"
+          400: "#0066ff", // Premium blue
+          glow: "rgba(0, 102, 255, 0.3)"
         },
         emerald: {
           glow: "#10b981"
