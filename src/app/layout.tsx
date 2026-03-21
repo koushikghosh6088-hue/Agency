@@ -31,6 +31,8 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 });
 
+import { BGPattern } from "@/components/ui/bg-pattern";
+
 export const metadata: Metadata = {
   title: "Vedastra AI Labs | AI-Powered Digital Agency",
   description: "Next-generation digital products, AI agents, and automation built by Vedastra AI Labs.",
@@ -49,6 +51,7 @@ export default function RootLayout({
         <div className="grain-overlay" />
         {/* Floating Shell Container */}
         <div className="max-w-[1600px] mx-auto min-h-screen bg-[#111118]/40 backdrop-blur-sm rounded-[2.5rem] ring-1 ring-white/10 shadow-2xl relative overflow-hidden flex flex-col my-4">
+          <BGPattern variant="grid" mask="fade-edges" size={32} fill="#ffffff08" className="opacity-40" />
           <AnimatedBackgroundMesh />
           <Navbar />
           <main className="flex-grow z-10 w-full relative">
