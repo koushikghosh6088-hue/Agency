@@ -1,10 +1,12 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ArrowRight, Zap, Target, Bot, Smartphone, Globe, Cog, 
-  CheckCircle, ArrowUpRight, MessageSquare, Phone, TrendingUp 
+  CheckCircle, ArrowUpRight, MessageSquare, Phone, TrendingUp,
+  Activity, Layers, Database, Cpu
 } from 'lucide-react';
 import AnimatedSection from '@/components/AnimatedSection';
 import RadialOrbitalTimeline, { TimelineItem } from "@/components/ui/radial-orbital-timeline";
@@ -20,6 +22,7 @@ const services = [
     accent: '#0066ff',
     metric: '< 2s',
     metricLabel: 'Load Speed',
+    pattern: 'nodes',
   },
   {
     id: 'mobile',
@@ -31,6 +34,7 @@ const services = [
     accent: '#0066ff',
     metric: 'iOS/Android',
     metricLabel: 'Native Core',
+    pattern: 'grid',
   },
   {
     id: 'messaging',
@@ -42,6 +46,7 @@ const services = [
     accent: '#0066ff',
     metric: '24/7',
     metricLabel: 'Active Engagement',
+    pattern: 'chat',
   },
   {
     id: 'calling',
@@ -53,6 +58,7 @@ const services = [
     accent: '#0066ff',
     metric: '60sec',
     metricLabel: 'Lead Response',
+    pattern: 'wave',
   },
   {
     id: 'automation',
@@ -64,6 +70,7 @@ const services = [
     accent: '#0066ff',
     metric: '20Hr+',
     metricLabel: 'Weekly Saved',
+    pattern: 'cog',
   },
   {
     id: 'seo',
@@ -75,8 +82,176 @@ const services = [
     accent: '#0066ff',
     metric: 'Top 3',
     metricLabel: 'Google Rank',
+    pattern: 'target',
   },
 ];
+
+function PatternBackground({ type }: { type: string }) {
+  if (type === 'nodes') {
+    return (
+      <svg className="absolute inset-0 w-full h-full opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-700" viewBox="0 0 100 100">
+        <circle cx="20" cy="20" r="1" fill="currentColor" />
+        <circle cx="80" cy="20" r="1" fill="currentColor" />
+        <circle cx="50" cy="50" r="1" fill="currentColor" />
+        <circle cx="20" cy="80" r="1" fill="currentColor" />
+        <circle cx="80" cy="80" r="1" fill="currentColor" />
+        <line x1="20" y1="20" x2="50" y2="50" stroke="currentColor" strokeWidth="0.2" />
+        <line x1="80" y1="20" x2="50" y2="50" stroke="currentColor" strokeWidth="0.2" />
+        <line x1="20" y1="80" x2="50" y2="50" stroke="currentColor" strokeWidth="0.2" />
+        <line x1="80" y1="80" x2="50" y2="50" stroke="currentColor" strokeWidth="0.2" />
+      </svg>
+    );
+  }
+  if (type === 'grid') {
+    return (
+      <div className="absolute inset-0 w-full h-full opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-700" 
+        style={{ backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)', backgroundSize: '15px 15px' }} />
+    );
+  }
+  if (type === 'chat') {
+    return (
+      <svg className="absolute inset-0 w-full h-full opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-700" viewBox="0 0 100 100">
+        <rect x="10" y="20" width="30" height="20" rx="5" fill="none" stroke="currentColor" strokeWidth="0.5" />
+        <rect x="60" y="40" width="30" height="20" rx="5" fill="none" stroke="currentColor" strokeWidth="0.5" />
+        <rect x="20" y="60" width="30" height="20" rx="5" fill="none" stroke="currentColor" strokeWidth="0.5" />
+      </svg>
+    );
+  }
+  if (type === 'wave') {
+    return (
+      <svg className="absolute inset-0 w-full h-full opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-700" viewBox="0 0 100 100">
+        <path d="M0 50 Q 25 20, 50 50 T 100 50" fill="none" stroke="currentColor" strokeWidth="0.5" />
+        <path d="M0 60 Q 25 30, 50 60 T 100 60" fill="none" stroke="currentColor" strokeWidth="0.5" />
+        <path d="M0 40 Q 25 10, 50 40 T 100 40" fill="none" stroke="currentColor" strokeWidth="0.5" />
+      </svg>
+    );
+  }
+  if (type === 'cog') {
+    return (
+      <svg className="absolute inset-0 w-full h-full opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-700" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="15" fill="none" stroke="currentColor" strokeWidth="0.5" />
+        {[0, 45, 90, 135, 180, 225, 270, 315].map(deg => (
+          <rect key={deg} x="48" y="30" width="4" height="8" fill="currentColor" transform={`rotate(${deg} 50 50)`} />
+        ))}
+      </svg>
+    );
+  }
+  if (type === 'target') {
+    return (
+      <svg className="absolute inset-0 w-full h-full opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-700" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="10" fill="none" stroke="currentColor" strokeWidth="0.5" />
+        <circle cx="50" cy="50" r="20" fill="none" stroke="currentColor" strokeWidth="0.5" />
+        <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" strokeWidth="0.5" />
+        <line x1="50" y1="10" x2="50" y2="90" stroke="currentColor" strokeWidth="0.5" />
+        <line x1="10" y1="50" x2="90" y2="50" stroke="currentColor" strokeWidth="0.5" />
+      </svg>
+    );
+  }
+  return null;
+}
+
+function ServiceCard({ service, index }: { service: typeof services[0]; index: number }) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <AnimatedSection delay={index * 0.1}>
+      <motion.div
+        className="group relative h-full glass-premium rounded-[3rem] border-white/5 hover:border-[#0066ff]/50 transition-all duration-500 flex flex-col p-10 overflow-hidden shadow-2xl"
+        whileHover={{ y: -10, scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {/* Background Patterns & Effects */}
+        <div className="absolute inset-0 z-0 text-[#0066ff]">
+          <PatternBackground type={service.pattern} />
+        </div>
+
+        {/* Dynamic Scanning Beam */}
+        <AnimatePresence>
+          {isHovered && (
+            <motion.div
+              initial={{ x: '-100%' }}
+              animate={{ x: '200%' }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
+              className="absolute inset-0 bg-gradient-to-r from-transparent via-[#0066ff]/10 to-transparent z-0 pointer-events-none"
+            />
+          )}
+        </AnimatePresence>
+
+        {/* Glow Foundation */}
+        <div className="absolute -top-24 -left-24 w-64 h-64 bg-[#0066ff]/5 blur-[100px] rounded-full group-hover:bg-[#0066ff]/20 transition-all duration-700 pointer-events-none" />
+
+        <div className="relative z-10 flex flex-col h-full">
+          {/* Card Identifier */}
+          <div className="absolute top-8 right-8 font-mono text-[8px] text-white/20 uppercase tracking-[0.4em]">
+            Protocol_S-{String(index + 1).padStart(2, '0')}
+          </div>
+
+          {/* Icon Section */}
+          <div className="mb-10 relative inline-block">
+            <motion.div 
+              className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center relative z-10 text-white/50 group-hover:bg-[#0066ff] group-hover:text-black transition-all duration-500 shadow-xl"
+              animate={isHovered ? { rotate: [0, 10, -10, 0], scale: 1.1 } : {}}
+            >
+              <service.icon className="w-7 h-7" />
+            </motion.div>
+            
+            <AnimatePresence>
+              {isHovered && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1.2 }}
+                  exit={{ opacity: 0, scale: 0.5 }}
+                  className="absolute -inset-2 bg-[#0066ff]/20 blur-xl rounded-full z-0"
+                />
+              )}
+            </AnimatePresence>
+          </div>
+
+          <div className="flex-grow">
+            <h3 className="text-2xl md:text-3xl font-heading font-black text-white uppercase tracking-tighter mb-2 leading-tight group-hover:text-glow transition-all duration-300">
+              {service.title}
+            </h3>
+            <p className="text-[#0066ff] font-heading font-bold text-[10px] sm:text-xs uppercase tracking-widest mb-6 italic leading-relaxed group-hover:drop-shadow-[0_0_8px_rgba(0,102,255,0.6)] transition-all">
+              {service.headline}
+            </p>
+            <p className="text-white/40 font-body text-sm md:text-base leading-relaxed mb-10 group-hover:text-white/70 transition-colors duration-500">
+              {service.description}
+            </p>
+          </div>
+
+          <div className="pt-8 border-t border-white/5 flex items-center justify-between">
+            <div className="space-y-1">
+              <div className="text-2xl font-heading font-black text-white group-hover:text-[#0066ff] transition-colors leading-none">
+                {service.metric}
+              </div>
+              <div className="text-[9px] font-mono text-white/30 uppercase tracking-[0.2em] font-bold">
+                {service.metricLabel}
+              </div>
+            </div>
+            
+            <Link href={service.link} className="relative group/btn">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5 group-hover/btn:bg-[#0066ff] group-hover/btn:text-black transition-all duration-500 group-hover/btn:scale-110 shadow-lg">
+                <ArrowUpRight className="w-6 h-6" />
+              </div>
+              {/* Secondary Pulse Ring */}
+              <motion.div 
+                className="absolute inset-0 border border-[#0066ff] rounded-2xl pointer-events-none"
+                animate={isHovered ? { scale: [1, 1.3], opacity: [0.5, 0] } : { opacity: 0 }}
+                transition={{ duration: 1.2, repeat: Infinity }}
+              />
+            </Link>
+          </div>
+        </div>
+
+        {/* Shimmer Border Overlay */}
+        <div className="absolute inset-0 border border-white/5 rounded-[3rem] group-hover:border-[#0066ff]/30 transition-colors duration-500 pointer-events-none" />
+      </motion.div>
+    </AnimatedSection>
+  );
+}
 
 const timelineData: TimelineItem[] = [
   {
@@ -129,72 +304,35 @@ export default function ServicesSection() {
   return (
     <section className="relative py-24 md:py-32 bg-black overflow-hidden z-10">
       {/* Background Radiance */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#0066ff]/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-[#0066ff]/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-[#0066ff]/[0.03] rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-[800px] h-[800px] bg-[#0066ff]/[0.03] rounded-full blur-[150px] pointer-events-none" />
 
       <div className="max-w-[1550px] mx-auto px-6 relative z-10">
         {/* Header Section */}
         <AnimatedSection className="text-center mb-24 max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0066ff]/10 border border-[#0066ff]/20 mb-8 backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0066ff]/10 border border-[#0066ff]/20 mb-8 backdrop-blur-md shadow-[0_0_20px_rgba(0,102,255,0.1)]">
             <Zap className="w-4 h-4 text-[#0066ff]" />
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#0066ff] font-black">Service Protocols</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#0066ff] font-black">Performance Protocols</span>
           </div>
           <h2 className="text-[2.5rem] md:text-[4.5rem] font-heading font-black leading-[0.9] tracking-tighter uppercase mb-8 text-white">
             WE ENGINEER <br className="hidden md:block" />
-            <span className="text-[#0066ff] italic">LIMITLESS GROWTH</span>
+            <span className="text-[#0066ff] italic drop-shadow-[0_0_30px_rgba(0,102,255,0.3)]">LIMITLESS GROWTH</span>
           </h2>
-          <p className="text-[#8A8A9A] text-xl font-body font-light max-w-2xl mx-auto">
-            High-converting digital ecosystems, autonomous AI agents, and intelligent automation built for the modern market.
+          <p className="text-[#8A8A9A] text-xl font-body font-light max-w-2xl mx-auto leading-relaxed">
+            High-converting digital ecosystems, autonomous AI agents, and intelligent automation built for those who demand elite performance.
           </p>
         </AnimatedSection>
 
-        {/* Services Grid (Premium Lukritive Layout) */}
+        {/* Services Grid (Premium Overhauled Layout) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32 relative z-10">
           {services.map((service, i) => (
-            <AnimatedSection key={service.id} delay={i * 0.1}>
-              <div className="group relative h-full glass-premium rounded-[3rem] border-white/5 hover:border-[#0066ff]/30 transition-all duration-700 flex flex-col p-10 hover-3d overflow-hidden shimmer-border">
-                
-                {/* Visual Icon Accent */}
-                <div className="mb-10 relative">
-                  <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center relative z-10 group-hover:bg-[#0066ff] group-hover:text-black transition-all duration-500 shadow-[0_0_20px_rgba(255,255,255,0.02)] group-hover:shadow-[0_0_30px_rgba(0,102,255,0.4)]">
-                    <service.icon className="w-7 h-7" />
-                  </div>
-                  <div className="absolute -top-4 -left-4 w-24 h-24 bg-[#0066ff]/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                </div>
-
-                <div className="flex-grow">
-                  <h3 className="text-2xl md:text-3xl font-heading font-black text-white uppercase tracking-tighter mb-2 leading-tight">
-                    {service.title}
-                  </h3>
-                  <p className="text-[#0066ff] font-heading font-bold text-xs uppercase tracking-widest mb-6 italic opacity-80 group-hover:opacity-100 transition-opacity">
-                    {service.headline}
-                  </p>
-                  <p className="text-[#8A8A9A] font-body text-sm md:text-base leading-relaxed mb-10 group-hover:text-white/70 transition-colors">
-                    {service.description}
-                  </p>
-                </div>
-
-                <div className="pt-8 border-t border-white/5 flex items-center justify-between">
-                  <div>
-                    <div className="text-2xl font-heading font-black text-white group-hover:text-[#0066ff] transition-colors leading-none mb-1">
-                      {service.metric}
-                    </div>
-                    <div className="text-[9px] font-mono text-[#8A8A9A] uppercase tracking-[0.2em] font-bold">
-                      {service.metricLabel}
-                    </div>
-                  </div>
-                  <Link href={service.link} className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 hover:bg-[#0066ff] hover:text-black hover:shadow-[0_0_30px_rgba(0,102,255,0.5)] transition-all duration-500 group-hover:scale-110">
-                    <ArrowUpRight className="w-5 h-5 pointer-events-none" />
-                  </Link>
-                </div>
-              </div>
-            </AnimatedSection>
+            <ServiceCard key={service.id} service={service} index={i} />
           ))}
         </div>
 
         {/* Neural Ecosystem Visual */}
         <AnimatedSection className="mb-32">
-          <div className="glass-premium rounded-[4rem] border-white/5 overflow-hidden p-12 md:p-24 relative bg-black/40 backdrop-blur-3xl">
+          <div className="glass-premium rounded-[4rem] border-white/5 overflow-hidden p-12 md:p-24 relative bg-black/40 backdrop-blur-3xl shadow-[0_50px_100px_rgba(0,0,0,0.5)]">
              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div className="space-y-10">
                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[10px] font-mono text-white/40 uppercase tracking-widest">
