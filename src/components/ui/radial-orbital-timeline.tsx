@@ -209,7 +209,7 @@ export default function RadialOrbitalTimeline({
             const position = calculateNodePosition(index, timelineData.length, 0);
             const isActive = activeNodeId === item.id;
             const isRelated = activeNodeId && (item.relatedIds.includes(activeNodeId) || activeItem?.relatedIds.includes(item.id));
-            const Icon = item.icon as React.ComponentType<{ className?: string }>;
+            const Icon = item.icon as React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
             const nodeColor = item.color || "#0ea5e9";
 
             return (
