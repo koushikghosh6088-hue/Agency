@@ -349,18 +349,22 @@ export default function HomePage() {
               </p>
 
               {/* Animated Cycling Service Text (Lukritive Upgrade) */}
-              <div className="h-12 sm:h-16 flex items-center justify-center lg:justify-start overflow-hidden px-4 sm:px-0">
+              <div className="h-16 sm:h-24 flex items-center justify-center lg:justify-start overflow-hidden px-4 sm:px-0">
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={heroServiceIndex}
-                    initial={{ opacity: 0, scale: 0.9, y: 30 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, y: -30 }}
+                    initial={{ opacity: 0, scale: 0.8, y: 50, rotateX: 45 }}
+                    animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
+                    exit={{ opacity: 0, scale: 1.1, y: -50, rotateX: -45 }}
                     transition={{ 
-                      duration: 0.5, 
-                      ease: [0.22, 1, 0.36, 1] 
+                      duration: 0.6, 
+                      ease: [0.23, 1, 0.32, 1] 
                     }}
-                    className="text-[#0066ff] font-heading font-black text-2xl sm:text-3xl md:text-4xl uppercase tracking-wider drop-shadow-[0_0_20px_rgba(0,102,255,0.4)]"
+                    className="text-[#0066ff] font-heading font-black text-3xl sm:text-5xl md:text-6xl uppercase tracking-[0.05em] drop-shadow-[0_0_25px_rgba(0,102,255,0.6)] italic select-none"
+                    style={{ 
+                      textShadow: '0 0 30px rgba(0, 102, 255, 0.4), 0 0 60px rgba(0, 102, 255, 0.2)',
+                      WebkitTextStroke: '1px rgba(0, 102, 255, 0.2)'
+                    }}
                   >
                     {heroServices[heroServiceIndex]}
                   </motion.span>
