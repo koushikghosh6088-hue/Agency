@@ -1,405 +1,303 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
-import { Activity, Cpu, ZapIcon, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
 
-export interface TimelineItem {
+import { useState, useEffect, useRef, useCallback } from "react";
+import { Play, Square, X, Info } from "lucide-react";
+import { motion, AnimatePresence, useAnimationFrame } from "framer-motion";
+
+export interface ServiceItem {
   id: number;
   title: string;
-  date: string;
+  headline: string;
   content: string;
-  category: string;
+  benefits: string[];
   icon: React.ElementType;
-  relatedIds: number[];
-  status: "completed" | "in-progress" | "pending";
-  energy: number;
-  color?: string;
+  accent?: string;
+  secondary?: string;
 }
 
-interface RadialOrbitalTimelineProps {
-  timelineData: TimelineItem[];
+interface ServiceOrbitalProps {
+  services: ServiceItem[];
+  activeServiceId: number | null;
+  onServiceSelect: (id: number | null) => void;
+  isMobile?: boolean;
 }
 
-export default function RadialOrbitalTimeline({
-  timelineData,
-}: RadialOrbitalTimelineProps) {
-  const [rotationAngle, setRotationAngle] = useState<number>(0);
-  const [autoRotate, setAutoRotate] = useState<boolean>(true);
-  const [activeNodeId, setActiveNodeId] = useState<number | null>(null);
-  const velocityRef = useRef<number>(4);
+export default function ServiceOrbital({
+  services,
+  activeServiceId,
+  onServiceSelect,
+  isMobile = false,
+}: ServiceOrbitalProps) {
+  const [rotation, setRotation] = useState(0);
+  const [velocity, setVelocity] = useState(0);
+  const [isSpinning, setIsSpinning] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [showHint, setShowHint] = useState(true);
+  
+  const velocityRef = useRef(0);
+  const rotationRef = useRef(0);
+  const lastMousePos = useRef({ x: 0, y: 0 });
+  const isDragging = useRef(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [radius, setRadius] = useState(200);
 
+  // Constants
+  const RADIUS = isMobile ? 130 : 200;
+  const FRICTION = 0.98; // Natural decay
+  const MAX_VELOCITY = 15;
+  const ACCELERATION = 0.5;
+
+  // Auto-spin on first load
   useEffect(() => {
-    const handleResize = () => {
-      const width = window.innerWidth;
+    const timer = setTimeout(() => {
+      setVelocity(5); // Start slow spin
+      velocityRef.current = 5;
+      setIsSpinning(true);
       
-      if (width < 640) {
-        setRadius(Math.min((width / 2) - 40, 160));
-      } else if (width < 1024) {
-        setRadius(170);
-      } else {
-        setRadius(200);
-      }
-    };
+      // Stop after 2s
+      setTimeout(() => {
+        setIsSpinning(false);
+        setShowHint(false);
+      }, 2000);
+    }, 500);
     
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    return () => clearTimeout(timer);
   }, []);
 
-  const toggleItem = (id: number) => {
-    const isCurrentlyActive = activeNodeId === id;
-    if (isCurrentlyActive) {
-      setActiveNodeId(null);
-      setAutoRotate(true);
+  // Physics Engine
+  useAnimationFrame((time, delta) => {
+    if (isDragging.current) return;
+
+    let currentVelocity = velocityRef.current;
+
+    if (isSpinning) {
+      // Accelerate to max
+      currentVelocity = Math.min(currentVelocity + ACCELERATION, MAX_VELOCITY);
     } else {
-      setActiveNodeId(id);
-      setAutoRotate(false);
-      const nodeIndex = timelineData.findIndex(i => i.id === id);
-      const totalNodes = timelineData.length;
-      const targetAngle = (nodeIndex / totalNodes) * 360;
-      setRotationAngle(270 - targetAngle);
+      // Natural decay
+      currentVelocity *= FRICTION;
+      if (currentVelocity < 0.1) currentVelocity = 0;
     }
-  };
 
-  const spinIt = (e: React.MouseEvent) => {
+    // Slow down on hover (Desktop) or if modal is open
+    if (!isMobile && isHovered && !isSpinning) {
+       currentVelocity *= 0.5;
+    }
+
+    velocityRef.current = currentVelocity;
+    rotationRef.current = (rotationRef.current + currentVelocity) % 360;
+    setRotation(rotationRef.current);
+  });
+
+  const handleToggleSpin = (e: React.MouseEvent) => {
     e.stopPropagation();
-    // Drastically increase boost for a "fidget spinner" feel
-    // Adding 1500 to current velocity, capped at 4000
-    velocityRef.current = Math.min(velocityRef.current + 1500, 4000); 
-    
-    if (!autoRotate) {
-      setAutoRotate(true);
-      setActiveNodeId(null);
+    setIsSpinning(!isSpinning);
+    if (!isSpinning) {
+       // Optional boost logic removed as per "smooth acceleration" requirement
     }
   };
 
-  useEffect(() => {
-    let animationFrameId: number;
-    let lastTime = performance.now();
-
-    const animate = (time: number) => {
-      const deltaTime = time - lastTime;
-      lastTime = time;
-
-      if (autoRotate) {
-        // Higher decay factor (0.996) makes the spin last much longer
-        const decayFactor = Math.pow(0.996, deltaTime / 16.6);
-        velocityRef.current = Math.max(4, velocityRef.current * decayFactor);
-        
-        // Apply rotation based on current velocity
-        const deltaAngle = (velocityRef.current / 1000) * deltaTime;
-        setRotationAngle((prev) => (prev + deltaAngle) % 360);
-      }
-      
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    animationFrameId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [autoRotate]);
-
-  const calculateNodePosition = (index: number, total: number, offset: number = 0) => {
-    const angle = ((index / total) * 360 + offset) % 360;
-    const radian = (angle * Math.PI) / 180;
-    const x = radius * Math.cos(radian);
-    const y = radius * Math.sin(radian);
-    const zIndex = Math.round(100 + 50 * Math.cos(radian));
-    const opacity = Math.max(0.4, Math.min(1, 0.4 + 0.6 * ((1 + Math.sin(radian)) / 2)));
-    return { x, y, angle, zIndex, opacity };
+  // Drag Logic
+  const handleStart = (clientX: number, clientY: number) => {
+    isDragging.current = true;
+    lastMousePos.current = { x: clientX, y: clientY };
+    setIsSpinning(false);
   };
 
-  const activeItem = timelineData.find(item => item.id === activeNodeId);
+  const handleMove = (clientX: number, clientY: number) => {
+    if (!isDragging.current) return;
+    
+    // Calculate simple angle difference based on mouse movement relative to center
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const angle1 = Math.atan2(lastMousePos.current.y - centerY, lastMousePos.current.x - centerX);
+    const angle2 = Math.atan2(clientY - centerY, clientX - centerX);
+    
+    let diff = (angle2 - angle1) * (180 / Math.PI);
+    
+    rotationRef.current = (rotationRef.current + diff) % 360;
+    velocityRef.current = diff * 0.8; // Set velocity based on drag speed
+    setRotation(rotationRef.current);
+    
+    lastMousePos.current = { x: clientX, y: clientY };
+  };
+
+  const handleEnd = () => {
+    isDragging.current = false;
+  };
 
   return (
-    <div
-      className="relative w-full h-full min-h-[500px] lg:min-h-[700px] flex items-center justify-center bg-transparent overflow-visible"
+    <div 
       ref={containerRef}
-      onClick={() => {
-        setActiveNodeId(null);
-        setAutoRotate(true);
-      }}
+      className="relative w-full h-[400px] md:h-full flex items-center justify-center cursor-grab active:cursor-grabbing select-none"
+      onMouseDown={(e) => handleStart(e.clientX, e.clientY)}
+      onMouseMove={(e) => handleMove(e.clientX, e.clientY)}
+      onMouseUp={handleEnd}
+      onMouseLeave={handleEnd}
+      onTouchStart={(e) => handleStart(e.touches[0].clientX, e.touches[0].clientY)}
+      onTouchMove={(e) => handleMove(e.touches[0].clientX, e.touches[0].clientY)}
+      onTouchEnd={handleEnd}
+      onMouseEnter={() => !isMobile && setIsHovered(true)}
+      onMouseLeave={() => !isMobile && setIsHovered(false)}
     >
-      {/* Background Ambient Glow for Contrast */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-         <motion.div 
-           animate={{ backgroundColor: activeItem?.color || "rgba(14,165,233,0.08)" }}
-           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] opacity-20 blur-[100px] rounded-full" 
-         />
-      </div>
-
-      <div className="relative w-full max-w-4xl h-full flex items-center justify-center">
-        
-        {/* Physical Rotating Orbital System */}
-        <motion.div 
-          className="absolute inset-0 flex items-center justify-center"
-          animate={{ rotate: rotationAngle }}
-          transition={{ duration: 0 }}
-          style={{ transformOrigin: 'center center' }}
-        >
-          {/* SVG Area for connectivity lines - Using viewBox for 0,0 center to avoid ref-reading during render */}
-          <svg 
-            className="absolute inset-0 w-full h-full pointer-events-none z-10 overflow-visible"
-            viewBox="-500 -500 1000 1000"
-            preserveAspectRatio="xMidYMid meet"
-          >
-            <defs>
-              <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#0ea5e9" stopOpacity="0" />
-                <stop offset="50%" stopColor="#0ea5e9" stopOpacity="0.6" />
-                <stop offset="100%" stopColor="#0ea5e9" stopOpacity="0" />
-              </linearGradient>
-              <filter id="glow">
-                <feGaussianBlur stdDeviation="3" result="blur" />
-                <feComposite in="SourceGraphic" in2="blur" operator="over" />
-              </filter>
-            </defs>
-            <AnimatePresence>
-              {activeNodeId && activeItem?.relatedIds.map(relId => {
-                const activeIndex = timelineData.findIndex(i => i.id === activeNodeId);
-                const relIndex = timelineData.findIndex(i => i.id === relId);
-                const p1 = calculateNodePosition(activeIndex, timelineData.length, 0);
-                const p2 = calculateNodePosition(relIndex, timelineData.length, 0);
-                const activeColor = activeItem.color || "#0ea5e9";
-
-                return (
-                  <motion.path
-                    key={`line-${activeNodeId}-${relId}`}
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    animate={{ pathLength: 1, opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 1, ease: "circOut" }}
-                    d={`M ${p1.x} ${p1.y} Q 0 0 ${p2.x} ${p2.y}`}
-                    stroke={activeColor}
-                    strokeWidth="2.5"
-                    fill="none"
-                    filter="url(#glow)"
-                    strokeDasharray="12 6"
-                    className="animate-[marquee_15s_linear_infinite]"
-                    opacity="0.6"
-                  />
-                );
-              })}
-            </AnimatePresence>
-          </svg>
-
-          {/* Global Orbit Line */}
-          <div 
-            className="absolute rounded-full border border-blue-400/15 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none shadow-[0_0_30px_rgba(14,165,233,0.05)]"
-            style={{ width: radius * 2, height: radius * 2 }}
-          >
-            {/* Energy packets traveling around the orbit - Brighter & Larger */}
-            {[1, 2, 3, 4].map((i) => (
-              <div 
-                key={`packet-${i}`}
-                className="absolute w-2 h-2 rounded-full bg-blue-400 shadow-[0_0_12px_rgba(14,165,233,0.8)] blur-[1px]"
-                style={{
-                  offsetPath: `circle(${radius}px at center)`,
-                  animation: `orbit-particle ${8 + i * 1.5}s linear infinite`,
-                  animationDelay: `${-i * 2}s`
-                }}
-              />
-            ))}
-          </div>
-
-          {/* Timeline Nodes */}
-          {timelineData.map((item, index) => {
-            const position = calculateNodePosition(index, timelineData.length, 0);
-            const isActive = activeNodeId === item.id;
-            const isRelated = activeNodeId && (item.relatedIds.includes(activeNodeId) || activeItem?.relatedIds.includes(item.id));
-            const Icon = item.icon as React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
-            const nodeColor = item.color || "#0ea5e9";
-
-            return (
-              <div
-                key={item.id}
-                className="absolute cursor-pointer pointer-events-auto"
-                style={{
-                  transform: `translate(${position.x}px, ${position.y}px)`,
-                  zIndex: isActive ? 500 : position.zIndex,
-                  opacity: activeNodeId && !isActive && !isRelated ? 0.2 : (isActive ? 1 : position.opacity),
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleItem(item.id);
-                }}
-              >
-                {/* Counter-rotation wrapper */}
-                <motion.div
-                  animate={{ rotate: -rotationAngle }}
-                  transition={{ duration: 0 }}
-                >
-                  <motion.div
-                    whileHover={{ scale: 1.25, rotate: 8 }}
-                    className={`
-                      relative w-14 h-14 rounded-[1.25rem] flex items-center justify-center
-                      glass-premium border-white/20
-                      transition-all duration-500 overflow-hidden
-                    `}
-                    style={{ 
-                      borderColor: isActive ? nodeColor : 'rgba(255,255,255,0.2)',
-                      boxShadow: isActive ? `0 0 30px ${nodeColor}66` : 'none'
-                    }}
-                  >
-                    <div className="absolute top-0 left-0 w-full h-[1.5px] bg-gradient-to-r from-transparent via-white/40 to-transparent" />
-                    {isActive && <div className="absolute inset-0 opacity-20 rounded-2xl animate-pulse" style={{ backgroundColor: nodeColor }} />}
-                    <Icon className={`w-6 h-6 transition-colors duration-300 ${isActive ? "" : "text-white/70"}`} style={{ color: isActive ? nodeColor : undefined }} />
-                    <div className={`absolute top-1 right-1 w-3 h-3 rounded-full border-2 border-black shadow-[0_0_10px_rgba(0,0,0,0.5)]`} style={{ backgroundColor: nodeColor }} />
-                  </motion.div>
-
-                  <div className={`absolute top-16 left-1/2 -translate-x-1/2 transition-all duration-500 whitespace-nowrap`}>
-                    <span className={`font-heading text-[11px] sm:text-[13px] font-black uppercase tracking-[0.15em] transition-colors`} style={{ color: isActive ? nodeColor : 'rgba(255,255,255,0.5)' }}>
-                      {item.title}
-                    </span>
-                    <div className={`h-[2px] transition-all duration-700 mx-auto ${isActive ? "w-full mt-1.5 opacity-100" : "w-0 opacity-0"}`} style={{ background: `linear-gradient(to right, transparent, ${nodeColor}, transparent)` }} />
-                  </div>
-                </motion.div>
-              </div>
-            );
-          })}
-        </motion.div>
-
-        {/* Neural Core — Redesigned as an interactive "Click to Spin" button */}
+      {/* Visual Rings */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        {/* Main Orbit Ring */}
         <div 
-          className="absolute flex items-center justify-center z-20 scale-75 md:scale-100 cursor-pointer group active:scale-95 transition-all"
-          onClick={spinIt}
-        >
-          {/* Outer Pulsing Decorative Ring */}
-          <div className="absolute w-44 h-44 rounded-full border border-blue-400/20 animate-ping opacity-20 group-hover:opacity-40 transition-opacity" />
-          
-          <div className="absolute w-44 h-44 rounded-full bg-blue-400/[0.03] border border-blue-400/20 animate-glow-scan" 
-               style={{ background: 'conic-gradient(from 0deg, transparent, rgba(14,165,233,0.3), transparent 30%)' }} />
-           <div className="absolute w-36 h-36 rounded-full border border-white/10 animate-reverse-spin duration-[12s]" />
-          
-          <div className="relative w-28 h-28 rounded-full flex flex-col items-center justify-center glass-premium border-blue-400/40 overflow-hidden group-hover:border-blue-400 transition-colors">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-400/30 via-transparent to-purple-500/20 animate-pulse" />
-            
-            {/* Hover Label */}
-            <div className="absolute inset-0 flex items-center justify-center bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-[2px] z-20">
-              <span className="font-heading text-[10px] font-black text-blue-400 tracking-[0.2em] animate-pulse">
-                CLICK TO SPIN
-              </span>
-            </div>
+          className="absolute rounded-full border border-cyan-400/15"
+          style={{ width: RADIUS * 2, height: RADIUS * 2 }}
+        />
+        {/* Secondary Inner Ring */}
+        <div 
+          className="absolute rounded-full border border-cyan-400/5"
+          style={{ width: RADIUS * 1.7, height: RADIUS * 1.7 }}
+        />
+        
+        {/* Rotating Dashed Arc (Parallax) */}
+        <motion.div
+           className="absolute border-2 border-dashed border-cyan-400/10 rounded-full"
+           style={{ width: RADIUS * 2.2, height: RADIUS * 2.2 }}
+           animate={{ rotate: rotation * 0.25 }}
+        />
 
-            <div className="absolute top-0 left-0 w-full h-[2px] bg-white/20 blur-[1px]" />
-            <Cpu className="w-10 h-10 text-blue-400 animate-float group-hover:scale-90 transition-transform relative z-10" />
-            
-            {/* Spinning inner data ring */}
-            <div className="absolute inset-1 border-2 border-dashed border-blue-400/30 rounded-full animate-[spin_8s_linear_infinite]" />
-          </div>
-          
-          {/* External pulse ripples - Higher Visibility */}
-          <div className="absolute w-36 h-36 rounded-full border border-blue-500/30 animate-ping opacity-60" />
-          <div className="absolute w-56 h-56 rounded-full border border-blue-400/20 animate-ping [animation-delay:0.5s] opacity-40" />
+        {/* Satellite Dot */}
+        <div className="absolute inset-0 flex items-center justify-center">
+           <motion.div 
+             className="absolute w-2 h-2 bg-cyan-400 rounded-full shadow-[0_0_10px_#00D4FF]"
+             animate={{ 
+               rotate: (time) => time * 0.05, // Constant speed
+               x: RADIUS,
+             }}
+             style={{ offsetPath: `circle(${RADIUS}px)`, animation: 'orbit-satellite 10s linear infinite' }}
+           />
         </div>
 
-        {/* Top-Level Expansion Card Modal */}
+        {/* Drag Hint Circle */}
         <AnimatePresence>
-          {activeItem && (
-            <>
-              {/* Backdrop */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={() => {
-                  setActiveNodeId(null);
-                  setAutoRotate(true);
-                }}
-                className="fixed inset-0 z-[999] bg-black/60 backdrop-blur-sm"
-              />
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9, y: 20, x: "-50%" }}
-                animate={{ opacity: 1, scale: 1, y: "-50%", x: "-50%" }}
-                exit={{ opacity: 0, scale: 0.9, y: "-40%", x: "-50%" }}
-                className="fixed top-1/2 left-1/2 z-[1000] pointer-events-auto w-full max-w-[380px] px-6 md:px-0"
-              >
-              <div 
-                className="relative glass-premium p-7 rounded-[2.5rem] border-white/20 shadow-2xl overflow-hidden group/card bg-black/95 w-full max-h-[90vh] overflow-y-auto"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {/* Border Beam Logic - Intensified Glow */}
-                <div className="absolute inset-0 opacity-30 pointer-events-none overflow-hidden rounded-[2.5rem]">
-                  <div className="absolute inset-[-100%] bg-[conic-gradient(from_0deg,transparent,#0ea5e9,transparent_30%)] animate-[spin_3s_linear_infinite]" />
-                </div>
-
-                <div className="relative z-10">
-                  <div className="flex justify-between items-center mb-5">
-                    <Badge className="bg-blue-400/20 border-blue-400/40 text-blue-400 text-[10px] font-black uppercase tracking-wider rounded-full px-4 py-1.5">
-                      {activeItem.category}
-                    </Badge>
-                    <div className="flex items-center gap-3">
-                      <span className="font-mono text-[10px] text-white/40 tracking-widest font-bold">{activeItem.date}</span>
-                      <button 
-                         onClick={() => { setActiveNodeId(null); setAutoRotate(true); }}
-                         className="p-1 hover:bg-white/10 rounded-full transition-colors"
-                      >
-                         <X size={16} className="text-white/40" />
-                      </button>
-                    </div>
-                  </div>
-                  
-                  <h3 className="text-2xl font-heading font-black text-white mb-3 tracking-tighter uppercase leading-tight italic">
-                    {activeItem.title}
-                  </h3>
-                  
-                  <p className="text-white/60 text-sm font-mono leading-relaxed mb-8">
-                    {activeItem.content}
-                  </p>
-
-                  <div className="space-y-5">
-                    <div className="p-5 bg-white/[0.03] border border-white/5 rounded-[1.5rem]">
-                       <div className="flex justify-between items-center mb-3">
-                          <span className="flex items-center gap-2 text-[11px] text-white/50 uppercase tracking-[0.2em] font-bold">
-                            <ZapIcon size={14} className="text-blue-400 animate-pulse" /> Neural Impact
-                          </span>
-                          <span className="text-blue-400 font-mono text-sm font-black">{activeItem.energy}%</span>
-                       </div>
-                       <div className="h-2 w-full bg-blue-900/20 rounded-full overflow-hidden">
-                         <motion.div 
-                           initial={{ width: 0 }}
-                           animate={{ width: `${activeItem.energy}%` }}
-                           className="h-full bg-gradient-to-r from-blue-600 via-blue-400 to-cyan-300" 
-                         />
-                       </div>
-                    </div>
-
-                    {activeItem.relatedIds.length > 0 && (
-                      <div className="grid grid-cols-1 gap-3">
-                         <span className="text-[9px] text-white/30 uppercase tracking-[0.2em] pl-1">Neural Synapse</span>
-                         {activeItem.relatedIds.map(relId => {
-                           const rel = timelineData.find(i => i.id === relId);
-                           return (
-                             <button 
-                               key={relId}
-                               onClick={(e) => { e.stopPropagation(); toggleItem(relId); }}
-                               className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-blue-400 hover:bg-blue-400/10 transition-all group/btn"
-                             >
-                               <span className="text-[11px] font-mono text-white/70 group-hover/btn:text-white uppercase tracking-widest font-black">Sync {rel?.title}</span>
-                               <Activity size={14} className="text-blue-400 transition-transform group-hover/btn:scale-125" />
-                             </button>
-                           )
-                         })}
-                      </div>
-                    )}
-                  </div>
-
-                  <button 
-                    className="mt-8 w-full py-4 rounded-2xl bg-blue-500/10 border border-blue-500/30 font-mono text-[10px] uppercase tracking-[0.3em] text-blue-400 hover:bg-blue-500/20 active:scale-[0.98] transition-all"
-                    onClick={() => { setActiveNodeId(null); setAutoRotate(true); }}
-                  >
-                    DISCONNECT PROTOCOL
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-            </>
-          )}
+           {isDragging.current && (
+             <motion.div
+               initial={{ opacity: 0, scale: 0.9 }}
+               animate={{ opacity: 1, scale: 1.1 }}
+               exit={{ opacity: 0 }}
+               className="absolute rounded-full border border-dashed border-cyan-400/30"
+               style={{ width: RADIUS * 2.2, height: RADIUS * 2.2 }}
+             />
+           )}
         </AnimatePresence>
       </div>
+
+      {/* Center SPIN/STOP Button */}
+      <div className="relative z-50">
+        <button
+          onClick={handleToggleSpin}
+          className={`
+            w-[72px] h-[72px] rounded-full flex flex-col items-center justify-center transition-all duration-300
+            ${isSpinning 
+              ? 'bg-red-500/10 border-[1.5px] border-red-500 shadow-[0_0_20px_rgba(255,45,85,0.3)]' 
+              : 'bg-[#0A0A0F] border-[1.5px] border-cyan-400 shadow-[0_0_20px_rgba(0,212,255,0.3)]'
+            }
+          `}
+        >
+          {isSpinning ? (
+            <Square className="w-6 h-6 text-white fill-current" />
+          ) : (
+            <Play className="w-6 h-6 text-cyan-400 fill-current ml-1" />
+          )}
+          <span className={`text-[9px] font-mono font-black tracking-[3px] mt-1 ${isSpinning ? 'text-white' : 'text-cyan-400'}`}>
+            {isSpinning ? 'STOP' : 'SPIN'}
+          </span>
+
+          {/* Pulsing Border Ring */}
+          {!isSpinning && (
+            <motion.div 
+              className="absolute inset-[-4px] border border-cyan-400/30 rounded-full"
+              animate={{ scale: [1, 1.2], opacity: [0.5, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            />
+          )}
+        </button>
+      </div>
+
+      {/* Services Nodes */}
+      <div 
+        className="absolute inset-0 flex items-center justify-center pointer-events-none"
+        style={{ transform: `rotate(${rotation}deg)` }}
+      >
+        {services.map((service, index) => {
+          const angle = (index / services.length) * 360;
+          const isActive = activeServiceId === service.id;
+          const Icon = service.icon;
+
+          return (
+            <div
+              key={service.id}
+              className="absolute"
+              style={{
+                transform: `rotate(${angle}deg) translate(${RADIUS}px) rotate(-${angle}deg) rotate(-${rotation}deg)`
+              }}
+            >
+              <div 
+                className="relative cursor-pointer pointer-events-auto group"
+                onClick={(e) => {
+                   e.stopPropagation();
+                   onServiceSelect(service.id);
+                   if (isMobile) {
+                      setRotation(prev => prev); // Pause visually
+                      velocityRef.current = 0;
+                   }
+                }}
+              >
+                <motion.div
+                  whileHover={{ scale: 1.2 }}
+                  className={`
+                    w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center transition-all duration-300 border-2
+                  `}
+                  style={{
+                    backgroundColor: isActive ? service.accent : '#111118',
+                    borderColor: isActive ? service.secondary : `${service.accent || '#00D4FF'}44`,
+                    boxShadow: isActive ? `0 0 30px ${service.accent}` : 'none',
+                    color: isActive ? '#000' : (service.accent || '#fff')
+                  }}
+                  aria-label={`Explore ${service.title}`}
+                  role="button"
+                >
+                  <Icon className={`w-6 h-6 transition-colors duration-300`} />
+                </motion.div>
+
+                {/* Tooltip (Desktop) */}
+                {!isMobile && (
+                  <div className="absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-cyan-400 text-black text-[10px] font-black px-2 py-1 rounded whitespace-nowrap pointer-events-none uppercase">
+                    {service.title}
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Hint Label */}
+      <AnimatePresence>
+        {showHint && (
+           <motion.div
+             initial={{ opacity: 0, y: 10 }}
+             animate={{ opacity: 1, y: 0 }}
+             exit={{ opacity: 0 }}
+             className="absolute bottom-10 font-mono text-cyan-400 text-[10px] tracking-widest flex items-center gap-2"
+           >
+             <span className="animate-pulse">↻</span> DRAG TO SPIN OR CLICK THE BUTTON
+           </motion.div>
+        )}
+      </AnimatePresence>
+
+      <style jsx global>{`
+        @keyframes orbit-satellite {
+          from { transform: rotate(0deg) translateX(${RADIUS}px) rotate(0deg); }
+          to { transform: rotate(360deg) translateX(${RADIUS}px) rotate(-360deg); }
+        }
+      `}</style>
     </div>
   );
 }
