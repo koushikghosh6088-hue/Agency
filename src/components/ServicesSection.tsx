@@ -1,12 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useMemo, MouseEvent } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { 
   ArrowRight, Zap, Target, Bot, Smartphone, Globe, Cog, 
-  CheckCircle, ArrowUpRight, MessageSquare, Phone, TrendingUp,
-  Activity, Layers, Database, Cpu
+  ArrowUpRight, MessageSquare, Phone, Activity, Cpu, 
+  Search, BarChart3, Radio, Share2, Layers, ShieldCheck, X
 } from 'lucide-react';
 import AnimatedSection from '@/components/AnimatedSection';
 import RadialOrbitalTimeline, { TimelineItem } from "@/components/ui/radial-orbital-timeline";
@@ -15,375 +15,321 @@ const services = [
   {
     id: 'web',
     title: 'Website Development',
-    headline: '"A Website That Turns Visitors Into Paying Customers"',
-    description: 'Your website is your #1 salesperson. We build fast, stunning websites that load in under 2 seconds, look perfect on every device, and are designed to convert — not just look pretty.',
+    headline: '"Engineered for Conversion"',
+    description: 'Elite web ecosystems that load in < 2s. We build high-performance storefronts and corporate hubs designed to turn cold traffic into loyal customers.',
     icon: Globe,
-    link: '/services#web',
     accent: '#0066ff',
+    colorName: 'Cyber Blue',
+    details: 'Our web tech stack includes Next.js 15, Turbopack, and high-fidelity Framer Motion animations. Every site is optimized for Core Web Vitals and accessibility.',
     metric: '< 2s',
     metricLabel: 'Load Speed',
-    pattern: 'nodes',
+    object3d: (
+      <svg className="w-full h-full" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="4 4" />
+        <rect x="30" y="35" width="40" height="30" rx="2" fill="none" stroke="currentColor" strokeWidth="1" />
+        <path d="M30 40 H70" stroke="currentColor" strokeWidth="0.5" />
+        <circle cx="50" cy="50" r="5" fill="currentColor" className="animate-pulse" />
+      </svg>
+    )
   },
   {
     id: 'mobile',
     title: 'Mobile App Development',
-    headline: '"Put Your Business Directly In Your Customers\' Pockets"',
-    description: 'Keep your customers one tap away. We build apps for both iPhone and Android that drive repeat business, enable easy booking or ordering, and make you look like the most professional option in your market.',
+    headline: '"One Tap Away From Revenue"',
+    description: 'Native iOS & Android experiences that bridge the gap between business and user mobility. Keep your brand directly in your customer\'s pockets.',
     icon: Smartphone,
-    link: '/services#mobile',
-    accent: '#0066ff',
-    metric: 'iOS/Android',
-    metricLabel: 'Native Core',
-    pattern: 'grid',
+    accent: '#8B5CF6',
+    colorName: 'Neon Purple',
+    details: 'We specialize in React Native and Flutter for cross-platform excellence. Integrated with push notifications, biometric auth, and offline capabilities.',
+    metric: 'Native',
+    metricLabel: 'Cross-Platform',
+    object3d: (
+      <svg className="w-full h-full" viewBox="0 0 100 100">
+        <rect x="35" y="20" width="30" height="60" rx="5" fill="none" stroke="currentColor" strokeWidth="1" />
+        <circle cx="50" cy="72" r="2" fill="currentColor" />
+        <rect x="40" y="30" width="20" height="35" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 1" />
+      </svg>
+    )
   },
   {
     id: 'messaging',
     title: 'AI Chat Agent',
-    headline: '"Never Miss A Lead — Even At 2am"',
-    description: 'Our AI replies to customer messages instantly on your website, WhatsApp and Instagram — 24/7. It answers questions, captures lead details and books appointments automatically. Like a salesperson who never sleeps.',
+    headline: '"24/7 Intelligent Support"',
+    description: 'Autonomous AI agents that respond instantly on WhatsApp, Web, and Socials. Qualify leads and book appointments while you sleep.',
     icon: MessageSquare,
-    link: '/ai-solutions#messaging',
-    accent: '#0066ff',
+    accent: '#10B981',
+    colorName: 'Emerald AI',
+    details: 'Powered by GPT-4 and custom RAG pipelines. Our agents learn your business knowledge and interact with human-like empathy and precision.',
     metric: '24/7',
     metricLabel: 'Active Engagement',
-    pattern: 'chat',
+    object3d: (
+      <svg className="w-full h-full" viewBox="0 0 100 100">
+        <path d="M20 30 H80 V70 H40 L20 90 V30" fill="none" stroke="currentColor" strokeWidth="1" />
+        <circle cx="40" cy="50" r="2" fill="currentColor" />
+        <circle cx="50" cy="50" r="2" fill="currentColor" />
+        <circle cx="60" cy="50" r="2" fill="currentColor" />
+      </svg>
+    )
   },
   {
     id: 'calling',
     title: 'AI Voice Agent',
-    headline: '"An AI That Calls Your Leads And Books Appointments — Automatically"',
-    description: 'New lead comes in? Our AI calls them within 60 seconds, has a natural conversation, qualifies them and books them straight into your calendar. Your sales pipeline runs itself.',
+    headline: '"Conversational Sales Engines"',
+    description: 'Human-like AI that calls leads within 60s of inquiry. It qualifies prospects and books them into your calendar without a single human touch.',
     icon: Phone,
-    link: '/ai-solutions#calling',
-    accent: '#0066ff',
+    accent: '#F43F5E',
+    colorName: 'Ruby Logic',
+    details: 'Low-latency voice synthesis with realistic prosody. Capable of handling outbound cold outreach or inbound service inquiries at scale.',
     metric: '60sec',
     metricLabel: 'Lead Response',
-    pattern: 'wave',
+    object3d: (
+      <svg className="w-full h-full" viewBox="0 0 100 100">
+        <path d="M30 50 Q 40 20, 50 50 T 70 50" fill="none" stroke="currentColor" strokeWidth="1" />
+        <path d="M30 60 Q 40 30, 50 60 T 70 60" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.5" />
+        <circle cx="50" cy="50" r="15" fill="none" stroke="currentColor" strokeWidth="0.2" />
+      </svg>
+    )
   },
   {
     id: 'automation',
     title: 'Business Automation',
-    headline: '"Stop Doing The Same Tasks Over And Over"',
-    description: 'Invoices, follow-ups, reminders, data entry — all running on autopilot. We automate the repetitive work so your team can focus on what actually grows the business. Most clients save 15–20 hours every week.',
+    headline: '"Eradicate Repetitive Work"',
+    description: 'Self-optimizing workflows for invoices, reminders, and data sync. We save our clients an average of 15–20 hours per week.',
     icon: Cog,
-    link: '/ai-solutions#automation',
-    accent: '#0066ff',
+    accent: '#F59E0B',
+    colorName: 'Amber Flux',
+    details: 'We connect your ecosystem via custom APIs and automation tools. From CRM deep-sync to autonomous financial reporting.',
     metric: '20Hr+',
-    metricLabel: 'Weekly Saved',
-    pattern: 'cog',
+    metricLabel: 'Time Saved',
+    object3d: (
+      <svg className="w-full h-full" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="15" fill="none" stroke="currentColor" strokeWidth="1" />
+        {[0, 60, 120, 180, 240, 300].map(deg => (
+          <rect key={deg} x="48" y="30" width="4" height="6" fill="currentColor" transform={`rotate(${deg} 50 50)`} />
+        ))}
+        <circle cx="50" cy="50" r="5" fill="none" stroke="currentColor" strokeWidth="0.5" />
+      </svg>
+    )
   },
   {
     id: 'seo',
-    title: 'SEO & Digital Marketing',
-    headline: '"Get Found By Customers Already Searching For You"',
-    description: 'People are searching Google for exactly what you sell right now. We make sure they find you first — not your competitor. More visibility, more clicks, more paying customers.',
+    title: 'SEO & Growth',
+    headline: '"Dominate The Search Results"',
+    description: 'Data-driven marketing that puts you where the customers are. We focus on ROI-positive traffic that actually converts into revenue.',
     icon: Target,
-    link: '/services#seo',
-    accent: '#0066ff',
-    metric: 'Top 3',
-    metricLabel: 'Google Rank',
-    pattern: 'target',
+    accent: '#06B6D4',
+    colorName: 'Cyan Surge',
+    details: 'Technical SEO audits, backlink architecture, and content clusters. We drive organic authority that lasts for years, not days.',
+    metric: 'ROI+',
+    metricLabel: 'Market Authority',
+    object3d: (
+      <svg className="w-full h-full" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" strokeWidth="1" />
+        <circle cx="50" cy="50" r="15" fill="none" stroke="currentColor" strokeWidth="0.5" />
+        <line x1="50" y1="20" x2="50" y2="80" stroke="currentColor" strokeWidth="0.5" />
+        <line x1="20" y1="50" x2="80" y2="50" stroke="currentColor" strokeWidth="0.5" />
+      </svg>
+    )
   },
 ];
 
-function PatternBackground({ type }: { type: string }) {
-  if (type === 'nodes') {
-    return (
-      <svg className="absolute inset-0 w-full h-full opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-700" viewBox="0 0 100 100">
-        <circle cx="20" cy="20" r="1" fill="currentColor" />
-        <circle cx="80" cy="20" r="1" fill="currentColor" />
-        <circle cx="50" cy="50" r="1" fill="currentColor" />
-        <circle cx="20" cy="80" r="1" fill="currentColor" />
-        <circle cx="80" cy="80" r="1" fill="currentColor" />
-        <line x1="20" y1="20" x2="50" y2="50" stroke="currentColor" strokeWidth="0.2" />
-        <line x1="80" y1="20" x2="50" y2="50" stroke="currentColor" strokeWidth="0.2" />
-        <line x1="20" y1="80" x2="50" y2="50" stroke="currentColor" strokeWidth="0.2" />
-        <line x1="80" y1="80" x2="50" y2="50" stroke="currentColor" strokeWidth="0.2" />
-      </svg>
-    );
-  }
-  if (type === 'grid') {
-    return (
-      <div className="absolute inset-0 w-full h-full opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-700" 
-        style={{ backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)', backgroundSize: '15px 15px' }} />
-    );
-  }
-  if (type === 'chat') {
-    return (
-      <svg className="absolute inset-0 w-full h-full opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-700" viewBox="0 0 100 100">
-        <rect x="10" y="20" width="30" height="20" rx="5" fill="none" stroke="currentColor" strokeWidth="0.5" />
-        <rect x="60" y="40" width="30" height="20" rx="5" fill="none" stroke="currentColor" strokeWidth="0.5" />
-        <rect x="20" y="60" width="30" height="20" rx="5" fill="none" stroke="currentColor" strokeWidth="0.5" />
-      </svg>
-    );
-  }
-  if (type === 'wave') {
-    return (
-      <svg className="absolute inset-0 w-full h-full opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-700" viewBox="0 0 100 100">
-        <path d="M0 50 Q 25 20, 50 50 T 100 50" fill="none" stroke="currentColor" strokeWidth="0.5" />
-        <path d="M0 60 Q 25 30, 50 60 T 100 60" fill="none" stroke="currentColor" strokeWidth="0.5" />
-        <path d="M0 40 Q 25 10, 50 40 T 100 40" fill="none" stroke="currentColor" strokeWidth="0.5" />
-      </svg>
-    );
-  }
-  if (type === 'cog') {
-    return (
-      <svg className="absolute inset-0 w-full h-full opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-700" viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="15" fill="none" stroke="currentColor" strokeWidth="0.5" />
-        {[0, 45, 90, 135, 180, 225, 270, 315].map(deg => (
-          <rect key={deg} x="48" y="30" width="4" height="8" fill="currentColor" transform={`rotate(${deg} 50 50)`} />
-        ))}
-      </svg>
-    );
-  }
-  if (type === 'target') {
-    return (
-      <svg className="absolute inset-0 w-full h-full opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-700" viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="10" fill="none" stroke="currentColor" strokeWidth="0.5" />
-        <circle cx="50" cy="50" r="20" fill="none" stroke="currentColor" strokeWidth="0.5" />
-        <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" strokeWidth="0.5" />
-        <line x1="50" y1="10" x2="50" y2="90" stroke="currentColor" strokeWidth="0.5" />
-        <line x1="10" y1="50" x2="90" y2="50" stroke="currentColor" strokeWidth="0.5" />
-      </svg>
-    );
-  }
-  return null;
-}
-
 function ServiceCard({ service, index }: { service: typeof services[0]; index: number }) {
   const [isHovered, setIsHovered] = useState(false);
+  
+  // 3D Tilt Logic
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { stiffness: 150, damping: 20 };
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), springConfig);
+
+  function handleMouseMove(e: MouseEvent) {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const x = (e.clientX - rect.left) / width - 0.5;
+    const y = (e.clientY - rect.top) / height - 0.5;
+    mouseX.set(x);
+    mouseY.set(y);
+  }
+
+  function handleMouseLeave() {
+    mouseX.set(0);
+    mouseY.set(0);
+    setIsHovered(false);
+  }
 
   return (
-    <AnimatedSection delay={index * 0.1}>
+    <AnimatedSection delay={index * 0.1} className="h-full">
       <motion.div
-        className="group relative h-full glass-premium rounded-[3rem] border-white/5 hover:border-[#0066ff]/50 transition-all duration-500 flex flex-col p-10 overflow-hidden shadow-2xl"
-        whileHover={{ y: -10, scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
         onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d", perspective: 1000 }}
+        className={`
+          group relative h-full bg-[#0A0A0C] rounded-[3rem] border transition-all duration-500 flex flex-col p-10 overflow-hidden 
+          ${isHovered ? `shadow-[0_40px_100px_rgba(0,0,0,0.8)]` : 'border-white/5'}
+        `}
       >
-        {/* Background Patterns & Effects */}
-        <div className="absolute inset-0 z-0 text-[#0066ff]">
-          <PatternBackground type={service.pattern} />
-        </div>
+        {/* Dynamic Accent Border */}
+        <div 
+          className="absolute inset-0 transition-opacity duration-700 opacity-0 group-hover:opacity-100 pointer-events-none rounded-[3rem] border-2" 
+          style={{ borderColor: `${service.accent}44` }} 
+        />
+        
+        {/* Subtle Glow Hub */}
+        <div 
+          className="absolute -top-32 -left-32 w-80 h-80 blur-[120px] rounded-full transition-all duration-700 opacity-20 group-hover:opacity-40" 
+          style={{ backgroundColor: service.accent }}
+        />
 
-        {/* Dynamic Scanning Beam */}
-        <AnimatePresence>
-          {isHovered && (
-            <motion.div
-              initial={{ x: '-100%' }}
-              animate={{ x: '200%' }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-[#0066ff]/10 to-transparent z-0 pointer-events-none"
-            />
-          )}
-        </AnimatePresence>
-
-        {/* Glow Foundation */}
-        <div className="absolute -top-24 -left-24 w-64 h-64 bg-[#0066ff]/5 blur-[100px] rounded-full group-hover:bg-[#0066ff]/20 transition-all duration-700 pointer-events-none" />
-
-        <div className="relative z-10 flex flex-col h-full">
-          {/* Card Identifier */}
-          <div className="absolute top-8 right-8 font-mono text-[8px] text-white/20 uppercase tracking-[0.4em]">
-            Protocol_S-{String(index + 1).padStart(2, '0')}
-          </div>
-
-          {/* Icon Section */}
-          <div className="mb-10 relative inline-block">
-            <motion.div 
-              className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center relative z-10 text-white/50 group-hover:bg-[#0066ff] group-hover:text-black transition-all duration-500 shadow-xl"
-              animate={isHovered ? { rotate: [0, 10, -10, 0], scale: 1.1 } : {}}
+        <div className="relative z-10 flex flex-col h-full pointer-events-none" style={{ transform: "translateZ(50px)" }}>
+          {/* Header */}
+          <div className="flex justify-between items-start mb-12">
+            <div 
+              className="w-20 h-20 rounded-[2.5rem] flex items-center justify-center border transition-all duration-700"
+              style={{ 
+                backgroundColor: isHovered ? `${service.accent}22` : 'rgba(255,255,255,0.03)',
+                borderColor: isHovered ? `${service.accent}66` : 'rgba(255,255,255,0.05)',
+                color: isHovered ? service.accent : 'rgba(255,255,255,0.4)',
+                boxShadow: isHovered ? `0 0 30px ${service.accent}22` : 'none'
+              }}
             >
-              <service.icon className="w-7 h-7" />
-            </motion.div>
-            
-            <AnimatePresence>
-              {isHovered && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: 1, scale: 1.2 }}
-                  exit={{ opacity: 0, scale: 0.5 }}
-                  className="absolute -inset-2 bg-[#0066ff]/20 blur-xl rounded-full z-0"
-                />
-              )}
-            </AnimatePresence>
+              <service.icon className="w-9 h-9" />
+            </div>
+            <div className="flex flex-col items-end">
+               <span className="font-mono text-[9px] text-white/20 uppercase tracking-[0.5em] mb-1">PROTO_{service.id.toUpperCase()}</span>
+               <div className="h-1 w-8 rounded-full" style={{ backgroundColor: service.accent }} />
+            </div>
           </div>
 
+          {/* 3D Visual Object (Simplified SVG animations to prevent lag) */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 opacity-0 group-hover:opacity-[0.08] transition-opacity duration-1000" style={{ color: service.accent }}>
+            {service.object3d}
+          </div>
+
+          {/* Content */}
           <div className="flex-grow">
-            <h3 className="text-2xl md:text-3xl font-heading font-black text-white uppercase tracking-tighter mb-2 leading-tight group-hover:text-glow transition-all duration-300">
+            <h3 className="text-3xl font-heading font-black text-white uppercase tracking-tighter mb-4 leading-none">
               {service.title}
             </h3>
-            <p className="text-[#0066ff] font-heading font-bold text-[10px] sm:text-xs uppercase tracking-widest mb-6 italic leading-relaxed group-hover:drop-shadow-[0_0_8px_rgba(0,102,255,0.6)] transition-all">
+            <p className="font-heading font-bold text-[11px] uppercase tracking-widest mb-8 italic" style={{ color: service.accent }}>
               {service.headline}
             </p>
-            <p className="text-white/40 font-body text-sm md:text-base leading-relaxed mb-10 group-hover:text-white/70 transition-colors duration-500">
+            <p className="text-white/40 font-body text-base leading-relaxed mb-10 group-hover:text-white/70 transition-colors duration-500 max-w-[85%]">
               {service.description}
             </p>
           </div>
 
-          <div className="pt-8 border-t border-white/5 flex items-center justify-between">
-            <div className="space-y-1">
-              <div className="text-2xl font-heading font-black text-white group-hover:text-[#0066ff] transition-colors leading-none">
-                {service.metric}
-              </div>
-              <div className="text-[9px] font-mono text-white/30 uppercase tracking-[0.2em] font-bold">
-                {service.metricLabel}
-              </div>
+          {/* Footer Metrics */}
+          <div className="pt-8 border-t border-white/5 flex items-center justify-between mt-auto">
+            <div>
+               <div className="text-2xl font-heading font-black text-white leading-none mb-1">
+                 {service.metric}
+               </div>
+               <div className="text-[9px] font-mono text-white/30 uppercase tracking-widest font-bold">
+                 {service.metricLabel}
+               </div>
             </div>
             
-            <Link href={service.link} className="relative group/btn">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5 group-hover/btn:bg-[#0066ff] group-hover/btn:text-black transition-all duration-500 group-hover/btn:scale-110 shadow-lg">
-                <ArrowUpRight className="w-6 h-6" />
-              </div>
-              {/* Secondary Pulse Ring */}
-              <motion.div 
-                className="absolute inset-0 border border-[#0066ff] rounded-2xl pointer-events-none"
-                animate={isHovered ? { scale: [1, 1.3], opacity: [0.5, 0] } : { opacity: 0 }}
-                transition={{ duration: 1.2, repeat: Infinity }}
-              />
-            </Link>
+            <div className="w-12 h-12 rounded-2xl border border-white/10 flex items-center justify-center text-white/20 group-hover:text-white group-hover:border-white/40 transition-all duration-500">
+               <ArrowUpRight className="w-6 h-6" />
+            </div>
           </div>
         </div>
-
-        {/* Shimmer Border Overlay */}
-        <div className="absolute inset-0 border border-white/5 rounded-[3rem] group-hover:border-[#0066ff]/30 transition-colors duration-500 pointer-events-none" />
       </motion.div>
     </AnimatedSection>
   );
 }
 
-const timelineData: TimelineItem[] = [
-  {
-    id: 1,
-    title: "Web Architecture",
-    date: "Core",
-    content: "High-speed web ecosystems engineered for conversion and absolute performance.",
-    category: "Web",
-    icon: Globe,
-    relatedIds: [2, 3],
-    status: "completed",
-    energy: 100,
-  },
-  {
-    id: 2,
-    title: "Mobile Edge",
-    date: "Core",
-    content: "Native experiences that bridge the gap between business and user mobility.",
-    category: "Mobile",
-    icon: Smartphone,
-    relatedIds: [1, 5],
-    status: "completed",
-    energy: 90,
-  },
-  {
-    id: 3,
-    title: "Neural Agents",
-    date: "AI",
-    content: "Autonomous intelligence handling customer inquiries and sales 24/7.",
-    category: "AI",
-    icon: Bot,
-    relatedIds: [1, 4],
-    status: "completed",
-    energy: 95,
-  },
-  {
-    id: 4,
-    title: "Flow Logic",
-    date: "Automation",
-    content: "Self-optimizing business engines that handle your repetitive workflows.",
-    category: "Systems",
-    icon: Cog,
-    relatedIds: [3, 2],
-    status: "in-progress",
-    energy: 85,
-  },
-];
-
 export default function ServicesSection() {
-  return (
-    <section className="relative py-24 md:py-32 bg-black overflow-hidden z-10">
-      {/* Background Radiance */}
-      <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-[#0066ff]/[0.03] rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-[800px] h-[800px] bg-[#0066ff]/[0.03] rounded-full blur-[150px] pointer-events-none" />
+  const [selectedService, setSelectedService] = useState<typeof services[0] | null>(null);
 
-      <div className="max-w-[1550px] mx-auto px-6 relative z-10">
-        {/* Header Section */}
-        <AnimatedSection className="text-center mb-24 max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0066ff]/10 border border-[#0066ff]/20 mb-8 backdrop-blur-md shadow-[0_0_20px_rgba(0,102,255,0.1)]">
-            <Zap className="w-4 h-4 text-[#0066ff]" />
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#0066ff] font-black">Performance Protocols</span>
+  const timelineData: TimelineItem[] = useMemo(() => services.map((s, i) => ({
+    id: i + 1,
+    title: s.title,
+    date: s.colorName,
+    content: s.headline + " - " + s.description,
+    category: "PROTOCOL",
+    icon: s.icon,
+    relatedIds: [(i + 1) % services.length + 1, (i - 1 + services.length) % services.length + 1],
+    status: "completed",
+    energy: 100 - (i * 5),
+    color: s.accent
+  })), []);
+
+  return (
+    <section id="services" className="relative py-24 md:py-48 bg-[#040406] overflow-hidden">
+      
+      {/* Heavy Cyber Ambience */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,102,255,0.02)_0%,transparent_70%)] pointer-events-none" />
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent shadow-[0_0_30px_rgba(255,255,255,0.05)]" />
+
+      <div className="max-w-[1700px] mx-auto px-6 relative z-10">
+        
+        {/* Simplified Header */}
+        <AnimatedSection className="mb-32">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
+            <div>
+              <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-10">
+                <Layers className="w-4 h-4 text-[#0066ff]" />
+                <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/60 font-black">SERVICES_CATALOG_v2.0</span>
+              </div>
+              <h2 className="text-[3.5rem] md:text-[7rem] font-heading font-black leading-[0.8] tracking-tighter uppercase text-white italic">
+                LIMITLESS <br/>
+                <span className="text-[#0066ff] drop-shadow-[0_0_60px_rgba(0,102,255,0.4)]">ENGINEERING</span>
+              </h2>
+            </div>
+            <p className="text-[#8A8A9A] text-xl md:text-2xl font-body font-light max-w-xl leading-relaxed border-l-2 border-white/10 pl-10 md:mb-4">
+              We don&apos;t build projects. We build <span className="text-white font-bold">digital monopolies</span> using autonomous intelligence and elite system architecture.
+            </p>
           </div>
-          <h2 className="text-[2.5rem] md:text-[4.5rem] font-heading font-black leading-[0.9] tracking-tighter uppercase mb-8 text-white">
-            WE ENGINEER <br className="hidden md:block" />
-            <span className="text-[#0066ff] italic drop-shadow-[0_0_30px_rgba(0,102,255,0.3)]">LIMITLESS GROWTH</span>
-          </h2>
-          <p className="text-[#8A8A9A] text-xl font-body font-light max-w-2xl mx-auto leading-relaxed">
-            High-converting digital ecosystems, autonomous AI agents, and intelligent automation built for those who demand elite performance.
-          </p>
         </AnimatedSection>
 
-        {/* Services Grid (Premium Overhauled Layout) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32 relative z-10">
+        {/* 3D Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-14 mb-48">
           {services.map((service, i) => (
             <ServiceCard key={service.id} service={service} index={i} />
           ))}
         </div>
 
-        {/* Neural Ecosystem Visual */}
-        <AnimatedSection className="mb-32">
-          <div className="glass-premium rounded-[4rem] border-white/5 overflow-hidden p-12 md:p-24 relative bg-black/40 backdrop-blur-3xl shadow-[0_50px_100px_rgba(0,0,0,0.5)]">
-             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div className="space-y-10">
-                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[10px] font-mono text-white/40 uppercase tracking-widest">
-                      Protocol: Ecosystem_Harmony
-                   </div>
-                   <h3 className="text-4xl md:text-6xl font-heading font-black text-white uppercase tracking-tighter leading-[0.85]">
-                      OUR <span className="text-[#0066ff] italic">AI-DRIVEN</span> <br/>ECOSYSTEM
-                   </h3>
-                   <p className="text-[#8A8A9A] text-xl leading-relaxed font-light">
-                      We don't just build separate tools. We build integrated digital ecosystems where every node communicates and optimizes your business in real-time.
-                   </p>
-                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {['Real-time Data Sync', 'Autonomous Decision Nodes', 'Cross-Platform Harmony', 'Neural Processing'].map((item) => (
-                        <div key={item} className="flex items-center gap-3 text-white/60 font-mono uppercase text-[10px] tracking-wider border border-white/5 bg-white/[0.02] p-4 rounded-2xl hover:border-[#0066ff]/30 transition-all cursor-default group/item">
-                           <div className="w-1.5 h-1.5 rounded-full bg-[#0066ff] shadow-[0_0_10px_rgba(0,102,255,0.5)] group-hover/item:scale-150 transition-transform" /> {item}
-                        </div>
-                      ))}
-                   </div>
-                </div>
-                <div className="relative h-[500px] flex items-center justify-center">
+        {/* Optimized Orbital Services Hub (Interactive Circular Animation) */}
+        <AnimatedSection className="mt-32">
+          <div className="relative rounded-[5rem] overflow-hidden border border-white/5 bg-black/40 backdrop-blur-3xl p-12 md:p-32 shadow-[0_100px_200px_rgba(0,0,0,0.8)]">
+             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,102,255,0.03)_0%,transparent_70%)] pointer-events-none" />
+             
+             {/* Center Labeling */}
+             <div className="text-center mb-20 relative z-20">
+                <h3 className="text-4xl md:text-7xl font-heading font-black text-white uppercase tracking-tighter leading-none mb-6">
+                   INTEGRATED <span className="text-[#0066ff] italic">HARMONY_</span>
+                </h3>
+                <p className="text-[#8A8A9A] text-xl font-mono uppercase tracking-[0.4em] font-black opacity-30">All Nodes Responsive Upon Synchronization</p>
+             </div>
+
+             <div className="relative h-[600px] flex items-center justify-center">
+                <div className="scale-90 md:scale-125 lg:scale-150 transform-gpu">
                    <RadialOrbitalTimeline timelineData={timelineData} />
                 </div>
              </div>
           </div>
         </AnimatedSection>
 
-        {/* High-Impact Bottom CTA */}
-        <AnimatedSection className="text-center">
-          <div className="max-w-4xl mx-auto p-12 md:p-20 bg-gradient-to-br from-[#0066ff]/10 to-transparent border border-[#0066ff]/20 rounded-[4rem] relative overflow-hidden group">
-             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(0,102,255,0.05)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-             
-             <div className="relative z-10 space-y-8">
-               <h4 className="text-2xl md:text-4xl font-heading font-black text-white uppercase italic leading-[1] tracking-tighter">
-                  NOT SURE WHAT YOU NEED?<br/>
-                  <span className="text-[#0066ff]">BOOK A FREE 30-MIN CALL</span>
-               </h4>
-               <p className="text-[#8A8A9A] text-lg font-body max-w-xl mx-auto">
-                 We'll look at your business and tell you exactly what digital tools will make you the most money. No strings attached.
-               </p>
-               <div className="pt-4">
-                 <Link 
-                    href="#booking"
-                    className="inline-flex items-center gap-4 px-12 py-6 bg-[#0066ff] text-black font-heading font-black text-sm uppercase tracking-widest hover:bg-white transition-all rounded-[2rem] shadow-[0_15px_40px_rgba(0,102,255,0.4)] hover:shadow-[0_20px_60px_rgba(0,102,255,0.6)]"
-                 >
-                    BOOK STRATEGY CALL <ArrowRight className="w-5 h-5" />
-                 </Link>
-               </div>
-               <p className="text-[#8A8A9A] font-mono text-[10px] uppercase tracking-[0.4em]">
-                  ⚡ Protocol // Strategy_Audit_2026
-               </p>
-             </div>
+        {/* Tactical Footer CTA */}
+        <AnimatedSection className="mt-48">
+          <div className="flex flex-col items-center text-center">
+             <Link href="#contact" className="group relative">
+                <div className="absolute -inset-10 bg-[#0066ff]/20 blur-[100px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                <div className="relative flex flex-col items-center gap-10">
+                   <div className="w-32 h-32 rounded-full bg-[#0066ff] flex items-center justify-center shadow-[0_0_80px_rgba(0,102,255,0.5)] group-hover:scale-110 transition-all duration-700">
+                      <Zap className="w-14 h-14 text-black fill-current" />
+                   </div>
+                   <div className="space-y-4">
+                      <h4 className="text-4xl md:text-6xl font-heading font-black text-white uppercase tracking-tighter">FINALIZE YOUR STRIKE</h4>
+                      <p className="font-mono text-sm text-[#0066ff] uppercase tracking-[0.6em] font-black">SYSTEMS_READY_FOR_DEPLOYMENT</p>
+                   </div>
+                </div>
+             </Link>
           </div>
         </AnimatedSection>
       </div>

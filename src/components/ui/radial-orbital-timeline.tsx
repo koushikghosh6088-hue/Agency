@@ -14,6 +14,7 @@ export interface TimelineItem {
   relatedIds: number[];
   status: "completed" | "in-progress" | "pending";
   energy: number;
+  color?: string;
 }
 
 interface RadialOrbitalTimelineProps {
@@ -123,7 +124,10 @@ export default function RadialOrbitalTimeline({
     >
       {/* Background Ambient Glow for Contrast */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_center,rgba(14,165,233,0.08)_0%,transparent_70%)] opacity-60" />
+         <motion.div 
+           animate={{ backgroundColor: activeItem?.color || "rgba(14,165,233,0.08)" }}
+           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] opacity-20 blur-[100px] rounded-full" 
+         />
       </div>
 
       <div className="relative w-full max-w-4xl h-full flex items-center justify-center">
@@ -156,13 +160,9 @@ export default function RadialOrbitalTimeline({
               {activeNodeId && activeItem?.relatedIds.map(relId => {
                 const activeIndex = timelineData.findIndex(i => i.id === activeNodeId);
                 const relIndex = timelineData.findIndex(i => i.id === relId);
-                // Use 0 offset because the wrapper handles rotation
                 const p1 = calculateNodePosition(activeIndex, timelineData.length, 0);
                 const p2 = calculateNodePosition(relIndex, timelineData.length, 0);
-                
-                // Center is 0,0 in the viewBox
-                const cx = 0;
-                const cy = 0;
+                const activeColor = activeItem.color || "#0ea5e9";
 
                 return (
                   <motion.path
@@ -171,13 +171,14 @@ export default function RadialOrbitalTimeline({
                     animate={{ pathLength: 1, opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 1, ease: "circOut" }}
-                    d={`M ${p1.x} ${p1.y} Q ${cx} ${cy} ${p2.x} ${p2.y}`}
-                    stroke="url(#lineGradient)"
+                    d={`M ${p1.x} ${p1.y} Q 0 0 ${p2.x} ${p2.y}`}
+                    stroke={activeColor}
                     strokeWidth="2.5"
                     fill="none"
                     filter="url(#glow)"
                     strokeDasharray="12 6"
                     className="animate-[marquee_15s_linear_infinite]"
+                    opacity="0.6"
                   />
                 );
               })}
@@ -205,11 +206,11 @@ export default function RadialOrbitalTimeline({
 
           {/* Timeline Nodes */}
           {timelineData.map((item, index) => {
-            // Static position relative to parent wrapper
             const position = calculateNodePosition(index, timelineData.length, 0);
             const isActive = activeNodeId === item.id;
             const isRelated = activeNodeId && (item.relatedIds.includes(activeNodeId) || activeItem?.relatedIds.includes(item.id));
             const Icon = item.icon as React.ComponentType<{ className?: string }>;
+            const nodeColor = item.color || "#0ea5e9";
 
             return (
               <div
@@ -225,39 +226,34 @@ export default function RadialOrbitalTimeline({
                   toggleItem(item.id);
                 }}
               >
-                {/* Counter-rotation wrapper to keep icons upright - Zero transition for perfect sync */}
+                {/* Counter-rotation wrapper */}
                 <motion.div
                   animate={{ rotate: -rotationAngle }}
                   transition={{ duration: 0 }}
                 >
-                  {/* Glossy Node Icon with Specular Highlight */}
                   <motion.div
-                    whileHover={{ scale: 1.25, rotate: 8, filter: 'brightness(1.2)' }}
+                    whileHover={{ scale: 1.25, rotate: 8 }}
                     className={`
                       relative w-14 h-14 rounded-[1.25rem] flex items-center justify-center
                       glass-premium border-white/20
-                      ${isActive ? "border-blue-400 shadow-[0_0_40px_rgba(14,165,233,0.5)] scale-110" : "hover:border-blue-400/60"}
                       transition-all duration-500 overflow-hidden
                     `}
+                    style={{ 
+                      borderColor: isActive ? nodeColor : 'rgba(255,255,255,0.2)',
+                      boxShadow: isActive ? `0 0 30px ${nodeColor}66` : 'none'
+                    }}
                   >
-                    {/* Specular Highlight line */}
                     <div className="absolute top-0 left-0 w-full h-[1.5px] bg-gradient-to-r from-transparent via-white/40 to-transparent" />
-                    
-                    {isActive && (
-                      <div className="absolute inset-0 bg-blue-400/20 rounded-2xl animate-pulse" />
-                    )}
-                    <Icon className={`w-6 h-6 transition-colors duration-300 ${isActive ? "text-blue-400" : "text-white/70"}`} />
-                    
-                    {/* Status indicator mini-pip - Properly Highlighted */}
-                    <div className={`absolute top-1 right-1 w-3.5 h-3.5 rounded-full border-2 border-black ${item.status === 'completed' ? 'bg-green-400' : 'bg-blue-400'} shadow-[0_0_10px_rgba(0,0,0,0.5)]`} />
+                    {isActive && <div className="absolute inset-0 opacity-20 rounded-2xl animate-pulse" style={{ backgroundColor: nodeColor }} />}
+                    <Icon className={`w-6 h-6 transition-colors duration-300 ${isActive ? "" : "text-white/70"}`} style={{ color: isActive ? nodeColor : undefined }} />
+                    <div className={`absolute top-1 right-1 w-3 h-3 rounded-full border-2 border-black shadow-[0_0_10px_rgba(0,0,0,0.5)]`} style={{ backgroundColor: nodeColor }} />
                   </motion.div>
 
-                  {/* Label - Higher contrast */}
                   <div className={`absolute top-16 left-1/2 -translate-x-1/2 transition-all duration-500 whitespace-nowrap`}>
-                    <span className={`font-heading text-[11px] sm:text-[13px] font-black uppercase tracking-[0.15em] ${isActive ? "text-blue-400" : "text-white/50"}`}>
+                    <span className={`font-heading text-[11px] sm:text-[13px] font-black uppercase tracking-[0.15em] transition-colors`} style={{ color: isActive ? nodeColor : 'rgba(255,255,255,0.5)' }}>
                       {item.title}
                     </span>
-                    <div className={`h-[2px] bg-gradient-to-r from-transparent via-blue-400 to-transparent transition-all duration-700 mx-auto ${isActive ? "w-full mt-1.5 opacity-100" : "w-0 opacity-0"}`} />
+                    <div className={`h-[2px] transition-all duration-700 mx-auto ${isActive ? "w-full mt-1.5 opacity-100" : "w-0 opacity-0"}`} style={{ background: `linear-gradient(to right, transparent, ${nodeColor}, transparent)` }} />
                   </div>
                 </motion.div>
               </div>
