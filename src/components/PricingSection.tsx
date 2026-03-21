@@ -71,25 +71,34 @@ export default function PricingSection() {
           </h2>
         </AnimatedSection>
 
-        {/* Tab Switcher */}
-        <div className="flex flex-col md:flex-row justify-center gap-2 md:gap-4 mb-12 p-2 bg-white/5 border border-white/10 rounded-[2.5rem] backdrop-blur-md max-w-3xl mx-auto">
+        {/* Tab Switcher - Horizontal Slider */}
+        <div className="relative flex items-center gap-1 p-1 bg-white/5 border border-white/10 rounded-full backdrop-blur-md max-w-xl mx-auto mb-16 overflow-hidden">
           {plans.map((plan, i) => (
             <button
               key={plan.name}
               onClick={() => setActiveTab(i)}
-              className={`relative flex items-center justify-between md:justify-center gap-4 py-4 md:py-5 px-6 md:px-8 rounded-[2rem] transition-all flex-1 ${
-                activeTab === i 
-                ? 'bg-white text-black shadow-[0_10px_30px_rgba(255,255,255,0.1)]' 
-                : 'text-white/40 hover:text-white hover:bg-white/5'
+              className={`relative flex items-center justify-center gap-2 py-3 px-4 md:px-6 rounded-full transition-all flex-1 z-10 ${
+                activeTab === i ? 'text-black' : 'text-white/40 hover:text-white'
               }`}
             >
-              <div className="flex items-center gap-3">
-                <plan.icon className={`w-4 h-4 ${activeTab === i ? 'text-black' : 'text-white/20'}`} />
-                <span className="font-heading font-black text-sm uppercase tracking-tighter">{plan.name}</span>
-              </div>
-              <span className={`font-mono text-xs font-bold ${activeTab === i ? 'text-black/60' : 'text-white/20'}`}>${plan.price}</span>
+              <plan.icon className={`w-3.5 h-3.5 ${activeTab === i ? 'text-black' : 'text-white/20'}`} />
+              <span className="font-heading font-black text-[10px] md:text-xs uppercase tracking-tighter whitespace-nowrap">
+                {plan.name}
+              </span>
+              <span className={`hidden sm:inline font-mono text-[9px] font-bold ${activeTab === i ? 'text-black/60' : 'text-white/20'}`}>
+                ${plan.price}
+              </span>
+
+              {activeTab === i && (
+                <motion.div
+                  layoutId="pricing-tab-highlight"
+                  className="absolute inset-0 bg-white rounded-full -z-10"
+                  transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
+                />
+              )}
+              
               {plan.isPopular && activeTab !== i && (
-                <div className="absolute -top-1 -right-1 w-2 h-2 bg-[#ccff00] rounded-full animate-pulse" />
+                <div className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-[#ccff00] rounded-full animate-pulse" />
               )}
             </button>
           ))}
