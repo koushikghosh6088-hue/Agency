@@ -19,6 +19,7 @@ const services = [
     description: 'Elite web ecosystems that load in < 2s. We build high-performance storefronts and corporate hubs designed to turn cold traffic into loyal customers.',
     icon: Globe,
     accent: '#0066ff',
+    secondary: '#00ccff',
     colorName: 'Cyber Blue',
     details: 'Our web tech stack includes Next.js 15, Turbopack, and high-fidelity Framer Motion animations. Every site is optimized for Core Web Vitals and accessibility.',
     metric: '< 2s',
@@ -39,6 +40,7 @@ const services = [
     description: 'Native iOS & Android experiences that bridge the gap between business and user mobility. Keep your brand directly in your customer\'s pockets.',
     icon: Smartphone,
     accent: '#8B5CF6',
+    secondary: '#D946EF',
     colorName: 'Neon Purple',
     details: 'We specialize in React Native and Flutter for cross-platform excellence. Integrated with push notifications, biometric auth, and offline capabilities.',
     metric: 'Native',
@@ -58,6 +60,7 @@ const services = [
     description: 'Autonomous AI agents that respond instantly on WhatsApp, Web, and Socials. Qualify leads and book appointments while you sleep.',
     icon: MessageSquare,
     accent: '#10B981',
+    secondary: '#34D399',
     colorName: 'Emerald AI',
     details: 'Powered by GPT-4 and custom RAG pipelines. Our agents learn your business knowledge and interact with human-like empathy and precision.',
     metric: '24/7',
@@ -78,6 +81,7 @@ const services = [
     description: 'Human-like AI that calls leads within 60s of inquiry. It qualifies prospects and books them into your calendar without a single human touch.',
     icon: Phone,
     accent: '#F43F5E',
+    secondary: '#FB7185',
     colorName: 'Ruby Logic',
     details: 'Low-latency voice synthesis with realistic prosody. Capable of handling outbound cold outreach or inbound service inquiries at scale.',
     metric: '60sec',
@@ -97,6 +101,7 @@ const services = [
     description: 'Self-optimizing workflows for invoices, reminders, and data sync. We save our clients an average of 15–20 hours per week.',
     icon: Cog,
     accent: '#F59E0B',
+    secondary: '#FBBF24',
     colorName: 'Amber Flux',
     details: 'We connect your ecosystem via custom APIs and automation tools. From CRM deep-sync to autonomous financial reporting.',
     metric: '20Hr+',
@@ -118,6 +123,7 @@ const services = [
     description: 'Data-driven marketing that puts you where the customers are. We focus on ROI-positive traffic that actually converts into revenue.',
     icon: Target,
     accent: '#06B6D4',
+    secondary: '#22D3EE',
     colorName: 'Cyan Surge',
     details: 'Technical SEO audits, backlink architecture, and content clusters. We drive organic authority that lasts for years, not days.',
     metric: 'ROI+',
@@ -168,73 +174,94 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
         onMouseEnter={() => setIsHovered(true)}
         style={{ rotateX, rotateY, transformStyle: "preserve-3d", perspective: 1000 }}
         className={`
-          group relative h-full bg-[#0A0A0C] rounded-[3rem] border transition-all duration-500 flex flex-col p-10 overflow-hidden 
+          group relative h-full bg-[#0A0A0C] rounded-[3rem] border transition-all duration-700 flex flex-col p-10 overflow-hidden 
           ${isHovered ? `shadow-[0_40px_100px_rgba(0,0,0,0.8)]` : 'border-white/5'}
         `}
       >
-        {/* Dynamic Accent Border */}
+        {/* Colorful Gradient Hub (Fills card on hover) */}
         <div 
-          className="absolute inset-0 transition-opacity duration-700 opacity-0 group-hover:opacity-100 pointer-events-none rounded-[3rem] border-2" 
-          style={{ borderColor: `${service.accent}44` }} 
+          className="absolute inset-0 transition-opacity duration-1000 opacity-0 group-hover:opacity-10 pointer-events-none" 
+          style={{ background: `radial-gradient(circle at center, ${service.accent}, ${service.secondary}, transparent 70%)` }}
         />
         
-        {/* Subtle Glow Hub */}
+        {/* Dynamic Accent Border */}
         <div 
-          className="absolute -top-32 -left-32 w-80 h-80 blur-[120px] rounded-full transition-all duration-700 opacity-20 group-hover:opacity-40" 
-          style={{ backgroundColor: service.accent }}
+          className="absolute inset-0 transition-opacity duration-700 opacity-0 group-hover:opacity-100 pointer-events-none rounded-[3rem] border-[3px]" 
+          style={{ borderColor: `${service.accent}66` }} 
+        />
+        
+        {/* Intense Glow Hub (Mouse-Responsive) */}
+        <div 
+          className="absolute w-96 h-96 blur-[130px] rounded-full transition-opacity duration-700 opacity-0 group-hover:opacity-30 pointer-events-none" 
+          style={{ 
+            backgroundColor: service.secondary,
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -50%)'
+          }}
         />
 
-        <div className="relative z-10 flex flex-col h-full pointer-events-none" style={{ transform: "translateZ(50px)" }}>
+        <div className="relative z-10 flex flex-col h-full pointer-events-none" style={{ transform: "translateZ(60px)" }}>
           {/* Header */}
           <div className="flex justify-between items-start mb-12">
             <div 
-              className="w-20 h-20 rounded-[2.5rem] flex items-center justify-center border transition-all duration-700"
+              className="w-20 h-20 rounded-[2.5rem] flex items-center justify-center border-2 transition-all duration-700"
               style={{ 
-                backgroundColor: isHovered ? `${service.accent}22` : 'rgba(255,255,255,0.03)',
-                borderColor: isHovered ? `${service.accent}66` : 'rgba(255,255,255,0.05)',
-                color: isHovered ? service.accent : 'rgba(255,255,255,0.4)',
-                boxShadow: isHovered ? `0 0 30px ${service.accent}22` : 'none'
+                backgroundColor: isHovered ? `${service.accent}44` : 'rgba(255,255,255,0.03)',
+                borderColor: isHovered ? service.secondary : 'rgba(255,255,255,0.05)',
+                color: isHovered ? '#fff' : 'rgba(255,255,255,0.4)',
+                boxShadow: isHovered ? `0 0 40px ${service.accent}88` : 'none'
               }}
             >
               <service.icon className="w-9 h-9" />
             </div>
             <div className="flex flex-col items-end">
-               <span className="font-mono text-[9px] text-white/20 uppercase tracking-[0.5em] mb-1">PROTO_{service.id.toUpperCase()}</span>
-               <div className="h-1 w-8 rounded-full" style={{ backgroundColor: service.accent }} />
+               <span className="font-mono text-[10px] text-white/40 uppercase tracking-[0.5em] mb-1 font-black">PROTO_{service.id.toUpperCase()}</span>
+               <div className="h-1.5 w-12 rounded-full" style={{ background: `linear-gradient(to right, ${service.accent}, ${service.secondary})` }} />
             </div>
           </div>
 
-          {/* 3D Visual Object (Simplified SVG animations to prevent lag) */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 opacity-0 group-hover:opacity-[0.08] transition-opacity duration-1000" style={{ color: service.accent }}>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 opacity-0 group-hover:opacity-[0.15] transition-opacity duration-1000" style={{ color: service.secondary }}>
             {service.object3d}
           </div>
 
-          {/* Content */}
           <div className="flex-grow">
-            <h3 className="text-3xl font-heading font-black text-white uppercase tracking-tighter mb-4 leading-none">
+            <h3 
+              className="text-3xl md:text-4xl font-heading font-black text-white uppercase tracking-tighter mb-4 leading-none transition-all duration-500"
+              style={{ 
+                textShadow: isHovered ? `0 0 20px ${service.accent}aa` : 'none'
+              }}
+            >
               {service.title}
             </h3>
-            <p className="font-heading font-bold text-[11px] uppercase tracking-widest mb-8 italic" style={{ color: service.accent }}>
+            <p className="font-heading font-bold text-xs uppercase tracking-[0.2em] mb-8 italic" style={{ color: service.secondary }}>
               {service.headline}
             </p>
-            <p className="text-white/40 font-body text-base leading-relaxed mb-10 group-hover:text-white/70 transition-colors duration-500 max-w-[85%]">
+            <p className="text-white/50 font-body text-base md:text-lg leading-relaxed mb-10 group-hover:text-white/90 transition-colors duration-500 max-w-[90%]">
               {service.description}
             </p>
           </div>
 
-          {/* Footer Metrics */}
-          <div className="pt-8 border-t border-white/5 flex items-center justify-between mt-auto">
+          <div className="pt-8 border-t border-white/10 flex items-center justify-between mt-auto">
             <div>
-               <div className="text-2xl font-heading font-black text-white leading-none mb-1">
+               <div className="text-3xl font-heading font-black text-white leading-none mb-2" style={{ color: isHovered ? service.accent : '#fff' }}>
                  {service.metric}
                </div>
-               <div className="text-[9px] font-mono text-white/30 uppercase tracking-widest font-bold">
+               <div className="text-[10px] font-mono text-white/40 uppercase tracking-widest font-black">
                  {service.metricLabel}
                </div>
             </div>
             
-            <div className="w-12 h-12 rounded-2xl border border-white/10 flex items-center justify-center text-white/20 group-hover:text-white group-hover:border-white/40 transition-all duration-500">
-               <ArrowUpRight className="w-6 h-6" />
+            <div 
+              className="w-14 h-14 rounded-2xl border-2 flex items-center justify-center transition-all duration-500"
+              style={{
+                backgroundColor: isHovered ? service.accent : 'rgba(255,255,255,0.03)',
+                borderColor: isHovered ? service.secondary : 'rgba(255,255,255,0.1)',
+                color: isHovered ? '#000' : 'rgba(255,255,255,0.2)',
+                transform: isHovered ? 'scale(1.1) rotate(5deg)' : 'none'
+              }}
+            >
+               <ArrowUpRight className="w-7 h-7" />
             </div>
           </div>
         </div>
